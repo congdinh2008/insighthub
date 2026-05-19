@@ -1,0 +1,38 @@
+name: Starter baseline
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  local-baseline:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      COMPOSE_PROJECT_NAME: insighthub-ci
+      RAG_MODE: fixture
+      LLM_PROVIDER: fixture
+      EMBEDDING_PROVIDER: fixture
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build and run local fixture
+        run: docker compose up --build -d --wait
+      - name: Verifier regression tests
+        run: python3 -m unittest discover -s tests -p 'test_verify*.py' -v
+      - name: API unit and isolated database integration
+        run: make test-backend
+      - name: MCP actual SDK tests
+        run: |
+          docker run --rm --network host -v "$PWD:/work" -w /work node:24.20.0-alpine@sha256:e67514e5d0f6c46656005e1b693b2ec9d52e80b641307de684d4a015ba7a4eaf sh -ec '
+            npm ci --prefix tools/mcp --ignore-scripts
+            npm --prefix tools/mcp test
+            node tools/mcp/smoke.mjs
+            node tools/mcp/smoke.mjs --live
+          '
+      - name: HTTP smoke
+        run: python3 scripts/verify.py smoke --json
+      - name: Remove this CI project and its ephemeral data
+        if: always()
+        run: docker compose --profile ollama down --volumes --remove-orphans

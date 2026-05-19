@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "day": 2,
+  "name": "insighthub-readonly",
+  "version": "1.0.0",
+  "transport": "stdio",
+  "entrypoint": "tools/mcp/src/server.mjs",
+  "workingDirectory": "repository-root",
+  "install": [
+    "npm",
+    "ci",
+    "--prefix",
+    "tools/mcp",
+    "--ignore-scripts"
+  ],
+  "test": [
+    "npm",
+    "--prefix",
+    "tools/mcp",
+    "test"
+  ],
+  "smoke": [
+    "node",
+    "tools/mcp/smoke.mjs"
+  ],
+  "smokeNpm": [
+    "npm",
+    "--prefix",
+    "tools/mcp",
+    "run",
+    "smoke"
+  ],
+  "smokeLive": [
+    "node",
+    "tools/mcp/smoke.mjs",
+    "--live"
+  ],
+  "smokeContract": {
+    "exitSuccess": 0,
+    "format": "single JSON object on stdout with direct node invocation",
+    "successField": "passed",
+    "backendModeField": "backend_mode",
+    "liveFlagField": "live",
+    "requiresCloud": false,
+    "requiresAdmin": false,
+    "requiresDocker": false,
+    "requiresLoopbackListen": true,
+    "defaultBackend": "deterministic HTTP fixture; MCP server is real SDK child process",
+    "liveBackend": "existing InsightHub API; no fixture"
+  },
+  "sdk": {
+    "server": "@modelcontextprotocol/server@2.0.0",
+    "client": "@modelcontextprotocol/client@2.0.0",
+    "legacyTestClient": "@modelcontextprotocol/sdk@1.30.0",
+    "zod": "4.5.4"
+  },
+  "protocol": {
+    "modern": "2026-07-28",
+    "legacy": "2025-11-25",
+    "entry": "serveStdio(factory), legacy=serve",
+    "validation": "Run SDK smoke and save protocol/backend observations with each lab submission"
+  },
+  "tools": {
+    "default": [
+      "insighthub_health",
+      "insighthub_list_documents"
+    ],
+    "optional": [
+      "prometheus_summary"
+    ],
+    "permissionEnv": "INSIGHTHUB_MCP_TOOLS",
+    "emptyAllowlistMeans": "deny all"
+  },
+  "endpoints": {
+    "api": "http://127.0.0.1:8000",
+    "prometheus": "http://127.0.0.1:9090",
+    "hosts": [
+      "127.0.0.1",
+      "::1",
+      "localhost (mapped to 127.0.0.1)"
+    ]
+  },
+  "limits": {
+    "timeoutMs": 1500,
+    "timeoutHardMaxMs": 5000,
+    "bodyBytes": 65536,
+    "bodyHardMaxBytes": 262144,
+    "stdioBufferBytes": 65536,
+    "documents": 20,
+    "concurrentToolCalls": 4,
+    "prometheusQueryTimeoutSeconds": 1
+  },
+  "scope": {
+    "reads": "GET /healthz, /readyz, /documents; optional /api/v1/query with fixed query identifiers",
+    "omits": [
+      "document content",
+      "filenames",
+      "created_at",
+      "metric labels",
+      "upstream error text",
+      "credentials"
+    ],
+    "noShell": true
+  }
+}

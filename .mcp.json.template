@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "insighthub-readonly": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["tools/mcp/src/server.mjs"],
+      "env": {
+        "INSIGHTHUB_API_URL": "http://127.0.0.1:8000",
+        "INSIGHTHUB_MCP_TOOLS": "insighthub_health,insighthub_list_documents",
+        "INSIGHTHUB_MCP_PROMETHEUS": "0",
+        "INSIGHTHUB_MCP_TIMEOUT_MS": "1500",
+        "INSIGHTHUB_MCP_MAX_BYTES": "65536"
+      }
+    }
+  }
+}

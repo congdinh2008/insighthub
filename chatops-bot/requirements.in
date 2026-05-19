@@ -1,0 +1,3 @@
+# Minimal fail-closed Day5 skeleton; add Slack SDK only for chosen transport.
+fastapi==0.141.1
+uvicorn[standard]==0.52.4

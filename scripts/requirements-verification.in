@@ -1,0 +1,3 @@
+# Only needed for student milestone test execution and Day 4 YAML contracts.
+pytest>=8,<10
+PyYAML>=6,<7

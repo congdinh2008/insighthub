@@ -1,0 +1,12 @@
+# Direct runtime dependencies verified on PyPI, 2026-09-08.
+# REST adapters use httpx; worker/Redis dependencies belong to the Day 1 exercise.
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+pydantic==2.13.5
+pydantic-settings==2.15.0
+psycopg[binary,pool]==3.3.5
+pgvector==0.5.0
+python-multipart==0.0.32
+pypdf==6.18.0
+httpx==0.28.1
+prometheus-client==0.26.0
