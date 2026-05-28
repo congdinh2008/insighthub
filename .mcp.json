@@ -1,0 +1,46 @@
+{
+  "_instructions": [
+    "Thay /PATH/TO/insighthub bằng đường dẫn tuyệt đối repo InsightHub trên máy bạn.",
+    "Thay đường dẫn kubeconfig bằng file kubeconfig read-only của bạn (xem infra/k8s/mcp-readonly/README.md).",
+    "PROMETHEUS_URL: đổi sang URL Prometheus cluster sau khi deploy Day 3.",
+    "AWS_PROFILE: IAM profile mcp-readonly tạo trước buổi (ReadOnlyAccess).",
+    "KHÔNG commit file này nếu bạn hardcode credentials — dùng biến môi trường."
+  ],
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem@2026.1.14", "/PATH/TO/insighthub"],
+      "description": "Đọc/ghi tới thư mục dự án InsightHub — allow-list strict, không cấp root hay HOME"
+    },
+    "docker": {
+      "command": "docker",
+      "args": ["mcp", "gateway", "run"],
+      "description": "Docker Desktop MCP Gateway — inspect containers, logs, networks. Yêu cầu Docker Desktop ≥ 4.40"
+    },
+    "kubernetes": {
+      "command": "npx",
+      "args": ["-y", "kubernetes-mcp-server@0.0.62", "--read-only"],
+      "env": {
+        "KUBECONFIG": "/PATH/TO/.kube/mcp-viewer.kubeconfig"
+      },
+      "description": "K8s read-only qua ServiceAccount mcp-readonly — xem infra/k8s/mcp-readonly/"
+    },
+    "prometheus": {
+      "command": "npx",
+      "args": ["-y", "@wkronmiller/prometheus-mcp-server@2.0.0"],
+      "env": {
+        "PROMETHEUS_URL": "http://localhost:9090"
+      },
+      "description": "Query Prometheus metrics — chuẩn bị cho Day 4 observability"
+    },
+    "aws": {
+      "command": "uvx",
+      "args": ["awslabs.aws-api-mcp-server@1.3.38"],
+      "env": {
+        "AWS_PROFILE": "mcp-readonly",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "description": "AWS read-only — IAM profile mcp-readonly (ReadOnlyAccess). Yêu cầu uv >= 0.5"
+    }
+  }
+}

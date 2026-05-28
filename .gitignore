@@ -40,3 +40,6 @@ Thumbs.db
 # --- Logs / scratch ---
 tmp/
 *.tmp
+
+# --- Others ---
+**/mcp.json

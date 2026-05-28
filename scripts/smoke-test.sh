@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# InsightHub — Smoke test cho v0
+# InsightHub — Smoke test cho v1 (Day 1 async refactor)
 # Chạy SAU khi `docker compose up` đã chạy xong.
-# Kiểm tra pipeline RAG end-to-end: health → upload → chat.
+# Kiểm tra pipeline RAG end-to-end: health → upload (202) → poll ready → chat.
 
 set -u
 
@@ -13,7 +13,7 @@ FAIL=0
 green(){ printf "\033[32m%s\033[0m\n" "$1"; }
 red(){ printf "\033[31m%s\033[0m\n" "$1"; }
 
-echo "=== InsightHub v0 Smoke Test ==="
+echo "=== InsightHub v1 Smoke Test ==="
 echo
 
 # 1. API health
@@ -46,13 +46,32 @@ else
   FAIL=$((FAIL+1))
 fi
 
-# 4. Upload tài liệu mẫu
-echo "[4] Upload tài liệu mẫu..."
+# 4. Upload + async ingest (v1: 202 → poll until ready)
+echo "[4] Upload tài liệu mẫu (async v1)..."
 UPLOAD=$(curl -sf -X POST "$API/documents" \
   -F "file=@sample-docs/so-tay-van-hanh.md" 2>/dev/null)
-if echo "$UPLOAD" | grep -q '"status":"ready"'; then
-  green "    PASS — Upload + ingest thành công"
+DOC_ID=$(echo "$UPLOAD" | grep -o '"id":[0-9]*' | grep -o '[0-9]*' | head -1)
+if echo "$UPLOAD" | grep -qE '"status":"(pending|ready)"' && [ -n "$DOC_ID" ]; then
+  green "    PASS — Upload → 202 (async), document id=$DOC_ID"
   PASS=$((PASS+1))
+  # Poll status until ready (max 30s)
+  echo "[4b] Polling worker status (max 30s)..."
+  STATUS="pending"
+  for i in $(seq 1 15); do
+    sleep 2
+    STATUS=$(curl -sf "$API/documents" 2>/dev/null | \
+      python3 -c "import sys,json; docs=json.load(sys.stdin); \
+        d=[x for x in docs if str(x.get('id',''))==\"$DOC_ID\"]; \
+        print(d[0].get('status','') if d else '')" 2>/dev/null)
+    [ "$STATUS" = "ready" ] && break
+  done
+  if [ "$STATUS" = "ready" ]; then
+    green "    PASS — Worker processed → status=ready"
+    PASS=$((PASS+1))
+  else
+    red "    FAIL — Worker timeout, status=$STATUS"
+    FAIL=$((FAIL+1))
+  fi
 else
   red "    FAIL — Upload lỗi. Response: $UPLOAD"
   FAIL=$((FAIL+1))
@@ -83,5 +102,5 @@ fi
 
 echo
 echo "=== Kết quả: $PASS PASS / $FAIL FAIL ==="
-[ "$FAIL" -eq 0 ] && green "InsightHub v0 hoạt động đầy đủ." || red "Có lỗi — xem log: docker compose logs"
+[ "$FAIL" -eq 0 ] && green "InsightHub v1 hoạt động đầy đủ." || red "Có lỗi — xem log: docker compose logs"
 exit "$FAIL"
