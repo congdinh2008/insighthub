@@ -49,3 +49,10 @@ ingestion_errors_total = Counter(
     "insighthub_ingestion_errors_total",
     "Số lần ingestion thất bại",
 )
+
+# Queue depth — tăng khi enqueue (documents.py), giảm khi worker bắt đầu xử lý (tasks.py)
+# Day 4: Grafana/Prometheus scrape /metrics để vẽ chart queue backlog
+ingestion_queue_depth = Gauge(
+    "insighthub_ingestion_queue_depth",
+    "Số job đang chờ trong Redis queue (pending + in-progress)",
+)

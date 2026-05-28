@@ -1,17 +1,14 @@
-# InsightHub — docker-compose v0
+# InsightHub — docker-compose v1 (Day 1 refactor)
 #
-# ⚠️ ĐÂY LÀ v0 CỐ Ý: chỉ 3 service core (web + api + postgres).
-# - KHÔNG có redis
-# - KHÔNG có ingestion-worker
-# - api xử lý ingestion ĐỒNG BỘ
+# 5 services: web + api + ingestion-worker + redis + postgres
+# API enqueue job → redis → ingestion-worker xử lý nền
 #
-# Day 1: học viên refactor — thêm redis + ingestion-worker.
-# Khi đó dùng docker-compose.full.yml (đáp án trong reference-solutions).
-#
-# Chạy v0:                     docker compose up --build
-# Chạy v0 + Ollama on-prem:    docker compose --profile ollama up --build
-# Web:                         http://localhost:3000
-# API:                         http://localhost:8000/docs
+# Chạy:                   docker compose up --build
+# Chạy + Ollama on-prem:  docker compose --profile ollama up --build
+# Verify Day 1:           bash scripts/verify-day-1.sh
+# Web:                    http://localhost:3000
+# API docs:               http://localhost:8000/docs
+# Metrics:                http://localhost:8000/metrics
 
 services:
   postgres:
@@ -26,15 +23,29 @@ services:
       - pgdata:/var/lib/postgresql/data
       - ./infra/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U insighthub" ]
+      test: ["CMD-SHELL", "pg_isready -U insighthub"]
       interval: 10s
       timeout: 5s
       retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    command: redis-server --save 60 1 --loglevel warning
 
   api:
     build: ./api
     environment:
       DATABASE_URL: postgresql://insighthub:insighthub@postgres:5432/insighthub
+      REDIS_URL: redis://redis:6379
       # ---- LLM ----
       LLM_PROVIDER: ${LLM_PROVIDER:-gemini}
       LLM_MAX_TOKENS: ${LLM_MAX_TOKENS:-1024}
@@ -48,7 +59,6 @@ services:
       # Ollama
       OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://ollama:11434}
       OLLAMA_CHAT_MODEL: ${OLLAMA_CHAT_MODEL:-deepseek-r1:14b}
-
       # ---- Embedding ----
       EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-gemini}
       EMBEDDING_DIM: ${EMBEDDING_DIM:-1024}
@@ -64,6 +74,42 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  ingestion-worker:
+    build:
+      context: .
+      dockerfile: ingestion-worker/Dockerfile
+    environment:
+      DATABASE_URL: postgresql://insighthub:insighthub@postgres:5432/insighthub
+      REDIS_URL: redis://redis:6379
+      # ---- LLM & Embedding (cùng config với api) ----
+      LLM_PROVIDER: ${LLM_PROVIDER:-gemini}
+      LLM_MAX_TOKENS: ${LLM_MAX_TOKENS:-1024}
+      LLM_MODEL: ${LLM_MODEL:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_CHAT_MODEL: ${GEMINI_CHAT_MODEL:-gemini-3-flash-preview}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_CHAT_MODEL: ${ANTHROPIC_CHAT_MODEL:-claude-sonnet-4-6}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://ollama:11434}
+      OLLAMA_CHAT_MODEL: ${OLLAMA_CHAT_MODEL:-deepseek-r1:14b}
+      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-gemini}
+      EMBEDDING_DIM: ${EMBEDDING_DIM:-1024}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-}
+      GEMINI_EMBEDDING_MODEL: ${GEMINI_EMBEDDING_MODEL:-gemini-embedding-2}
+      VOYAGE_API_KEY: ${VOYAGE_API_KEY:-}
+      VOYAGE_EMBEDDING_MODEL: ${VOYAGE_EMBEDDING_MODEL:-voyage-3.5}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_EMBEDDING_MODEL: ${OPENAI_EMBEDDING_MODEL:-text-embedding-3-small}
+      OLLAMA_EMBEDDING_MODEL: ${OLLAMA_EMBEDDING_MODEL:-deepseek-r1:14b}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
 
   web:
     build: ./web
@@ -77,36 +123,20 @@ services:
   # ============================================================
   # OPTIONAL — Ollama local LLM/Embedding service
   # ============================================================
-  # Chạy: docker compose --profile ollama up --build
-  # Sau khi container up, pull model:
-  #   docker compose exec ollama ollama pull deepseek-r1:14b
-  #
-  # Lưu ý:
-  #  - deepseek-r1:14b ~ 9GB. Lần đầu pull mất 5-15 phút.
-  #  - RAM yêu cầu ≥ 16GB. Khuyến nghị GPU (NVIDIA + nvidia-container-toolkit).
-  #  - Khi profile 'ollama' active, đặt LLM_PROVIDER=ollama + EMBEDDING_PROVIDER=ollama
-  #    trong .env để api dùng local model thay vì Gemini/Anthropic.
   ollama:
     image: ollama/ollama:latest
-    profiles: [ "ollama" ] # chỉ start khi `--profile ollama`
+    profiles: ["ollama"]
     ports:
       - "11434:11434"
     volumes:
       - ollama-data:/root/.ollama
     healthcheck:
-      test: [ "CMD", "ollama", "list" ]
+      test: ["CMD", "ollama", "list"]
       interval: 30s
       timeout: 10s
       retries: 3
-    # GPU support — uncomment nếu có NVIDIA GPU + nvidia-container-toolkit
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: all
-    #           capabilities: [gpu]
 
 volumes:
   pgdata:
+  redisdata:
   ollama-data:
