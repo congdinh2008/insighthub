@@ -1,17 +1,16 @@
 """
-InsightHub API — Documents router
-Upload tài liệu và xem trạng thái.
+InsightHub API — Documents router (v1: async ingestion)
 
-⚠️  Day 1 refactor: endpoint upload hiện gọi ingest ĐỒNG BỘ.
-Sau refactor sẽ: lưu metadata → enqueue ARQ job → trả về 202 ngay.
+Upload tài liệu → lưu metadata → enqueue ARQ job → trả 202 ngay.
+Worker (ingestion-worker) sẽ dequeue và xử lý nền.
 """
 import logging
 
 from fastapi import APIRouter, HTTPException, UploadFile
 
 from app.core.db import get_conn
-from app.core.metrics import documents_total, ingestion_errors_total
-from app.services.ingestion import ingest_document_sync
+from app.core.metrics import documents_total, ingestion_queue_depth, ingestion_errors_total
+from app.core.queue import get_arq_pool
 
 logger = logging.getLogger("insighthub.routers.documents")
 router = APIRouter(prefix="/documents", tags=["documents"])
@@ -20,8 +19,9 @@ ALLOWED_EXT = (".txt", ".md", ".pdf")
 MAX_SIZE_MB = 10
 
 
-@router.post("", status_code=201)
+@router.post("", status_code=202)
 async def upload_document(file: UploadFile):
+    """Nhận file, lưu metadata, enqueue job xử lý nền → 202 Accepted ngay."""
     if not file.filename or not file.filename.lower().endswith(ALLOWED_EXT):
         raise HTTPException(400, f"Chỉ chấp nhận: {', '.join(ALLOWED_EXT)}")
 
@@ -29,7 +29,6 @@ async def upload_document(file: UploadFile):
     if len(content) > MAX_SIZE_MB * 1024 * 1024:
         raise HTTPException(413, f"File vượt quá {MAX_SIZE_MB}MB")
 
-    # Lưu metadata, trạng thái 'pending'
     with get_conn() as conn:
         row = conn.execute(
             "INSERT INTO documents (filename, status) VALUES (%s, 'pending') RETURNING id",
@@ -37,19 +36,20 @@ async def upload_document(file: UploadFile):
         ).fetchone()
         document_id = row[0]
 
-    # ⚠️  ĐIỂM YẾU v0: ingest đồng bộ — request bị block tới khi xong.
-    # Day 1: thay bằng redis.enqueue_job("ingest", document_id, filename, content)
-    try:
-        chunk_count = ingest_document_sync(document_id, file.filename, content)
-    except Exception as exc:  # noqa: BLE001
+    arq = get_arq_pool()
+    if arq is None:
         ingestion_errors_total.inc()
-        raise HTTPException(500, f"Ingestion thất bại: {exc}") from exc
+        raise HTTPException(503, "Queue chưa sẵn sàng — thử lại sau vài giây")
+
+    await arq.enqueue_job("ingest_document", document_id, file.filename, content)
+    ingestion_queue_depth.inc()
+    logger.info("Enqueued document_id=%d filename=%s", document_id, file.filename)
 
     return {
         "id": document_id,
         "filename": file.filename,
-        "status": "ready",
-        "chunk_count": chunk_count,
+        "status": "pending",
+        "chunk_count": 0,
     }
 
 
@@ -61,7 +61,6 @@ async def list_documents():
             "FROM documents ORDER BY created_at DESC"
         ).fetchall()
 
-    # Cập nhật gauge cho Prometheus
     counts: dict[str, int] = {}
     for r in rows:
         counts[r[2]] = counts.get(r[2], 0) + 1

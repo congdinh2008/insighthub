@@ -13,6 +13,7 @@ from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from app.core.config import get_settings
 from app.core.db import close_pool, get_pool
 from app.core.metrics import http_requests_total
+from app.core.queue import close_arq_pool, open_arq_pool
 from app.routers import chat, documents, health
 
 settings = get_settings()
@@ -22,9 +23,11 @@ logger = logging.getLogger("insighthub.main")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    get_pool()  # mở connection pool khi khởi động
+    get_pool()
+    await open_arq_pool()
     logger.info("InsightHub API started — env=%s", settings.environment)
     yield
+    await close_arq_pool()
     close_pool()
     logger.info("InsightHub API stopped")
 
