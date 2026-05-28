@@ -80,14 +80,45 @@ cd api && ruff check .             # lint
 - `process_document()` sync → chạy trong `run_in_executor` (tránh block event loop)
 - On failure: cập nhật `status='failed'`, ARQ retry tối đa 3 lần
 
+## MCP Servers (Day 2)
+
+**5 servers cấu hình trong `.mcp.json`:**
+
+| Server | Package / Command | Version | Role |
+|---|---|---|---|
+| filesystem | `@modelcontextprotocol/server-filesystem` | 2026.1.14 | Read/write project dir only |
+| docker | `docker mcp gateway run` | Docker Desktop ≥ 4.40 | Container inspect + logs |
+| kubernetes | `kubernetes-mcp-server` | 0.0.62 | K8s read-only (--read-only flag) |
+| prometheus | `@wkronmiller/prometheus-mcp-server` | 2.0.0 | Query metrics (Day 4) |
+| aws | `uvx awslabs.aws-api-mcp-server` | 1.3.38 | AWS read-only (IAM mcp-readonly) |
+
+**Security:**
+- K8s: ServiceAccount `mcp-readonly` + ClusterRole read-only → `infra/k8s/mcp-readonly/`
+- AWS: IAM profile `mcp-readonly` với `ReadOnlyAccess` policy only
+- Filesystem: allow-list chỉ project directory (không `/`, `$HOME`)
+- Credentials qua env vars — KHÔNG hardcode trong `.mcp.json`
+
+```bash
+# Verify MCP
+claude mcp list              # tất cả ✓ Connected
+jq '.mcpServers | length' .mcp.json  # → 5
+# Verify K8s least-privilege
+kubectl auth can-i get pods --as=system:serviceaccount:insighthub:mcp-readonly    # yes
+kubectl auth can-i delete pods --as=system:serviceaccount:insighthub:mcp-readonly # no ✓
+```
+
 ## References
 
 | Resource | URL/Path |
 |---|---|
 | Day 1 Lab Guide | `docs/lab-guides/Day1-AI-Coding-Agents.md` |
+| Day 2 Lab Guide | `docs/lab-guides/Day2-MCP-Protocol.md` |
 | Day 1 Spec | `Running-Project-Specification-Student.md` §5 |
-| Verify script | `scripts/verify-day-1.sh` |
+| Day 2 Spec | `Running-Project-Specification-Student.md` §6 |
+| Verify scripts | `scripts/verify-day-1.sh`, `scripts/verify-day-2.sh` |
 | DB schema | `infra/db/init.sql` |
+| K8s RBAC | `infra/k8s/mcp-readonly/` |
 | ARQ docs | https://arq-docs.helpmanual.io |
 | pgvector | https://github.com/pgvector/pgvector |
-| AI prompt log | `ai-prompts/day1.md` |
+| MCP spec | https://modelcontextprotocol.io |
+| AI prompt logs | `ai-prompts/day1.md`, `ai-prompts/day2.md` |
