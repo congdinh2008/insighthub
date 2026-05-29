@@ -33,7 +33,7 @@ class Source(BaseModel):
 
 class ChatResponse(BaseModel):
     answer: str
-    sources: list[str]
+    sources: list[Source]
     contexts: list[dict]
     latency_ms: int
 
@@ -59,10 +59,16 @@ async def chat(req: ChatRequest):
     # Embedding token approx (1 query ~ số từ)
     embedding_tokens_total.inc(len(req.question.split()))
 
+    # Deduplicate sources, keep max similarity per filename
+    seen: dict[str, float] = {}
+    for c in contexts:
+        seen[c["source"]] = max(seen.get(c["source"], 0.0), c["similarity"])
+    sources = [Source(filename=fn, similarity=sim) for fn, sim in seen.items()]
+
     latency_ms = int((time.perf_counter() - start) * 1000)
     return ChatResponse(
         answer=result["answer"],
-        sources=result["sources"],
+        sources=sources,
         contexts=contexts,
         latency_ms=latency_ms,
     )

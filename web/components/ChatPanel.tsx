@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { ChatResult } from "@/lib/api";
+import type { ChatResult, ChatSource } from "@/lib/api";
 
 export default function ChatPanel() {
   const [question, setQuestion] = useState("");
@@ -48,7 +48,17 @@ export default function ChatPanel() {
         <>
           <div className="answer">{result.answer}</div>
           <div className="sources">
-            Nguồn: {result.sources.join(", ") || "(không có)"}
+            Nguồn:{" "}
+            {result.sources.length === 0
+              ? "(không có)"
+              : result.sources.map((s: ChatSource, i: number) => (
+                  <span key={i} style={{ marginRight: "0.75rem" }}>
+                    {s.filename}{" "}
+                    <span style={{ color: "#888", fontSize: "0.85em" }}>
+                      ({(s.similarity * 100).toFixed(1)}%)
+                    </span>
+                  </span>
+                ))}
           </div>
           <div className="meta">Latency: {result.latency_ms} ms</div>
         </>

@@ -1,0 +1,12 @@
+pydantic-settings==2.7.0
+psycopg[binary,pool]==3.2.3
+pgvector==0.3.6
+anthropic==0.42.0
+voyageai==0.3.2
+openai==1.59.9
+google-genai==0.3.0
+pypdf==5.1.0
+arq==0.26.3
+redis==5.2.1
+prometheus-client==0.21.1
+tenacity==9.0.0

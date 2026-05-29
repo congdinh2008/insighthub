@@ -11,9 +11,14 @@ export interface Document {
   created_at: string | null;
 }
 
+export interface ChatSource {
+  filename: string;
+  similarity: number;
+}
+
 export interface ChatResult {
   answer: string;
-  sources: string[];
+  sources: ChatSource[];
   contexts: { source: string; similarity: number; chunk_text: string }[];
   latency_ms: number;
 }
