@@ -1,0 +1,80 @@
+# AlertmanagerConfig — route InsightHub alerts → Slack
+# Yêu cầu: kube-prometheus-stack đã install, namespace insighthub-dev
+# Slack webhook URL lưu trong Kubernetes Secret "alertmanager-slack-webhook"
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: insighthub-alertmanager
+  namespace: insighthub-dev
+  labels:
+    release: kube-prom-stack
+spec:
+  route:
+    receiver: slack-insighthub
+    groupBy: ["alertname", "incident"]
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 4h
+    routes:
+      # Critical alerts — paging channel
+      - receiver: slack-insighthub-critical
+        matchers:
+          - name: severity
+            value: critical
+        groupWait: 10s
+        repeatInterval: 1h
+      # Warning alerts — regular channel
+      - receiver: slack-insighthub
+        matchers:
+          - name: severity
+            value: warning
+
+  receivers:
+    - name: slack-insighthub
+      slackConfigs:
+        - apiURL:
+            name: alertmanager-slack-webhook
+            key: webhook-url
+          channel: "#insighthub-alerts"
+          sendResolved: true
+          title: >-
+            [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]
+            {{ .CommonLabels.alertname }}
+          text: >-
+            {{ range .Alerts }}
+            *Alert:* {{ .Annotations.summary }}
+            *Description:* {{ .Annotations.description }}
+            *Severity:* {{ .Labels.severity }}
+            *Started:* {{ .StartsAt | since }}
+            {{ if .Annotations.runbook_url }}*Runbook:* {{ .Annotations.runbook_url }}{{ end }}
+            {{ end }}
+          iconEmoji: ":fire:"
+          color: '{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'
+
+    - name: slack-insighthub-critical
+      slackConfigs:
+        - apiURL:
+            name: alertmanager-slack-webhook
+            key: webhook-url
+          channel: "#insighthub-oncall"
+          sendResolved: true
+          title: >-
+            🚨 CRITICAL [{{ .Status | toUpper }}]: {{ .CommonLabels.alertname }}
+          text: >-
+            {{ range .Alerts }}
+            *Alert:* {{ .Annotations.summary }}
+            *Description:* {{ .Annotations.description }}
+            *Started:* {{ .StartsAt | since }}
+            {{ if .Annotations.runbook_url }}*Runbook:* {{ .Annotations.runbook_url }}{{ end }}
+            {{ end }}
+          iconEmoji: ":rotating_light:"
+---
+# Secret chứa Slack webhook URL — thay <YOUR_SLACK_WEBHOOK_URL>
+apiVersion: v1
+kind: Secret
+metadata:
+  name: alertmanager-slack-webhook
+  namespace: insighthub-dev
+type: Opaque
+stringData:
+  webhook-url: "<YOUR_SLACK_WEBHOOK_URL>"

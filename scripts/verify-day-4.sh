@@ -26,8 +26,17 @@ if [ -f observability/anomaly-rules.yaml ] || [ -f observability/prometheus-rule
   fi
 
   if command -v promtool >/dev/null; then
-    cat observability/*.yaml 2>/dev/null | promtool check rules /dev/stdin 2>&1 | grep -q "SUCCESS" \
-      && ok "promtool check rules SUCCESS" || ng "promtool báo lỗi"
+    # promtool không đọc K8s CRD format — dùng file plain rules (anomaly-rules.yaml)
+    RULES_FILE=""
+    [ -f observability/anomaly-rules.yaml ] && RULES_FILE="observability/anomaly-rules.yaml"
+    [ -z "$RULES_FILE" ] && [ -f observability/prometheus-rules.yaml ] && \
+      RULES_FILE="observability/prometheus-rules.yaml"
+    if [ -n "$RULES_FILE" ]; then
+      promtool check rules "$RULES_FILE" 2>&1 | grep -q "SUCCESS" \
+        && ok "promtool check rules SUCCESS" || ng "promtool báo lỗi — kiểm tra PromQL syntax"
+    else
+      ng "Không tìm thấy rules file để validate"
+    fi
   fi
 else
   ng "Anomaly rules YAML không tồn tại"

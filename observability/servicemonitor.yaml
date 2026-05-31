@@ -1,0 +1,47 @@
+# ServiceMonitor — cấu hình Prometheus scrape InsightHub API
+# kube-prometheus-stack selector: release=kube-prom-stack (xem 8.7 Common Pitfalls)
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: insighthub-api
+  namespace: insighthub-dev
+  labels:
+    release: kube-prom-stack   # phải match Prometheus operator labelSelector
+    app.kubernetes.io/name: insighthub
+    app.kubernetes.io/component: api
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: api
+  namespaceSelector:
+    matchNames:
+      - insighthub-dev
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 10s
+      honorLabels: true
+---
+# ServiceMonitor — scrape ingestion-worker (nếu worker có /metrics endpoint)
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: insighthub-worker
+  namespace: insighthub-dev
+  labels:
+    release: kube-prom-stack
+    app.kubernetes.io/name: insighthub
+    app.kubernetes.io/component: worker
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ingestion-worker
+  namespaceSelector:
+    matchNames:
+      - insighthub-dev
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 10s

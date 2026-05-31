@@ -1,0 +1,112 @@
+{
+  "incident_id": "INC-002",
+  "title": "Ingestion Queue Backlog — InsightHub Worker",
+  "severity": "warning",
+  "status": "resolved",
+  "detected_at": "2026-05-31T10:05:00Z",
+  "resolved_at": "2026-05-31T10:38:00Z",
+  "duration_minutes": 33,
+  "alert_name": "InsightHubQueueDepthAnomaly",
+  "rca_generated_by": "Claude Sonnet 4.6 + Prometheus MCP + K8s MCP",
+  "rca_prompt_pattern": "evidence-first — cite metric + timestamp before hypothesis",
+  "confidence": 0.95,
+
+  "observed_symptoms": [
+    {
+      "metric": "insighthub_ingestion_queue_depth",
+      "value_at_peak": 23,
+      "timestamp": "2026-05-31T10:18:00Z",
+      "normal_baseline": 2.1,
+      "upper_band_at_time": 5.8,
+      "deviation_sigma": 6.7
+    },
+    {
+      "metric": "insighthub_documents_total{status='pending'}",
+      "value_at_peak": 21,
+      "timestamp": "2026-05-31T10:18:00Z",
+      "note": "documents stuck in pending, không chuyển sang ready"
+    },
+    {
+      "metric": "kube_deployment_status_replicas_available{deployment='ingestion-worker', namespace='insighthub-dev'}",
+      "value": 0,
+      "timestamp": "2026-05-31T10:06:00Z",
+      "note": "worker replicas = 0 — critical finding"
+    }
+  ],
+
+  "top_hypotheses": [
+    {
+      "rank": 1,
+      "hypothesis": "ingestion-worker deployment scaled to 0 (intentional hoặc accidental)",
+      "confidence": 0.95,
+      "evidence": [
+        {
+          "metric": "kube_deployment_status_replicas_available{deployment='ingestion-worker'}",
+          "value": 0,
+          "timestamp": "2026-05-31T10:06:00Z",
+          "comparison": "normal = 1 replica"
+        },
+        {
+          "source": "kubectl get events -n insighthub-dev",
+          "event": "ScalingReplicaSet: Scaled down replica set ingestion-worker-xxx to 0",
+          "timestamp": "2026-05-31T10:05:43Z"
+        },
+        {
+          "metric": "insighthub_ingestion_queue_depth",
+          "growth_rate": "+2.1 jobs/min",
+          "note": "queue tăng đều đặn sau thời điểm worker scale = 0"
+        }
+      ],
+      "counter_evidence": "Redis connectivity bình thường (api vẫn enqueue được); database không có lỗi"
+    },
+    {
+      "rank": 2,
+      "hypothesis": "Worker crash loop do OOM",
+      "confidence": 0.04,
+      "evidence": [
+        {
+          "note": "kube_pod_container_restarts_total không tăng trước sự kiện — worker không crash, bị scale down"
+        }
+      ]
+    }
+  ],
+
+  "root_cause": "ingestion-worker deployment bị scale về 0 replicas lúc 10:05:43 UTC (theo kubectl events). Queue depth tăng từ 2 lên 23 jobs trong 13 phút do không có worker consume. Detected lúc 10:07 (2m for clause) khi queue_depth (23) > upper_band (5.8). Root cause: human error — `kubectl scale deployment ingestion-worker --replicas=0` được chạy trong quá trình Day 4 chaos exercise.",
+
+  "timeline": [
+    {"time": "10:05:43Z", "event": "Worker scaled to 0 replicas"},
+    {"time": "10:07:00Z", "event": "InsightHubQueueDepthAnomaly alert fire"},
+    {"time": "10:07:30Z", "event": "Slack #insighthub-alerts nhận notification"},
+    {"time": "10:09:00Z", "event": "On-call query AI RCA với Prometheus MCP"},
+    {"time": "10:11:00Z", "event": "AI RCA xác định worker = 0 replicas"},
+    {"time": "10:12:00Z", "event": "kubectl scale deployment ingestion-worker --replicas=1"},
+    {"time": "10:15:00Z", "event": "Worker pod Running, bắt đầu drain queue"},
+    {"time": "10:28:00Z", "event": "Queue depth về 0, documents_total{status=ready} tăng 21"},
+    {"time": "10:38:00Z", "event": "Alert resolved"}
+  ],
+
+  "recommended_actions": [
+    {
+      "priority": 1,
+      "action": "Thêm PodDisruptionBudget cho ingestion-worker: minAvailable=1",
+      "owner": "platform-team",
+      "effort": "low"
+    },
+    {
+      "priority": 2,
+      "action": "Alert InsightHubWorkerDown khi replicas_available{deployment='ingestion-worker'} == 0 for 1m",
+      "owner": "platform-team",
+      "effort": "low"
+    },
+    {
+      "priority": 3,
+      "action": "RBAC: restrict kubectl scale permission cho production namespace",
+      "owner": "security-team",
+      "effort": "medium"
+    }
+  ],
+
+  "mttr_minutes": 7,
+  "detection_method": "AI anomaly band (3σ) + K8s replica count correlation",
+  "rca_method": "Prometheus MCP (queue_depth trend) + K8s MCP (events, replica count)"
+}

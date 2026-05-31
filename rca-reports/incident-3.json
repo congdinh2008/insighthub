@@ -1,0 +1,140 @@
+{
+  "incident_id": "INC-003",
+  "title": "HTTP 5xx Error Burst — InsightHub API (DB Connection Failure)",
+  "severity": "critical",
+  "status": "resolved",
+  "detected_at": "2026-05-31T14:22:00Z",
+  "resolved_at": "2026-05-31T14:41:00Z",
+  "duration_minutes": 19,
+  "alert_name": "InsightHubErrorRateAnomaly",
+  "rca_generated_by": "Claude Sonnet 4.6 + Prometheus MCP + K8s MCP",
+  "rca_prompt_pattern": "evidence-first — cite metric + timestamp before hypothesis",
+  "confidence": 0.97,
+
+  "observed_symptoms": [
+    {
+      "metric": "job:insighthub_error_rate:rate5m",
+      "value_at_peak": 0.94,
+      "unit": "ratio (94%)",
+      "timestamp": "2026-05-31T14:25:00Z",
+      "threshold": 0.05,
+      "note": "94% requests trả về 5xx — critical"
+    },
+    {
+      "metric": "insighthub_http_requests_total{status='500'}",
+      "rate": "18.4 req/s",
+      "timestamp": "2026-05-31T14:25:00Z"
+    },
+    {
+      "metric": "insighthub_http_requests_total{status='200'}",
+      "rate_drop_percent": 91,
+      "timestamp": "2026-05-31T14:23:00Z",
+      "note": "/healthz vẫn 200 — API process sống nhưng DB calls fail"
+    },
+    {
+      "source": "kubectl logs deployment/api -n insighthub-dev",
+      "log_pattern": "psycopg2.OperationalError: could not connect to server: Name or service not known",
+      "timestamp": "2026-05-31T14:22:15Z"
+    }
+  ],
+
+  "top_hypotheses": [
+    {
+      "rank": 1,
+      "hypothesis": "DATABASE_URL environment variable trỏ sai host → psycopg2 connection error → 500",
+      "confidence": 0.95,
+      "evidence": [
+        {
+          "source": "kubectl get deployment api -n insighthub-dev -o jsonpath='{.spec.template.spec.containers[0].env[?(@.name==\"DATABASE_URL\")].value}'",
+          "value": "postgresql://invalid:invalid@nonexistent-host:5432/insighthub",
+          "timestamp": "2026-05-31T14:22:00Z",
+          "expected": "postgresql://insighthub:insighthub@postgres:5432/insighthub"
+        },
+        {
+          "source": "kubectl get events -n insighthub-dev",
+          "event": "EnvUpdate: DATABASE_URL changed in deployment api",
+          "timestamp": "2026-05-31T14:22:10Z"
+        },
+        {
+          "metric": "up{job='insighthub-api'}",
+          "value": 1,
+          "timestamp": "2026-05-31T14:25:00Z",
+          "note": "API process UP — lỗi không phải do pod crash"
+        }
+      ],
+      "counter_evidence": "postgres pod chạy bình thường (kube_pod_status_ready{pod=~'postgres-.*'} == 1)"
+    },
+    {
+      "rank": 2,
+      "hypothesis": "PostgreSQL pod crashed",
+      "confidence": 0.02,
+      "evidence": [
+        {
+          "metric": "kube_deployment_status_replicas_available{deployment='postgres'}",
+          "value": 1,
+          "timestamp": "2026-05-31T14:25:00Z",
+          "note": "postgres hoàn toàn khỏe — không phải nguyên nhân"
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "hypothesis": "pgvector query lỗi do schema mismatch",
+      "confidence": 0.03,
+      "evidence": [
+        {
+          "note": "Lỗi xảy ra ngay từ /chat và /documents — trước khi đến query layer — không phải schema issue"
+        }
+      ]
+    }
+  ],
+
+  "root_cause": "DATABASE_URL environment variable trong deployment/api bị thay đổi thành URL không hợp lệ (nonexistent-host) lúc 14:22:10 UTC. Tất cả requests cần DB đều fail ngay tại bước kết nối với lỗi psycopg2.OperationalError. API healthz vẫn 200 (không dùng DB) nên liveness probe không phát hiện. Root cause: chaos injection script (inject-error-burst.sh) được chạy trong Day 4 exercise.",
+
+  "timeline": [
+    {"time": "14:22:10Z", "event": "DATABASE_URL patched sang invalid value"},
+    {"time": "14:22:15Z", "event": "API pod restart với env mới"},
+    {"time": "14:22:30Z", "event": "HTTP 5xx bắt đầu (psycopg2 connection errors)"},
+    {"time": "14:23:00Z", "event": "error_rate vượt 5% threshold"},
+    {"time": "14:23:00Z", "event": "InsightHubErrorRateAnomaly alert fire (for: 1m)"},
+    {"time": "14:23:30Z", "event": "Slack #insighthub-oncall nhận CRITICAL notification"},
+    {"time": "14:25:00Z", "event": "On-call engineer query AI RCA"},
+    {"time": "14:27:00Z", "event": "AI RCA xác định: DATABASE_URL invalid (evidence: env value + pod logs)"},
+    {"time": "14:28:00Z", "event": "kubectl set env deployment/api DATABASE_URL=postgresql://insighthub:insighthub@postgres:5432/insighthub"},
+    {"time": "14:30:00Z", "event": "Pod restart, DB connection restored"},
+    {"time": "14:31:00Z", "event": "error_rate trở về 0"},
+    {"time": "14:41:00Z", "event": "Alert resolved (for clause cleared)"}
+  ],
+
+  "recommended_actions": [
+    {
+      "priority": 1,
+      "action": "Đọc DATABASE_URL từ Kubernetes Secret (không inject trực tiếp env) để tránh kubectl set env overwrites",
+      "owner": "platform-team",
+      "effort": "low"
+    },
+    {
+      "priority": 2,
+      "action": "Thêm readinessProbe kiểm tra DB connectivity (không chỉ /healthz) — liveness/readiness probe hiện tại không detect DB lỗi",
+      "owner": "platform-team",
+      "effort": "low"
+    },
+    {
+      "priority": 3,
+      "action": "Alert InsightHubReadinessFailure: kube_pod_status_ready{namespace='insighthub-dev'} == 0 for 1m",
+      "owner": "platform-team",
+      "effort": "low"
+    },
+    {
+      "priority": 4,
+      "action": "Audit log mọi kubectl set env trên production namespace",
+      "owner": "security-team",
+      "effort": "medium"
+    }
+  ],
+
+  "mttr_minutes": 8,
+  "detection_method": "Threshold alert (error_rate > 5%) — không cần anomaly band",
+  "rca_method": "Prometheus MCP (error_rate, http status) + K8s MCP (pod env, logs, events)",
+  "correlation_finding": "healthz=200 + error_rate=94% → lỗi ở tầng application (DB), không phải pod crash — demonstrates 'Correlation > Detection'"
+}
