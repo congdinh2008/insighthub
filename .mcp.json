@@ -9,38 +9,104 @@
   "mcpServers": {
     "filesystem": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem@2026.1.14", "/PATH/TO/insighthub"],
-      "description": "Đọc/ghi tới thư mục dự án InsightHub — allow-list strict, không cấp root hay HOME"
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/congdinh/Downloads/work/teaching/AI_for_DevOps/insighthub-solution"
+      ],
+      "env": {}
     },
-    "docker": {
-      "command": "docker",
-      "args": ["mcp", "gateway", "run"],
-      "description": "Docker Desktop MCP Gateway — inspect containers, logs, networks. Yêu cầu Docker Desktop ≥ 4.40"
-    },
-    "kubernetes": {
+    "kubernetes-mcp-server": {
       "command": "npx",
-      "args": ["-y", "kubernetes-mcp-server@0.0.62", "--read-only"],
+      "args": [
+        "-y",
+        "kubernetes-mcp-server@latest",
+        "--read-only"
+      ],
       "env": {
-        "KUBECONFIG": "/PATH/TO/.kube/mcp-viewer.kubeconfig"
-      },
-      "description": "K8s read-only qua ServiceAccount mcp-readonly — xem infra/k8s/mcp-readonly/"
+        "KUBECONFIG": "/Users/congdinh/.kube/mcp-viewer.kubeconfig"
+      }
+    },
+    "terraform": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "hashicorp/terraform-mcp-server"
+      ],
+      "env": {}
     },
     "prometheus": {
       "command": "npx",
-      "args": ["-y", "@wkronmiller/prometheus-mcp-server@2.0.0"],
-      "env": {
-        "PROMETHEUS_URL": "http://localhost:9090"
-      },
-      "description": "Query Prometheus metrics — chuẩn bị cho Day 4 observability"
+      "args": [
+        "-y",
+        "prometheus-mcp-server@latest"
+      ],
+      "env": {}
     },
-    "aws": {
+    "aws-api": {
       "command": "uvx",
-      "args": ["awslabs.aws-api-mcp-server@1.3.38"],
-      "env": {
-        "AWS_PROFILE": "mcp-readonly",
-        "FASTMCP_LOG_LEVEL": "ERROR"
-      },
-      "description": "AWS read-only — IAM profile mcp-readonly (ReadOnlyAccess). Yêu cầu uv >= 0.5"
+      "args": [
+        "awslabs.aws-api-mcp-server@latest"
+      ],
+      "env": {}
+    },
+    "aws-iac": {
+      "command": "uvx",
+      "args": [
+        "awslabs.aws-iac-mcp-server@latest"
+      ],
+      "env": {}
+    },
+    "aws-docs": {
+      "command": "uvx",
+      "args": [
+        "awslabs.aws-documentation-mcp-server@latest"
+      ],
+      "env": {}
+    },
+    "aws-support": {
+      "command": "uvx",
+      "args": [
+        "awslabs.aws-support-mcp-server@latest"
+      ],
+      "env": {}
+    },
+    "aws-pricing": {
+      "command": "uvx",
+      "args": [
+        "awslabs.aws-pricing-mcp-server@latest"
+      ],
+      "env": {}
+    },
+    "bedrock-kb": {
+      "command": "uvx",
+      "args": [
+        "awslabs.bedrock-kb-retrieval-mcp-server@latest"
+      ],
+      "env": {}
+    },
+    "aws-dataprocessing": {
+      "command": "uvx",
+      "args": [
+        "awslabs.aws-dataprocessing-mcp-server@latest"
+      ],
+      "env": {}
+    },
+    "aurora-dsql": {
+      "command": "uvx",
+      "args": [
+        "awslabs.aurora-dsql-mcp-server@latest"
+      ],
+      "env": {}
+    },
+    "valkey": {
+      "command": "uvx",
+      "args": [
+        "awslabs.valkey-mcp-server@latest"
+      ],
+      "env": {}
     }
   }
 }
