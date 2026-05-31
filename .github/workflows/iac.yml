@@ -1,0 +1,304 @@
+name: IaC Pipeline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "infra/**"
+      - ".github/workflows/iac.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "infra/**"
+      - ".github/workflows/iac.yml"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        required: true
+        default: "dev"
+        type: choice
+        options: [dev, staging, prod]
+      apply:
+        description: "Apply terraform changes?"
+        required: true
+        default: "false"
+        type: choice
+        options: ["true", "false"]
+
+env:
+  TF_VERSION: "1.9.8"
+  TFLINT_VERSION: "v0.54.0"
+  CHECKOV_VERSION: "3.2.529"
+  INFRACOST_VERSION: "v0.10.40"
+  AWS_REGION: "ap-southeast-1"
+  ENVIRONMENT: ${{ github.event.inputs.environment || 'dev' }}
+
+permissions:
+  id-token: write   # OIDC token for AWS
+  contents: read
+  pull-requests: write  # PR comments (Infracost + plan summary)
+  security-events: write  # SARIF upload for checkov
+
+jobs:
+  # ─── Stage 1: Format check ──────────────────────────────────────────────────
+  fmt:
+    name: fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: terraform fmt
+        run: terraform fmt -check -recursive
+        working-directory: infra/
+
+  # ─── Stage 2: Lint ──────────────────────────────────────────────────────────
+  lint:
+    name: lint
+    needs: fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.tflint.d/plugins
+          key: tflint-${{ env.TFLINT_VERSION }}-${{ hashFiles('infra/.tflint.hcl') }}
+
+      - name: Install tflint
+        run: |
+          curl -sL "https://github.com/terraform-linters/tflint/releases/download/${{ env.TFLINT_VERSION }}/tflint_linux_amd64.zip" -o /tmp/tflint.zip
+          unzip -o /tmp/tflint.zip -d /tmp && sudo mv /tmp/tflint /usr/local/bin/
+
+      - name: tflint init
+        run: tflint --init
+        working-directory: infra/
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: tflint
+        run: tflint --recursive --format compact
+        working-directory: infra/
+
+  # ─── Stage 3: Security scan ─────────────────────────────────────────────────
+  scan:
+    name: security-scan
+    needs: fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: checkov scan
+        id: checkov
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: infra/
+          framework: terraform
+          output_format: sarif
+          output_file_path: results.sarif
+          soft_fail_on: LOW,MEDIUM
+          skip_check: "CKV_AWS_7,CKV_TF_1,CKV_AWS_382,CKV2_AWS_5,CKV2_AWS_57,CKV2_AWS_50"
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        continue-on-error: true  # SARIF upload requires GitHub Advanced Security (private repos)
+        with:
+          sarif_file: results.sarif
+
+  # ─── Stage 4: Policy check (Conftest Rego) ─────────────────────────────────
+  # Dùng -backend=false để generate plan JSON cho conftest mà không cần S3/DynamoDB.
+  # Vẫn cần OIDC để providers.tf (kubernetes/helm) không báo "required_providers missing".
+  policy-check:
+    name: policy-check
+    needs: [lint, scan]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: terraform init (local backend override — không cần S3/DynamoDB)
+        run: |
+          # Override backend về local để policy-check không cần S3/DynamoDB.
+          # Terraform ưu tiên *_override.tf so với file gốc.
+          cat > backend_override.tf << 'EOF'
+          terraform {
+            backend "local" {
+              path = "/tmp/insighthub-policy-check.tfstate"
+            }
+          }
+          EOF
+          terraform init -reconfigure -input=false
+        working-directory: infra/
+
+      - name: terraform plan (JSON for conftest)
+        run: |
+          terraform plan -var="environment=${{ env.ENVIRONMENT }}" \
+            -out=tfplan.binary -input=false
+          terraform show -json tfplan.binary > tfplan.json
+        working-directory: infra/
+
+      - name: Cleanup backend override
+        if: always()
+        run: rm -f infra/backend_override.tf
+
+      - name: Install conftest
+        run: |
+          curl -sL https://github.com/open-policy-agent/conftest/releases/download/v0.57.0/conftest_0.57.0_Linux_x86_64.tar.gz | tar xz
+          sudo mv conftest /usr/local/bin/
+
+      - name: Conftest policy check
+        run: conftest test --policy policies/ tfplan.json
+        working-directory: infra/
+
+  # ─── Stage 5: Plan ──────────────────────────────────────────────────────────
+  plan:
+    name: plan
+    needs: policy-check
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
+    outputs:
+      plan_exit_code: ${{ steps.plan.outputs.exitcode }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: terraform init (với remote backend)
+        id: init
+        run: |
+          terraform init -backend-config=backend-${{ env.ENVIRONMENT }}.hcl -input=false
+        working-directory: infra/
+        # Nếu S3/DynamoDB chưa được tạo, bước này fail với lỗi rõ ràng.
+        # Xem DAY_03_README.md §2.3 để tạo backend trước.
+
+      - name: terraform validate
+        run: terraform validate
+        working-directory: infra/
+
+      - name: terraform plan
+        id: plan
+        run: |
+          terraform plan -var="environment=${{ env.ENVIRONMENT }}" \
+            -out=tfplan.binary -detailed-exitcode -input=false 2>&1 | tee plan.txt
+          echo "exitcode=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+        working-directory: infra/
+        continue-on-error: true
+
+      - name: Post plan summary to PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const plan = fs.readFileSync('infra/plan.txt', 'utf8').slice(-60000);
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## Terraform Plan — \`${{ env.ENVIRONMENT }}\`\n\`\`\`hcl\n${plan}\n\`\`\``
+            });
+
+      - name: Fail on plan error
+        if: steps.plan.outputs.exitcode == '1'
+        run: exit 1
+
+      - name: Upload plan artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan-${{ env.ENVIRONMENT }}
+          path: infra/tfplan.binary
+          retention-days: 1
+
+  # ─── Stage 6: Cost estimate ──────────────────────────────────────────────────
+  cost-estimate:
+    name: cost-estimate
+    needs: plan
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Infracost cost estimate
+        uses: infracost/actions/setup@v3
+        with:
+          api-key: ${{ secrets.INFRACOST_API_KEY }}
+
+      - name: Generate Infracost report
+        run: |
+          infracost breakdown --path infra/ \
+            --terraform-var="environment=${{ env.ENVIRONMENT }}" \
+            --format json --out-file infracost.json
+          infracost comment github --path infracost.json \
+            --repo ${{ github.repository }} \
+            --pull-request ${{ github.event.pull_request.number }} \
+            --github-token ${{ secrets.GITHUB_TOKEN }} \
+            --behavior update
+
+  # ─── Stage 7: Apply (manual gate on main branch only) ────────────────────────
+  apply:
+    name: apply
+    needs: plan
+    runs-on: ubuntu-latest
+    if: |
+      github.ref == 'refs/heads/main' &&
+      github.event.inputs.apply == 'true' &&
+      needs.plan.outputs.plan_exit_code == '2'
+    environment:
+      name: ${{ github.event.inputs.environment || 'dev' }}
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: terraform init
+        run: terraform init -backend-config=backend-${{ env.ENVIRONMENT }}.hcl -input=false
+        working-directory: infra/
+
+      - name: Download plan artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tfplan-${{ env.ENVIRONMENT }}
+          path: infra/
+
+      - name: terraform apply
+        run: terraform apply -input=false tfplan.binary
+        working-directory: infra/
