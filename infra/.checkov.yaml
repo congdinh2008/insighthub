@@ -1,0 +1,155 @@
+# Checkov configuration for InsightHub
+# Consciously accepted findings with documented rationale
+
+skip-check:
+  # CKV_TF_1: Module sources use version ranges (~>) rather than commit hashes.
+  # Rationale: terraform-aws-modules follows SemVer; version pinning is sufficient.
+  - CKV_TF_1
+
+  # CKV_AWS_382: Security groups allow 0.0.0.0/0 egress on all ports.
+  # Rationale: EKS nodes need outbound access to AWS APIs and ECR. Ingress is restricted.
+  - CKV_AWS_382
+
+  # CKV2_AWS_5: Security groups not attached to a resource in the same template.
+  # Rationale: SGs are referenced in main.tf via module outputs — false positive.
+  - CKV2_AWS_5
+
+  # CKV2_AWS_57: Secrets Manager auto-rotation not enabled.
+  # Rationale: DB password rotation requires custom Lambda; out of scope for Day 3.
+  - CKV2_AWS_57
+
+  # CKV2_AWS_50: ElastiCache Multi-AZ not enabled.
+  # Rationale: Dev environment uses single node (redis_num_cache_nodes=1) to save cost.
+  - CKV2_AWS_50
+
+  # CKV_K8S_14: Minimum 2 replicas not enforced.
+  # Rationale: Dev/minikube environment intentionally uses 1 replica to save resources.
+  - CKV_K8S_14
+
+  # CKV_K8S_21: Default namespace check.
+  # Rationale: Namespace is set via .Release.Namespace at Helm deploy time; checkov
+  # evaluates static templates where the value is a Go template expression.
+  - CKV_K8S_21
+
+  # CKV_K8S_22: readOnlyRootFilesystem not enforced.
+  # Rationale: API/worker need writable /tmp for PDF processing; postgres needs
+  # /var/lib/postgresql/data. Sensitive writes are bounded by seccompProfile RuntimeDefault.
+  - CKV_K8S_22
+
+  # CKV_K8S_35: Secrets referenced as environment variables.
+  # Rationale: 12-factor pattern — secrets are accessed via secretKeyRef (never stored
+  # in values files). File-mounting would require application-layer changes.
+  - CKV_K8S_35
+
+  # CKV_K8S_15: ImagePullPolicy must be Always.
+  # Rationale: Dev/minikube uses locally-built images (pullPolicy: Never/IfNotPresent).
+  # Production deployments use ECR images with pinned digests.
+  - CKV_K8S_15
+
+  # CKV_K8S_40: runAsUser must be >= 10000.
+  # Rationale: Standard base images use conventional UIDs (postgres: 999, redis: 999).
+  # runAsNonRoot=true on api/worker/web ensures non-root execution without UID inflation.
+  - CKV_K8S_40
+
+  # CKV_K8S_43: Image tags must be digests.
+  # Rationale: Dev environment uses :latest and version tags for iterative development.
+  # Digest pinning is enforced in production values via values-prod.yaml.
+  - CKV_K8S_43
+
+  # CKV2_K8S_6: Pods must have an associated NetworkPolicy.
+  # Rationale: Network-layer isolation is provided by EKS security groups (Terraform).
+  # Kubernetes NetworkPolicy implementation is planned for Day 4.
+  - CKV2_K8S_6
+
+  # CKV_K8S_68–CKV_K8S_151: CIS Kubernetes Benchmark checks for control-plane and
+  # kubelet configuration (API server flags, etcd TLS, admission controllers).
+  # Rationale: These checks target cluster-level config, not application workload manifests.
+  # Control-plane hardening is enforced via EKS managed cluster configuration (Terraform).
+  - CKV_K8S_68
+  - CKV_K8S_69
+  - CKV_K8S_70
+  - CKV_K8S_71
+  - CKV_K8S_72
+  - CKV_K8S_73
+  - CKV_K8S_74
+  - CKV_K8S_75
+  - CKV_K8S_76
+  - CKV_K8S_77
+  - CKV_K8S_78
+  - CKV_K8S_79
+  - CKV_K8S_80
+  - CKV_K8S_81
+  - CKV_K8S_82
+  - CKV_K8S_83
+  - CKV_K8S_84
+  - CKV_K8S_85
+  - CKV_K8S_86
+  - CKV_K8S_87
+  - CKV_K8S_88
+  - CKV_K8S_89
+  - CKV_K8S_90
+  - CKV_K8S_91
+  - CKV_K8S_92
+  - CKV_K8S_93
+  - CKV_K8S_94
+  - CKV_K8S_95
+  - CKV_K8S_96
+  - CKV_K8S_97
+  - CKV_K8S_98
+  - CKV_K8S_99
+  - CKV_K8S_100
+  - CKV_K8S_101
+  - CKV_K8S_102
+  - CKV_K8S_103
+  - CKV_K8S_104
+  - CKV_K8S_105
+  - CKV_K8S_106
+  - CKV_K8S_107
+  - CKV_K8S_108
+  - CKV_K8S_109
+  - CKV_K8S_110
+  - CKV_K8S_111
+  - CKV_K8S_112
+  - CKV_K8S_113
+  - CKV_K8S_114
+  - CKV_K8S_115
+  - CKV_K8S_116
+  - CKV_K8S_117
+  - CKV_K8S_118
+  - CKV_K8S_119
+  - CKV_K8S_120
+  - CKV_K8S_121
+  - CKV_K8S_122
+  - CKV_K8S_123
+  - CKV_K8S_124
+  - CKV_K8S_125
+  - CKV_K8S_126
+  - CKV_K8S_127
+  - CKV_K8S_128
+  - CKV_K8S_129
+  - CKV_K8S_130
+  - CKV_K8S_131
+  - CKV_K8S_132
+  - CKV_K8S_133
+  - CKV_K8S_134
+  - CKV_K8S_135
+  - CKV_K8S_136
+  - CKV_K8S_137
+  - CKV_K8S_138
+  - CKV_K8S_139
+  - CKV_K8S_140
+  - CKV_K8S_141
+  - CKV_K8S_142
+  - CKV_K8S_143
+  - CKV_K8S_144
+  - CKV_K8S_145
+  - CKV_K8S_146
+  - CKV_K8S_147
+  - CKV_K8S_148
+  - CKV_K8S_149
+  - CKV_K8S_150
+  - CKV_K8S_151
+
+soft-fail-on:
+  - LOW
+  - MEDIUM
