@@ -1,0 +1,179 @@
+{
+  "incident_id": "INC-001",
+  "title": "LLM Latency Spike — InsightHub API",
+  "severity": "warning",
+  "status": "resolved",
+  "detected_at": "2026-05-31T08:12:00Z",
+  "resolved_at": "2026-05-31T08:42:00Z",
+  "duration_minutes": 30,
+  "alert_name": "InsightHubLLMLatencyAnomaly",
+  "alert_labels": {
+    "severity": "warning",
+    "team": "platform",
+    "incident": "llm-latency"
+  },
+  "rca_generated_by": "Claude Sonnet 4.6 + Prometheus MCP",
+  "rca_prompt_pattern": "evidence-first — cite metric + timestamp trước hypothesis; confidence > 0.7 mới gán verdict CONFIRMED",
+  "analyst": "AIOps pipeline (Day 4)",
+  "confidence": 0.91,
+
+  "summary": "LLM call latency (job:insighthub_llm_call_latency_seconds:avg5m) tăng vọt từ baseline 1.8s lên 12.4s (4.2σ trên anomaly band 3σ) trong cửa sổ 08:12–08:42 UTC. /chat throughput giảm 34% do client timeout sau 15s; một phần request trả 504. Token input rate, embedding latency và pod resources đều bình thường ⇒ khoanh vùng nguyên nhân ở phía LLM provider.",
+
+  "metrics_snapshot": {
+    "job:insighthub_llm_call_latency_seconds:avg5m": {
+      "baseline": 1.8,
+      "spike_peak": 12.4,
+      "upper_band_3sigma": 9.4,
+      "unit": "seconds",
+      "timestamp": "2026-05-31T08:15:00Z"
+    },
+    "job:insighthub_rag_latency_p95:5m": {
+      "baseline": 4.1,
+      "spike_peak": 18.7,
+      "unit": "seconds",
+      "timestamp": "2026-05-31T08:15:00Z"
+    },
+    "insighthub_ingestion_queue_depth": {
+      "value": 2,
+      "unit": "jobs",
+      "note": "không tăng — loại trừ worker/queue là nguyên nhân"
+    }
+  },
+
+  "observed_symptoms": [
+    {
+      "metric": "job:insighthub_llm_call_latency_seconds:avg5m",
+      "value_at_peak": 12.4,
+      "unit": "seconds",
+      "timestamp": "2026-05-31T08:15:00Z",
+      "normal_baseline": 1.8,
+      "deviation_sigma": 4.2
+    },
+    {
+      "metric": "job:insighthub_rag_latency_p95:5m",
+      "value_at_peak": 18.7,
+      "unit": "seconds",
+      "timestamp": "2026-05-31T08:15:00Z"
+    },
+    {
+      "metric": "insighthub_http_requests_total{status='200',endpoint='/chat'}",
+      "rate_drop_percent": 34,
+      "timestamp": "2026-05-31T08:14:00Z",
+      "note": "throughput giảm do clients timeout sau 15s"
+    }
+  ],
+
+  "top_hypotheses": [
+    {
+      "rank": 1,
+      "hypothesis": "LLM provider (Gemini) xử lý chậm do rate limit hoặc load spike",
+      "confidence": 0.85,
+      "verdict": "CONFIRMED",
+      "evidence": [
+        {
+          "metric": "job:insighthub_llm_call_latency_seconds:avg5m",
+          "value": 12.4,
+          "timestamp": "2026-05-31T08:15:00Z",
+          "comparison": "baseline 1.8s → 12.4s (6.9x spike)"
+        },
+        {
+          "source": "api_logs",
+          "message": "HTTP 429 từ generativelanguage.googleapis.com — RESOURCE_EXHAUSTED: quota exceeded for gemini-3-flash",
+          "timestamp": "2026-05-31T08:16:42Z",
+          "note": "rate limit phía Gemini xác nhận trong log API"
+        },
+        {
+          "metric": "insighthub_http_requests_total",
+          "labels": { "status": "504", "endpoint": "/chat" },
+          "value": 0.28,
+          "unit": "req/s",
+          "timestamp": "2026-05-31T08:20:00Z",
+          "note": "504 timeout phía client tương quan với latency spike"
+        },
+        {
+          "metric": "insighthub_llm_tokens_total{direction='input'}",
+          "rate": "1240 tokens/min",
+          "timestamp": "2026-05-31T08:13:00Z",
+          "note": "token rate bình thường — không phải do input lớn bất thường"
+        }
+      ],
+      "counter_evidence": "Token input rate bình thường → không do prompt dài hơn; embedding latency không tăng → không phải do pgvector"
+    },
+    {
+      "rank": 2,
+      "hypothesis": "Network congestion giữa API pod và Gemini endpoint",
+      "confidence": 0.12,
+      "verdict": "RULED_OUT",
+      "evidence": [
+        {
+          "note": "Không có network metric node-level tăng bất thường trong cùng timeframe"
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "hypothesis": "API pod OOM → GC pause kéo dài",
+      "confidence": 0.03,
+      "verdict": "RULED_OUT",
+      "evidence": [
+        {
+          "metric": "container_memory_working_set_bytes{pod=~'api-.*', namespace='insighthub-dev'}",
+          "value": "312Mi",
+          "timestamp": "2026-05-31T08:15:00Z",
+          "limit": "512Mi",
+          "note": "Memory ở 61% limit — không phải GC pressure"
+        }
+      ]
+    }
+  ],
+
+  "root_cause": "LLM provider (Gemini API) xử lý chậm bất thường trong window 08:12–08:42 UTC. Evidenced by: llm_call_latency avg5m = 12.4s vs baseline 1.8s (deviation 4.2σ) + HTTP 429 RESOURCE_EXHAUSTED trong api logs, trong khi token input rate, embedding latency, và pod resources đều bình thường. Root cause: Gemini provider-side rate limiting.",
+
+  "timeline": [
+    {"time": "08:12:00Z", "event": "llm_call_latency bắt đầu tăng, vượt upper_band"},
+    {"time": "08:14:00Z", "event": "InsightHubLLMLatencyAnomaly alert fire (for: 2m)"},
+    {"time": "08:14:30Z", "event": "Slack #insighthub-alerts nhận notification"},
+    {"time": "08:16:00Z", "event": "On-call engineer bắt đầu điều tra qua AI RCA"},
+    {"time": "08:20:00Z", "event": "AI RCA report xác nhận Gemini provider-side issue (HTTP 429)"},
+    {"time": "08:22:00Z", "event": "Fallback sang Anthropic Claude: kubectl set env deployment/api LLM_PROVIDER=anthropic"},
+    {"time": "08:24:00Z", "event": "Latency trở về bình thường (0.9s)"},
+    {"time": "08:42:00Z", "event": "Alert resolved"}
+  ],
+
+  "recommended_actions": [
+    {
+      "priority": 1,
+      "action": "Implement LLM provider circuit breaker với automatic fallback (Gemini → Anthropic → Ollama)",
+      "owner": "platform-team",
+      "effort": "medium"
+    },
+    {
+      "priority": 2,
+      "action": "Thêm alert InsightHubLLMProviderDown với probe check Gemini endpoint",
+      "owner": "platform-team",
+      "effort": "low"
+    },
+    {
+      "priority": 3,
+      "action": "SLO: LLM p95 latency < 5s; burn rate alert 1h window",
+      "owner": "platform-team",
+      "effort": "low"
+    }
+  ],
+
+  "remediation_applied": [
+    "Failover LLM_PROVIDER=anthropic qua `kubectl set env deployment/api` lúc 08:22 — latency về 0.9s sau ~2m",
+    "Khôi phục Gemini sau khi provider ổn định; xác nhận qua job:insighthub_llm_call_latency_seconds:avg5m về baseline",
+    "Alertmanager → Slack #insighthub-alerts, response time 4 phút"
+  ],
+
+  "prevention_recommendations": [
+    "Circuit breaker đa provider (Gemini → Anthropic → Ollama) — xem recommended_actions #1",
+    "Semantic caching (Redis) để giảm duplicate LLM calls",
+    "SLO LLM p95 < 5s + burn-rate alert (1h window)"
+  ],
+
+  "mttr_minutes": 10,
+  "detection_method": "AI anomaly band (3σ recording rule) + fallback ngưỡng tuyệt đối 5s",
+  "rca_method": "Claude + Prometheus MCP query + K8s pod metrics correlation"
+}

@@ -46,6 +46,11 @@ class Settings(BaseSettings):
     llm_model: str = ""           # nếu trống → dùng <provider>_chat_model
     llm_max_tokens: int = 1024
 
+    # Day 4 (AIOps) chaos injection — delay nhân tạo trước mỗi LLM call (ms).
+    # 0 = tắt (mặc định production). scripts/chaos/inject-llm-latency.sh set env
+    # LLM_CHAOS_LATENCY_MS để mô phỏng Incident #1 (LLM latency spike). KHÔNG dùng prod.
+    llm_chaos_latency_ms: int = 0
+
     # --- Embedding provider: gemini (default) | voyage | openai | ollama | local ---
     embedding_provider: str = "gemini"
 

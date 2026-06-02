@@ -1,0 +1,141 @@
+# Standalone Prometheus rules file — dùng để validate với promtool
+# Nội dung này là spec.groups từ prometheus-rules.yaml (PrometheusRule CRD)
+# Usage: promtool check rules observability/anomaly-rules.yaml
+
+groups:
+
+  # ── Recording rules: baseline & anomaly bands ──────────────────────────────
+  - name: insighthub.recording
+    interval: 1m
+    rules:
+      # LLM latency — rolling 5m average (baseline)
+      - record: job:insighthub_llm_call_latency_seconds:avg5m
+        expr: >
+          rate(insighthub_llm_call_latency_seconds_sum[5m])
+          / rate(insighthub_llm_call_latency_seconds_count[5m])
+
+      # LLM latency — rolling 30m stddev
+      - record: job:insighthub_llm_call_latency_seconds:stddev30m
+        expr: >
+          stddev_over_time(
+            job:insighthub_llm_call_latency_seconds:avg5m[30m]
+          )
+
+      # LLM latency — anomaly upper_band (baseline 30m + 3σ)
+      # ⚠️ baseline PHẢI là cửa sổ dài (avg 30m), KHÔNG dùng avg5m hiện tại —
+      # nếu lấy avg5m + 3σ thì "avg5m > avg5m + 3σ" ⇒ 0 > 3σ ⇒ KHÔNG BAO GIỜ fire.
+      - record: job:insighthub_llm_latency_upper_band
+        expr: >
+          avg_over_time(job:insighthub_llm_call_latency_seconds:avg5m[30m])
+          + 3 * job:insighthub_llm_call_latency_seconds:stddev30m
+
+      # Queue depth — 5m average baseline
+      - record: job:insighthub_queue_depth_baseline:avg5m
+        expr: >
+          avg_over_time(insighthub_ingestion_queue_depth[5m])
+
+      # Queue depth — 30m stddev
+      - record: job:insighthub_queue_depth_stddev:stddev30m
+        expr: >
+          stddev_over_time(insighthub_ingestion_queue_depth[30m])
+
+      # Queue depth — anomaly upper_band (baseline + 3σ)
+      - record: job:insighthub_queue_depth_upper_band
+        expr: >
+          job:insighthub_queue_depth_baseline:avg5m
+          + 3 * job:insighthub_queue_depth_stddev:stddev30m
+
+      # Error rate — 5m rolling rate
+      - record: job:insighthub_error_rate:rate5m
+        expr: >
+          sum(rate(insighthub_http_requests_total{status=~"5.."}[5m]))
+          / sum(rate(insighthub_http_requests_total[5m]))
+
+      # HTTP p95 latency — recording rule để tránh expensive query lặp lại
+      - record: job:insighthub_rag_latency_p95:5m
+        expr: >
+          histogram_quantile(0.95,
+            rate(insighthub_rag_query_latency_seconds_bucket[5m])
+          )
+
+  # ── Alert rules: anomaly detection ────────────────────────────────────────
+  - name: insighthub.alerts
+    rules:
+
+      # Incident #1 — LLM latency spike
+      # avg5m vượt anomaly band 3σ HOẶC vượt ngưỡng tuyệt đối 5s (fallback cho lab).
+      - alert: InsightHubLLMLatencyAnomaly
+        expr: >
+          job:insighthub_llm_call_latency_seconds:avg5m
+          > job:insighthub_llm_latency_upper_band
+          or job:insighthub_llm_call_latency_seconds:avg5m > 5
+        for: 2m
+        labels:
+          severity: warning
+          team: platform
+          incident: llm-latency
+        annotations:
+          summary: "LLM latency vượt anomaly band (3σ)"
+          description: >
+            LLM call latency hiện tại {{ $value | humanizeDuration }}
+            vượt upper band. Có thể do LLM provider chậm hoặc token count tăng bất thường.
+          runbook_url: "https://github.com/congdinh2008/insighthub/blob/main/docs/runbooks/llm-latency.md"
+
+      # Incident #2 — Queue backlog
+      - alert: InsightHubQueueDepthAnomaly
+        expr: >
+          insighthub_ingestion_queue_depth
+          > job:insighthub_queue_depth_upper_band + 1
+        for: 2m
+        labels:
+          severity: warning
+          team: platform
+          incident: queue-backlog
+        annotations:
+          summary: "Ingestion queue depth vượt anomaly band"
+          description: >
+            Queue depth {{ $value }} vượt upper band.
+            Worker có thể chậm hoặc crash. Kiểm tra ingestion-worker pod logs.
+          runbook_url: "https://github.com/congdinh2008/insighthub/blob/main/docs/runbooks/queue-backlog.md"
+
+      # Incident #3 — Error burst
+      - alert: InsightHubErrorRateAnomaly
+        expr: job:insighthub_error_rate:rate5m > 0.05
+        for: 1m
+        labels:
+          severity: critical
+          team: platform
+          incident: error-burst
+        annotations:
+          summary: "Error rate vượt 5% trong 5 phút"
+          description: >
+            HTTP 5xx rate {{ $value | humanizePercentage }}.
+            Kiểm tra api logs và database connectivity.
+          runbook_url: "https://github.com/congdinh2008/insighthub/blob/main/docs/runbooks/error-burst.md"
+
+      # Pod không Running
+      - alert: InsightHubPodNotRunning
+        expr: >
+          kube_deployment_status_replicas_available{
+            namespace="insighthub-dev"
+          } < kube_deployment_spec_replicas{namespace="insighthub-dev"}
+        for: 3m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "InsightHub deployment {{ $labels.deployment }} thiếu pod"
+          description: >
+            Deployment {{ $labels.deployment }} có
+            {{ $value }} available / {{ $labels.replicas }} expected.
+
+      # API không phản hồi
+      - alert: InsightHubAPIDown
+        expr: up{job="insighthub-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "InsightHub API target DOWN"
+          description: "Prometheus không scrape được insighthub-api. Kiểm tra service và pod."

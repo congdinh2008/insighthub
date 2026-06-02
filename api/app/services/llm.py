@@ -8,6 +8,7 @@ Khi không có API key (gemini/anthropic) → fallback extractive answer
 để lab vẫn chạy được end-to-end (chất lượng kém nhưng pipeline ok).
 """
 import logging
+import time
 
 import httpx
 from tenacity import retry, stop_after_attempt, wait_exponential
@@ -155,6 +156,16 @@ def generate(question: str, contexts: list[dict]) -> dict:
     Sinh câu trả lời RAG. Trả về dict: {answer, sources, usage}.
     Tự fallback extractive khi provider không khả dụng (không key / Ollama down).
     """
+    # Day 4 chaos hook — chỉ active khi LLM_CHAOS_LATENCY_MS > 0 (mặc định 0 = tắt).
+    # Delay nằm trong window llm_call_latency.observe() ở chat.py ⇒ đẩy metric
+    # insighthub_llm_call_latency_seconds lên cao → trip InsightHubLLMLatencyAnomaly.
+    if settings.llm_chaos_latency_ms > 0:
+        logger.warning(
+            "CHAOS: inject %dms latency vào LLM call (LLM_CHAOS_LATENCY_MS đang bật)",
+            settings.llm_chaos_latency_ms,
+        )
+        time.sleep(settings.llm_chaos_latency_ms / 1000.0)
+
     provider = settings.llm_provider.lower()
 
     try:
