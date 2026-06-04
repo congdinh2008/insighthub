@@ -9,7 +9,7 @@ import logging
 from fastapi import APIRouter, HTTPException, UploadFile
 
 from app.core.db import get_conn
-from app.core.metrics import documents_total, ingestion_queue_depth, ingestion_errors_total
+from app.core.metrics import documents_total, ingestion_queue_depth, ingestion_errors_total, ingestion_jobs_total
 from app.core.queue import get_arq_pool
 
 logger = logging.getLogger("insighthub.routers.documents")
@@ -43,6 +43,7 @@ async def upload_document(file: UploadFile):
 
     await arq.enqueue_job("ingest_document", document_id, file.filename, content)
     ingestion_queue_depth.inc()
+    ingestion_jobs_total.inc()
     logger.info("Enqueued document_id=%d filename=%s", document_id, file.filename)
 
     return {
