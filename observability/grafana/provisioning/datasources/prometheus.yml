@@ -1,0 +1,14 @@
+# Grafana datasource provisioning — auto-configure Prometheus
+# Grafana load file này khi khởi động → không cần setup thủ công qua UI
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: false
+    jsonData:
+      timeInterval: "15s"
+      httpMethod: POST

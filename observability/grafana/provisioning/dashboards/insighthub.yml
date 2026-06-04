@@ -1,0 +1,14 @@
+# Grafana dashboard provisioning — auto-load InsightHub dashboards
+# Grafana load tất cả *.json từ thư mục path bên dưới khi khởi động
+apiVersion: 1
+
+providers:
+  - name: InsightHub
+    orgId: 1
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards
+      foldersFromFilesStructure: false

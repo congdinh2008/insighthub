@@ -10,6 +10,8 @@ Mặc định Gemini vì free tier hào phóng + chất lượng tốt cho RAG.
 Đổi provider chỉ cần sửa .env, không sửa code.
 """
 from functools import lru_cache
+from typing import Optional
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -41,6 +43,10 @@ class Settings(BaseSettings):
     # Ollama (local) — chạy cùng cluster, không cần API key
     ollama_base_url: str = "http://ollama:11434"
     ollama_chat_model: str = "deepseek-r1:14b"
+
+    # LiteLLM gateway (Day 6 — FinOps). LLM_PROVIDER=litellm route qua proxy.
+    litellm_base_url: Optional[str] = None   # vd: http://litellm:4000
+    litellm_api_key: Optional[str] = None    # virtual key có budget cap
 
     # Generic LLM params (apply mọi provider)
     llm_model: str = ""           # nếu trống → dùng <provider>_chat_model

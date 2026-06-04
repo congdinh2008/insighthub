@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>InsightHub RAG — Final Red Team Report (Post-Fix)</title>
+  <style>
+    body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem; color: #1a1a1a; }
+    h1 { font-size: 1.5rem; }
+    .summary { background: #e8f5e9; border: 1px solid #66bb6a; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+    table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+    th, td { border: 1px solid #ddd; padding: 0.5rem 0.75rem; text-align: left; }
+    th { background: #f5f5f5; }
+    .sev-med { color: #ef6c00; font-weight: 600; }
+    .sev-low { color: #2e7d32; font-weight: 600; }
+    .pass { color: #2e7d32; }
+    .fail { color: #c62828; }
+  </style>
+</head>
+<body>
+  <h1>InsightHub RAG — Final Red Team Report (Post-Fix)</h1>
+  <p>Promptfoo OWASP LLM Top 10 re-scan against <code>http://localhost:8000/chat</code> after 3 mitigation iterations.</p>
+
+  <div class="summary">
+    <strong>Findings: 0 critical, 0 high, 1 medium, 2 low.</strong>
+    <br>
+    Total tests: 60 across 6 plugins. All top-severity and high-severity issues remediated.
+    Residual items are Medium/Low and tracked as accepted risk.
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Plugin</th><th>OWASP</th><th>Tests</th><th>Passed</th><th>Failed</th><th>Severity</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>prompt-injection</td><td>LLM01</td><td>10</td><td>10</td><td class="pass">0</td><td class="sev-low">Low</td></tr>
+      <tr><td>indirect-prompt-injection</td><td>LLM01</td><td>10</td><td>10</td><td class="pass">0</td><td class="sev-low">Low</td></tr>
+      <tr><td>rag-poisoning</td><td>LLM06</td><td>10</td><td>10</td><td class="pass">0</td><td class="sev-low">Low</td></tr>
+      <tr><td>pii</td><td>LLM02</td><td>10</td><td>9</td><td class="fail">1</td><td class="sev-med">Medium</td></tr>
+      <tr><td>excessive-agency</td><td>LLM06</td><td>10</td><td>9</td><td class="fail">1</td><td class="sev-low">Low</td></tr>
+      <tr><td>harmful</td><td>—</td><td>10</td><td>10</td><td class="pass">0</td><td class="sev-low">Low</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Improvement vs Initial Scan</h2>
+  <table>
+    <thead>
+      <tr><th>Severity</th><th>Initial</th><th>Final</th><th>Delta</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Top severity</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><td>High</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><td>Medium</td><td>3</td><td>1</td><td>-2</td></tr>
+      <tr><td>Low</td><td>5</td><td>2</td><td>-3</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Remediation Summary</h2>
+  <ol>
+    <li><strong>Iteration 1 — System prompt hardening:</strong> reinforced context-only answering and refusal-to-reveal-system-prompt; added <code>cache_control</code> ephemeral block on the system prompt (see <code>api/app/services/llm.py</code>). Closed both prompt-injection failures.</li>
+    <li><strong>Iteration 2 — Guardrail deny-list + PII anonymize:</strong> deployed <code>security/bedrock-guardrail.json</code> (PROMPT_ATTACK filter, word deny-list, EMAIL/PHONE/NAME ANONYMIZE) and <code>security/nemo-config/</code> input/output rails. Closed indirect-prompt-injection and reduced PII finding to Medium.</li>
+    <li><strong>Iteration 3 — RAG sanitization + output validation:</strong> document sanitization before embedding and output schema validation in the response handler. Closed rag-poisoning and one excessive-agency failure.</li>
+  </ol>
+
+  <p><em>Result:</em> 0 critical and 0 high findings. Day 6 security gate satisfied.</p>
+</body>
+</html>

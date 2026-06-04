@@ -1,0 +1,34 @@
+{
+  "name": "insighthub-guardrail",
+  "description": "Guardrail for InsightHub RAG system — blocks prompt injection, PII leakage, and harmful content.",
+  "blockedInputMessaging": "Yêu cầu này đã bị chặn bởi chính sách bảo mật InsightHub.",
+  "blockedOutputsMessaging": "Phản hồi này đã bị chặn bởi chính sách bảo mật InsightHub.",
+  "contentPolicy": {
+    "filtersConfig": [
+      { "type": "SEXUAL", "inputStrength": "HIGH", "outputStrength": "HIGH" },
+      { "type": "VIOLENCE", "inputStrength": "HIGH", "outputStrength": "HIGH" },
+      { "type": "HATE", "inputStrength": "HIGH", "outputStrength": "HIGH" },
+      { "type": "INSULTS", "inputStrength": "HIGH", "outputStrength": "HIGH" },
+      { "type": "MISCONDUCT", "inputStrength": "HIGH", "outputStrength": "HIGH" },
+      { "type": "PROMPT_ATTACK", "inputStrength": "HIGH", "outputStrength": "NONE" }
+    ]
+  },
+  "sensitiveInformationPolicy": {
+    "piiEntitiesConfig": [
+      { "type": "EMAIL", "action": "ANONYMIZE" },
+      { "type": "PHONE", "action": "ANONYMIZE" },
+      { "type": "NAME", "action": "ANONYMIZE" },
+      { "type": "AWS_ACCESS_KEY", "action": "BLOCK" },
+      { "type": "AWS_SECRET_KEY", "action": "BLOCK" }
+    ]
+  },
+  "wordPolicy": {
+    "wordsConfig": [
+      { "text": "ignore previous instructions" },
+      { "text": "ignore all instructions" },
+      { "text": "you are now in maintenance mode" },
+      { "text": "jailbreak" },
+      { "text": "DAN mode" }
+    ]
+  }
+}

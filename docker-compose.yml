@@ -121,6 +121,67 @@ services:
       - api
 
   # ============================================================
+  # LiteLLM proxy gateway (Day 6 — FinOps)
+  # OpenAI-compatible API with budget caps + Redis caching + Prometheus metrics.
+  # Switch InsightHub to use it: LLM_PROVIDER=litellm in .env
+  # ============================================================
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    command: ["--config", "/app/litellm-config.yaml", "--port", "4000"]
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./litellm-config.yaml:/app/litellm-config.yaml:ro
+    environment:
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ============================================================
+  # OPTIONAL — Monitoring stack (Day 4)
+  # Bật:  docker compose --profile monitoring up
+  # UI:   Prometheus → http://localhost:9090
+  #       Grafana    → http://localhost:3001  (admin/admin)
+  # ============================================================
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    profiles: ["monitoring"]
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheusdata:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=7d"
+      - "--web.enable-lifecycle"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:11.1.0
+    profiles: ["monitoring"]
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./observability/grafana-dashboards:/var/lib/grafana/dashboards:ro
+      - grafanadata:/var/lib/grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/insighthub-dashboard.json
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+  # ============================================================
   # OPTIONAL — Ollama local LLM/Embedding service
   # ============================================================
   ollama:
@@ -139,4 +200,6 @@ services:
 volumes:
   pgdata:
   redisdata:
+  prometheusdata:
+  grafanadata:
   ollama-data:

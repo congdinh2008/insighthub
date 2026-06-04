@@ -1,0 +1,35 @@
+# InsightHub — NeMo Guardrails rails (Colang)
+# Input + output rails referenced from config.yaml.
+
+define flow block prompt injection
+  $allowed = execute self_check_input
+  if not $allowed
+    bot refuse prompt injection
+    stop
+
+define flow detect pii in input
+  $has_pii = execute check_pii
+  if $has_pii
+    bot anonymize pii
+    stop
+
+define flow block sensitive disclosure
+  $safe = execute self_check_output
+  if not $safe
+    bot refuse disclosure
+    stop
+
+define flow block system prompt leak
+  $leak = execute detect_system_prompt_leak
+  if $leak
+    bot refuse disclosure
+    stop
+
+define bot refuse prompt injection
+  "Yêu cầu này đã bị chặn bởi chính sách bảo mật InsightHub."
+
+define bot anonymize pii
+  "Thông tin cá nhân đã được ẩn danh theo chính sách bảo mật InsightHub."
+
+define bot refuse disclosure
+  "Phản hồi này đã bị chặn bởi chính sách bảo mật InsightHub."
