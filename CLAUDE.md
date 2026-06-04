@@ -107,6 +107,32 @@ kubectl auth can-i get pods --as=system:serviceaccount:insighthub:mcp-readonly  
 kubectl auth can-i delete pods --as=system:serviceaccount:insighthub:mcp-readonly # no ✓
 ```
 
+## ChatOps Bot (Day 5)
+
+**Stack:** FastAPI + Slack SDK + Anthropic tool-calling + background tasks
+
+| Module | Role |
+|---|---|
+| `chatops-bot/app/main.py` | FastAPI: verify signature → BackgroundTasks → reply |
+| `chatops-bot/app/handler.py` | Claude multi-turn tool-calling loop |
+| `chatops-bot/app/tools.py` | K8s (kubectl) + Prometheus + API health queries |
+| `chatops-bot/app/permissions.py` | 3-tier: READ auto / WRITE token / DESTRUCTIVE deny |
+| `chatops-bot/app/audit.py` | Append NDJSON to `chatops-audit.log` |
+| `chatops-bot/prompts/system.md` | Claude system prompt |
+
+**3 intents:** health check → `check_api_health` | ingest count → `get_ingest_count_today` | failing pods → `get_failing_pods`
+
+**Run bot:**
+```bash
+cd chatops-bot && uvicorn app.main:app --port 8080
+# Test invalid sig → 401:
+curl -s -o /dev/null -w "%{http_code}" -X POST localhost:8080/slack/events -d '{}'
+# Run tests:
+pytest tests/ -v
+```
+
+**Forbidden (bot):** Never allow destructive actions via bot. SLACK_BOT_TOKEN in env var only.
+
 ## References
 
 | Resource | URL/Path |
@@ -115,10 +141,11 @@ kubectl auth can-i delete pods --as=system:serviceaccount:insighthub:mcp-readonl
 | Day 2 Lab Guide | `docs/lab-guides/Day2-MCP-Protocol.md` |
 | Day 1 Spec | `Running-Project-Specification-Student.md` §5 |
 | Day 2 Spec | `Running-Project-Specification-Student.md` §6 |
-| Verify scripts | `scripts/verify-day-1.sh`, `scripts/verify-day-2.sh` |
+| Day 5 Spec | `Running-Project-Specification-Student.md` §9 |
+| Verify scripts | `scripts/verify-day-1.sh` … `verify-day-5.sh` |
 | DB schema | `infra/db/init.sql` |
 | K8s RBAC | `infra/k8s/mcp-readonly/` |
 | ARQ docs | https://arq-docs.helpmanual.io |
 | pgvector | https://github.com/pgvector/pgvector |
 | MCP spec | https://modelcontextprotocol.io |
-| AI prompt logs | `ai-prompts/day1.md`, `ai-prompts/day2.md` |
+| AI prompt logs | `ai-prompts/day1.md` … `ai-prompts/day5.md` |

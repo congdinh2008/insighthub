@@ -36,6 +36,8 @@ Thumbs.db
 
 # --- Docker ---
 *.log
+# Allow seed audit log for Day 5 verify script
+!chatops-bot/chatops-audit.log
 
 # --- Logs / scratch ---
 tmp/

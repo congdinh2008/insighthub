@@ -12,6 +12,8 @@ stringData:
   GEMINI_API_KEY: {{ .Values.api.apiKeys.geminiApiKey | default "" | quote }}
   ANTHROPIC_API_KEY: {{ .Values.api.apiKeys.anthropicApiKey | default "" | quote }}
   VOYAGE_API_KEY: {{ .Values.api.apiKeys.voyageApiKey | default "" | quote }}
+  OPENAI_API_KEY: {{ .Values.api.apiKeys.openaiApiKey | default "" | quote }}
+  DEEPSEEK_API_KEY: {{ .Values.api.apiKeys.deepseekApiKey | default "" | quote }}
 ---
 apiVersion: apps/v1
 kind: Deployment
