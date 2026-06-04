@@ -1,0 +1,12 @@
+# Day 5 Screencast — Loom URL
+#
+# Record a 3-minute Loom showing:
+#   1. @bot "api healthy?" → health check response
+#   2. @bot "ingest count today?" → document count
+#   3. @bot "which pods failing?" → pod status
+#   4. @bot "scale api to 5" → confirmation token prompt
+#   5. audit log JSON entries in chatops-audit.log
+#
+# Replace the placeholder below with your actual Loom URL after recording:
+
+LOOM_URL=https://loom.com/share/YOUR_RECORDING_ID_HERE

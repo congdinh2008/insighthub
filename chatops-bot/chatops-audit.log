@@ -1,0 +1,5 @@
+{"ts": "2026-06-04T10:00:00+00:00", "user": "U_DEMO", "tool": "check_api_health", "args": {}, "result": "{'status': 'ok', 'http_code': 200}", "approved": true}
+{"ts": "2026-06-04T10:01:00+00:00", "user": "U_DEMO", "tool": "get_ingest_count_today", "args": {}, "result": "{'count': 12, 'source': 'prometheus'}", "approved": true}
+{"ts": "2026-06-04T10:02:00+00:00", "user": "U_DEMO", "tool": "get_failing_pods", "args": {"namespace": "insighthub"}, "result": "{'failing': [], 'failing_count': 0, 'total_pods': 5}", "approved": true}
+{"ts": "2026-06-04T10:03:00+00:00", "user": "U_DEMO", "tool": "permission_check", "args": {"question": "Scale api to 5", "tier": "write"}, "result": "confirmation required", "approved": true}
+{"ts": "2026-06-04T10:04:00+00:00", "user": "U_DEMO", "tool": "permission_check", "args": {"question": "Delete pod api-0", "tier": "destructive"}, "result": "denied - destructive action blocked", "approved": false}
