@@ -1,0 +1,76 @@
+# InsightHub — LiteLLM proxy gateway config (Day 6 — FinOps)
+#
+# Đặt 1 proxy duy nhất giữa InsightHub API và các LLM provider để:
+#   - thống nhất API (OpenAI-compatible) cho mọi provider
+#   - cache response qua Redis (giảm cost + latency)
+#   - retry + fallback routing
+#   - áp budget cap qua virtual keys (max_budget USD/month)
+#
+# Chạy:  litellm --config litellm-config.yaml --port 4000
+# Doc:   https://docs.litellm.ai/docs/proxy/configs
+
+model_list:
+  - model_name: claude-sonnet-4-6
+    litellm_params:
+      model: anthropic/claude-sonnet-4-6
+      api_key: os.environ/ANTHROPIC_API_KEY
+      # Prompt caching: hệ thống prompt được đánh dấu cache_control ephemeral
+      # ở api/app/services/llm.py (Anthropic prompt caching) để giảm chi phí
+      # input token khi context lặp lại.
+      cache: true
+
+  - model_name: gemini-3-flash-preview
+    litellm_params:
+      model: gemini/gemini-3-flash-preview
+      api_key: os.environ/GEMINI_API_KEY
+      cache: true
+
+litellm_settings:
+  set_verbose: false
+  success_callback: ["prometheus"]
+  cache: true
+  cache_params:
+    type: redis
+    host: redis
+    port: 6379
+    ttl: 3600
+
+router_settings:
+  num_retries: 3
+  # Nếu Anthropic lỗi → fallback sang Gemini (và ngược lại).
+  fallbacks:
+    - claude-sonnet-4-6: ["gemini-3-flash-preview"]
+    - gemini-3-flash-preview: ["claude-sonnet-4-6"]
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+
+# ============================================================
+# Virtual keys (budget-capped) — KHÔNG khai báo tĩnh được.
+# LiteLLM virtual keys là DB-backed, tạo qua POST /key/generate sau khi
+# proxy đã chạy. Budget theo vai trò:
+#
+#   sk-insighthub-api      max_budget =  10.0 USD/month  (production API — InsightHub backend)
+#   sk-insighthub-chatops  max_budget =   5.0 USD/month  (ChatOps / Slack bot)
+#   sk-insighthub-dev      max_budget =   2.0 USD/month  (developer testing + CI)
+#
+# Lệnh tạo (chạy sau khi proxy lên, dùng LITELLM_MASTER_KEY):
+#
+#   curl -s http://localhost:4000/key/generate \
+#     -H "Authorization: Bearer $LITELLM_MASTER_KEY" \
+#     -H "Content-Type: application/json" \
+#     -d '{"key_alias":"sk-insighthub-api","max_budget":10.0,"budget_duration":"30d"}'
+#
+#   curl -s http://localhost:4000/key/generate \
+#     -H "Authorization: Bearer $LITELLM_MASTER_KEY" \
+#     -H "Content-Type: application/json" \
+#     -d '{"key_alias":"sk-insighthub-chatops","max_budget":5.0,"budget_duration":"30d"}'
+#
+#   curl -s http://localhost:4000/key/generate \
+#     -H "Authorization: Bearer $LITELLM_MASTER_KEY" \
+#     -H "Content-Type: application/json" \
+#     -d '{"key_alias":"sk-insighthub-dev","max_budget":2.0,"budget_duration":"30d"}'
+#
+# InsightHub API route qua proxy: set LLM_PROVIDER=litellm, LITELLM_BASE_URL=http://litellm:4000
+# và LITELLM_API_KEY=<virtual_key_từ_lệnh_trên> trong .env.
+# ============================================================

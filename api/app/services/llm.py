@@ -91,10 +91,18 @@ def _anthropic_generate(question: str, contexts: list[dict]) -> dict:
 
     client = anthropic.Anthropic(api_key=settings.anthropic_api_key)
     model_name = settings.resolved_chat_model
+    # Anthropic prompt caching: đánh dấu system prompt là cache_control ephemeral
+    # → input token của system prompt được cache, giảm chi phí khi lặp context.
     resp = client.messages.create(
         model=model_name,
         max_tokens=settings.llm_max_tokens,
-        system=SYSTEM_PROMPT,
+        system=[
+            {
+                "type": "text",
+                "text": SYSTEM_PROMPT,
+                "cache_control": {"type": "ephemeral"},
+            }
+        ],
         messages=[{"role": "user", "content": _build_user_message(question, contexts)}],
     )
     answer = "".join(block.text for block in resp.content if block.type == "text")
@@ -149,6 +157,42 @@ def _ollama_generate(question: str, contexts: list[dict]) -> dict:
 
 
 # ============================================================
+# LiteLLM gateway provider (Day 6 — FinOps)
+# ============================================================
+@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10))
+def _litellm_generate(question: str, contexts: list[dict]) -> dict:
+    """
+    Route qua LiteLLM proxy (OpenAI-compatible) — MH9.
+    Dùng LITELLM_BASE_URL + LITELLM_API_KEY (virtual key có budget cap).
+    """
+    url = f"{settings.litellm_base_url.rstrip('/')}/v1/chat/completions"
+    payload = {
+        "model": settings.resolved_chat_model,
+        "max_tokens": settings.llm_max_tokens,
+        "messages": [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": _build_user_message(question, contexts)},
+        ],
+    }
+    headers = {"Authorization": f"Bearer {settings.litellm_api_key}"}
+    with httpx.Client(timeout=120.0) as client:
+        resp = client.post(url, json=payload, headers=headers)
+        resp.raise_for_status()
+        data = resp.json()
+
+    answer = data["choices"][0]["message"]["content"]
+    usage = data.get("usage", {})
+    return {
+        "answer": answer,
+        "sources": list({c["source"] for c in contexts}),
+        "usage": {
+            "input_tokens": usage.get("prompt_tokens", 0),
+            "output_tokens": usage.get("completion_tokens", 0),
+        },
+    }
+
+
+# ============================================================
 # Dispatcher
 # ============================================================
 def generate(question: str, contexts: list[dict]) -> dict:
@@ -169,6 +213,12 @@ def generate(question: str, contexts: list[dict]) -> dict:
     provider = settings.llm_provider.lower()
 
     try:
+        if provider == "litellm":
+            if not (settings.litellm_base_url and settings.litellm_api_key):
+                logger.warning("LLM_PROVIDER=litellm nhưng LITELLM_BASE_URL/LITELLM_API_KEY trống — fallback extractive")
+                return _fallback_extractive(question, contexts)
+            return _litellm_generate(question, contexts)
+
         if provider == "gemini":
             if not settings.gemini_api_key:
                 logger.warning("LLM_PROVIDER=gemini nhưng GEMINI_API_KEY trống — fallback extractive")

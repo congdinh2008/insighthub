@@ -1,0 +1,41 @@
+# InsightHub — Prometheus scrape config (Docker Compose local dev)
+#
+# Dùng cho: docker compose --profile monitoring up
+# K8s production dùng ServiceMonitor CRD tại observability/servicemonitor.yaml
+#
+# Prometheus UI:  http://localhost:9090
+# Metrics verify: curl http://localhost:8000/metrics | grep insighthub
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    env: local
+
+rule_files:
+  # Alerting rules — load nếu muốn test alert locally
+  # - /etc/prometheus/rules/*.yml
+
+scrape_configs:
+
+  # ── InsightHub API ─────────────────────────────────────────────────────────
+  - job_name: insighthub-api
+    static_configs:
+      - targets: ["api:8000"]
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # ── LiteLLM gateway (Day 6 — FinOps) ──────────────────────────────────────
+  # Expose: litellm_requests_metric_total, litellm_input_tokens_total, etc.
+  - job_name: litellm
+    static_configs:
+      - targets: ["litellm:4000"]
+    metrics_path: /metrics
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # ── Prometheus self-monitoring ─────────────────────────────────────────────
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
