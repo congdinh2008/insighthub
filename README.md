@@ -163,3 +163,14 @@ insighthub/
 ---
 
 *InsightHub v0.1.0 — tài liệu đào tạo nội bộ module AI-Native DevOps.*
+
+
+
+# Tạo môi trường ảo có tên là 'venv'
+python3 -m venv venv
+
+# Kích hoạt môi trường ảo
+source venv/bin/activate
+
+# Sau khi kích hoạt, bạn có thể dùng pip bình thường
+pip install -U pip
