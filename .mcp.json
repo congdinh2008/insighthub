@@ -1,5 +1,5 @@
 {
-    "_comment": "Day 2 MCP configuration: filesystem, docker, kubernetes, prometheus.",
+    "_comment": "MCP configuration: filesystem, docker, kubernetes, prometheus, terraform.",
     "_instructions": [
         "Keep credentials in environment variables; do not hardcode secrets.",
         "Kubernetes should use a dedicated read-only kubeconfig/service account for production use.",
@@ -41,6 +41,15 @@
                 "-e",
                 "PROMETHEUS_MCP_SERVER_PROMETHEUS_URL=http://host.docker.internal:9090",
                 "ghcr.io/tjhop/prometheus-mcp-server:latest"
+            ]
+        },
+        "terraform": {
+            "command": "docker",
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "hashicorp/terraform-mcp-server:1.3.0"
             ]
         }
     }

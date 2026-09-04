@@ -117,7 +117,7 @@ fi
 # MH8: Chat vẫn work
 echo "[5] Chat API vẫn hoạt động..."
 CHAT=$(curl -sf -X POST "$API/chat" -H "Content-Type: application/json" \
-  -d '{"question":"InsightHub có mấy thành phần chính?"}' 2>/dev/null)
+  -d '{"question":"InsightHub c\\u00f3 m\\u1ea5y th\\u00e0nh ph\\u1ea7n ch\\u00ednh?"}' 2>/dev/null)
 if echo "$CHAT" | grep -q '"answer"'; then
   ok "POST /chat trả về answer"
 else
