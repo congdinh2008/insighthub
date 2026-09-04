@@ -1,0 +1,47 @@
+{
+    "_comment": "Day 2 MCP configuration: filesystem, docker, kubernetes, prometheus.",
+    "_instructions": [
+        "Keep credentials in environment variables; do not hardcode secrets.",
+        "Kubernetes should use a dedicated read-only kubeconfig/service account for production use.",
+        "Filesystem is restricted to the project directory.",
+        "Docker MCP can control the local Docker daemon; review tool calls carefully."
+    ],
+    "mcpServers": {
+        "filesystem": {
+            "command": "cmd",
+            "args": [
+                "/c",
+                "npx",
+                "-y",
+                "@modelcontextprotocol/server-filesystem",
+                "${CLAUDE_PROJECT_DIR:-C:\\Users\\huynh\\insighthub}"
+            ]
+        },
+        "docker": {
+            "command": "uvx",
+            "args": [
+                "mcp-server-docker"
+            ]
+        },
+        "kubernetes": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "kubernetes-mcp-server@latest",
+                "--kubeconfig",
+                "${KUBECONFIG:-C:\\Users\\huynh\\.kube\\config}"
+            ]
+        },
+        "prometheus": {
+            "command": "docker",
+            "args": [
+                "run",
+                "--rm",
+                "-i",
+                "-e",
+                "PROMETHEUS_MCP_SERVER_PROMETHEUS_URL=http://host.docker.internal:9090",
+                "ghcr.io/tjhop/prometheus-mcp-server:latest"
+            ]
+        }
+    }
+}
