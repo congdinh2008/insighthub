@@ -1,5 +1,13 @@
-# Ingestion worker - bắt buộc Day 1
+# Ingestion worker — Day 1
 
-Học viên tách sync ingestion thành Redis/ARQ + worker độc lập, hoàn thiện 5 thành phần. POST /documents trả 202; GET /documents chọn ID pending->ready/failed; retry/idempotency và dữ liệu atomic; chat không regression.
+Đây là container worker độc lập. Entry point `worker.py` chỉ import
+`app.worker.WorkerSettings`; pipeline `process_document()` vẫn có đúng một bản tại
+`api/app/services/ingestion.py`. Vì vậy API test và worker production dùng chung
+row lock, content hash, pipeline identity và transaction.
 
-Đây là nền cho queue/backlog/anomaly Day 4 và ingestion intent Day 5, không phải extension tùy chọn. [Spec mục 5](../Running-Project-Specification-Student.md). Lệnh verify-day-1 mặc định kiểm tra async worker.
+`requirements.txt` tham chiếu lock có hash tại `api/requirements.txt`. Dockerfile
+build từ root repository, chạy non-root UID 1001 và dùng payload volume chỉ đọc.
+Compose chạy `arq ingestion_worker.worker.WorkerSettings`.
+
+Worker nhận document ID từ Redis, đọc `/app/payloads/<id>.payload`, gọi pipeline
+và log JSON `ingestion_completed` sau khi DB commit `ready`.

@@ -1,17 +1,21 @@
-"""Synchronous upload contract: 201 only after processing succeeds."""
+"""Async upload contract: 202 only after payload storage and ARQ admission."""
+
+import asyncio
+import logging
 
 from fastapi import APIRouter, HTTPException, UploadFile
 
 from app.core.config import get_settings
 from app.core.db import get_conn
 from app.core.errors import InvalidDocument
-from app.services.ingestion import ingest_document_sync
+from app.services.payloads import accept_payload, mark_pending_failed, prepare_retry
+from app.services.queue import enqueue_document
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 ALLOWED_EXT = (".txt", ".md", ".pdf")
 
 
-@router.post("", status_code=201)
+@router.post("", status_code=202)
 def upload_document(file: UploadFile):
     try:
         if not file.filename or not file.filename.lower().endswith(ALLOWED_EXT):
@@ -25,22 +29,56 @@ def upload_document(file: UploadFile):
         raise HTTPException(413, "File vượt quá giới hạn upload.")
     if not content:
         raise InvalidDocument()
-    with get_conn() as conn:
-        document_id = conn.execute(
-            "INSERT INTO documents (filename, status) VALUES (%s, 'pending') RETURNING id",
-            (file.filename,),
-        ).fetchone()[0]
-    # Day 1: students replace this synchronous call with a durable queue.
-    chunk_count = ingest_document_sync(document_id, file.filename, content)
+    document_id = accept_payload(file.filename, content)
+    try:
+        asyncio.run(enqueue_document(document_id))
+    except Exception:  # noqa: BLE001 - admission boundary must sanitize every queue failure
+        try:
+            mark_pending_failed(document_id, "enqueue_unconfirmed")
+        except Exception:  # noqa: BLE001 - never expose DB errors or lose the document ID
+            logging.getLogger("insighthub.ingestion").warning(
+                "Admission status unconfirmed: id=%s", document_id
+            )
+        raise HTTPException(
+            503,
+            detail={
+                "code": "enqueue_unconfirmed",
+                "document_id": document_id,
+                "message": "Chưa xác nhận được tiếp nhận job. Kiểm tra trạng thái tài liệu theo ID.",
+            },
+        ) from None
     settings = get_settings()
     return {
         "id": document_id,
         "filename": file.filename,
-        "status": "ready",
-        "chunk_count": chunk_count,
+        "status": "pending",
+        "chunk_count": 0,
         "mode": settings.rag_mode,
         "embedding_identity_id": settings.embedding_identity_id,
     }
+
+
+@router.post("/{document_id}/retry", status_code=202)
+def retry_document(document_id: int):
+    filename = prepare_retry(document_id)
+    try:
+        asyncio.run(enqueue_document(document_id))
+    except Exception:  # noqa: BLE001 - admission boundary must sanitize every queue failure
+        try:
+            mark_pending_failed(document_id, "enqueue_unconfirmed")
+        except Exception:  # noqa: BLE001 - preserve the ID for reconciliation
+            logging.getLogger("insighthub.ingestion").warning(
+                "Retry admission status unconfirmed: id=%s", document_id
+            )
+        raise HTTPException(
+            503,
+            detail={
+                "code": "enqueue_unconfirmed",
+                "document_id": document_id,
+                "message": "Chưa xác nhận được tiếp nhận retry. Kiểm tra trạng thái tài liệu theo ID.",
+            },
+        ) from None
+    return {"id": document_id, "filename": filename, "status": "pending"}
 
 
 @router.get("")
