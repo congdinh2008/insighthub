@@ -1,4 +1,4 @@
-"""Starter ingestion is synchronous. Day 1 students still implement the queue/worker."""
+"""Idempotent extract->chunk->embed->store pipeline, called by ingestion-worker's job handler."""
 
 import hashlib
 import io
@@ -162,8 +162,3 @@ def process_document(document_id: int, filename: str, content: bytes) -> int:
         )
         raise failure from None
     return chunk_count
-
-
-def ingest_document_sync(document_id: int, filename: str, content: bytes) -> int:
-    # Day 1: replace the caller with enqueueing, preserving process_document's contract.
-    return process_document(document_id, filename, content)

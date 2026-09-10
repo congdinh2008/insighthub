@@ -1,0 +1,13 @@
+# Direct runtime dependencies verified on PyPI, 2026-09-10.
+# Mirrors api/requirements.in minus the HTTP-framework packages this worker never imports.
+# Versions kept identical to api/requirements.in where both share a package, since
+# process_document's embedding_identity_id must resolve identically in both processes.
+arq==0.28.0
+redis==5.3.1
+pydantic==2.13.5
+pydantic-settings==2.15.0
+psycopg[binary,pool]==3.3.5
+pgvector==0.5.0
+pypdf==6.18.0
+httpx==0.28.1
+prometheus-client==0.26.0

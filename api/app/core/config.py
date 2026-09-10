@@ -26,6 +26,7 @@ class Settings(BaseSettings):
         default="postgresql://insighthub:insighthub@postgres:5432/insighthub",
         repr=False,
     )
+    redis_url: str = Field(default="redis://redis:6379/0", repr=False)
     rag_mode: Literal["fixture", "real"] = "real"
     llm_provider: Literal["gemini", "anthropic", "ollama", "openai", "fixture"] = (
         "gemini"
@@ -67,6 +68,9 @@ class Settings(BaseSettings):
     def validate_configuration(self):
         if self.chunk_overlap >= self.chunk_size:
             raise ValueError("CHUNK_OVERLAP must be smaller than CHUNK_SIZE")
+        redis = urlsplit(self.redis_url)
+        if redis.scheme not in {"redis", "rediss"} or not redis.hostname:
+            raise ValueError("REDIS_URL must be an explicit redis(s):// URL")
         if self.rag_mode == "fixture":
             if self.llm_provider != "fixture" or self.embedding_provider != "fixture":
                 raise ValueError("RAG_MODE=fixture requires both providers=fixture")
