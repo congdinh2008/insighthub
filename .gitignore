@@ -44,3 +44,4 @@ tmp/
 evidence/
 reports/
 *.tsbuildinfo
+docs/
