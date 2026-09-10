@@ -6,7 +6,7 @@ class ServiceError(Exception):
     code = "internal_error"
     message = "Không thể xử lý yêu cầu."
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(self.message)
 
 
@@ -32,6 +32,18 @@ class DocumentConflict(ServiceError):
     status_code = 409
     code = "document_conflict"
     message = "Document ID đã gắn với nội dung hoặc cấu hình xử lý khác."
+
+
+class DocumentRetryConflict(ServiceError):
+    status_code = 409
+    code = "document_not_failed"
+    message = "Chỉ có thể retry tài liệu đang failed."
+
+
+class PayloadUnavailable(ServiceError):
+    status_code = 409
+    code = "payload_unavailable"
+    message = "Payload để retry không còn hợp lệ hoặc không khả dụng."
 
 
 class IndexIdentityConflict(ServiceError):

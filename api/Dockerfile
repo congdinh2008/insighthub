@@ -11,7 +11,10 @@ RUN pip install --no-cache-dir --require-hashes -r requirements.txt
 FROM base AS runtime
 # Non-root user
 RUN groupadd --system --gid 1001 appuser \
-    && useradd --system --uid 1001 --gid appuser appuser
+    && useradd --system --uid 1001 --gid appuser appuser \
+    && mkdir -p /app/payloads \
+    && chown appuser:appuser /app/payloads \
+    && chmod 700 /app/payloads
 COPY --from=deps /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
 COPY --from=deps /usr/local/bin /usr/local/bin
 COPY --chown=appuser:appuser app ./app

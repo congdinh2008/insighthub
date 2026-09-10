@@ -1,4 +1,4 @@
-"""InsightHub synchronous starter API."""
+"""InsightHub API: async ingestion admission, synchronous RAG in threadpool."""
 
 import logging
 from contextlib import asynccontextmanager

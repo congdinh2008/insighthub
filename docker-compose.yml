@@ -1,4 +1,4 @@
-# DO2603 starter: synchronous ingestion; worker is the mandatory Day 1 learner deliverable.
+# Day 1: API admits uploads; Redis/ARQ dispatches ingestion to the worker.
 name: insighthub-do2603
 services:
   postgres:
@@ -16,9 +16,23 @@ services:
       timeout: 3s
       retries: 12
     mem_limit: 768m
+  redis:
+    image: redis:7.4.2-alpine@sha256:02419de7eddf55aa5bcf49efb74e88fa8d931b4d77c07eff8a6b2144472b6952
+    command: ["redis-server", "--appendonly", "yes", "--appendfsync", "everysec", "--maxmemory-policy", "noeviction"]
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    mem_limit: 256m
   api:
     build: ./api
-    environment:
+    environment: &ingestion-environment
+      REDIS_URL: redis://redis:6379/0
+      INGESTION_QUEUE: insighthub:ingestion
+      PAYLOAD_DIR: /app/payloads
       DATABASE_URL: postgresql://insighthub:insighthub@postgres:5432/insighthub
       RAG_MODE: ${RAG_MODE:-fixture}
       LLM_PROVIDER: ${LLM_PROVIDER:-fixture}
@@ -46,6 +60,26 @@ services:
     ports: ["127.0.0.1:${API_PORT:-8000}:8000"]
     depends_on:
       postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    volumes:
+      - ingestion-payloads:/app/payloads
+    mem_limit: 1g
+  ingestion-worker:
+    build:
+      context: .
+      dockerfile: ingestion-worker/Dockerfile
+    environment: *ingestion-environment
+    volumes:
+      - ingestion-payloads:/app/payloads:ro
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "arq", "--check", "ingestion_worker.worker.WorkerSettings"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
     mem_limit: 1g
   web:
     build: ./web
@@ -67,4 +101,6 @@ services:
     # CPU container is optional. On macOS prefer native Ollama for Metal.
 volumes:
   pgdata:
+  redisdata:
+  ingestion-payloads:
   ollama-data:

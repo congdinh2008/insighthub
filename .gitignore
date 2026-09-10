@@ -44,3 +44,4 @@ tmp/
 evidence/
 reports/
 *.tsbuildinfo
+docker-compose.yml.before-day1.bak

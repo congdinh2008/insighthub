@@ -1,0 +1,2 @@
+# Shell wrappers must execute with LF in WSL and Linux CI.
+*.sh text eol=lf

@@ -20,6 +20,10 @@ class Settings(BaseSettings):
     )
 
     app_name: str = "InsightHub API"
+    redis_url: str = Field(default="redis://redis:6379/0", repr=False)
+    ingestion_queue: str = Field(default="insighthub:ingestion", min_length=1)
+    payload_dir: str = "/app/payloads"
+    enqueue_timeout_seconds: float = Field(default=0.75, gt=0, le=10)
     environment: str = "development"
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "INFO"
     database_url: str = Field(

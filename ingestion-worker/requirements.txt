@@ -1,0 +1,2 @@
+# The worker uses the API's fully hashed runtime lock; do not duplicate pins.
+-r ../api/requirements.txt
