@@ -1,4 +1,4 @@
-# DO2603 starter: synchronous ingestion; worker is the mandatory Day 1 learner deliverable.
+# Five default services; ingestion runs asynchronously through Redis/ARQ.
 name: insighthub-do2603
 services:
   postgres:
@@ -18,8 +18,9 @@ services:
     mem_limit: 768m
   api:
     build: ./api
-    environment:
+    environment: &app-environment
       DATABASE_URL: postgresql://insighthub:insighthub@postgres:5432/insighthub
+      REDIS_URL: redis://redis:6379
       RAG_MODE: ${RAG_MODE:-fixture}
       LLM_PROVIDER: ${LLM_PROVIDER:-fixture}
       EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-fixture}
@@ -46,6 +47,7 @@ services:
     ports: ["127.0.0.1:${API_PORT:-8000}:8000"]
     depends_on:
       postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
     mem_limit: 1g
   web:
     build: ./web
@@ -55,6 +57,32 @@ services:
     depends_on:
       api: {condition: service_healthy}
     mem_limit: 512m
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes", "--appendfsync", "always"]
+    volumes: ["redis-data:/data"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    mem_limit: 256m
+  ingestion-worker:
+    build:
+      context: .
+      dockerfile: ingestion-worker/Dockerfile
+    environment: *app-environment
+    stop_grace_period: 330s
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "arq", "--check", "worker.WorkerSettings"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+    mem_limit: 1g
   ollama:
     image: ollama/ollama:0.33.3@sha256:32931b46719f673c05fdbaa81ccb26da18ea4a1c57590a754874ab28ba269eb2
     profiles: ["ollama"]
@@ -66,5 +94,6 @@ services:
       retries: 10
     # CPU container is optional. On macOS prefer native Ollama for Metal.
 volumes:
+  redis-data:
   pgdata:
   ollama-data:

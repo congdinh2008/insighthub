@@ -4,6 +4,7 @@ Each test run owns a random PostgreSQL schema. Only that schema is truncated/dro
 No paid providers are called. A missing DB/schema fixture fails an opted-in run.
 """
 
+import asyncio
 import concurrent.futures
 import os
 from pathlib import Path
@@ -13,6 +14,9 @@ import uuid
 from unittest.mock import patch
 
 from support import configured, real_config
+from arq.worker import Worker
+import worker
+from app.core.queue import redis_settings
 import psycopg
 from psycopg import sql
 from psycopg_pool import ConnectionPool
@@ -85,7 +89,7 @@ class IntegrationTests(unittest.TestCase):
             )
 
     def setUp(self):
-        self.config = configured()
+        self.config = configured(ingestion_queue="test-ingestion:" + uuid.uuid4().hex)
         self.config.__enter__()
         self.addCleanup(self.config.__exit__, None, None, None)
         with db.get_conn() as conn:
@@ -93,6 +97,37 @@ class IntegrationTests(unittest.TestCase):
                 "TRUNCATE chunks, documents, embedding_index RESTART IDENTITY CASCADE"
             )
         self.client = TestClient(app)
+
+    def drain_queue(self):
+        async def run():
+            consumer = Worker(
+                [worker.process_document],
+                redis_settings=redis_settings(),
+                queue_name=get_settings().ingestion_queue,
+                burst=True,
+                poll_delay=0.05,
+                handle_signals=False,
+                max_tries=worker.MAX_ATTEMPTS,
+                keep_result=0,
+                log_results=False,
+            )
+            try:
+                await asyncio.wait_for(consumer.async_run(), timeout=20)
+                return consumer
+            finally:
+                await consumer.close()
+
+        return asyncio.run(run())
+
+    def upload_ready(self, filename="test.txt", content=b"content"):
+        response = self.client.post("/documents", files={"file": (filename, content)})
+        self.assertEqual(response.status_code, 202, response.text)
+        self.assertEqual(response.json()["status"], "pending")
+        self.assertEqual(response.json()["chunk_count"], 0)
+        self.assertEqual(self.state(response.json()["id"])[0], "pending")
+        self.drain_queue()
+        self.assertEqual(self.state(response.json()["id"])[0], "ready")
+        return response
 
     def create_document(self, filename="test.txt"):
         with db.get_conn() as conn:
@@ -115,13 +150,10 @@ class IntegrationTests(unittest.TestCase):
         self.assertEqual(
             self.client.post("/chat", json={"question": "RAG?"}).status_code, 404
         )
-        response = self.client.post(
-            "/documents", files={"file": ("rag.txt", b"RAG uses retrieved documents.")}
-        )
-        self.assertEqual(response.status_code, 201, response.text)
+        response = self.upload_ready("rag.txt", b"RAG uses retrieved documents.")
         document = response.json()
         self.assertEqual(document["mode"], "fixture")
-        self.assertEqual(document["chunk_count"], 1)
+        self.assertEqual(self.state(document["id"])[1], 1)
         self.assertEqual(self.client.get("/documents").json()[0]["status"], "ready")
         chat = self.client.post(
             "/chat", json={"question": "RAG uses retrieved documents."}
@@ -259,17 +291,20 @@ class IntegrationTests(unittest.TestCase):
         state = self.state(document_id)
         self.assertEqual((state[0], state[1], state[4]), ("failed", 0, 0))
 
-    def test_empty_extracted_text_is_failed_and_422(self):
+    def test_empty_extracted_text_is_accepted_then_failed_with_invalid_document(self):
         response = self.client.post(
             "/documents", files={"file": ("empty.txt", b" \n ")}
         )
-        self.assertEqual(response.status_code, 422, response.text)
+        self.assertEqual(response.status_code, 202, response.text)
+        consumer = self.drain_queue()
+        self.assertEqual(consumer.jobs_retried, 0)
         document = self.client.get("/documents").json()[0]
         self.assertEqual(document["status"], "failed")
         self.assertEqual(document["chunk_count"], 0)
+        self.assertEqual(document["error_code"], "invalid_document")
 
     def test_index_identity_change_rejects_query_upload_and_readiness(self):
-        self.client.post("/documents", files={"file": ("test.txt", b"content")})
+        self.upload_ready()
         with (
             configured(embedding_revision="2"),
             patch("app.services.retrieval.embed") as provider,
@@ -288,7 +323,7 @@ class IntegrationTests(unittest.TestCase):
             )
 
     def test_same_dimension_real_provider_cannot_query_fixture_index(self):
-        self.client.post("/documents", files={"file": ("test.txt", b"content")})
+        self.upload_ready()
         with real_config(), patch("app.services.retrieval.embed") as provider:
             with self.assertRaises(IndexIdentityConflict):
                 retrieve("question")
@@ -325,17 +360,15 @@ class IntegrationTests(unittest.TestCase):
                 },
             ),
         ):
-            upload = self.client.post(
-                "/documents", files={"file": ("real.txt", b"content")}
-            )
-            self.assertEqual(upload.status_code, 201, upload.text)
+            upload = self.upload_ready("real.txt", b"content")
+            self.assertEqual(upload.status_code, 202, upload.text)
             chat = self.client.post("/chat", json={"question": "question"})
             self.assertEqual(chat.status_code, 200, chat.text)
             self.assertEqual(chat.json()["mode"], "real")
             self.assertEqual(chat.json()["usage"]["input_tokens"], 12)
             self.assertEqual(chat.json()["usage"]["source"], "provider")
 
-    def test_provider_failure_is_502_and_metadata_truthful(self):
+    def test_provider_failure_retries_three_times_and_metadata_is_truthful(self):
         with (
             real_config(),
             patch("app.services.embeddings.post_json", side_effect=ProviderError()),
@@ -343,9 +376,69 @@ class IntegrationTests(unittest.TestCase):
             response = self.client.post(
                 "/documents", files={"file": ("real.txt", b"content")}
             )
-        self.assertEqual(response.status_code, 502, response.text)
+            self.assertEqual(response.status_code, 202, response.text)
+            consumer = self.drain_queue()
+            self.assertEqual(consumer.jobs_retried, 3)
+            self.assertEqual(consumer.jobs_failed, 1)
         document = self.client.get("/documents").json()[0]
         self.assertEqual(
             (document["status"], document["chunk_count"], document["error_code"]),
             ("failed", 0, "provider_error"),
         )
+
+    def test_worker_transient_failure_recovers_without_duplicate_chunks(self):
+        calls = []
+
+        def flaky(texts, input_type):
+            calls.append(True)
+            if len(calls) < 3:
+                raise ProviderError()
+            return _local_embed(texts, 1024)
+
+        with patch("app.services.ingestion.embed", side_effect=flaky):
+            response = self.upload_ready()
+        self.assertEqual(len(calls), 3)
+        state = self.state(response.json()["id"])
+        self.assertEqual((state[0], state[1], state[4]), ("ready", 1, 1))
+        self.assertIsNone(state[3])
+
+    def test_retryable_attempt_stays_pending_until_final_attempt(self):
+        document_id = self.create_document()
+        with patch("app.services.ingestion.embed", side_effect=ProviderError()):
+            with self.assertRaises(ProviderError):
+                process_document(
+                    document_id, "test.txt", b"content", retry_pending=True
+                )
+        state = self.state(document_id)
+        self.assertEqual((state[0], state[1], state[4]), ("pending", 0, 0))
+        self.assertEqual(state[3], "provider_error")
+
+    def test_queue_unavailable_marks_failed_without_partial_chunks(self):
+        from app.core.errors import QueueUnavailable
+
+        with patch(
+            "app.routers.documents.enqueue_document", side_effect=QueueUnavailable()
+        ):
+            response = self.client.post(
+                "/documents", files={"file": ("test.txt", b"content")}
+            )
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response.json()["code"], "queue_unavailable")
+        document = self.client.get("/documents").json()[0]
+        self.assertEqual(
+            (document["status"], document["chunk_count"], document["error_code"]),
+            ("failed", 0, "queue_unavailable"),
+        )
+
+    def test_worker_rejects_deleted_job_without_recreating_document(self):
+        response = self.client.post(
+            "/documents", files={"file": ("test.txt", b"content")}
+        )
+        self.assertEqual(response.status_code, 202)
+        self.assertEqual(
+            self.client.delete(f"/documents/{response.json()['id']}").status_code, 204
+        )
+        consumer = self.drain_queue()
+        self.assertEqual(consumer.jobs_failed, 1)
+        self.assertEqual(consumer.jobs_retried, 0)
+        self.assertEqual(self.client.get("/documents").json(), [])

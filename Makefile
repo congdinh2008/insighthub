@@ -17,7 +17,7 @@ tools:
 test-verifiers:
 	$(PYTHON) -m unittest discover -s tests -p 'test_verify*.py' -v
 test-backend:
-	$(COMPOSE) run --rm --no-deps -e RUN_DB_TESTS=1 -e TEST_SCHEMA_PATH=/tmp/init.sql -v "$(CURDIR)/infra/db/init.sql:/tmp/init.sql:ro" api python -m unittest discover -s tests -v
+	$(COMPOSE) run --rm --no-deps -e RUN_DB_TESTS=1 -e TEST_SCHEMA_PATH=/tmp/init.sql -v "$(CURDIR)/infra/db/init.sql:/tmp/init.sql:ro" -v "$(CURDIR)/ingestion-worker:/worker:ro" -e PYTHONPATH=/app:/worker api python -m unittest discover -s tests -v
 test-mcp:
 	$(NPM) --prefix tools/mcp test
 	$(NODE) tools/mcp/smoke.mjs

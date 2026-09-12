@@ -1,5 +1,6 @@
 # Direct runtime dependencies verified on PyPI, 2026-09-08.
-# REST adapters use httpx; worker/Redis dependencies belong to the Day 1 exercise.
+# REST adapters use httpx; ARQ is shared by the API queue client and worker.
+arq==0.26.3
 fastapi==0.141.1
 uvicorn[standard]==0.52.4
 pydantic==2.13.5
