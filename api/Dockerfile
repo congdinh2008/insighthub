@@ -6,7 +6,7 @@ WORKDIR /app
 
 FROM base AS deps
 COPY requirements.txt .
-RUN pip install --no-cache-dir --require-hashes -r requirements.txt
+RUN --mount=type=cache,target=/root/.cache/pip pip install --timeout 120 --retries 3 --require-hashes -r requirements.txt
 
 FROM base AS runtime
 # Non-root user

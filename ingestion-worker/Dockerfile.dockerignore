@@ -1,0 +1,10 @@
+**
+!api/
+!api/app/
+!api/app/**
+!api/requirements.txt
+!ingestion-worker/
+!ingestion-worker/Dockerfile
+!ingestion-worker/requirements.txt
+!ingestion-worker/worker.py
+**/__pycache__/
