@@ -1,0 +1,2 @@
+# Shared locked runtime: psycopg 3, pgvector, pydantic and ARQ.
+-r ../api/requirements.txt
