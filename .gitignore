@@ -44,3 +44,10 @@ tmp/
 evidence/
 reports/
 *.tsbuildinfo
+
+# Terraform generated files
+**/.terraform/*
+**/*.tfplan
+**/tfplan
+**/tfplan.json
+**/plan.txt
