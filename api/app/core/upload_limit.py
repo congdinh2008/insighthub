@@ -1,19 +1,24 @@
 """Bound the entire multipart body before parsing, including chunked HTTP requests."""
 
+import re
+
 from fastapi.responses import JSONResponse
+from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
 from app.core.config import get_settings
 
 
 class UploadLimitMiddleware:
-    def __init__(self, app):
+    def __init__(self, app: ASGIApp) -> None:
         self.app = app
 
-    async def __call__(self, scope, receive, send):
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
         if (
             scope["type"] != "http"
             or scope["method"] != "POST"
-            or scope["path"].rstrip("/") != "/documents"
+            or not re.fullmatch(
+                r"/documents(?:/[^/]+/retry)?", scope["path"].rstrip("/")
+            )
         ):
             return await self.app(scope, receive, send)
         # Allow multipart headers/boundaries in addition to the actual file limit.
@@ -46,7 +51,7 @@ class UploadLimitMiddleware:
                 break
         delivered = False
 
-        async def bounded_receive():
+        async def bounded_receive() -> Message:
             nonlocal delivered
             if delivered:
                 return await receive()

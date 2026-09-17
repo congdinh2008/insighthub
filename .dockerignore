@@ -1,0 +1,15 @@
+.git
+.env
+.env.*
+!.env.example
+.venv
+**/__pycache__
+**/node_modules
+**/.next
+evidence
+reports
+docs
+ai-prompts
+.pytest_cache
+.mypy_cache
+.ruff_cache

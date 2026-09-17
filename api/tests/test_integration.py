@@ -4,6 +4,7 @@ Each test run owns a random PostgreSQL schema. Only that schema is truncated/dro
 No paid providers are called. A missing DB/schema fixture fails an opted-in run.
 """
 
+import asyncio
 import concurrent.futures
 import os
 from pathlib import Path
@@ -93,6 +94,33 @@ class IntegrationTests(unittest.TestCase):
                 "TRUNCATE chunks, documents, embedding_index RESTART IDENTITY CASCADE"
             )
         self.client = TestClient(app)
+        self.jobs = []
+        queue_patch = patch(
+            "app.routers.documents.enqueue_document",
+            side_effect=lambda *args, **kwargs: self.jobs.append(args),
+        )
+        queue_patch.start()
+        self.addCleanup(queue_patch.stop)
+        ready_patch = patch("app.routers.health.queue_healthcheck", return_value=True)
+        ready_patch.start()
+        self.addCleanup(ready_patch.stop)
+
+    def drain(self):
+        # Contract isolation: run the REAL worker coroutine with a provider double
+        # in this process, using this test's DB schema. Live ARQ is tested separately.
+        from worker import ingest
+
+        while self.jobs:
+            args = self.jobs.pop(0)
+            asyncio.run(ingest({"job_try": 1, "job_id": f"test:{args[0]}"}, *args))
+
+    def upload_and_complete(self, filename="test.txt", content=b"content"):
+        response = self.client.post("/documents", files={"file": (filename, content)})
+        self.assertEqual(response.status_code, 202, response.text)
+        self.assertEqual(response.json()["status"], "pending")
+        self.assertEqual(response.json()["chunk_count"], 0)
+        self.drain()
+        return response
 
     def create_document(self, filename="test.txt"):
         with db.get_conn() as conn:
@@ -118,10 +146,13 @@ class IntegrationTests(unittest.TestCase):
         response = self.client.post(
             "/documents", files={"file": ("rag.txt", b"RAG uses retrieved documents.")}
         )
-        self.assertEqual(response.status_code, 201, response.text)
+        self.assertEqual(response.status_code, 202, response.text)
+        self.assertEqual(response.json()["status"], "pending")
+        self.assertEqual(response.json()["chunk_count"], 0)
+        self.drain()
         document = response.json()
         self.assertEqual(document["mode"], "fixture")
-        self.assertEqual(document["chunk_count"], 1)
+        self.assertEqual(self.state(document["id"])[1], 1)
         self.assertEqual(self.client.get("/documents").json()[0]["status"], "ready")
         chat = self.client.post(
             "/chat", json={"question": "RAG uses retrieved documents."}
@@ -269,7 +300,7 @@ class IntegrationTests(unittest.TestCase):
         self.assertEqual(document["chunk_count"], 0)
 
     def test_index_identity_change_rejects_query_upload_and_readiness(self):
-        self.client.post("/documents", files={"file": ("test.txt", b"content")})
+        self.upload_and_complete()
         with (
             configured(embedding_revision="2"),
             patch("app.services.retrieval.embed") as provider,
@@ -288,7 +319,7 @@ class IntegrationTests(unittest.TestCase):
             )
 
     def test_same_dimension_real_provider_cannot_query_fixture_index(self):
-        self.client.post("/documents", files={"file": ("test.txt", b"content")})
+        self.upload_and_complete()
         with real_config(), patch("app.services.retrieval.embed") as provider:
             with self.assertRaises(IndexIdentityConflict):
                 retrieve("question")
@@ -328,14 +359,15 @@ class IntegrationTests(unittest.TestCase):
             upload = self.client.post(
                 "/documents", files={"file": ("real.txt", b"content")}
             )
-            self.assertEqual(upload.status_code, 201, upload.text)
+            self.assertEqual(upload.status_code, 202, upload.text)
+            self.drain()
             chat = self.client.post("/chat", json={"question": "question"})
             self.assertEqual(chat.status_code, 200, chat.text)
             self.assertEqual(chat.json()["mode"], "real")
             self.assertEqual(chat.json()["usage"]["input_tokens"], 12)
             self.assertEqual(chat.json()["usage"]["source"], "provider")
 
-    def test_provider_failure_is_502_and_metadata_truthful(self):
+    def test_provider_failure_is_async_failed_and_metadata_truthful(self):
         with (
             real_config(),
             patch("app.services.embeddings.post_json", side_effect=ProviderError()),
@@ -343,9 +375,189 @@ class IntegrationTests(unittest.TestCase):
             response = self.client.post(
                 "/documents", files={"file": ("real.txt", b"content")}
             )
-        self.assertEqual(response.status_code, 502, response.text)
+            self.drain()
+        self.assertEqual(response.status_code, 202, response.text)
         document = self.client.get("/documents").json()[0]
         self.assertEqual(
             (document["status"], document["chunk_count"], document["error_code"]),
             ("failed", 0, "provider_error"),
+        )
+
+    def failed_document(self):
+        from app.core.errors import QueueUnavailable
+
+        with patch(
+            "app.routers.documents.enqueue_document", side_effect=QueueUnavailable()
+        ):
+            response = self.client.post(
+                "/documents", files={"file": ("retry.txt", b"retry payload")}
+            )
+        self.assertEqual(response.status_code, 503)
+        document = self.client.get("/documents").json()[0]
+        self.assertEqual(
+            (document["status"], document["error_code"]),
+            ("failed", "queue_unavailable"),
+        )
+        return document["id"]
+
+    def test_manual_retry_preserves_id_and_chunks(self):
+        document_id = self.failed_document()
+        response = self.client.post(
+            f"/documents/{document_id}/retry",
+            files={"file": ("retry.txt", b"retry payload")},
+        )
+        self.assertEqual(response.status_code, 202, response.text)
+        self.assertEqual(response.json()["id"], document_id)
+        self.assertEqual(self.state(document_id)[0], "pending")
+        self.drain()
+        before = self.state(document_id)
+        self.assertEqual((before[0], before[1], before[4]), ("ready", 1, 1))
+        self.assertEqual(
+            self.client.post(
+                f"/documents/{document_id}/retry",
+                files={"file": ("retry.txt", b"retry payload")},
+            ).status_code,
+            409,
+        )
+        self.assertEqual(self.state(document_id), before)
+
+    def test_manual_retry_invalid_payload_and_missing_id(self):
+        document_id = self.failed_document()
+        for filename, content, code in (
+            ("wrong.txt", b"retry payload", 409),
+            ("retry.txt", b"different", 409),
+            ("retry.txt", b"", 422),
+        ):
+            with self.subTest(filename=filename, content=content):
+                response = self.client.post(
+                    f"/documents/{document_id}/retry",
+                    files={"file": (filename, content)},
+                )
+                self.assertEqual(response.status_code, code)
+        self.assertEqual(
+            self.client.post(
+                "/documents/999999/retry",
+                files={"file": ("retry.txt", b"retry payload")},
+            ).status_code,
+            404,
+        )
+        self.assertEqual(len(self.jobs), 0)
+        self.assertEqual(self.state(document_id)[0], "failed")
+
+    def test_concurrent_manual_retries_enqueue_once(self):
+        document_id = self.failed_document()
+
+        def retry():
+            return self.client.post(
+                f"/documents/{document_id}/retry",
+                files={"file": ("retry.txt", b"retry payload")},
+            ).status_code
+
+        with concurrent.futures.ThreadPoolExecutor(2) as executor:
+            responses = sorted(executor.map(lambda _: retry(), range(2)))
+        self.assertEqual(responses, [202, 409])
+        self.assertEqual(len(self.jobs), 1)
+        self.drain()
+        self.assertEqual(self.state(document_id)[4], 1)
+
+    def test_retry_queue_failure_remains_retryable(self):
+        from app.core.errors import QueueUnavailable
+
+        document_id = self.failed_document()
+        with patch(
+            "app.routers.documents.enqueue_document", side_effect=QueueUnavailable()
+        ):
+            response = self.client.post(
+                f"/documents/{document_id}/retry",
+                files={"file": ("retry.txt", b"retry payload")},
+            )
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(
+            (self.state(document_id)[0], self.state(document_id)[3]),
+            ("failed", "queue_unavailable"),
+        )
+
+    def test_worker_automatic_retry_keeps_pending_until_exhaustion(self):
+        from arq import Retry
+        from worker import ingest
+
+        document_id = self.create_document()
+        with patch(
+            "app.services.ingestion.embed", side_effect=ProviderError(retryable=True)
+        ):
+            for attempt in range(1, 5):
+                if attempt < 4:
+                    with self.assertRaises(Retry) as raised:
+                        asyncio.run(
+                            ingest(
+                                {"job_try": attempt, "job_id": "test"},
+                                document_id,
+                                "test.txt",
+                                b"payload",
+                            )
+                        )
+                    self.assertEqual(
+                        raised.exception.defer_score, (2 ** (attempt - 1)) * 1000
+                    )
+                    self.assertEqual(self.state(document_id)[0], "pending")
+                else:
+                    asyncio.run(
+                        ingest(
+                            {"job_try": attempt, "job_id": "test"},
+                            document_id,
+                            "test.txt",
+                            b"payload",
+                        )
+                    )
+        self.assertEqual(
+            (
+                self.state(document_id)[0],
+                self.state(document_id)[3],
+                self.state(document_id)[4],
+            ),
+            ("failed", "provider_error", 0),
+        )
+
+    def test_deleted_queued_document_is_not_resurrected(self):
+        response = self.client.post("/documents", files={"file": ("gone.txt", b"gone")})
+        self.assertEqual(response.status_code, 202)
+        document_id = response.json()["id"]
+        self.client.delete(f"/documents/{document_id}")
+        self.drain()
+        self.assertIsNone(self.state(document_id))
+
+    def test_finishing_old_job_keeps_failed_metadata_on_retry_conflict(self):
+        document_id = self.failed_document()
+        before = self.state(document_id)
+        with patch(
+            "app.routers.documents.enqueue_document", side_effect=DocumentConflict()
+        ):
+            response = self.client.post(
+                f"/documents/{document_id}/retry",
+                files={"file": ("retry.txt", b"retry payload")},
+            )
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(self.state(document_id), before)
+
+    def test_worker_pipeline_mismatch_is_terminal_without_schema_change(self):
+        from worker import ingest
+
+        document_id = self.failed_document()
+        with db.get_conn() as conn:
+            conn.execute(
+                "UPDATE documents SET status='pending', error_code=NULL WHERE id=%s",
+                (document_id,),
+            )
+        with configured(chunk_size=801):
+            asyncio.run(
+                ingest(
+                    {"job_try": 1, "job_id": "test"},
+                    document_id,
+                    "retry.txt",
+                    b"retry payload",
+                )
+            )
+        self.assertEqual(
+            (self.state(document_id)[0], self.state(document_id)[3]),
+            ("failed", "document_conflict"),
         )

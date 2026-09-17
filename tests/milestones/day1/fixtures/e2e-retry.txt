@@ -1,0 +1,1 @@
+Controlled retry preserves the document ID and prevents duplicate chunks.

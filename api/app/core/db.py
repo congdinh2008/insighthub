@@ -2,10 +2,13 @@
 
 import logging
 import threading
+from collections.abc import Iterator
 from contextlib import contextmanager
+from typing import Any
 
-from psycopg_pool import ConnectionPool
 from pgvector.psycopg import register_vector
+from psycopg import Connection
+from psycopg_pool import ConnectionPool
 
 from app.core.config import get_settings
 
@@ -14,7 +17,7 @@ _pool: ConnectionPool | None = None
 _pool_lock = threading.Lock()
 
 
-def _configure(conn):
+def _configure(conn: Connection[Any]) -> None:
     register_vector(conn)
     conn.commit()  # Pool configure callbacks must leave the connection idle.
 
@@ -35,12 +38,12 @@ def get_pool() -> ConnectionPool:
 
 
 @contextmanager
-def get_conn():
+def get_conn() -> Iterator[Connection[Any]]:
     with get_pool().connection() as conn:
         yield conn
 
 
-def initialize_database():
+def initialize_database() -> None:
     from app.core.index import check_schema, ensure_index_identity
 
     get_pool().wait(timeout=15)
@@ -62,7 +65,7 @@ def healthcheck() -> bool:
         return False
 
 
-def close_pool():
+def close_pool() -> None:
     global _pool
     with _pool_lock:
         if _pool is not None:

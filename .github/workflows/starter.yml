@@ -1,4 +1,4 @@
-name: Starter baseline
+name: Day 01 baseline and async ingestion
 on:
   push:
   pull_request:
@@ -21,8 +21,18 @@ jobs:
         run: docker compose up --build -d --wait
       - name: Verifier regression tests
         run: python3 -m unittest discover -s tests -p 'test_verify*.py' -v
-      - name: API unit and isolated database integration
-        run: make test-backend
+      - name: Build isolated Python 3.12 test runner
+        run: make test-image
+      - name: API unit, isolated database integration and worker tests
+        run: make test-backend test-worker
+      - name: Install locked quality and milestone tooling
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install --require-hashes -r requirements-dev.txt
+      - name: Day 01 live contracts and strict quality checks
+        run: |
+          make test-day1 lint typecheck PYTHON=.venv/bin/python
+          PATH="$PWD/.venv/bin:$PATH" pre-commit run --all-files
       - name: MCP actual SDK tests
         run: |
           docker run --rm --network host -v "$PWD:/work" -w /work node:24.20.0-alpine@sha256:e67514e5d0f6c46656005e1b693b2ec9d52e80b641307de684d4a015ba7a4eaf sh -ec '

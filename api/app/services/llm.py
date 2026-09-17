@@ -1,9 +1,10 @@
 """Provider generation with explicit fixture labeling and usage provenance."""
 
 import json
+from typing import Any
 from urllib.parse import quote
 
-from app.core.config import get_settings
+from app.core.config import Settings, get_settings
 from app.core.errors import ProviderError
 from app.core.providers import post_json, token_count
 
@@ -14,7 +15,7 @@ SYSTEM_PROMPT = (
 )
 
 
-def _build_user_message(question: str, contexts: list[dict]) -> str:
+def _build_user_message(question: str, contexts: list[dict[str, Any]]) -> str:
     return json.dumps(
         {
             "documents": [
@@ -26,7 +27,9 @@ def _build_user_message(question: str, contexts: list[dict]) -> str:
     )
 
 
-def _real_generate(question, contexts, settings):
+def _real_generate(
+    question: str, contexts: list[dict[str, Any]], settings: Settings
+) -> tuple[Any, Any, Any]:
     provider = settings.llm_provider
     model = settings.resolved_chat_model
     message = _build_user_message(question, contexts)
@@ -106,7 +109,7 @@ def _real_generate(question, contexts, settings):
     raise ProviderError()
 
 
-def generate(question: str, contexts: list[dict]) -> dict:
+def generate(question: str, contexts: list[dict[str, Any]]) -> dict[str, Any]:
     settings = get_settings()
     try:
         if settings.rag_mode == "fixture":

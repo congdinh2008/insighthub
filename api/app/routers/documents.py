@@ -1,18 +1,28 @@
-"""Synchronous upload contract: 201 only after processing succeeds."""
+"""Accept validated files into ARQ; ingestion runs only in the worker."""
+
+import hashlib
+from typing import Any
 
 from fastapi import APIRouter, HTTPException, UploadFile
 
 from app.core.config import get_settings
 from app.core.db import get_conn
-from app.core.errors import InvalidDocument
-from app.services.ingestion import ingest_document_sync
+from app.core.errors import (
+    DocumentConflict,
+    DocumentNotFound,
+    InvalidDocument,
+    QueueUnavailable,
+    ServiceError,
+)
+from app.core.index import check_schema, ensure_index_identity
+from app.services.ingestion import extract_text, get_pipeline_id
+from app.services.queue import enqueue_document
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 ALLOWED_EXT = (".txt", ".md", ".pdf")
 
 
-@router.post("", status_code=201)
-def upload_document(file: UploadFile):
+def read_upload(file: UploadFile) -> tuple[str, bytes]:
     try:
         if not file.filename or not file.filename.lower().endswith(ALLOWED_EXT):
             raise HTTPException(400, "Chỉ chấp nhận: .txt, .md, .pdf")
@@ -25,26 +35,108 @@ def upload_document(file: UploadFile):
         raise HTTPException(413, "File vượt quá giới hạn upload.")
     if not content:
         raise InvalidDocument()
-    with get_conn() as conn:
-        document_id = conn.execute(
-            "INSERT INTO documents (filename, status) VALUES (%s, 'pending') RETURNING id",
-            (file.filename,),
-        ).fetchone()[0]
-    # Day 1: students replace this synchronous call with a durable queue.
-    chunk_count = ingest_document_sync(document_id, file.filename, content)
+    return file.filename, content
+
+
+def accepted(document_id: int, filename: str) -> dict[str, Any]:
     settings = get_settings()
     return {
         "id": document_id,
-        "filename": file.filename,
-        "status": "ready",
-        "chunk_count": chunk_count,
+        "filename": filename,
+        "status": "pending",
+        "chunk_count": 0,
         "mode": settings.rag_mode,
         "embedding_identity_id": settings.embedding_identity_id,
     }
 
 
+@router.post("", status_code=202)
+def upload_document(file: UploadFile) -> dict[str, Any]:
+    filename, content = read_upload(file)
+    digest = hashlib.sha256(content).hexdigest()
+    # Preserve the starter's failed metadata for nonempty invalid extracted text.
+    invalid = False
+    try:
+        extract_text(filename, content)
+    except InvalidDocument:
+        invalid = True
+    with get_conn() as conn:
+        check_schema(conn)
+        ensure_index_identity(conn, claim=False)
+        row = conn.execute(
+            "INSERT INTO documents (filename, status, content_sha256, pipeline_id, error_code) "
+            "VALUES (%s, %s, %s, %s, %s) RETURNING id",
+            (
+                filename,
+                "failed" if invalid else "pending",
+                digest,
+                get_pipeline_id(),
+                "invalid_document" if invalid else None,
+            ),
+        ).fetchone()
+        assert row is not None
+        document_id = int(row[0])
+    if invalid:
+        raise InvalidDocument()
+    try:
+        enqueue_document(document_id, filename, content)
+    except QueueUnavailable:
+        # Never overwrite ready, including a worker completing an ambiguous enqueue.
+        with get_conn() as conn:
+            conn.execute(
+                "UPDATE documents SET status='failed', error_code='queue_unavailable' "
+                "WHERE id=%s AND status='pending'",
+                (document_id,),
+            )
+        raise
+    return accepted(document_id, filename)
+
+
+@router.post("/{document_id}/retry", status_code=202)
+def retry_document(document_id: int, file: UploadFile) -> dict[str, Any]:
+    filename, content = read_upload(file)
+    extract_text(filename, content)
+    failure: ServiceError | None = None
+    with get_conn() as conn:
+        with conn.transaction():
+            row = conn.execute(
+                "SELECT filename, status, content_sha256, pipeline_id, error_code FROM documents "
+                "WHERE id=%s FOR UPDATE",
+                (document_id,),
+            ).fetchone()
+            if row is None:
+                raise DocumentNotFound()
+            if row[:4] != (
+                filename,
+                "failed",
+                hashlib.sha256(content).hexdigest(),
+                get_pipeline_id(),
+            ):
+                raise DocumentConflict()
+            check_schema(conn)
+            ensure_index_identity(conn, claim=False)
+            conn.execute(
+                "UPDATE documents SET status='pending', error_code=NULL WHERE id=%s",
+                (document_id,),
+            )
+            try:
+                enqueue_document(document_id, filename, content, require_new=True)
+            except (QueueUnavailable, DocumentConflict) as exc:
+                failure = exc
+                conn.execute(
+                    "UPDATE documents SET status='failed', error_code=%s WHERE id=%s",
+                    (
+                        row[4] if isinstance(exc, DocumentConflict) else exc.code,
+                        document_id,
+                    ),
+                )
+    if failure is not None:
+        raise failure
+    return accepted(document_id, filename)
+
+
 @router.get("")
-def list_documents():
+def list_documents() -> list[dict[str, Any]]:
     with get_conn() as conn:
         rows = conn.execute(
             "SELECT id, filename, status, chunk_count, created_at, "
@@ -65,7 +157,7 @@ def list_documents():
 
 
 @router.delete("/{document_id}", status_code=204)
-def delete_document(document_id: int):
+def delete_document(document_id: int) -> None:
     with get_conn() as conn:
         result = conn.execute(
             "DELETE FROM documents WHERE id = %s RETURNING id",

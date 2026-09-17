@@ -1,0 +1,21 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: Ruff lint (API and Day 01 worker/tests)
+        entry: python -m ruff check api/app ingestion-worker/worker.py ingestion-worker/tests tests/milestones/day1
+        language: system
+        pass_filenames: false
+        types: [python]
+      - id: ruff-format
+        name: Ruff format check
+        entry: python -m ruff format --check api/app ingestion-worker/worker.py ingestion-worker/tests tests/milestones/day1
+        language: system
+        pass_filenames: false
+        types: [python]
+      - id: mypy-strict
+        name: Mypy strict (complete API runtime and worker)
+        entry: python -m mypy --strict api/app ingestion-worker/worker.py
+        language: system
+        pass_filenames: false
+        types: [python]

@@ -1,12 +1,14 @@
 """Cosine search is allowed only for the index's exact embedding identity."""
 
+from typing import Any
+
 from app.core.config import get_settings
 from app.core.db import get_conn
 from app.core.index import check_schema, ensure_index_identity
 from app.services.embeddings import embed
 
 
-def retrieve(question: str, top_k: int | None = None) -> list[dict]:
+def retrieve(question: str, top_k: int | None = None) -> list[dict[str, Any]]:
     settings = get_settings()
     k = settings.retrieval_top_k if top_k is None else top_k
     if not 1 <= k <= 20:

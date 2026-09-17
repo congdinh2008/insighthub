@@ -1,7 +1,7 @@
 """RAG executes in FastAPI's threadpool; usage preserves its provenance."""
 
 import time
-from typing import Literal
+from typing import Any, Literal
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, ConfigDict, Field
@@ -28,7 +28,7 @@ class TokenUsage(BaseModel):
 class ChatResponse(BaseModel):
     answer: str
     sources: list[str]
-    contexts: list[dict]
+    contexts: list[dict[str, Any]]
     latency_ms: int
     mode: Literal["fixture", "real"]
     provider: str
@@ -37,7 +37,7 @@ class ChatResponse(BaseModel):
 
 
 @router.post("", response_model=ChatResponse)
-def chat(req: ChatRequest):
+def chat(req: ChatRequest) -> ChatResponse:
     start = time.perf_counter()
     with rag_query_latency.time():
         contexts = retrieve(req.question, top_k=req.top_k)

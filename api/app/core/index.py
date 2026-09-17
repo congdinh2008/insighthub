@@ -1,13 +1,15 @@
 """Prevent comparisons across embedding spaces, including equal-dimensional models."""
 
-from psycopg import Error
+from typing import Any
+
+from psycopg import Connection, Error
 from psycopg.types.json import Jsonb
 
 from app.core.config import get_settings
 from app.core.errors import IndexIdentityConflict, SchemaMismatch
 
 
-def check_schema(conn):
+def check_schema(conn: Connection[Any]) -> None:
     try:
         row = conn.execute(
             "SELECT atttypmod FROM pg_attribute WHERE attrelid = to_regclass('chunks') "
@@ -26,7 +28,7 @@ def check_schema(conn):
         raise SchemaMismatch() from None
 
 
-def ensure_index_identity(conn, *, claim: bool):
+def ensure_index_identity(conn: Connection[Any], *, claim: bool) -> bool:
     settings = get_settings()
     if claim:
         conn.execute(

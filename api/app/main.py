@@ -1,13 +1,16 @@
-"""InsightHub synchronous starter API."""
+"""InsightHub Day 01 API with asynchronous ingestion."""
 
 import logging
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from typing import Any
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from starlette.concurrency import run_in_threadpool
+from starlette.middleware.base import RequestResponseEndpoint
 
 from app.core.config import get_settings
 from app.core.db import close_pool, get_conn, initialize_database
@@ -24,7 +27,7 @@ for name in ("httpx", "httpcore", "pypdf", "psycopg.pool"):
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     try:
         await run_in_threadpool(initialize_database)
         yield
@@ -43,14 +46,16 @@ app.add_middleware(
 
 
 @app.exception_handler(ServiceError)
-async def service_error_handler(request: Request, exc: ServiceError):
+async def service_error_handler(request: Request, exc: ServiceError) -> JSONResponse:
     return JSONResponse(
         {"detail": exc.message, "code": exc.code}, status_code=exc.status_code
     )
 
 
 @app.middleware("http")
-async def metrics_middleware(request: Request, call_next):
+async def metrics_middleware(
+    request: Request, call_next: RequestResponseEndpoint
+) -> Response:
     status = 500
     try:
         response = await call_next(request)
@@ -84,7 +89,7 @@ async def metrics_middleware(request: Request, call_next):
 
 
 @app.get("/metrics")
-def metrics():
+def metrics() -> Response:
     with get_conn() as conn:
         counts = dict(
             conn.execute(
@@ -102,7 +107,7 @@ app.include_router(chat.router)
 
 
 @app.get("/")
-def root():
+def root() -> dict[str, Any]:
     return {
         "service": settings.app_name,
         "version": "0.2.3",

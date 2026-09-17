@@ -10,3 +10,5 @@ python-multipart==0.0.32
 pypdf==6.18.0
 httpx==0.28.1
 prometheus-client==0.26.0
+
+arq==0.28.0

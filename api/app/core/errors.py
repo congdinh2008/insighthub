@@ -6,7 +6,7 @@ class ServiceError(Exception):
     code = "internal_error"
     message = "Không thể xử lý yêu cầu."
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(self.message)
 
 
@@ -14,6 +14,10 @@ class ProviderError(ServiceError):
     status_code = 502
     code = "provider_error"
     message = "Dịch vụ AI không khả dụng hoặc trả dữ liệu không hợp lệ."
+
+    def __init__(self, *, retryable: bool = False) -> None:
+        self.retryable = retryable
+        super().__init__()
 
 
 class InvalidDocument(ServiceError):
@@ -46,3 +50,9 @@ class SchemaMismatch(ServiceError):
     status_code = 503
     code = "schema_mismatch"
     message = "Schema chưa sẵn sàng hoặc dimension không khớp EMBEDDING_DIM."
+
+
+class QueueUnavailable(ServiceError):
+    status_code = 503
+    code = "queue_unavailable"
+    message = "Hàng đợi xử lý chưa sẵn sàng. Vui lòng thử lại sau."

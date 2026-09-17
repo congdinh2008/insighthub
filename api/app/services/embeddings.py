@@ -2,8 +2,9 @@
 
 import hashlib
 import math
+from typing import Any
 
-from app.core.config import get_settings
+from app.core.config import Settings, get_settings
 from app.core.errors import ProviderError
 from app.core.metrics import record_embedding_usage
 from app.core.providers import indexed_embeddings, post_json, token_count
@@ -23,7 +24,9 @@ def _local_embed(texts: list[str], dim: int) -> list[list[float]]:
     return vectors
 
 
-def validate_vectors(vectors, expected_count: int, dim: int) -> list[list[float]]:
+def validate_vectors(
+    vectors: object, expected_count: int, dim: int
+) -> list[list[float]]:
     if not isinstance(vectors, (list, tuple)) or len(vectors) != expected_count:
         raise ProviderError()
     result = []
@@ -48,11 +51,13 @@ def validate_vectors(vectors, expected_count: int, dim: int) -> list[list[float]
     return result
 
 
-def _gemini_embed(texts, input_type, settings):
+def _gemini_embed(
+    texts: list[str], input_type: str, settings: Settings
+) -> tuple[list[Any], int | None]:
     model = settings.resolved_embedding_model
     requests = []
     for text in texts:
-        config = {"outputDimensionality": settings.embedding_dim}
+        config: dict[str, str | int] = {"outputDimensionality": settings.embedding_dim}
         if model == "gemini-embedding-001":
             config["taskType"] = (
                 "RETRIEVAL_QUERY" if input_type == "query" else "RETRIEVAL_DOCUMENT"
@@ -84,7 +89,9 @@ def _gemini_embed(texts, input_type, settings):
     return [item["values"] for item in data["embeddings"]], tokens
 
 
-def _real_embed(texts, input_type, settings):
+def _real_embed(
+    texts: list[str], input_type: str, settings: Settings
+) -> tuple[list[Any], int | None]:
     provider = settings.embedding_provider
     model = settings.resolved_embedding_model
     if provider == "gemini":

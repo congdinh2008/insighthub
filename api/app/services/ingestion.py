@@ -1,4 +1,4 @@
-"""Starter ingestion is synchronous. Day 1 students still implement the queue/worker."""
+"""Shared atomic ingestion pipeline, called by the Day 01 worker."""
 
 import hashlib
 import io
@@ -11,6 +11,7 @@ from app.core.errors import (
     DocumentConflict,
     DocumentNotFound,
     InvalidDocument,
+    ProviderError,
     ServiceError,
 )
 from app.core.index import check_schema, ensure_index_identity
@@ -54,7 +55,7 @@ def extract_text(filename: str, content: bytes) -> str:
         raise InvalidDocument() from None
 
 
-def _pipeline_id() -> str:
+def get_pipeline_id() -> str:
     settings = get_settings()
     return hashlib.sha256(
         json.dumps(
@@ -69,7 +70,9 @@ def _pipeline_id() -> str:
     ).hexdigest()
 
 
-def process_document(document_id: int, filename: str, content: bytes) -> int:
+def process_document(
+    document_id: int, filename: str, content: bytes, *, retry_pending: bool = False
+) -> int:
     """Same ID + bytes + pipeline is a no-op after success, including concurrent retries.
 
     A row lock spans the synchronous provider calls. A savepoint atomically replaces
@@ -77,7 +80,7 @@ def process_document(document_id: int, filename: str, content: bytes) -> int:
     so a delayed failure cannot overwrite a later successful retry.
     """
     settings = get_settings()
-    digest, pipeline_id = hashlib.sha256(content).hexdigest(), _pipeline_id()
+    digest, pipeline_id = hashlib.sha256(content).hexdigest(), get_pipeline_id()
     failure = None
     chunk_count = 0
     with get_conn() as conn:
@@ -98,7 +101,7 @@ def process_document(document_id: int, filename: str, content: bytes) -> int:
                 raise DocumentConflict()
             if row[1] == "ready":
                 ensure_index_identity(conn, claim=False)
-                return row[2]
+                return int(row[2])
             conn.execute(
                 "UPDATE documents SET content_sha256 = %s, pipeline_id = %s WHERE id = %s",
                 (digest, pipeline_id, document_id),
@@ -151,9 +154,21 @@ def process_document(document_id: int, filename: str, content: bytes) -> int:
                     "DELETE FROM chunks WHERE document_id = %s", (document_id,)
                 )
                 conn.execute(
-                    "UPDATE documents SET status = 'failed', chunk_count = 0, "
+                    "UPDATE documents SET status = %s, chunk_count = 0, "
                     "embedding_identity_id = NULL, error_code = %s WHERE id = %s",
-                    (failure.code, document_id),
+                    (
+                        "pending"
+                        if retry_pending
+                        and isinstance(failure, ProviderError)
+                        and failure.retryable
+                        else "failed",
+                        None
+                        if retry_pending
+                        and isinstance(failure, ProviderError)
+                        and failure.retryable
+                        else failure.code,
+                        document_id,
+                    ),
                 )
     if failure is not None:
         ingestion_errors_total.inc()

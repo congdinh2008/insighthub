@@ -3,7 +3,7 @@
 import hashlib
 import json
 from functools import lru_cache
-from typing import Literal
+from typing import Literal, Self
 from urllib.parse import urlsplit
 
 from pydantic import Field, model_validator
@@ -18,6 +18,12 @@ class Settings(BaseSettings):
         hide_input_in_errors=True,
         str_strip_whitespace=True,
     )
+
+    redis_url: str = Field(default="redis://redis:6379/0", repr=False)
+    queue_name: str = "insighthub:ingestion"
+    worker_max_jobs: int = Field(default=2, ge=1, le=10)
+    worker_job_timeout: int = Field(default=120, ge=10, le=600)
+    worker_shutdown_wait: int = Field(default=125, ge=10, le=650)
 
     app_name: str = "InsightHub API"
     environment: str = "development"
@@ -64,7 +70,7 @@ class Settings(BaseSettings):
     max_upload_bytes: int = Field(default=10 * 1024 * 1024, ge=1, le=50 * 1024 * 1024)
 
     @model_validator(mode="after")
-    def validate_configuration(self):
+    def validate_configuration(self) -> Self:
         if self.chunk_overlap >= self.chunk_size:
             raise ValueError("CHUNK_OVERLAP must be smaller than CHUNK_SIZE")
         if self.rag_mode == "fixture":
@@ -133,7 +139,7 @@ class Settings(BaseSettings):
         )
 
     @property
-    def embedding_identity(self) -> dict:
+    def embedding_identity(self) -> dict[str, str | int]:
         endpoint = {
             "gemini": "https://generativelanguage.googleapis.com/v1beta",
             "voyage": "https://api.voyageai.com/v1",

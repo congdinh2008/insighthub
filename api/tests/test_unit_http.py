@@ -160,3 +160,46 @@ class AsyncHttpTests(unittest.IsolatedAsyncioTestCase):
             )
         self.assertEqual(called, [])
         self.assertEqual(sent[0]["status"], 413)
+
+    async def test_retry_multipart_limit_applies_before_parsing(self):
+        for path in (
+            "/documents/1/retry",
+            "/documents/-1/retry",
+            "/documents/not-an-id/retry",
+        ):
+            called, sent = [], []
+
+            async def inner(scope, receive, send):
+                called.append(True)
+
+            async def receive():
+                return {
+                    "type": "http.request",
+                    "body": b"x" * 70000,
+                    "more_body": False,
+                }
+
+            async def send(message):
+                sent.append(message)
+
+            with configured(max_upload_bytes=4):
+                await UploadLimitMiddleware(inner)(
+                    {"type": "http", "method": "POST", "path": path, "headers": []},
+                    receive,
+                    send,
+                )
+            self.assertEqual(called, [])
+            self.assertEqual(sent[0]["status"], 413)
+
+    async def test_file_limit_inclusive_boundary(self):
+        from app.routers.documents import read_upload
+
+        for size in (3, 4):
+            with configured(max_upload_bytes=4):
+                filename, content = read_upload(
+                    UploadFile(filename="file.txt", file=io.BytesIO(b"x" * size))
+                )
+            self.assertEqual(len(content), size)
+        with configured(max_upload_bytes=4), self.assertRaises(HTTPException) as raised:
+            read_upload(UploadFile(filename="file.txt", file=io.BytesIO(b"x" * 5)))
+        self.assertEqual(raised.exception.status_code, 413)

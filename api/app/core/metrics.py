@@ -43,7 +43,9 @@ ingestion_errors_total = Counter(
 )
 
 
-def record_embedding_usage(provider, input_type, tokens, texts):
+def record_embedding_usage(
+    provider: str, input_type: str, tokens: int | None, texts: list[str]
+) -> None:
     if tokens is not None:
         embedding_tokens_total.labels(provider, input_type).inc(tokens)
     else:
