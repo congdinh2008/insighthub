@@ -1,4 +1,4 @@
-"""InsightHub synchronous starter API."""
+"""InsightHub API with asynchronous ingestion through Redis/ARQ."""
 
 import logging
 from contextlib import asynccontextmanager

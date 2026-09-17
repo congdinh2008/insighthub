@@ -1,4 +1,4 @@
-"""Starter ingestion is synchronous. Day 1 students still implement the queue/worker."""
+"""Atomic ingestion primitives executed in the independent ARQ worker."""
 
 import hashlib
 import io
@@ -50,7 +50,7 @@ def extract_text(filename: str, content: bytes) -> str:
         return text
     except InvalidDocument:
         raise
-    except Exception:
+    except Exception:  # noqa: BLE001 - sanitize errors at the service boundary
         raise InvalidDocument() from None
 
 
@@ -69,7 +69,9 @@ def _pipeline_id() -> str:
     ).hexdigest()
 
 
-def process_document(document_id: int, filename: str, content: bytes) -> int:
+def process_document(
+    document_id: int, filename: str, content: bytes, *, retry_pending: bool = False
+) -> int:
     """Same ID + bytes + pipeline is a no-op after success, including concurrent retries.
 
     A row lock spans the synchronous provider calls. A savepoint atomically replaces
@@ -80,81 +82,82 @@ def process_document(document_id: int, filename: str, content: bytes) -> int:
     digest, pipeline_id = hashlib.sha256(content).hexdigest(), _pipeline_id()
     failure = None
     chunk_count = 0
-    with get_conn() as conn:
-        with conn.transaction():
-            check_schema(conn)
-            row = conn.execute(
-                "SELECT filename, status, chunk_count, content_sha256, pipeline_id "
-                "FROM documents WHERE id = %s FOR UPDATE",
-                (document_id,),
-            ).fetchone()
-            if row is None:
-                raise DocumentNotFound()
-            if (
-                row[0] != filename
-                or row[3] not in (None, digest)
-                or row[4] not in (None, pipeline_id)
-            ):
-                raise DocumentConflict()
-            if row[1] == "ready":
+    with get_conn() as conn, conn.transaction():
+        check_schema(conn)
+        row = conn.execute(
+            "SELECT filename, status, chunk_count, content_sha256, pipeline_id "
+            "FROM documents WHERE id = %s FOR UPDATE",
+            (document_id,),
+        ).fetchone()
+        if row is None:
+            raise DocumentNotFound()
+        if (
+            row[0] != filename
+            or row[3] not in (None, digest)
+            or row[4] not in (None, pipeline_id)
+        ):
+            raise DocumentConflict()
+        if row[1] == "ready":
+            ensure_index_identity(conn, claim=False)
+            return row[2]
+        conn.execute(
+            "UPDATE documents SET content_sha256 = %s, pipeline_id = %s WHERE id = %s",
+            (digest, pipeline_id, document_id),
+        )
+        try:
+            with conn.transaction():  # Savepoint retains the outer document row lock.
                 ensure_index_identity(conn, claim=False)
-                return row[2]
-            conn.execute(
-                "UPDATE documents SET content_sha256 = %s, pipeline_id = %s WHERE id = %s",
-                (digest, pipeline_id, document_id),
-            )
-            try:
-                with (
-                    conn.transaction()
-                ):  # Savepoint retains the outer document row lock.
-                    ensure_index_identity(conn, claim=False)
-                    if len(content) > settings.max_upload_bytes:
-                        raise InvalidDocument()
-                    chunks = chunk_text(extract_text(filename, content))
-                    ensure_index_identity(conn, claim=True)
-                    vectors = validate_vectors(
-                        embed(chunks, input_type="document"),
-                        len(chunks),
-                        settings.embedding_dim,
-                    )
-                    conn.execute(
-                        "DELETE FROM chunks WHERE document_id = %s", (document_id,)
-                    )
-                    conn.execute(
-                        "UPDATE documents SET embedding_identity_id = %s WHERE id = %s",
-                        (settings.embedding_identity_id, document_id),
-                    )
-                    for index, (chunk, vector) in enumerate(
-                        zip(chunks, vectors, strict=True)
-                    ):
-                        conn.execute(
-                            "INSERT INTO chunks "
-                            "(document_id, chunk_index, chunk_text, embedding, embedding_identity_id) "
-                            "VALUES (%s, %s, %s, %s::vector, %s)",
-                            (
-                                document_id,
-                                index,
-                                chunk,
-                                vector,
-                                settings.embedding_identity_id,
-                            ),
-                        )
-                    chunk_count = len(chunks)
-                    conn.execute(
-                        "UPDATE documents SET status = 'ready', chunk_count = %s, error_code = NULL "
-                        "WHERE id = %s",
-                        (chunk_count, document_id),
-                    )
-            except Exception as exc:
-                failure = exc if isinstance(exc, ServiceError) else ServiceError()
+                if len(content) > settings.max_upload_bytes:
+                    raise InvalidDocument()
+                chunks = chunk_text(extract_text(filename, content))
+                ensure_index_identity(conn, claim=True)
+                vectors = validate_vectors(
+                    embed(chunks, input_type="document"),
+                    len(chunks),
+                    settings.embedding_dim,
+                )
                 conn.execute(
                     "DELETE FROM chunks WHERE document_id = %s", (document_id,)
                 )
                 conn.execute(
-                    "UPDATE documents SET status = 'failed', chunk_count = 0, "
-                    "embedding_identity_id = NULL, error_code = %s WHERE id = %s",
-                    (failure.code, document_id),
+                    "UPDATE documents SET embedding_identity_id = %s WHERE id = %s",
+                    (settings.embedding_identity_id, document_id),
                 )
+                for index, (chunk, vector) in enumerate(
+                    zip(chunks, vectors, strict=True)
+                ):
+                    conn.execute(
+                        "INSERT INTO chunks "
+                        "(document_id, chunk_index, chunk_text, embedding, embedding_identity_id) "
+                        "VALUES (%s, %s, %s, %s::vector, %s)",
+                        (
+                            document_id,
+                            index,
+                            chunk,
+                            vector,
+                            settings.embedding_identity_id,
+                        ),
+                    )
+                chunk_count = len(chunks)
+                conn.execute(
+                    "UPDATE documents SET status = 'ready', chunk_count = %s, error_code = NULL "
+                    "WHERE id = %s",
+                    (chunk_count, document_id),
+                )
+        except Exception as exc:  # noqa: BLE001 - persist status and sanitize errors
+            failure = exc if isinstance(exc, ServiceError) else ServiceError()
+            conn.execute("DELETE FROM chunks WHERE document_id = %s", (document_id,))
+            conn.execute(
+                "UPDATE documents SET status = %s, chunk_count = 0, "
+                "embedding_identity_id = NULL, error_code = %s WHERE id = %s",
+                (
+                    "pending"
+                    if retry_pending and failure.status_code >= 500
+                    else "failed",
+                    failure.code,
+                    document_id,
+                ),
+            )
     if failure is not None:
         ingestion_errors_total.inc()
         logger.warning(
@@ -162,8 +165,3 @@ def process_document(document_id: int, filename: str, content: bytes) -> int:
         )
         raise failure from None
     return chunk_count
-
-
-def ingest_document_sync(document_id: int, filename: str, content: bytes) -> int:
-    # Day 1: replace the caller with enqueueing, preserving process_document's contract.
-    return process_document(document_id, filename, content)

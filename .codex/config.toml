@@ -1,0 +1,40 @@
+﻿# Project-scoped Codex MCP configuration for InsightHub.
+# Trust this project before Codex loads this file.
+
+[mcp_servers.filesystem]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-filesystem@0.6.2", "D:\\AI_VTI\\insighthub"]
+cwd = "D:\\AI_VTI\\insighthub"
+startup_timeout_sec = 10
+tool_timeout_sec = 10
+
+[mcp_servers.docker]
+command = "docker"
+args = ["mcp", "gateway", "run", "--servers", "docker", "--block-secrets", "--verify-signatures"]
+cwd = "D:\\AI_VTI\\insighthub"
+startup_timeout_sec = 15
+tool_timeout_sec = 15
+
+[mcp_servers.kubernetes]
+command = "npx"
+args = ["-y", "kubernetes-mcp-server@0.0.66", "--read-only", "--disable-multi-cluster", "--toolsets=core", "--namespace=insighthub"]
+cwd = "D:\\AI_VTI\\insighthub"
+startup_timeout_sec = 15
+tool_timeout_sec = 15
+
+[mcp_servers.prometheus]
+command = "node"
+args = ["D:\\AI_VTI\\insighthub\\tools\\mcp\\src\\server.mjs"]
+cwd = "D:\\AI_VTI\\insighthub"
+startup_timeout_sec = 10
+tool_timeout_sec = 10
+enabled_tools = ["prometheus_summary"]
+
+[mcp_servers.prometheus.env]
+INSIGHTHUB_API_URL = "http://127.0.0.1:8000"
+INSIGHTHUB_PROMETHEUS_URL = "http://127.0.0.1:9090"
+INSIGHTHUB_MCP_PROMETHEUS = "1"
+INSIGHTHUB_MCP_TOOLS = "prometheus_summary"
+INSIGHTHUB_MCP_TIMEOUT_MS = "1500"
+INSIGHTHUB_MCP_MAX_BYTES = "65536"
+
