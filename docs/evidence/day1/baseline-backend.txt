@@ -1,0 +1,71 @@
+docker compose run --rm --no-deps -e RUN_DB_TESTS=1 -e TEST_SCHEMA_PATH=/tmp/init.sql -v "<repo>/infra/db/init.sql:/tmp/init.sql:ro" api python -m unittest discover -s tests -v
+ Container insighthub-do2603-day1-0917-api-run-4cf5ed566cf0 Creating
+ Container insighthub-do2603-day1-0917-api-run-4cf5ed566cf0 Created
+/usr/local/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+test_concurrent_successful_retries_call_provider_once (test_integration.IntegrationTests.test_concurrent_successful_retries_call_provider_once) ... ok
+test_dimension_mismatch_is_rejected_before_provider (test_integration.IntegrationTests.test_dimension_mismatch_is_rejected_before_provider) ... ok
+test_empty_extracted_text_is_failed_and_422 (test_integration.IntegrationTests.test_empty_extracted_text_is_failed_and_422) ... WARNING:insighthub.ingestion:Document processing failed: id=1 code=invalid_document
+ok
+test_failed_attempt_and_concurrent_retry_end_ready (test_integration.IntegrationTests.test_failed_attempt_and_concurrent_retry_end_ready) ... WARNING:insighthub.ingestion:Document processing failed: id=1 code=provider_error
+ok
+test_failed_vectors_are_atomic_and_can_retry (test_integration.IntegrationTests.test_failed_vectors_are_atomic_and_can_retry) ... WARNING:insighthub.ingestion:Document processing failed: id=1 code=provider_error
+WARNING:insighthub.ingestion:Document processing failed: id=1 code=provider_error
+WARNING:insighthub.ingestion:Document processing failed: id=1 code=provider_error
+ok
+test_fixture_upload_retrieve_chat_metrics_delete_end_to_end (test_integration.IntegrationTests.test_fixture_upload_retrieve_chat_metrics_delete_end_to_end) ... ok
+test_index_identity_change_rejects_query_upload_and_readiness (test_integration.IntegrationTests.test_index_identity_change_rejects_query_upload_and_readiness) ... WARNING:insighthub.ingestion:Document processing failed: id=2 code=index_identity_conflict
+WARNING:insighthub.db:Database readiness check failed
+ok
+test_mid_insert_database_failure_rolls_back_all_chunks (test_integration.IntegrationTests.test_mid_insert_database_failure_rolls_back_all_chunks) ... WARNING:insighthub.ingestion:Document processing failed: id=1 code=internal_error
+ok
+test_provider_failure_is_502_and_metadata_truthful (test_integration.IntegrationTests.test_provider_failure_is_502_and_metadata_truthful) ... WARNING:insighthub.ingestion:Document processing failed: id=1 code=provider_error
+ok
+test_real_gateway_full_pipeline_with_mock_http (test_integration.IntegrationTests.test_real_gateway_full_pipeline_with_mock_http) ... ok
+test_same_dimension_real_provider_cannot_query_fixture_index (test_integration.IntegrationTests.test_same_dimension_real_provider_cannot_query_fixture_index) ... ok
+test_successful_retry_is_noop_and_conflicting_payload_is_409 (test_integration.IntegrationTests.test_successful_retry_is_noop_and_conflicting_payload_is_409) ... ok
+test_chunking_progress_overlap_and_empty (test_unit_config.ConfigTests.test_chunking_progress_overlap_and_empty) ... ok
+test_fixture_requires_both_explicit_providers (test_unit_config.ConfigTests.test_fixture_requires_both_explicit_providers) ... ok
+test_identity_changes_with_vector_space_but_not_chat_model_or_key (test_unit_config.ConfigTests.test_identity_changes_with_vector_space_but_not_chat_model_or_key) ... ok
+test_invalid_numeric_configuration (test_unit_config.ConfigTests.test_invalid_numeric_configuration) ... ok
+test_ollama_uses_dedicated_native_dimension (test_unit_config.ConfigTests.test_ollama_uses_dedicated_native_dimension) ... ok
+test_real_requires_credentials_explicit_model_and_endpoint (test_unit_config.ConfigTests.test_real_requires_credentials_explicit_model_and_endpoint) ... ok
+test_settings_errors_hide_secrets (test_unit_config.ConfigTests.test_settings_errors_hide_secrets) ... ok
+test_chunked_upload_limit_stops_before_parser_and_without_content_length (test_unit_http.AsyncHttpTests.test_chunked_upload_limit_stops_before_parser_and_without_content_length) ... ok
+test_health_remains_responsive_during_blocking_chat (test_unit_http.AsyncHttpTests.test_health_remains_responsive_during_blocking_chat) ... ok
+test_empty_upload_returns_422 (test_unit_http.HttpTests.test_empty_upload_returns_422) ... ok
+test_file_read_is_bounded_and_closed (test_unit_http.HttpTests.test_file_read_is_bounded_and_closed) ... ok
+test_invalid_documents_and_blank_pdf_are_422_errors (test_unit_http.HttpTests.test_invalid_documents_and_blank_pdf_are_422_errors) ... ok
+test_metrics_route_labels_do_not_include_user_paths_or_methods (test_unit_http.HttpTests.test_metrics_route_labels_do_not_include_user_paths_or_methods) ... ok
+test_provider_error_response_is_sanitized (test_unit_http.HttpTests.test_provider_error_response_is_sanitized) ... ok
+test_unexpected_errors_are_sanitized_and_counted_as_500 (test_unit_http.HttpTests.test_unexpected_errors_are_sanitized_and_counted_as_500) ... ok
+test_whitespace_question_and_unknown_fields_rejected (test_unit_http.HttpTests.test_whitespace_question_and_unknown_fields_rejected) ... ok
+test_batches_have_a_bounded_size (test_unit_providers.EmbeddingTests.test_batches_have_a_bounded_size) ... ok
+test_empty_input_is_explicit (test_unit_providers.EmbeddingTests.test_empty_input_is_explicit) ... ok
+test_estimate_and_reported_usage_are_separate (test_unit_providers.EmbeddingTests.test_estimate_and_reported_usage_are_separate) ... ok
+test_fixture_is_deterministic_finite_and_normalized (test_unit_providers.EmbeddingTests.test_fixture_is_deterministic_finite_and_normalized) ... ok
+test_gemini_one_uses_task_type (test_unit_providers.EmbeddingTests.test_gemini_one_uses_task_type) ... ok
+test_gemini_two_separate_requests_and_task_prefixes (test_unit_providers.EmbeddingTests.test_gemini_two_separate_requests_and_task_prefixes) ... ok
+test_gemini_usage_uses_provider_tokens_without_inventing_missing_values (test_unit_providers.EmbeddingTests.test_gemini_usage_uses_provider_tokens_without_inventing_missing_values) ... ok
+test_invalid_vectors_are_rejected (test_unit_providers.EmbeddingTests.test_invalid_vectors_are_rejected) ... ok
+test_missing_duplicate_or_wrong_embedding_indices_fail (test_unit_providers.EmbeddingTests.test_missing_duplicate_or_wrong_embedding_indices_fail) ... ok
+test_ollama_native_vectors_no_truncation_or_padding (test_unit_providers.EmbeddingTests.test_ollama_native_vectors_no_truncation_or_padding) ... ok
+test_openai_request_dimension_and_response_order (test_unit_providers.EmbeddingTests.test_openai_request_dimension_and_response_order) ... ok
+test_real_failure_never_uses_fixture (test_unit_providers.EmbeddingTests.test_real_failure_never_uses_fixture) ... ok
+test_voyage_payload_and_usage (test_unit_providers.EmbeddingTests.test_voyage_payload_and_usage) ... ok
+test_failure_or_empty_real_answer_is_not_fixture (test_unit_providers.GenerationTests.test_failure_or_empty_real_answer_is_not_fixture) ... ok
+test_fixture_label_and_usage_truth (test_unit_providers.GenerationTests.test_fixture_label_and_usage_truth) ... ok
+test_missing_usage_is_not_reported_as_zero (test_unit_providers.GenerationTests.test_missing_usage_is_not_reported_as_zero) ... ok
+test_openai_gateway_explicit_endpoint_and_usage (test_unit_providers.GenerationTests.test_openai_gateway_explicit_endpoint_and_usage) ... ok
+test_other_chat_provider_contracts (test_unit_providers.GenerationTests.test_other_chat_provider_contracts) ... ok
+test_timeout_is_sanitized (test_unit_providers.GenerationTests.test_timeout_is_sanitized) ... WARNING:insighthub.providers:AI provider request failed
+ok
+test_transport_errors_and_bodies_are_sanitized (test_unit_providers.GenerationTests.test_transport_errors_and_bodies_are_sanitized) ... WARNING:insighthub.providers:AI provider request failed
+WARNING:insighthub.providers:AI provider request failed
+WARNING:insighthub.providers:AI provider request failed
+ok
+
+----------------------------------------------------------------------
+Ran 48 tests in 0.440s
+
+OK

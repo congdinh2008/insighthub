@@ -17,26 +17,30 @@ python3 scripts/verify.py smoke --api-url http://localhost:18000 --web-url http:
 ```
 Không chạy `docker compose config` có nội dung lên log công khai khi đã điền secret. Dùng `--quiet`.
 
-## 2. Contract starter
+## 2. Contract Day 01
 | Hành động | Endpoint | Kỳ vọng |
 |---|---|---|
 | Liveness và cấu hình mode | GET /healthz | HTTP 200 khi process sống |
-| Readiness DB/schema/index | GET /readyz | 200 sẵn sàng, 503 chưa sẵn sàng |
-| Upload .txt/.md/.pdf | POST /documents, multipart field file | 201; sync ingestion trong starter |
+| Readiness DB/schema/index/Redis | GET /readyz | 200 sẵn sàng, 503 chưa sẵn sàng |
+| Upload .txt/.md/.pdf | POST /documents, multipart field file | 202 sau enqueue; worker xử lý nền |
+| Retry tài liệu failed | POST /documents/{id}/retry, multipart file gốc | 202 cùng ID; 409 khi trạng thái/payload không hợp lệ |
 | Xem trạng thái | GET /documents | Danh sách chứa id, status, chunk_count |
 | Xóa tài liệu của lab | DELETE /documents/{id} | Xóa tài liệu và chunks |
 | Hỏi đáp | POST /chat với question | answer, sources và contexts |
 | Telemetry | GET /metrics | Prometheus exposition |
 
-Không có endpoint /upload hay /documents/{id}/status trong contract này. Smoke hiểu cả sync 201 và async 202, poll GET /documents tới ready hoặc failed với deadline. Frontend cũng hỗ trợ pending để dùng sau bài Day 1 worker.
+Không có endpoint /upload hay /documents/{id}/status trong contract này. Smoke hiểu cả sync 201 và async 202, poll GET /documents tới ready hoặc failed với deadline. Frontend polling pending đã được kiểm thử với worker Day 01.
 
 ## 3. Test baseline
 ```bash
-make test-backend
+make test-image
+make test-backend test-worker
 python3 -m unittest discover -s tests -p 'test_verify*.py' -v
 python3 scripts/verify.py
 ```
-Unit-only: docker compose exec api python -m unittest discover -s tests -p 'test_unit*.py' -v. Database integration phải dùng database lab riêng. Cài MCP tools bằng `make tools` trước `make test`. `make test` chạy bộ baseline; Day verifiers chưa hoàn tất là bình thường khi chưa hoàn thiện các task dự án. PASS cấu trúc không đồng nghĩa milestone hoàn thành.
+Chi tiết venv, strict checks, test runner và project/ports tại [Day 01 runbook](docs/day1/Runbook.md).
+
+Unit-only: docker compose exec api python -m unittest discover -s tests -p 'test_unit*.py' -v. Database integration phải dùng database lab riêng. Cài MCP tools bằng `make tools` trước `make test`. `make test` chạy baseline và Day 01; Day verifiers chưa hoàn tất là bình thường khi chưa hoàn thiện các task dự án. PASS cấu trúc không đồng nghĩa milestone hoàn thành.
 
 ## 4. Chuyển sang real provider
 1. Hoàn thành smoke fixture, hiểu generation và embedding tách biệt.

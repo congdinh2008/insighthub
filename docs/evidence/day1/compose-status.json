@@ -1,0 +1,100 @@
+{
+  "observed_at": "2026-09-17T09:46:28.243644+00:00",
+  "services": [
+    {
+      "Service": "api",
+      "State": "running",
+      "Health": "healthy",
+      "Image": "insighthub-day1-final-0917-api"
+    },
+    {
+      "Service": "ingestion-worker",
+      "State": "running",
+      "Health": "healthy",
+      "Image": "insighthub-day1-final-0917-ingestion-worker"
+    },
+    {
+      "Service": "postgres",
+      "State": "running",
+      "Health": "healthy",
+      "Image": "pgvector/pgvector:0.8.2-pg16@sha256:00ba258a66dac104fd5171074a0084462a64a1369d8513f3d0a634e2f24d15bc"
+    },
+    {
+      "Service": "redis",
+      "State": "running",
+      "Health": "healthy",
+      "Image": "redis:7-alpine@sha256:6ab0b6e7381779332f97b8ca76193e45b0756f38d4c0dcda72dbb3c32061ab99"
+    },
+    {
+      "Service": "web",
+      "State": "running",
+      "Health": "healthy",
+      "Image": "insighthub-day1-final-0917-web"
+    }
+  ],
+  "documents": [
+    {
+      "id": 16,
+      "filename": "e2e-retry.txt",
+      "status": "ready",
+      "chunk_count": 1,
+      "created_at": "2026-09-17T09:42:52.547696+00:00",
+      "embedding_identity_id": "fde3e2755f3390c794b5b80b7df0b7debdc79c9a7f578f0163dd069a81c68873",
+      "error_code": null
+    },
+    {
+      "id": 15,
+      "filename": "e2e-polling.md",
+      "status": "ready",
+      "chunk_count": 1,
+      "created_at": "2026-09-17T09:40:37.739496+00:00",
+      "embedding_identity_id": "fde3e2755f3390c794b5b80b7df0b7debdc79c9a7f578f0163dd069a81c68873",
+      "error_code": null
+    },
+    {
+      "id": 14,
+      "filename": "e2e-pending.md",
+      "status": "ready",
+      "chunk_count": 1,
+      "created_at": "2026-09-17T09:37:33.211053+00:00",
+      "embedding_identity_id": "fde3e2755f3390c794b5b80b7df0b7debdc79c9a7f578f0163dd069a81c68873",
+      "error_code": null
+    },
+    {
+      "id": 13,
+      "filename": "e2e-invalid.pdf",
+      "status": "failed",
+      "chunk_count": 0,
+      "created_at": "2026-09-17T09:37:09.063563+00:00",
+      "embedding_identity_id": null,
+      "error_code": "invalid_document"
+    },
+    {
+      "id": 12,
+      "filename": "e2e-manual.pdf",
+      "status": "ready",
+      "chunk_count": 1,
+      "created_at": "2026-09-17T09:36:51.307580+00:00",
+      "embedding_identity_id": "fde3e2755f3390c794b5b80b7df0b7debdc79c9a7f578f0163dd069a81c68873",
+      "error_code": null
+    },
+    {
+      "id": 11,
+      "filename": "e2e-notes.txt",
+      "status": "ready",
+      "chunk_count": 1,
+      "created_at": "2026-09-17T09:36:32.749803+00:00",
+      "embedding_identity_id": "fde3e2755f3390c794b5b80b7df0b7debdc79c9a7f578f0163dd069a81c68873",
+      "error_code": null
+    },
+    {
+      "id": 10,
+      "filename": "e2e-guide.md",
+      "status": "ready",
+      "chunk_count": 1,
+      "created_at": "2026-09-17T09:36:23.475720+00:00",
+      "embedding_identity_id": "fde3e2755f3390c794b5b80b7df0b7debdc79c9a7f578f0163dd069a81c68873",
+      "error_code": null
+    }
+  ]
+}

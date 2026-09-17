@@ -1,0 +1,6 @@
+.venv/bin/python -m ruff check api/app ingestion-worker/worker.py ingestion-worker/tests tests/milestones/day1
+All checks passed!
+.venv/bin/python -m ruff format --check api/app ingestion-worker/worker.py ingestion-worker/tests tests/milestones/day1
+25 files already formatted
+.venv/bin/python -m mypy --strict api/app ingestion-worker/worker.py
+Success: no issues found in 22 source files

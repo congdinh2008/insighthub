@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /Users/congdinh/Downloads/work/teaching/Training Programs/07_DevOps_with_AI/07_DevOps_Current_Program/insighthub/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/congdinh/Downloads/work/teaching/Training Programs/07_DevOps_with_AI/07_DevOps_Current_Program/insighthub
+configfile: pyproject.toml
+plugins: anyio-4.15.1
+collecting ... collected 6 items
+
+tests/milestones/day1/test_contract.py::test_async_upload PASSED         [ 16%]
+tests/milestones/day1/test_contract.py::test_worker_ingests PASSED       [ 33%]
+tests/milestones/day1/test_contract.py::test_refactor_regression PASSED  [ 50%]
+tests/milestones/day1/test_contract.py::test_empty_input PASSED          [ 66%]
+tests/milestones/day1/test_contract.py::test_duplicate_or_invalid PASSED [ 83%]
+tests/milestones/day1/test_contract.py::test_retry_idempotent PASSED     [100%]
+
+============================== 6 passed in 0.71s ===============================

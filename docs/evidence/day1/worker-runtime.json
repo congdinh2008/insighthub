@@ -1,0 +1,736 @@
+[
+  {
+    "timestamp": "2026-09-17T09:34:38.364262+00:00",
+    "level": "INFO",
+    "event": "worker_started"
+  },
+  {
+    "timestamp": "2026-09-17T09:34:38.373371+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:34:38.373425+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:34:38.373653+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:34:38.373788+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:05.748900+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 1,
+    "job_id": "ingestion:1",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:05.759845+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 1,
+    "job_id": "ingestion:1",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.01094
+  },
+  {
+    "timestamp": "2026-09-17T09:35:05.849820+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 2,
+    "job_id": "ingestion:2",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:05.857284+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 2,
+    "job_id": "ingestion:2",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.007456
+  },
+  {
+    "timestamp": "2026-09-17T09:35:05.950999+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 3,
+    "job_id": "ingestion:3",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:05.957836+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 3,
+    "job_id": "ingestion:3",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.006823
+  },
+  {
+    "timestamp": "2026-09-17T09:35:06.153209+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 4,
+    "job_id": "ingestion:4",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:06.159903+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 4,
+    "job_id": "ingestion:4",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.006697
+  },
+  {
+    "timestamp": "2026-09-17T09:35:06.253616+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 5,
+    "job_id": "ingestion:5",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:06.261825+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 5,
+    "job_id": "ingestion:5",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.008077
+  },
+  {
+    "timestamp": "2026-09-17T09:35:06.355372+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 6,
+    "job_id": "ingestion:6",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:06.362198+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 6,
+    "job_id": "ingestion:6",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.006806
+  },
+  {
+    "timestamp": "2026-09-17T09:35:06.836537+00:00",
+    "level": "ERROR",
+    "event": "worker_connection_lost",
+    "error_code": "queue_unavailable"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:07.983348+00:00",
+    "level": "INFO",
+    "event": "worker_started"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:07.992373+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:07.992430+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:07.992713+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:07.992859+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:10.527954+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 7,
+    "job_id": "ingestion:7",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:10.539169+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 7,
+    "job_id": "ingestion:7",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.011207
+  },
+  {
+    "timestamp": "2026-09-17T09:35:12.672312+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 8,
+    "job_id": "ingestion:8",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:13.750619+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 8,
+    "job_id": "ingestion:8",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 1.078307
+  },
+  {
+    "timestamp": "2026-09-17T09:35:13.979618+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:14.080334+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:14.080473+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:14.080632+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:14.081508+00:00",
+    "level": "INFO",
+    "event": "worker_stopped"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:16.164419+00:00",
+    "level": "INFO",
+    "event": "worker_started"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:16.173491+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:16.173550+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:16.173816+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:16.173959+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:16.188663+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 8,
+    "job_id": "ingestion:8",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:16.192226+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 8,
+    "job_id": "ingestion:8",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.003514
+  },
+  {
+    "timestamp": "2026-09-17T09:35:16.578609+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:16.679051+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:16.679201+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:16.679245+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:16.680028+00:00",
+    "level": "INFO",
+    "event": "worker_stopped"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:21.292492+00:00",
+    "level": "INFO",
+    "event": "worker_started"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:21.302332+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:21.302391+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:21.302661+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:21.302915+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:21.308616+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 9,
+    "job_id": "ingestion:9",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:35:21.322740+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 9,
+    "job_id": "ingestion:9",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.014209
+  },
+  {
+    "timestamp": "2026-09-17T09:36:23.508868+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 10,
+    "job_id": "ingestion:10",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:36:23.516166+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 10,
+    "job_id": "ingestion:10",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.007291
+  },
+  {
+    "timestamp": "2026-09-17T09:36:32.855820+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 11,
+    "job_id": "ingestion:11",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:36:32.861810+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 11,
+    "job_id": "ingestion:11",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.005981
+  },
+  {
+    "timestamp": "2026-09-17T09:36:51.407564+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 12,
+    "job_id": "ingestion:12",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:36:51.469440+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 12,
+    "job_id": "ingestion:12",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.061875
+  },
+  {
+    "timestamp": "2026-09-17T09:37:24.413069+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:37:24.513477+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:37:24.513726+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:37:24.513797+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:37:24.514620+00:00",
+    "level": "INFO",
+    "event": "worker_stopped"
+  },
+  {
+    "timestamp": "2026-09-17T09:40:05.815304+00:00",
+    "level": "INFO",
+    "event": "worker_started"
+  },
+  {
+    "timestamp": "2026-09-17T09:40:05.823917+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:40:05.823969+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:40:05.824207+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:40:05.824448+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:40:05.827414+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 14,
+    "job_id": "ingestion:14",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:40:05.836734+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 14,
+    "job_id": "ingestion:14",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.009301
+  },
+  {
+    "timestamp": "2026-09-17T09:40:31.476052+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:40:31.577119+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:40:31.577427+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:40:31.577512+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:40:31.579333+00:00",
+    "level": "INFO",
+    "event": "worker_stopped"
+  },
+  {
+    "timestamp": "2026-09-17T09:41:55.491800+00:00",
+    "level": "INFO",
+    "event": "worker_started"
+  },
+  {
+    "timestamp": "2026-09-17T09:41:55.499706+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:41:55.499751+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:41:55.499976+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:41:55.500114+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:41:55.504742+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 15,
+    "job_id": "ingestion:15",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:41:55.515195+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 15,
+    "job_id": "ingestion:15",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.010469
+  },
+  {
+    "timestamp": "2026-09-17T09:42:40.055415+00:00",
+    "level": "ERROR",
+    "event": "worker_connection_lost",
+    "error_code": "queue_unavailable"
+  },
+  {
+    "timestamp": "2026-09-17T09:42:41.055770+00:00",
+    "level": "ERROR",
+    "event": "worker_connection_lost",
+    "error_code": "queue_unavailable"
+  },
+  {
+    "timestamp": "2026-09-17T09:42:42.122610+00:00",
+    "level": "ERROR",
+    "event": "worker_connection_lost",
+    "error_code": "queue_unavailable"
+  },
+  {
+    "timestamp": "2026-09-17T09:42:43.416039+00:00",
+    "level": "ERROR",
+    "event": "worker_connection_lost",
+    "error_code": "queue_unavailable"
+  },
+  {
+    "timestamp": "2026-09-17T09:42:45.111575+00:00",
+    "level": "ERROR",
+    "event": "worker_connection_lost",
+    "error_code": "queue_unavailable"
+  },
+  {
+    "timestamp": "2026-09-17T09:42:47.597890+00:00",
+    "level": "ERROR",
+    "event": "worker_connection_lost",
+    "error_code": "queue_unavailable"
+  },
+  {
+    "timestamp": "2026-09-17T09:42:51.662087+00:00",
+    "level": "ERROR",
+    "event": "worker_connection_lost",
+    "error_code": "queue_unavailable"
+  },
+  {
+    "timestamp": "2026-09-17T09:42:58.955471+00:00",
+    "level": "ERROR",
+    "event": "worker_connection_lost",
+    "error_code": "queue_unavailable"
+  },
+  {
+    "timestamp": "2026-09-17T09:43:12.651347+00:00",
+    "level": "ERROR",
+    "event": "worker_connection_lost",
+    "error_code": "queue_unavailable"
+  },
+  {
+    "timestamp": "2026-09-17T09:43:39.141762+00:00",
+    "level": "INFO",
+    "event": "worker_started"
+  },
+  {
+    "timestamp": "2026-09-17T09:43:39.150124+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:43:39.150172+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:43:39.150370+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:43:39.150499+00:00",
+    "level": "INFO",
+    "event": "runtime_log"
+  },
+  {
+    "timestamp": "2026-09-17T09:43:39.855964+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 16,
+    "job_id": "ingestion:16",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:43:39.865522+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 16,
+    "job_id": "ingestion:16",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.009548
+  },
+  {
+    "timestamp": "2026-09-17T09:44:56.693485+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 17,
+    "job_id": "ingestion:17",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:44:56.700415+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 17,
+    "job_id": "ingestion:17",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.006945
+  },
+  {
+    "timestamp": "2026-09-17T09:44:56.794278+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 18,
+    "job_id": "ingestion:18",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:44:56.802216+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 18,
+    "job_id": "ingestion:18",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.00794
+  },
+  {
+    "timestamp": "2026-09-17T09:44:56.894465+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 19,
+    "job_id": "ingestion:19",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:44:56.900556+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 19,
+    "job_id": "ingestion:19",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.006105
+  },
+  {
+    "timestamp": "2026-09-17T09:44:57.198254+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 21,
+    "job_id": "ingestion:21",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:44:57.203228+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 21,
+    "job_id": "ingestion:21",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.004993
+  },
+  {
+    "timestamp": "2026-09-17T09:46:26.180456+00:00",
+    "level": "INFO",
+    "event": "ingestion_started",
+    "document_id": 22,
+    "job_id": "ingestion:22",
+    "attempt": 1,
+    "status": "pending"
+  },
+  {
+    "timestamp": "2026-09-17T09:46:26.244010+00:00",
+    "level": "INFO",
+    "event": "ingestion_completed",
+    "document_id": 22,
+    "job_id": "ingestion:22",
+    "attempt": 1,
+    "status": "ready",
+    "duration_seconds": 0.063548
+  }
+]

@@ -6,12 +6,13 @@
 
 InsightHub cho phép người dùng upload tài liệu **.txt, .md, .pdf**, sau đó hỏi đáp dựa trên nội dung tài liệu bằng Retrieval-Augmented Generation (RAG). Câu trả lời có nguồn trích dẫn để đối chiếu.
 
-**Starter 0.2.3 / Specification v3.3.** README trình bày yêu cầu cơ bản, kiến trúc và cách bắt đầu. [Running Project Specification](Running-Project-Specification-Student.md) là nguồn yêu cầu chi tiết, Must-have, acceptance, submission và rubric cho từng day. Học viên hoàn thiện dự án trước, trong và sau buổi học, không chỉ trong thời gian lab trên lớp.
+**Day 01 trên starter 0.2.3 / Specification v3.3.** Branch này cung cấp solution tham khảo: async ingestion và controlled retry. [Hướng dẫn solution Day 01](docs/day1/README.md). [Kết quả và self-review](docs/day1/Review_and_Self_Check.md), [runbook tái lập](docs/day1/Runbook.md), [prompt log](ai-prompts/day1.md). README trình bày yêu cầu cơ bản, kiến trúc và cách bắt đầu. [Running Project Specification](Running-Project-Specification-Student.md) là nguồn yêu cầu chi tiết, Must-have, acceptance, submission và rubric cho từng day. Học viên hoàn thiện dự án trước, trong và sau buổi học, không chỉ trong thời gian lab trên lớp.
 
 ## Bắt đầu ở đây - Student Quick Links
 
 | Tình huống | Tài liệu hoặc lệnh |
 |---|---|
+| Thực hiện solution Day 01 | [Solution guide và prompt pack](docs/day1/README.md) |
 | Lần đầu setup, chạy app hoặc gặp lỗi môi trường | [GETTING_STARTED.md](GETTING_STARTED.md) |
 | Đọc toàn bộ yêu cầu và tiêu chí hoàn thành | [Running-Project-Specification-Student.md](Running-Project-Specification-Student.md) |
 | Daily workflow, nộp bài và chấm điểm | [Submission & Grading Protocol](Running-Project-Specification-Student.md#4-submission--grading-protocol), cùng checklist của từng day |
@@ -41,15 +42,15 @@ web --> api --> enqueue --> redis --> ingestion-worker --> postgres
          +------------ retrieval + LLM generation ------------+
 ~~~
 
-API trả **HTTP 202** khi nhận job; worker xử lý nền và cập nhật trạng thái tài liệu. Web/API tiếp tục phục vụ khi worker xử lý ingestion. Redis và worker là phần học viên phải triển khai, chưa được bật sẵn trong starter.
+API trả **HTTP 202** khi nhận job; worker xử lý nền và cập nhật trạng thái tài liệu. Web/API tiếp tục phục vụ khi worker xử lý ingestion. Redis và worker đã triển khai trên branch Day 01; mặc định Compose chạy đủ năm service.
 
 | Service | Công nghệ | Vai trò và trạng thái |
 |---|---|---|
 | `web` | Next.js 16.3.4, React 19.2.8, Node 24 | Giao diện upload/chat; đã có trong v0 |
-| `api` | FastAPI, Python 3.12, psycopg 3 | API tài liệu, retrieval/generation; ingestion còn đồng bộ ở v0 |
+| `api` | FastAPI, Python 3.12, psycopg 3 | API tài liệu, retrieval/generation; enqueue async và retry API ở Day 01 |
 | `postgres` | PostgreSQL 16, pgvector 0.8.2 | Metadata, chunks và vector store; đã có trong v0 |
-| `redis` | Redis 7 | Queue cho ingestion; học viên thêm Day 1 |
-| `ingestion-worker` | Python + ARQ | Chunk/embed/store bất đồng bộ, retry và xử lý lỗi; học viên tách Day 1 |
+| `redis` | Redis 7 | Queue ARQ + AOF persistence; đã thêm Day 01 |
+| `ingestion-worker` | Python + ARQ | Chunk/embed/store bất đồng bộ, retry và xử lý lỗi; đã tách Day 01 |
 
 `ollama` là profile tùy chọn để chạy model local, không thay Redis/worker và không tính vào năm thành phần bắt buộc của Day 1. Model generation và embedding là hai chức năng riêng.
 
@@ -127,8 +128,8 @@ Cấu hình `RAG_MODE=real`, hai provider `ollama`, endpoint/chat model, rồi t
 ~~~text
 insighthub/
 ├── web/                      # Frontend được cung cấp
-├── api/                      # API được cung cấp; refactor sync ingestion Day 1
-├── ingestion-worker/         # Scaffold để học viên triển khai Day 1
+├── api/                      # API enqueue async, retry và chat
+├── ingestion-worker/         # ARQ worker, health, metrics và tests Day 01
 ├── infra/
 │   ├── db/init.sql           # Schema PostgreSQL/pgvector được cung cấp
 │   └── README.md             # Học viên bổ sung Terraform/Helm/IaC Day 3
@@ -149,15 +150,15 @@ insighthub/
 ├── .github/workflows/        # CI baseline; học viên mở rộng theo Day 3
 ├── Running-Project-Specification-Student.md
 ├── GETTING_STARTED.md
-├── AGENTS.md                 # Context sáu section để học viên hoàn thiện
+├── AGENTS.md                 # Context Day 01 sáu section, <=200 dòng
 ├── CLAUDE.md                 # Adapter cho Claude Code
 ├── .mcp.json.template        # MCP template riêng Claude; host khác dùng helper
 ├── Makefile
-├── docker-compose.yml        # v0: ba service, Ollama profile tùy chọn
+├── docker-compose.yml        # Day 01: năm service, Ollama profile tùy chọn
 └── .env.example
 ~~~
 
-MCP mẫu hai tool, CI baseline và bot skeleton **không hoàn thành bài tập thay học viên**. Học liệu trước buổi do mentor cung cấp riêng; folder repo không chứa bản sao pre-reading hoặc bài giải của trainer. Chi tiết corpus và injection mô phỏng tại [sample-docs/README.md](sample-docs/README.md).
+Solution Day 01 nằm trong [docs/day1](docs/day1/README.md). MCP mẫu hai tool, CI baseline và bot skeleton là nền để tiếp tục các bài thực hành sau. Học liệu trước buổi do mentor cung cấp riêng. Chi tiết corpus và injection mô phỏng tại [sample-docs/README.md](sample-docs/README.md).
 
 ## Lộ trình 7 ngày - Bạn sẽ làm gì với InsightHub
 

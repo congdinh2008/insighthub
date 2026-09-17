@@ -1,0 +1,20 @@
+[
+  {
+    "filename": "exact-limit.pdf",
+    "bytes": 10485760,
+    "sha256": "66244060ce4abfab7c0c1276f1311b39e9cd37b5321e4e459666c2a5d3ded1a4",
+    "http": 202,
+    "response_seconds": 0.19447895800112747,
+    "document_id": 22,
+    "status": "ready",
+    "chunk_count": 1,
+    "ready_seconds": 0.31091400000150315
+  },
+  {
+    "filename": "over-limit.pdf",
+    "bytes": 10485761,
+    "sha256": "497912d6f4006cee828c20e87c88d427ae2034c6412cab3eccecef29a7828eb2",
+    "http": 413,
+    "response_seconds": 0.07275662501342595
+  }
+]

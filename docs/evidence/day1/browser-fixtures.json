@@ -1,0 +1,56 @@
+[
+  {
+    "name": "e2e-empty.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "source": "tests/milestones/day1/fixtures/e2e-empty.txt"
+  },
+  {
+    "name": "e2e-guide.md",
+    "bytes": 56,
+    "sha256": "010f712b0ece4465a3b58fae2ca00d84063fcdbd9a6b46407d4d794d605d4fee",
+    "source": "tests/milestones/day1/fixtures/e2e-guide.md"
+  },
+  {
+    "name": "e2e-invalid.pdf",
+    "bytes": 23,
+    "sha256": "1d0bd2522e9ad0272b74b06e8f3da5ea5dbafc4554ebc4262fa45c30e525a32c",
+    "source": "tests/milestones/day1/fixtures/e2e-invalid.pdf"
+  },
+  {
+    "name": "e2e-manual.pdf",
+    "bytes": 698,
+    "sha256": "a5d2fc6fbd68b451a3e97878e35c28314758638d09f511f6748943474163c340",
+    "source": "tests/milestones/day1/fixtures/e2e-manual.pdf"
+  },
+  {
+    "name": "e2e-notes.txt",
+    "bytes": 62,
+    "sha256": "626fc5eead8cfcaf7a124087d4f0cb46bfbdc60fc66c78b12e5bec6b53555f2e",
+    "source": "tests/milestones/day1/fixtures/e2e-notes.txt"
+  },
+  {
+    "name": "e2e-oversize.txt",
+    "bytes": 10485761,
+    "sha256": "e2be3b83c289189dd311afb0db7a79ec8cfbb993ca5267315b437e41edccec98",
+    "source": "generated 10485761-byte fixture; see Runbook"
+  },
+  {
+    "name": "e2e-pending.md",
+    "bytes": 71,
+    "sha256": "4366b3b6e9736720557430d58f117c5804c3fa902c70801937c913fe725bee0b",
+    "source": "tests/milestones/day1/fixtures/e2e-pending.md"
+  },
+  {
+    "name": "e2e-polling.md",
+    "bytes": 58,
+    "sha256": "b2770ede6734d4f339d82a6e6c32f8990b9662556b2b59ce0578db9dd4477705",
+    "source": "tests/milestones/day1/fixtures/e2e-polling.md"
+  },
+  {
+    "name": "e2e-retry.txt",
+    "bytes": 74,
+    "sha256": "f80fb2a7f8691cac31dbf358d68eb186fb27a883efba673e1a0d2afc4f1f2647",
+    "source": "tests/milestones/day1/fixtures/e2e-retry.txt"
+  }
+]

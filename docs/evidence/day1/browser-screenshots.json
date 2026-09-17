@@ -1,0 +1,92 @@
+[
+  {
+    "file": "browser-api-outage.png",
+    "captured_at": "2026-09-17T09:41:20.548401+00:00",
+    "sha256": "27916eac50700ed88f01471c285d0eed9a14cc42b5dc078abb61736fc0bbde2e"
+  },
+  {
+    "file": "browser-api-recovered-pending.png",
+    "captured_at": "2026-09-17T09:41:42.806627+00:00",
+    "sha256": "60d9d7e6066d68ec50a6dc76f8924f1a94a8876b4bba7c436f0398e61bf06da0"
+  },
+  {
+    "file": "browser-api-recovered-ready.png",
+    "captured_at": "2026-09-17T09:42:02.772540+00:00",
+    "sha256": "7fd7972d9bd94b44773b0d4cb6a091180d249954534ac385a072de93b211e6a4"
+  },
+  {
+    "file": "browser-chat-ready.png",
+    "captured_at": "2026-09-17T09:36:32.475406+00:00",
+    "sha256": "dca7f016e9a8d28996150a4acad8a26a1eeca50d276f51b1aa3d838a824e3a30"
+  },
+  {
+    "file": "browser-empty-rejected.png",
+    "captured_at": "2026-09-17T09:42:02.872384+00:00",
+    "sha256": "7fd7972d9bd94b44773b0d4cb6a091180d249954534ac385a072de93b211e6a4"
+  },
+  {
+    "file": "browser-final-chat.png",
+    "captured_at": "2026-09-17T09:45:25.136223+00:00",
+    "sha256": "3a30ec17a7792237332364d186283f533bfd33d23a031b375c0a290c379c4e0e"
+  },
+  {
+    "file": "browser-invalid-pdf.png",
+    "captured_at": "2026-09-17T09:37:32.931221+00:00",
+    "sha256": "750db4f7f31f22ed80421719c89530990f8efea0351b5dcb33e41ed771404d6a"
+  },
+  {
+    "file": "browser-oversize-rejected.png",
+    "captured_at": "2026-09-17T09:40:18.532134+00:00",
+    "sha256": "318be6c0387c1db6e4481203d6341be643291f507ca5a9704b56573dd4a54605"
+  },
+  {
+    "file": "browser-polling-limit.png",
+    "captured_at": "2026-09-17T09:39:42.451425+00:00",
+    "sha256": "371e25a6a3f24bc1a5f2ab680a7ee401fa54306556a2c2877d2ae7a1da3b9e4b"
+  },
+  {
+    "file": "browser-polling-resumed.png",
+    "captured_at": "2026-09-17T09:39:42.968541+00:00",
+    "sha256": "3c12dbd214750bb5f521b8eb6efb2d91e2bf0b187771790a6db93e17bbd7841a"
+  },
+  {
+    "file": "browser-queue-failure.png",
+    "captured_at": "2026-09-17T09:43:15.551433+00:00",
+    "sha256": "00a552559b76ce0c2721ee10cbd312129357385dc38db1d0fdc1a004cd3a19e8"
+  },
+  {
+    "file": "browser-retry-ready.png",
+    "captured_at": "2026-09-17T09:44:15.237686+00:00",
+    "sha256": "ac428bdb478b345632e09a64e666208912482c86b463687be202c62dacd25a1b"
+  },
+  {
+    "file": "browser-three-formats.png",
+    "captured_at": "2026-09-17T09:37:08.781834+00:00",
+    "sha256": "5e2c860b0a3227219e708df35c33e568c5ba2c268cc27fedc7dc12e2238dfdd7"
+  },
+  {
+    "file": "browser-worker-paused.png",
+    "captured_at": "2026-09-17T09:37:46.580571+00:00",
+    "sha256": "3c12dbd214750bb5f521b8eb6efb2d91e2bf0b187771790a6db93e17bbd7841a"
+  },
+  {
+    "file": "browser-worker-recovered.png",
+    "captured_at": "2026-09-17T09:40:18.126849+00:00",
+    "sha256": "e45420dbbdf10a2928debbb79d6f7f9b61444d04b46339df861fe1f9a270be70"
+  },
+  {
+    "file": "swagger-retry-202.png",
+    "captured_at": "2026-09-17T09:44:12.301600+00:00",
+    "sha256": "d63482877eb72df11f9c53e97bc2bfb6052cfe4844aa8a9648d1a7e642f189bf"
+  },
+  {
+    "file": "swagger-retry-404.png",
+    "captured_at": "2026-09-17T09:45:05.469500+00:00",
+    "sha256": "dab1ee3a09b0c31f0e1e089cfe77d96685b463e8435148b1f04a006878e24859"
+  },
+  {
+    "file": "swagger-retry-409.png",
+    "captured_at": "2026-09-17T09:44:40.313057+00:00",
+    "sha256": "3e2cbee581f40ce0ec2d9308a4b066e1ed4d27e0cc63fba6b4edb7fa03909734"
+  }
+]

@@ -1,0 +1,109 @@
+{
+  "observed_at": "2026-09-17T09:35:05.665611+00:00",
+  "project": "insighthub-day1-final-0917",
+  "api_url": "http://localhost:18001",
+  "mode": "fixture",
+  "aws_used": false,
+  "latency": {
+    "file": "sample-docs/so-tay-van-hanh.md",
+    "sha256": "6872a5a8e97c186006aade5dfb27dc9ff89ace7944eaabdd4366bc0f25d76c7d",
+    "bytes": 1705,
+    "runs": [
+      {
+        "warmup": true,
+        "document_id": 1,
+        "status": 202,
+        "upload_seconds": 0.027378750004572794,
+        "ready_seconds": 0.1416780420113355,
+        "chunks": 1
+      },
+      {
+        "warmup": false,
+        "document_id": 2,
+        "status": 202,
+        "upload_seconds": 0.008443791011814028,
+        "ready_seconds": 0.11756787498597987,
+        "chunks": 1
+      },
+      {
+        "warmup": false,
+        "document_id": 3,
+        "status": 202,
+        "upload_seconds": 0.00999516699812375,
+        "ready_seconds": 0.12012212499394082,
+        "chunks": 1
+      },
+      {
+        "warmup": false,
+        "document_id": 4,
+        "status": 202,
+        "upload_seconds": 0.010239125025691465,
+        "ready_seconds": 0.12102337501710281,
+        "chunks": 1
+      },
+      {
+        "warmup": false,
+        "document_id": 5,
+        "status": 202,
+        "upload_seconds": 0.007448624994140118,
+        "ready_seconds": 0.11882875001174398,
+        "chunks": 1
+      },
+      {
+        "warmup": false,
+        "document_id": 6,
+        "status": 202,
+        "upload_seconds": 0.009628375002648681,
+        "ready_seconds": 0.12224858399713412,
+        "chunks": 1
+      }
+    ],
+    "median_upload_seconds": 0.009628375002648681,
+    "max_upload_seconds": 0.010239125025691465
+  },
+  "redis_outage_recovery": {
+    "worker_manually_started": false,
+    "document_id": 7,
+    "status": "ready",
+    "chunks": 1,
+    "restart_count_before": 0,
+    "restart_count_after": 1,
+    "ready_after_redis_start_seconds": 3.28160254197428
+  },
+  "lifecycle": {
+    "document_id": 8,
+    "payload_bytes": 1575000,
+    "started_event": {
+      "timestamp": "2026-09-17T09:35:12.672312+00:00",
+      "level": "INFO",
+      "event": "ingestion_started",
+      "document_id": 8,
+      "job_id": "ingestion:8",
+      "attempt": 1,
+      "status": "pending"
+    },
+    "completed_before_signal": false,
+    "stop_seconds": 1.5103912079939619,
+    "exit_code": 0,
+    "chunks": 381,
+    "counts_before": "381|381|381",
+    "counts_after_redelivery": "381|381|381",
+    "redelivery_event": {
+      "timestamp": "2026-09-17T09:35:16.192226+00:00",
+      "level": "INFO",
+      "event": "ingestion_completed",
+      "document_id": 8,
+      "job_id": "ingestion:8",
+      "attempt": 1,
+      "status": "ready",
+      "duration_seconds": 0.003514
+    }
+  },
+  "redis_restart": {
+    "document_id": 9,
+    "status": "ready",
+    "chunks": 1
+  },
+  "worker_health_metrics": "PASS",
+  "status": "PASS"
+}

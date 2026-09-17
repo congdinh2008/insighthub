@@ -1,0 +1,184 @@
+npm --prefix tools/mcp test
+
+> insighthub-readonly-mcp@1.0.0 test
+> node --test test/*.test.mjs
+
+✔ origin parser rejects SSRF, DNS/rebinding, path and credential inputs (1.003958ms)
+✔ configuration is closed by default and fails on misspelled controls (0.678125ms)
+✔ service projects metadata, limits rows, uses only fixed GET routes (14.937583ms)
+✔ readiness 503 is a valid unhealthy observation (3.500334ms)
+✔ Prometheus allows only fixed aggregate queries and drops labels (3.086833ms)
+✔ redirect fails closed without reflecting body (1.156667ms)
+✔ declared body limit fails closed without reflecting body (1.404292ms)
+✔ chunked body limit fails closed without reflecting body (1.514625ms)
+✔ malformed JSON fails closed without reflecting body (1.184ms)
+✔ wrong content type fails closed without reflecting body (0.876458ms)
+✔ compressed body fails closed without reflecting body (0.909167ms)
+✔ upstream error fails closed without reflecting body (0.762875ms)
+✔ slow headers fails closed without reflecting body (151.500375ms)
+✔ slow body fails closed without reflecting body (151.643542ms)
+✔ malicious metadata and malformed metrics fail instead of leaking (2.534958ms)
+✔ cancellation and maximum four concurrent tool calls are enforced (1.2605ms)
+✔ modern: server allowlist cannot be bypassed through direct tools/call (279.300333ms)
+✔ modern: list bounds and arbitrary PromQL are rejected by server (253.514459ms)
+✔ legacy: server allowlist cannot be bypassed through direct tools/call (131.236375ms)
+✔ legacy: list bounds and arbitrary PromQL are rejected by server (121.6905ms)
+✔ empty allowlist exposes no tools and denies direct invocation (241.987042ms)
+✔ invalid endpoint exits without reflecting a credential on stderr/stdout (109.693375ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1294.958792
+node tools/mcp/smoke.mjs
+{
+  "passed": true,
+  "backend_mode": "fixture",
+  "live": false,
+  "backend": "fixture-loopback",
+  "node": "v24.16.0",
+  "server": "@modelcontextprotocol/server@2.0.0",
+  "results": [
+    {
+      "client": "@modelcontextprotocol/client@2.0.0",
+      "mode": "modern",
+      "protocol": "2026-07-28",
+      "methods": [
+        "server/discover",
+        "tools/list",
+        "tools/call"
+      ],
+      "calls": [
+        "insighthub_health",
+        "insighthub_list_documents",
+        "prometheus_summary"
+      ],
+      "passed": true
+    },
+    {
+      "client": "@modelcontextprotocol/client@2.0.0",
+      "mode": "legacy",
+      "protocol": "2025-11-25",
+      "methods": [
+        "initialize",
+        "notifications/initialized",
+        "tools/list",
+        "tools/call"
+      ],
+      "calls": [
+        "insighthub_health",
+        "insighthub_list_documents",
+        "prometheus_summary"
+      ],
+      "passed": true
+    },
+    {
+      "client": "@modelcontextprotocol/sdk@1.30.0",
+      "mode": "v1",
+      "protocol": "2025-11-25",
+      "methods": [
+        "initialize",
+        "notifications/initialized",
+        "tools/list",
+        "tools/call"
+      ],
+      "calls": [
+        "insighthub_health",
+        "insighthub_list_documents",
+        "prometheus_summary"
+      ],
+      "passed": true
+    },
+    {
+      "client": "@modelcontextprotocol/client@2.0.0",
+      "mode": "auto",
+      "protocol": "2026-07-28",
+      "methods": [
+        "server/discover",
+        "tools/list",
+        "tools/call"
+      ],
+      "calls": [
+        "insighthub_health",
+        "insighthub_list_documents",
+        "prometheus_summary"
+      ],
+      "passed": true
+    }
+  ]
+}
+{
+  "passed": true,
+  "backend_mode": "live",
+  "live": true,
+  "backend": "live-loopback",
+  "node": "v24.16.0",
+  "server": "@modelcontextprotocol/server@2.0.0",
+  "results": [
+    {
+      "client": "@modelcontextprotocol/client@2.0.0",
+      "mode": "modern",
+      "protocol": "2026-07-28",
+      "methods": [
+        "server/discover",
+        "tools/list",
+        "tools/call"
+      ],
+      "calls": [
+        "insighthub_health",
+        "insighthub_list_documents"
+      ],
+      "passed": true
+    },
+    {
+      "client": "@modelcontextprotocol/client@2.0.0",
+      "mode": "legacy",
+      "protocol": "2025-11-25",
+      "methods": [
+        "initialize",
+        "notifications/initialized",
+        "tools/list",
+        "tools/call"
+      ],
+      "calls": [
+        "insighthub_health",
+        "insighthub_list_documents"
+      ],
+      "passed": true
+    },
+    {
+      "client": "@modelcontextprotocol/sdk@1.30.0",
+      "mode": "v1",
+      "protocol": "2025-11-25",
+      "methods": [
+        "initialize",
+        "notifications/initialized",
+        "tools/list",
+        "tools/call"
+      ],
+      "calls": [
+        "insighthub_health",
+        "insighthub_list_documents"
+      ],
+      "passed": true
+    },
+    {
+      "client": "@modelcontextprotocol/client@2.0.0",
+      "mode": "auto",
+      "protocol": "2026-07-28",
+      "methods": [
+        "server/discover",
+        "tools/list",
+        "tools/call"
+      ],
+      "calls": [
+        "insighthub_health",
+        "insighthub_list_documents"
+      ],
+      "passed": true
+    }
+  ]
+}

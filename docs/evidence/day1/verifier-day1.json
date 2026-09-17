@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "target": "day1",
+  "status": "PASS",
+  "scope": "partial-runtime-contract",
+  "runtime_verified": true,
+  "source_sha256": "1102374c8ffa1512fcc5f3f0672e59a4705e0b64d8d76fb5f60938f5836eadf9",
+  "milestone_complete": false,
+  "checks": [
+    {
+      "id": "day1",
+      "status": "PASS",
+      "runtime_verified": true,
+      "document_id": 28,
+      "filename": "verify-4ec24c9f7160411ebb89fd48dbf06eb0.md",
+      "started_at": 1789638708.673168,
+      "upload_status": 202,
+      "note": "Pipeline smoke only; retrieval quality/provider effectiveness not evaluated. Uploaded document retained."
+    }
+  ],
+  "specification_review_required": true,
+  "note": "PASS covers implemented checks only, not all project requirements; use the complete specification and reviewer evidence."
+}

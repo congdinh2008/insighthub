@@ -1,0 +1,169 @@
+docker run --rm --network insighthub-day1-final-0917_default -v "/Users/congdinh/Downloads/work/teaching/Training Programs/07_DevOps_with_AI/07_DevOps_Current_Program/insighthub:/workspace:ro" -w /workspace -e PYTHONDONTWRITEBYTECODE=1 -e PYTHONPATH=/workspace/api:/workspace/api/tests:/workspace/ingestion-worker -e RAG_MODE=fixture -e LLM_PROVIDER=fixture -e EMBEDDING_PROVIDER=fixture -e DATABASE_URL="postgresql://insighthub:insighthub@postgres:5432/insighthub" -e REDIS_URL=redis://redis:6379/0 -e RUN_DB_TESTS=1 -e TEST_SCHEMA_PATH=/workspace/infra/db/init.sql insighthub-day1-final-0917-tests:day1 python -m pytest api/tests -xvs -p no:cacheprovider
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /usr/local/bin/python
+rootdir: /workspace
+configfile: pyproject.toml
+plugins: anyio-4.15.1
+collecting ... collected 58 items
+
+api/tests/test_integration.py::IntegrationTests::test_concurrent_manual_retries_enqueue_once PASSED
+api/tests/test_integration.py::IntegrationTests::test_concurrent_successful_retries_call_provider_once PASSED
+api/tests/test_integration.py::IntegrationTests::test_deleted_queued_document_is_not_resurrected PASSED
+api/tests/test_integration.py::IntegrationTests::test_dimension_mismatch_is_rejected_before_provider PASSED
+api/tests/test_integration.py::IntegrationTests::test_empty_extracted_text_is_failed_and_422 PASSED
+api/tests/test_integration.py::IntegrationTests::test_failed_attempt_and_concurrent_retry_end_ready PASSED
+api/tests/test_integration.py::IntegrationTests::test_failed_vectors_are_atomic_and_can_retry PASSED
+api/tests/test_integration.py::IntegrationTests::test_finishing_old_job_keeps_failed_metadata_on_retry_conflict PASSED
+api/tests/test_integration.py::IntegrationTests::test_fixture_upload_retrieve_chat_metrics_delete_end_to_end PASSED
+api/tests/test_integration.py::IntegrationTests::test_index_identity_change_rejects_query_upload_and_readiness PASSED
+api/tests/test_integration.py::IntegrationTests::test_manual_retry_invalid_payload_and_missing_id SUBPASSED(filename='wrong.txt', content=b'retry payload')
+api/tests/test_integration.py::IntegrationTests::test_manual_retry_invalid_payload_and_missing_id SUBPASSED(filename='retry.txt', content=b'different')
+api/tests/test_integration.py::IntegrationTests::test_manual_retry_invalid_payload_and_missing_id SUBPASSED(filename='retry.txt', content=b'')
+api/tests/test_integration.py::IntegrationTests::test_manual_retry_invalid_payload_and_missing_id PASSED
+api/tests/test_integration.py::IntegrationTests::test_manual_retry_preserves_id_and_chunks PASSED
+api/tests/test_integration.py::IntegrationTests::test_mid_insert_database_failure_rolls_back_all_chunks PASSED
+api/tests/test_integration.py::IntegrationTests::test_provider_failure_is_async_failed_and_metadata_truthful PASSED
+api/tests/test_integration.py::IntegrationTests::test_real_gateway_full_pipeline_with_mock_http PASSED
+api/tests/test_integration.py::IntegrationTests::test_retry_queue_failure_remains_retryable PASSED
+api/tests/test_integration.py::IntegrationTests::test_same_dimension_real_provider_cannot_query_fixture_index PASSED
+api/tests/test_integration.py::IntegrationTests::test_successful_retry_is_noop_and_conflicting_payload_is_409 PASSED
+api/tests/test_integration.py::IntegrationTests::test_worker_automatic_retry_keeps_pending_until_exhaustion PASSED
+api/tests/test_integration.py::IntegrationTests::test_worker_pipeline_mismatch_is_terminal_without_schema_change PASSED
+api/tests/test_unit_config.py::ConfigTests::test_chunking_progress_overlap_and_empty PASSED
+api/tests/test_unit_config.py::ConfigTests::test_fixture_requires_both_explicit_providers SUBPASSED(values={'rag_mode': 'fixture', 'llm_provider': 'gemini'})
+api/tests/test_unit_config.py::ConfigTests::test_fixture_requires_both_explicit_providers SUBPASSED(values={'rag_mode': 'real'})
+api/tests/test_unit_config.py::ConfigTests::test_fixture_requires_both_explicit_providers SUBPASSED(values={'rag_mode': 'typo'})
+api/tests/test_unit_config.py::ConfigTests::test_fixture_requires_both_explicit_providers SUBPASSED(values={'llm_provider': 'bedrock'})
+api/tests/test_unit_config.py::ConfigTests::test_fixture_requires_both_explicit_providers SUBPASSED(values={'embedding_provider': 'local'})
+api/tests/test_unit_config.py::ConfigTests::test_fixture_requires_both_explicit_providers SUBPASSED(values={'llm_provider': 'unknown'})
+api/tests/test_unit_config.py::ConfigTests::test_fixture_requires_both_explicit_providers SUBPASSED(values={'embedding_provider': 'unknown'})
+api/tests/test_unit_config.py::ConfigTests::test_fixture_requires_both_explicit_providers SUBPASSED(values={'embedding_model': 'fake-model'})
+api/tests/test_unit_config.py::ConfigTests::test_fixture_requires_both_explicit_providers PASSED
+api/tests/test_unit_config.py::ConfigTests::test_identity_changes_with_vector_space_but_not_chat_model_or_key PASSED
+api/tests/test_unit_config.py::ConfigTests::test_invalid_numeric_configuration SUBPASSED(key='chunk_size')
+api/tests/test_unit_config.py::ConfigTests::test_invalid_numeric_configuration SUBPASSED(key='chunk_overlap')
+api/tests/test_unit_config.py::ConfigTests::test_invalid_numeric_configuration SUBPASSED(key='embedding_dim')
+api/tests/test_unit_config.py::ConfigTests::test_invalid_numeric_configuration SUBPASSED(key='embedding_dim')
+api/tests/test_unit_config.py::ConfigTests::test_invalid_numeric_configuration SUBPASSED(key='retrieval_top_k')
+api/tests/test_unit_config.py::ConfigTests::test_invalid_numeric_configuration SUBPASSED(key='hnsw_ef_search')
+api/tests/test_unit_config.py::ConfigTests::test_invalid_numeric_configuration SUBPASSED(key='provider_timeout_seconds')
+api/tests/test_unit_config.py::ConfigTests::test_invalid_numeric_configuration SUBPASSED(key='embedding_batch_size')
+api/tests/test_unit_config.py::ConfigTests::test_invalid_numeric_configuration SUBPASSED(key='max_upload_bytes')
+api/tests/test_unit_config.py::ConfigTests::test_invalid_numeric_configuration PASSED
+api/tests/test_unit_config.py::ConfigTests::test_ollama_uses_dedicated_native_dimension SUBPASSED(values={'embedding_model': 'deepseek-r1:14b'})
+api/tests/test_unit_config.py::ConfigTests::test_ollama_uses_dedicated_native_dimension SUBPASSED(values={'embedding_dim': 768})
+api/tests/test_unit_config.py::ConfigTests::test_ollama_uses_dedicated_native_dimension PASSED
+api/tests/test_unit_config.py::ConfigTests::test_real_requires_credentials_explicit_model_and_endpoint SUBPASSED(values={'openai_api_key': ''})
+api/tests/test_unit_config.py::ConfigTests::test_real_requires_credentials_explicit_model_and_endpoint SUBPASSED(values={'openai_base_url': ''})
+api/tests/test_unit_config.py::ConfigTests::test_real_requires_credentials_explicit_model_and_endpoint SUBPASSED(values={'openai_base_url': 'https://user:secret@host/v1'})
+api/tests/test_unit_config.py::ConfigTests::test_real_requires_credentials_explicit_model_and_endpoint SUBPASSED(values={'openai_base_url': 'https://host/v1?key=secret'})
+api/tests/test_unit_config.py::ConfigTests::test_real_requires_credentials_explicit_model_and_endpoint SUBPASSED(values={'openai_base_url': 'https://host/v1#fragment'})
+api/tests/test_unit_config.py::ConfigTests::test_real_requires_credentials_explicit_model_and_endpoint SUBPASSED(values={'openai_base_url': 'file:///tmp/gateway'})
+api/tests/test_unit_config.py::ConfigTests::test_real_requires_credentials_explicit_model_and_endpoint SUBPASSED(values={'openai_base_url': 'https://host:bad/v1'})
+api/tests/test_unit_config.py::ConfigTests::test_real_requires_credentials_explicit_model_and_endpoint SUBPASSED(values={'llm_model': ''})
+api/tests/test_unit_config.py::ConfigTests::test_real_requires_credentials_explicit_model_and_endpoint PASSED
+api/tests/test_unit_config.py::ConfigTests::test_settings_errors_hide_secrets PASSED
+api/tests/test_unit_http.py::HttpTests::test_empty_upload_returns_422 PASSED
+api/tests/test_unit_http.py::HttpTests::test_file_read_is_bounded_and_closed PASSED
+api/tests/test_unit_http.py::HttpTests::test_invalid_documents_and_blank_pdf_are_422_errors SUBPASSED(filename='a.txt', content=b'')
+api/tests/test_unit_http.py::HttpTests::test_invalid_documents_and_blank_pdf_are_422_errors SUBPASSED(filename='a.md', content=b' \n\t')
+api/tests/test_unit_http.py::HttpTests::test_invalid_documents_and_blank_pdf_are_422_errors SUBPASSED(filename='a.txt', content=b'\xff')
+api/tests/test_unit_http.py::HttpTests::test_invalid_documents_and_blank_pdf_are_422_errors SUBPASSED(filename='a.txt', content=b'contains\x00n')
+api/tests/test_unit_http.py::HttpTests::test_invalid_documents_and_blank_pdf_are_422_errors SUBPASSED(filename='a.pdf', content=b'not a pdf')
+api/tests/test_unit_http.py::HttpTests::test_invalid_documents_and_blank_pdf_are_422_errors SUBPASSED(filename='a.pdf', content=b'%PDF-1.3\n%')
+api/tests/test_unit_http.py::HttpTests::test_invalid_documents_and_blank_pdf_are_422_errors PASSED
+api/tests/test_unit_http.py::HttpTests::test_metrics_route_labels_do_not_include_user_paths_or_methods PASSED
+api/tests/test_unit_http.py::HttpTests::test_provider_error_response_is_sanitized PASSED
+api/tests/test_unit_http.py::HttpTests::test_unexpected_errors_are_sanitized_and_counted_as_500 PASSED
+api/tests/test_unit_http.py::HttpTests::test_whitespace_question_and_unknown_fields_rejected SUBPASSED(data={'question': '   '})
+api/tests/test_unit_http.py::HttpTests::test_whitespace_question_and_unknown_fields_rejected SUBPASSED(data={'question': 'q', 'top_k': 0})
+api/tests/test_unit_http.py::HttpTests::test_whitespace_question_and_unknown_fields_rejected SUBPASSED(data={'question': 'q', 'unknown': 1})
+api/tests/test_unit_http.py::HttpTests::test_whitespace_question_and_unknown_fields_rejected PASSED
+api/tests/test_unit_http.py::AsyncHttpTests::test_chunked_upload_limit_stops_before_parser_and_without_content_length PASSED
+api/tests/test_unit_http.py::AsyncHttpTests::test_file_limit_inclusive_boundary PASSED
+api/tests/test_unit_http.py::AsyncHttpTests::test_health_remains_responsive_during_blocking_chat PASSED
+api/tests/test_unit_http.py::AsyncHttpTests::test_retry_multipart_limit_applies_before_parsing PASSED
+api/tests/test_unit_providers.py::EmbeddingTests::test_batches_have_a_bounded_size PASSED
+api/tests/test_unit_providers.py::EmbeddingTests::test_empty_input_is_explicit PASSED
+api/tests/test_unit_providers.py::EmbeddingTests::test_estimate_and_reported_usage_are_separate PASSED
+api/tests/test_unit_providers.py::EmbeddingTests::test_fixture_is_deterministic_finite_and_normalized PASSED
+api/tests/test_unit_providers.py::EmbeddingTests::test_gemini_one_uses_task_type PASSED
+api/tests/test_unit_providers.py::EmbeddingTests::test_gemini_two_separate_requests_and_task_prefixes PASSED
+api/tests/test_unit_providers.py::EmbeddingTests::test_gemini_usage_uses_provider_tokens_without_inventing_missing_values SUBPASSED(usage={'promptTokenCount': 12})
+api/tests/test_unit_providers.py::EmbeddingTests::test_gemini_usage_uses_provider_tokens_without_inventing_missing_values SUBPASSED(usage={'promptTokenCount': 0})
+api/tests/test_unit_providers.py::EmbeddingTests::test_gemini_usage_uses_provider_tokens_without_inventing_missing_values SUBPASSED(usage={})
+api/tests/test_unit_providers.py::EmbeddingTests::test_gemini_usage_uses_provider_tokens_without_inventing_missing_values SUBPASSED(usage={'promptTokenCount': -1})
+api/tests/test_unit_providers.py::EmbeddingTests::test_gemini_usage_uses_provider_tokens_without_inventing_missing_values SUBPASSED(usage={'promptTokenCount': True})
+api/tests/test_unit_providers.py::EmbeddingTests::test_gemini_usage_uses_provider_tokens_without_inventing_missing_values SUBPASSED(usage='invalid')
+api/tests/test_unit_providers.py::EmbeddingTests::test_gemini_usage_uses_provider_tokens_without_inventing_missing_values PASSED
+api/tests/test_unit_providers.py::EmbeddingTests::test_invalid_vectors_are_rejected SUBPASSED(vectors='[]')
+api/tests/test_unit_providers.py::EmbeddingTests::test_invalid_vectors_are_rejected SUBPASSED(vectors='[[1, 2], [3, 4]]')
+api/tests/test_unit_providers.py::EmbeddingTests::test_invalid_vectors_are_rejected SUBPASSED(vectors='[[1]]')
+api/tests/test_unit_providers.py::EmbeddingTests::test_invalid_vectors_are_rejected SUBPASSED(vectors='[[1, 2, 3]]')
+api/tests/test_unit_providers.py::EmbeddingTests::test_invalid_vectors_are_rejected SUBPASSED(vectors='[[0, 0]]')
+api/tests/test_unit_providers.py::EmbeddingTests::test_invalid_vectors_are_rejected SUBPASSED(vectors='[[nan, 1]]')
+api/tests/test_unit_providers.py::EmbeddingTests::test_invalid_vectors_are_rejected SUBPASSED(vectors='[[inf, 1]]')
+api/tests/test_unit_providers.py::EmbeddingTests::test_invalid_vectors_are_rejected SUBPASSED(vectors='[[1e+100, 1]]')
+api/tests/test_unit_providers.py::EmbeddingTests::test_invalid_vectors_are_rejected SUBPASSED(vectors="[['1', 2]]")
+api/tests/test_unit_providers.py::EmbeddingTests::test_invalid_vectors_are_rejected SUBPASSED(vectors='[[True, 2]]')
+api/tests/test_unit_providers.py::EmbeddingTests::test_invalid_vectors_are_rejected SUBPASSED(vectors='[[1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000...00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000, 1]]')
+api/tests/test_unit_providers.py::EmbeddingTests::test_invalid_vectors_are_rejected SUBPASSED(vectors='None')
+api/tests/test_unit_providers.py::EmbeddingTests::test_invalid_vectors_are_rejected PASSED
+api/tests/test_unit_providers.py::EmbeddingTests::test_missing_duplicate_or_wrong_embedding_indices_fail SUBPASSED(indices=[0])
+api/tests/test_unit_providers.py::EmbeddingTests::test_missing_duplicate_or_wrong_embedding_indices_fail SUBPASSED(indices=[0, 0])
+api/tests/test_unit_providers.py::EmbeddingTests::test_missing_duplicate_or_wrong_embedding_indices_fail SUBPASSED(indices=[0, 2])
+api/tests/test_unit_providers.py::EmbeddingTests::test_missing_duplicate_or_wrong_embedding_indices_fail SUBPASSED(indices=[0, True])
+api/tests/test_unit_providers.py::EmbeddingTests::test_missing_duplicate_or_wrong_embedding_indices_fail SUBPASSED(indices=[0, '1'])
+api/tests/test_unit_providers.py::EmbeddingTests::test_missing_duplicate_or_wrong_embedding_indices_fail PASSED
+api/tests/test_unit_providers.py::EmbeddingTests::test_ollama_native_vectors_no_truncation_or_padding PASSED
+api/tests/test_unit_providers.py::EmbeddingTests::test_openai_request_dimension_and_response_order PASSED
+api/tests/test_unit_providers.py::EmbeddingTests::test_real_failure_never_uses_fixture PASSED
+api/tests/test_unit_providers.py::EmbeddingTests::test_voyage_payload_and_usage PASSED
+api/tests/test_unit_providers.py::GenerationTests::test_failure_or_empty_real_answer_is_not_fixture SUBPASSED(response={})
+api/tests/test_unit_providers.py::GenerationTests::test_failure_or_empty_real_answer_is_not_fixture SUBPASSED(response={'choices': []})
+api/tests/test_unit_providers.py::GenerationTests::test_failure_or_empty_real_answer_is_not_fixture SUBPASSED(response={'choices': [{'message': {'content': ''}}]})
+api/tests/test_unit_providers.py::GenerationTests::test_failure_or_empty_real_answer_is_not_fixture PASSED
+api/tests/test_unit_providers.py::GenerationTests::test_fixture_label_and_usage_truth PASSED
+api/tests/test_unit_providers.py::GenerationTests::test_missing_usage_is_not_reported_as_zero PASSED
+api/tests/test_unit_providers.py::GenerationTests::test_openai_gateway_explicit_endpoint_and_usage PASSED
+api/tests/test_unit_providers.py::GenerationTests::test_other_chat_provider_contracts SUBPASSED(provider='gemini')
+api/tests/test_unit_providers.py::GenerationTests::test_other_chat_provider_contracts SUBPASSED(provider='anthropic')
+api/tests/test_unit_providers.py::GenerationTests::test_other_chat_provider_contracts SUBPASSED(provider='ollama')
+api/tests/test_unit_providers.py::GenerationTests::test_other_chat_provider_contracts PASSED
+api/tests/test_unit_providers.py::GenerationTests::test_timeout_is_sanitized PASSED
+api/tests/test_unit_providers.py::GenerationTests::test_transport_errors_and_bodies_are_sanitized SUBPASSED(status=401)
+api/tests/test_unit_providers.py::GenerationTests::test_transport_errors_and_bodies_are_sanitized SUBPASSED(status=200)
+api/tests/test_unit_providers.py::GenerationTests::test_transport_errors_and_bodies_are_sanitized SUBPASSED(status=302)
+api/tests/test_unit_providers.py::GenerationTests::test_transport_errors_and_bodies_are_sanitized PASSED
+
+=============================== warnings summary ===============================
+../usr/local/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /usr/local/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+../usr/local/lib/python3.12/site-packages/starlette/testclient.py:53
+  /usr/local/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============== 58 passed, 2 warnings, 71 subtests passed in 1.28s ==============
+docker run --rm --network insighthub-day1-final-0917_default -v "/Users/congdinh/Downloads/work/teaching/Training Programs/07_DevOps_with_AI/07_DevOps_Current_Program/insighthub:/workspace:ro" -w /workspace -e PYTHONDONTWRITEBYTECODE=1 -e PYTHONPATH=/workspace/api:/workspace/api/tests:/workspace/ingestion-worker -e RAG_MODE=fixture -e LLM_PROVIDER=fixture -e EMBEDDING_PROVIDER=fixture -e DATABASE_URL="postgresql://insighthub:insighthub@postgres:5432/insighthub" -e REDIS_URL=redis://redis:6379/0 -e RUN_DB_TESTS=1 -e TEST_SCHEMA_PATH=/workspace/infra/db/init.sql insighthub-day1-final-0917-tests:day1 python -m pytest ingestion-worker/tests -v -p no:cacheprovider
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /usr/local/bin/python
+rootdir: /workspace
+configfile: pyproject.toml
+plugins: anyio-4.15.1
+collecting ... collected 10 items
+
+ingestion-worker/tests/test_worker.py::test_redis_disconnect_exits_for_restart_without_leaking_secrets[True] PASSED [ 10%]
+ingestion-worker/tests/test_worker.py::test_redis_disconnect_exits_for_restart_without_leaking_secrets[False] PASSED [ 20%]
+ingestion-worker/tests/test_worker.py::test_transient_retries_have_exponential_backoff PASSED [ 30%]
+ingestion-worker/tests/test_worker.py::test_invalid_vectors_do_not_retry PASSED [ 40%]
+ingestion-worker/tests/test_worker.py::test_cancellation_drains_sync_thread_before_return PASSED [ 50%]
+ingestion-worker/tests/test_worker.py::test_formatter_does_not_leak_payload_exception_or_arguments PASSED [ 60%]
+ingestion-worker/tests/test_worker.py::test_ambiguous_enqueue_checks_same_job_identity PASSED [ 70%]
+ingestion-worker/tests/test_worker.py::test_unavailable_queue_never_returns_success PASSED [ 80%]
+ingestion-worker/tests/test_worker.py::test_manual_retry_rejects_finishing_job_instead_of_stranding_pending PASSED [ 90%]
+ingestion-worker/tests/test_worker.py::test_ambiguous_manual_retry_cannot_accept_an_old_finishing_job PASSED [100%]
+
+============================== 10 passed in 0.44s ==============================

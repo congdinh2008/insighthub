@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "target": "smoke",
+  "status": "PASS",
+  "scope": "runtime-contract",
+  "runtime_verified": true,
+  "source_sha256": "34d6de76449fd3963935ac26bbe022338c2bb18f6878bb633a9ba92075a170f2",
+  "milestone_complete": false,
+  "checks": [
+    {
+      "id": "smoke",
+      "status": "PASS",
+      "runtime_verified": true,
+      "document_id": 1,
+      "filename": "verify-0d9b7bd1bb524c97a6d814ab610e13a5.md",
+      "started_at": 1789616434.284981,
+      "upload_status": 201,
+      "note": "Pipeline smoke only; retrieval quality/provider effectiveness not evaluated. Uploaded document retained."
+    }
+  ]
+}
