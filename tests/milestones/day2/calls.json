@@ -1,0 +1,137 @@
+{
+  "filesystem": [
+    {
+      "name": "list_allowed_directories"
+    },
+    {
+      "name": "read_file",
+      "arguments": {
+        "path": "/project/README.md",
+        "head": 4
+      }
+    },
+    {
+      "name": "read_file",
+      "arguments": {
+        "path": "/outside-project-canary.txt"
+      },
+      "expected": "deny"
+    },
+    {
+      "name": "read_file",
+      "arguments": {
+        "path": "/project/../outside-project-canary.txt"
+      },
+      "expected": "deny"
+    },
+    {
+      "name": "write_file",
+      "arguments": {
+        "path": "/project/DAY2_CANARY.txt",
+        "content": "MUTATED"
+      },
+      "expected": "deny"
+    }
+  ],
+  "docker-operations": [
+    {
+      "name": "list_containers"
+    },
+    {
+      "name": "get_diagnostic_logs"
+    },
+    {
+      "name": "docker",
+      "arguments": {
+        "args": [
+          "stop",
+          "canary"
+        ]
+      },
+      "expected": "deny"
+    }
+  ],
+  "kubernetes": [
+    {
+      "name": "pods_list_in_namespace",
+      "arguments": {
+        "namespace": "insighthub"
+      }
+    },
+    {
+      "name": "pods_log",
+      "arguments": {
+        "namespace": "insighthub",
+        "name": "mcp-sample",
+        "tail": 5
+      }
+    },
+    {
+      "name": "pods_list_in_namespace",
+      "arguments": {
+        "namespace": "kube-system"
+      },
+      "expected": "deny"
+    },
+    {
+      "name": "pods_delete",
+      "arguments": {
+        "namespace": "insighthub",
+        "name": "mcp-sample"
+      },
+      "expected": "deny"
+    }
+  ],
+  "prometheus": [
+    {
+      "name": "list_targets"
+    },
+    {
+      "name": "query",
+      "arguments": {
+        "query": "up{job=~\"insighthub-(api|worker)\"}",
+        "timestamp": "5s"
+      }
+    },
+    {
+      "name": "query",
+      "arguments": {
+        "query": "up{job=\"day2-nonexistent\"}",
+        "timestamp": "5s"
+      }
+    },
+    {
+      "name": "delete_series",
+      "arguments": {},
+      "expected": "deny"
+    },
+    {
+      "name": "query",
+      "arguments": {
+        "query": "up",
+        "url": "http://example.invalid"
+      },
+      "expected": "deny"
+    },
+    {
+      "name": "range_query",
+      "arguments": {
+        "query": "up{job=~\"insighthub-(api|worker)\"}",
+        "start_time": "30s",
+        "end_time": "0s",
+        "step": "10s"
+      }
+    }
+  ],
+  "insighthub": [
+    {
+      "name": "insighthub_health"
+    },
+    {
+      "name": "insighthub_list_documents",
+      "arguments": {
+        "limit": 2
+      }
+    }
+  ]
+}

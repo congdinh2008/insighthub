@@ -45,3 +45,17 @@ ci:
 	$(MAKE) test-image
 	$(MAKE) test
 	$(MAKE) lint typecheck smoke
+
+# Day 02 is opt-in; host/cluster acceptance is separate from default CI.
+.PHONY: tools-day2 test-day2 test-day2-live test-day2-host
+tools-day2: tools
+	$(NPM) ci --prefix tools/mcp/day2 --ignore-scripts
+	$(PYTHON) tools/mcp/day2/install.py
+test-day2:
+	$(PYTHON) -m unittest discover -s tests/milestones/day2 -v
+	$(PYTHON) -m ruff check tools/mcp/day2 tests/milestones/day2
+	$(PYTHON) -m ruff format --check tools/mcp/day2 tests/milestones/day2
+test-day2-live:
+	$(PYTHON) tests/milestones/day2/live_check.py
+test-day2-host:
+	$(PYTHON) tools/mcp/day2/host_check.py
