@@ -1,0 +1,23 @@
+runtime:
+  localDataServices: true
+  environment: development
+  ragMode: fixture
+  llmProvider: fixture
+  embeddingProvider: fixture
+
+platform:
+  createServiceAccount: true
+
+secret:
+  createLocal: true
+
+migration:
+  enabled: false
+
+ingress:
+  enabled: false
+
+api:
+  replicas: 1
+  autoscaling:
+    enabled: false

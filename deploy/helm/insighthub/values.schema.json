@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["platform", "images", "runtime", "secret", "awsSecrets", "migration", "ingress", "api", "web", "worker"],
+  "properties": {
+    "platform": {
+      "type": "object",
+      "required": ["createServiceAccount", "serviceAccountName"],
+      "properties": {
+        "createServiceAccount": {"type": "boolean"},
+        "serviceAccountName": {"type": "string", "minLength": 1},
+        "serviceAccountAnnotations": {"type": "object"}
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "required": ["localDataServices", "environment", "ragMode", "llmProvider", "embeddingProvider", "embeddingDimension", "queueName"],
+      "properties": {
+        "localDataServices": {"type": "boolean"},
+        "environment": {"type": "string", "enum": ["development", "dev", "staging"]},
+        "ragMode": {"type": "string", "enum": ["fixture", "real"]},
+        "llmProvider": {"type": "string", "minLength": 1},
+        "embeddingProvider": {"type": "string", "minLength": 1},
+        "embeddingDimension": {"type": "string", "const": "1024"},
+        "queueName": {"type": "string", "minLength": 1}
+      }
+    },
+    "secret": {
+      "type": "object",
+      "required": ["createLocal", "existingSecret"],
+      "properties": {
+        "createLocal": {"type": "boolean"},
+        "existingSecret": {"type": "string", "minLength": 1},
+        "databaseUrl": {"type": "string"},
+        "redisUrl": {"type": "string"}
+      }
+    },
+    "awsSecrets": {
+      "type": "object",
+      "required": ["enabled", "secretArn"],
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "secretArn": {"type": "string"}
+      }
+    },
+    "migration": {
+      "type": "object",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": {"type": "boolean"}
+      }
+    },
+    "ingress": {
+      "type": "object",
+      "required": ["enabled", "className", "host", "tls"],
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "className": {"type": "string", "minLength": 1},
+        "host": {"type": "string"},
+        "certificateArn": {"type": "string"}
+      }
+    },
+    "api": {"type": "object"},
+    "web": {"type": "object"},
+    "worker": {"type": "object"},
+    "images": {"type": "object"}
+  }
+}
