@@ -32,6 +32,9 @@ yarn-error.log*
 .idea/
 .DS_Store
 Thumbs.db
+/.codex/config.toml
+/.mcp.json
+/.agents/mcp_config.json
 
 # --- Docker ---
 *.log

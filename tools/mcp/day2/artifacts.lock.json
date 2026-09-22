@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "observed_at": "2026-09-17",
+  "artifacts": {
+    "kind": {
+      "repository": "kubernetes-sigs/kind",
+      "version": "v0.33.0",
+      "assets": [
+        {
+          "name": "kind-darwin-amd64",
+          "url": "https://github.com/kubernetes-sigs/kind/releases/download/v0.33.0/kind-darwin-amd64",
+          "sha256": "5a99f26f57246dc9319dd294803313197a0f34d33c525b3ea8b655db5916ece0"
+        },
+        {
+          "name": "kind-darwin-arm64",
+          "url": "https://github.com/kubernetes-sigs/kind/releases/download/v0.33.0/kind-darwin-arm64",
+          "sha256": "0c8c7dbe5e23594a198b786c4bc13dacc101fa6196b0cb0b23a1ca44e61f4b4f"
+        },
+        {
+          "name": "kind-linux-amd64",
+          "url": "https://github.com/kubernetes-sigs/kind/releases/download/v0.33.0/kind-linux-amd64",
+          "sha256": "aee6151561422756b764a4ae28e7f44cda5af5a9eead3cc9985112b1de8d8e0d"
+        },
+        {
+          "name": "kind-linux-arm64",
+          "url": "https://github.com/kubernetes-sigs/kind/releases/download/v0.33.0/kind-linux-arm64",
+          "sha256": "20022bee6cfcd5086cb7234d218e3454e6090022f2a8f55d1fa7fcf42c3867a2"
+        }
+      ]
+    },
+    "kubernetes": {
+      "repository": "containers/kubernetes-mcp-server",
+      "version": "v0.0.66",
+      "assets": [
+        {
+          "name": "kubernetes-mcp-server-darwin-amd64",
+          "url": "https://github.com/containers/kubernetes-mcp-server/releases/download/v0.0.66/kubernetes-mcp-server-darwin-amd64",
+          "sha256": "9f3a7a8b71587725f996ac2411f5287ceeab3714bd7d1533aac9b3c107a0b38b"
+        },
+        {
+          "name": "kubernetes-mcp-server-darwin-arm64",
+          "url": "https://github.com/containers/kubernetes-mcp-server/releases/download/v0.0.66/kubernetes-mcp-server-darwin-arm64",
+          "sha256": "51ea2d7f452cfa2f930425e3b1870233beaf9f92e2105fc92305565f293c922a"
+        },
+        {
+          "name": "kubernetes-mcp-server-linux-amd64",
+          "url": "https://github.com/containers/kubernetes-mcp-server/releases/download/v0.0.66/kubernetes-mcp-server-linux-amd64",
+          "sha256": "692a7b283a96140311fd46f13b8373657b2e9bfe660a36bb6434e8c42d899dbc"
+        },
+        {
+          "name": "kubernetes-mcp-server-linux-arm64",
+          "url": "https://github.com/containers/kubernetes-mcp-server/releases/download/v0.0.66/kubernetes-mcp-server-linux-arm64",
+          "sha256": "34c14a01ad084302c181848f84151bc25858f0818e273b4db1b72de726af1ee5"
+        },
+        {
+          "name": "kubernetes-mcp-server-linux-ppc64le",
+          "url": "https://github.com/containers/kubernetes-mcp-server/releases/download/v0.0.66/kubernetes-mcp-server-linux-ppc64le",
+          "sha256": "e87442a0eac7ae5a61bec4baaa2a9c94c36b8f3eabe47e046d584b593051dc31"
+        },
+        {
+          "name": "kubernetes-mcp-server-linux-s390x",
+          "url": "https://github.com/containers/kubernetes-mcp-server/releases/download/v0.0.66/kubernetes-mcp-server-linux-s390x",
+          "sha256": "daba48842e07df9d1946fefa6bc7807aeca12891dc0c31e8875425dd8adbfada"
+        }
+      ]
+    },
+    "prometheus": {
+      "repository": "prometheus/prometheus-mcp",
+      "version": "v0.18.0",
+      "assets": [
+        {
+          "name": "checksums.txt",
+          "url": "https://github.com/prometheus/prometheus-mcp/releases/download/v0.18.0/checksums.txt",
+          "sha256": "2bf6bae9736c38072fc98106eb847e17b251560d7d1ac559400aedc0139eb268"
+        },
+        {
+          "name": "prometheus-mcp-server_0.18.0_darwin_all.tar.gz",
+          "url": "https://github.com/prometheus/prometheus-mcp/releases/download/v0.18.0/prometheus-mcp-server_0.18.0_darwin_all.tar.gz",
+          "sha256": "d69df80c4a1459251d74537a565ee725c717475ae956d5c596b1d41792a8cc2e"
+        },
+        {
+          "name": "prometheus-mcp-server_0.18.0_linux_amd64.deb",
+          "url": "https://github.com/prometheus/prometheus-mcp/releases/download/v0.18.0/prometheus-mcp-server_0.18.0_linux_amd64.deb",
+          "sha256": "ea1fc00215742047e0d0719d12e6f93f7046482cb947832a9d495653a639492c"
+        },
+        {
+          "name": "prometheus-mcp-server_0.18.0_linux_amd64.pkg.tar.zst",
+          "url": "https://github.com/prometheus/prometheus-mcp/releases/download/v0.18.0/prometheus-mcp-server_0.18.0_linux_amd64.pkg.tar.zst",
+          "sha256": "83c340246197e1d21579135e0e275bc1c1eaeb805fc16b58ea2341a28fae3531"
+        },
+        {
+          "name": "prometheus-mcp-server_0.18.0_linux_amd64.rpm",
+          "url": "https://github.com/prometheus/prometheus-mcp/releases/download/v0.18.0/prometheus-mcp-server_0.18.0_linux_amd64.rpm",
+          "sha256": "9f8c5d67c3a4b6b4732bc4b9eebe58cf8d355add657a1c4872713ba5135595e3"
+        },
+        {
+          "name": "prometheus-mcp-server_0.18.0_linux_amd64.tar.gz",
+          "url": "https://github.com/prometheus/prometheus-mcp/releases/download/v0.18.0/prometheus-mcp-server_0.18.0_linux_amd64.tar.gz",
+          "sha256": "50030346594a4b8d89294f3a2cb9e253caa0bd75e69fefbd9add289cafd6c27c"
+        },
+        {
+          "name": "prometheus-mcp-server_0.18.0_linux_arm64.deb",
+          "url": "https://github.com/prometheus/prometheus-mcp/releases/download/v0.18.0/prometheus-mcp-server_0.18.0_linux_arm64.deb",
+          "sha256": "2f433a674dc06127dd16f8c9f1a888eb03b454f5f5cbdb985952672144e2f435"
+        },
+        {
+          "name": "prometheus-mcp-server_0.18.0_linux_arm64.pkg.tar.zst",
+          "url": "https://github.com/prometheus/prometheus-mcp/releases/download/v0.18.0/prometheus-mcp-server_0.18.0_linux_arm64.pkg.tar.zst",
+          "sha256": "60f8fe84a48c9f7addef52141e583c88ae46707db6f8a32b2f10051a8fbf7fd2"
+        },
+        {
+          "name": "prometheus-mcp-server_0.18.0_linux_arm64.rpm",
+          "url": "https://github.com/prometheus/prometheus-mcp/releases/download/v0.18.0/prometheus-mcp-server_0.18.0_linux_arm64.rpm",
+          "sha256": "24fe7d0378f061854ebf899d251b402ffebce7dca414d18d49e80c823f7f560a"
+        },
+        {
+          "name": "prometheus-mcp-server_0.18.0_linux_arm64.tar.gz",
+          "url": "https://github.com/prometheus/prometheus-mcp/releases/download/v0.18.0/prometheus-mcp-server_0.18.0_linux_arm64.tar.gz",
+          "sha256": "e4027f7a47178a3d69ac0974b5cbef5312a855d43b60a4a2686a3db83ed8461e"
+        }
+      ]
+    },
+    "gateway": {
+      "repository": "docker/mcp-gateway",
+      "version": "v0.43.3",
+      "prerelease": true,
+      "assets": [
+        {
+          "name": "docker-mcp-darwin-amd64.tar.gz",
+          "url": "https://github.com/docker/mcp-gateway/releases/download/v0.43.3/docker-mcp-darwin-amd64.tar.gz",
+          "sha256": "08c9e770ca3e50803c1b9649932c1b58b74b387005237745e775e11edd51e1ec"
+        },
+        {
+          "name": "docker-mcp-darwin-arm64.tar.gz",
+          "url": "https://github.com/docker/mcp-gateway/releases/download/v0.43.3/docker-mcp-darwin-arm64.tar.gz",
+          "sha256": "0ddebfb33599959b58246180c0fd5b9c327f2ec5a5f146c6b6ba40ca49ad628a"
+        },
+        {
+          "name": "docker-mcp-linux-amd64.tar.gz",
+          "url": "https://github.com/docker/mcp-gateway/releases/download/v0.43.3/docker-mcp-linux-amd64.tar.gz",
+          "sha256": "d39702b4c150d5e96e59cf3d90a28b9bb2a85ca81ddd05d87126be0849232049"
+        },
+        {
+          "name": "docker-mcp-linux-arm64.tar.gz",
+          "url": "https://github.com/docker/mcp-gateway/releases/download/v0.43.3/docker-mcp-linux-arm64.tar.gz",
+          "sha256": "259d02f8f4fa0f82af2a3fb5a0bdfcfe550b590294b74af109313fe32c726ede"
+        }
+      ]
+    }
+  }
+}

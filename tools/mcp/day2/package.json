@@ -1,0 +1,10 @@
+{
+  "name": "insighthub-day2-mcp-tooling",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "devDependencies": {
+    "@modelcontextprotocol/inspector": "2.7.0"
+  }
+}

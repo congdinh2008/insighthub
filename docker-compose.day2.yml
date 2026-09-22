@@ -1,0 +1,40 @@
+# Opt-in Day 02 lab; base Compose retains five default application services.
+services:
+  docker-read-proxy:
+    build:
+      context: ./tools/mcp/day2
+      dockerfile: Dockerfile.proxy
+    environment:
+      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME:-insighthub-day2-lab}
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock:ro"]
+    ports: ["127.0.0.1:23752:2375"]
+    read_only: true
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 64m
+  prometheus:
+    image: prom/prometheus:v3.14.0@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0
+    command: ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.retention.time=2h"]
+    volumes:
+      - ./tools/mcp/day2/lab/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports: ["127.0.0.1:${PROMETHEUS_PORT:-19092}:9090"]
+    mem_limit: 512m
+    depends_on:
+      api: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:9090/-/ready"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+  debug-case:
+    image: redis:7-alpine@sha256:6ab0b6e7381779332f97b8ca76193e45b0756f38d4c0dcda72dbb3c32061ab99
+    profiles: ["day2-debug"]
+    environment:
+      DAY2_REQUIRED_VALUE: ${DAY2_REQUIRED_VALUE:-}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - 'if [ "$$DAY2_REQUIRED_VALUE" != "configured" ]; then echo "DAY2_CONFIG_MISSING: DAY2_REQUIRED_VALUE must be configured"; exit 78; fi; echo "DAY2_CONFIG_OK"; exec sleep 3600'
+    read_only: true
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 32m

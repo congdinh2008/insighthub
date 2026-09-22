@@ -1,0 +1,54 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "/ABSOLUTE/PATH/TO/python3",
+      "args": [
+        "/ABSOLUTE/PATH/TO/insighthub/tools/mcp/day2/launch.py",
+        "filesystem"
+      ],
+      "env": {
+        "INSIGHTHUB_DAY2_STATE": "/ABSOLUTE/PATH/TO/insighthub/tmp/day2"
+      }
+    },
+    "docker-operations": {
+      "command": "/ABSOLUTE/PATH/TO/python3",
+      "args": [
+        "/ABSOLUTE/PATH/TO/insighthub/tools/mcp/day2/launch.py",
+        "docker"
+      ],
+      "env": {
+        "INSIGHTHUB_DAY2_STATE": "/ABSOLUTE/PATH/TO/insighthub/tmp/day2"
+      }
+    },
+    "kubernetes": {
+      "command": "/ABSOLUTE/PATH/TO/python3",
+      "args": [
+        "/ABSOLUTE/PATH/TO/insighthub/tools/mcp/day2/launch.py",
+        "kubernetes"
+      ],
+      "env": {
+        "INSIGHTHUB_DAY2_STATE": "/ABSOLUTE/PATH/TO/insighthub/tmp/day2"
+      }
+    },
+    "prometheus": {
+      "command": "/ABSOLUTE/PATH/TO/python3",
+      "args": [
+        "/ABSOLUTE/PATH/TO/insighthub/tools/mcp/day2/launch.py",
+        "prometheus"
+      ],
+      "env": {
+        "INSIGHTHUB_DAY2_STATE": "/ABSOLUTE/PATH/TO/insighthub/tmp/day2"
+      }
+    },
+    "insighthub": {
+      "command": "/ABSOLUTE/PATH/TO/python3",
+      "args": [
+        "/ABSOLUTE/PATH/TO/insighthub/tools/mcp/day2/launch.py",
+        "insighthub"
+      ],
+      "env": {
+        "INSIGHTHUB_DAY2_STATE": "/ABSOLUTE/PATH/TO/insighthub/tmp/day2"
+      }
+    }
+  }
+}

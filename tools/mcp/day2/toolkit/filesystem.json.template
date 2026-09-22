@@ -1,0 +1,15 @@
+{
+  "name": "filesystem",
+  "type": "server",
+  "title": "InsightHub project filesystem",
+  "description": "MCP reference filesystem server scoped to the generated InsightHub source snapshot.",
+  "image": "mcp/filesystem@sha256:35fcf0217ca0d5bf7b0a5bd68fb3b89e08174676c0e0b4f431604512cf7b3f67",
+  "command": ["/project"],
+  "volumes": ["__SOURCE_VIEW__:/project:ro"],
+  "disableNetwork": true,
+  "metadata": {
+    "category": "devops",
+    "tags": ["filesystem", "source", "read-only"],
+    "owner": "insighthub"
+  }
+}

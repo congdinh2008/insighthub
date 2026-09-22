@@ -1,0 +1,45 @@
+# Reference only. Run configure.py to resolve paths for your machine.
+[mcp_servers.filesystem]
+command = "/ABSOLUTE/PATH/TO/python3"
+args = ["/ABSOLUTE/PATH/TO/insighthub/tools/mcp/day2/launch.py", "filesystem"]
+enabled_tools = ["read_file", "list_directory", "list_allowed_directories"]
+startup_timeout_sec = 60
+tool_timeout_sec = 30
+[mcp_servers.filesystem.env]
+INSIGHTHUB_DAY2_STATE = "/ABSOLUTE/PATH/TO/insighthub/tmp/day2"
+
+[mcp_servers.docker-operations]
+command = "/ABSOLUTE/PATH/TO/python3"
+args = ["/ABSOLUTE/PATH/TO/insighthub/tools/mcp/day2/launch.py", "docker"]
+enabled_tools = ["list_containers", "get_diagnostic_logs", "get_worker_logs"]
+startup_timeout_sec = 60
+tool_timeout_sec = 30
+[mcp_servers.docker-operations.env]
+INSIGHTHUB_DAY2_STATE = "/ABSOLUTE/PATH/TO/insighthub/tmp/day2"
+
+[mcp_servers.kubernetes]
+command = "/ABSOLUTE/PATH/TO/python3"
+args = ["/ABSOLUTE/PATH/TO/insighthub/tools/mcp/day2/launch.py", "kubernetes"]
+enabled_tools = ["pods_list_in_namespace", "pods_get", "pods_log", "events_list"]
+startup_timeout_sec = 60
+tool_timeout_sec = 30
+[mcp_servers.kubernetes.env]
+INSIGHTHUB_DAY2_STATE = "/ABSOLUTE/PATH/TO/insighthub/tmp/day2"
+
+[mcp_servers.prometheus]
+command = "/ABSOLUTE/PATH/TO/python3"
+args = ["/ABSOLUTE/PATH/TO/insighthub/tools/mcp/day2/launch.py", "prometheus"]
+enabled_tools = ["query", "range_query", "list_targets"]
+startup_timeout_sec = 60
+tool_timeout_sec = 30
+[mcp_servers.prometheus.env]
+INSIGHTHUB_DAY2_STATE = "/ABSOLUTE/PATH/TO/insighthub/tmp/day2"
+
+[mcp_servers.insighthub]
+command = "/ABSOLUTE/PATH/TO/python3"
+args = ["/ABSOLUTE/PATH/TO/insighthub/tools/mcp/day2/launch.py", "insighthub"]
+enabled_tools = ["insighthub_health", "insighthub_list_documents"]
+startup_timeout_sec = 60
+tool_timeout_sec = 30
+[mcp_servers.insighthub.env]
+INSIGHTHUB_DAY2_STATE = "/ABSOLUTE/PATH/TO/insighthub/tmp/day2"

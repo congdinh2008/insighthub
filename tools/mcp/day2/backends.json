@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "transport": "stdio",
+  "validatedHost": "codex-cli 0.154.0",
+  "validatedPlatform": "macOS arm64 / Docker Desktop",
+  "servers": {
+    "filesystem": {
+      "backend": "project-source",
+      "upstream": "https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem",
+      "artifact": "mcp/filesystem@sha256:35fcf0217ca0d5bf7b0a5bd68fb3b89e08174676c0e0b4f431604512cf7b3f67",
+      "pinFiles": ["tools/mcp/day2/toolkit/filesystem.json.template", "tools/mcp/day2/configure.py"],
+      "permission": "Docker MCP profile insighthub-dev; source snapshot /project mounted read-only; network disabled; three read tools enabled"
+    },
+    "docker-operations": {
+      "backend": "docker-engine",
+      "upstream": "https://github.com/docker/mcp-gateway",
+      "catalog": "https://github.com/docker/mcp-registry",
+      "artifact": "docker-mcp v0.43.3 + Docker CLI 29.7.2",
+      "prerelease": true,
+      "pinFiles": ["tools/mcp/day2/artifacts.lock.json", "tools/mcp/day2/configure.py", "tools/mcp/day2/Dockerfile.proxy"],
+      "permission": "constant read argv; local HTTP policy proxy scopes project and logs; no mutation"
+    },
+    "kubernetes": {
+      "backend": "kubernetes-api",
+      "upstream": "https://github.com/containers/kubernetes-mcp-server",
+      "artifact": "kubernetes-mcp-server v0.0.66",
+      "pinFiles": ["tools/mcp/day2/artifacts.lock.json", "tools/mcp/day2/lab/kind.yml"],
+      "permission": "mcp-readonly ServiceAccount, namespace insighthub, single context"
+    },
+    "prometheus": {
+      "backend": "prometheus-http-api",
+      "upstream": "https://github.com/prometheus/prometheus-mcp",
+      "artifact": "prometheus-mcp-server v0.18.0",
+      "pinFiles": ["tools/mcp/day2/artifacts.lock.json", "docker-compose.day2.yml"],
+      "permission": "fixed local endpoint, no admin/lifecycle, read tool allowlist in host"
+    },
+    "insighthub": {
+      "backend": "insighthub-http-api",
+      "upstream": "repository tools/mcp",
+      "artifact": "insighthub-readonly 1.0.0 / SDK 2.0.0",
+      "pinFiles": ["tools/mcp/package-lock.json", "tools/mcp/manifest.json"],
+      "permission": "existing health and document metadata read tools; no document body"
+    }
+  }
+}
