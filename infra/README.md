@@ -1,5 +1,26 @@
-# IaC và pipeline - bắt buộc Day 3
+# InsightHub Infrastructure
 
-Học viên viết Terraform modules/policies, GitHub Actions và Helm/Kubernetes deployment. Giữ task EKS/RDS pgvector/ElastiCache/IAM/OIDC/secrets, S3 native locking, plan/cost/manual apply approval. Local-first rồi kiểm chứng AWS theo lượt, xóa ngay sau lab. Local validate/plan không phải bằng chứng AWS đã deploy.
+Day 03 infrastructure solution for the DO2603 running project. Read [SPEC.md](SPEC.md) before changing Terraform.
 
-Schema starter ở db/init.sql; phần còn lại học viên xây theo [spec mục 7](../Running-Project-Specification-Student.md). Workflow starter.yml chỉ là baseline tests, không thay pipeline iac.yml của học viên.
+## Roots
+
+| Path | Ownership |
+|---|---|
+| `bootstrap/` | KMS, private S3 state/plan storage, GitHub OIDC and plan/apply roles |
+| `./` | VPC, EKS, RDS, ElastiCache, ECR, application secret and IRSA roles |
+| `platform/` | EKS namespace, application ServiceAccount and namespaced RBAC |
+| `modules/` | Reusable network, EKS, database, cache and registry modules |
+| `policies/` | Conftest rules plus safe and unsafe plan fixtures |
+
+The roots use separate state keys. Bootstrap runs first with a short-lived administrative session. Core runs through the reviewed GitHub plan/apply roles. Platform runs only after the EKS API is reachable.
+
+## Local quality gates
+
+```sh
+make tools-day3
+make test-day3
+```
+
+`terraform init -backend=false` validates source without creating cloud resources. See [Day 03 Runbook](../docs/day3/Runbook.md) for required cloud inputs, controlled apply, acceptance and teardown.
+
+Do not commit `.terraform/`, state, saved plans, plan JSON, kubeconfig, credentials or runtime secrets. A local PASS proves the source and policy gates only; it does not prove EKS, RDS, OIDC, HTTPS or GitHub Actions ran.
