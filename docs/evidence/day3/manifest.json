@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "day": 3,
+  "observed_at": "2026-09-22T15:48:00Z",
+  "branch": "day3-terraform",
+  "environment": "aws-ap-southeast-1",
+  "provider_mode": "fixture",
+  "deployment_run_id": "35743383750",
+  "verification_run_id": "35748659389",
+  "results": {
+    "terraform_validate": "pass",
+    "tflint": "pass",
+    "checkov": "pass",
+    "conftest": "pass",
+    "helm": "pass",
+    "day3_tests": "pass",
+    "github_pipeline": "pass",
+    "aws_runtime": "pass",
+    "automated_smoke": "pass",
+    "edge_ui": "pass",
+    "public_https": "pass",
+    "no_drift_plan": "pass",
+    "cloud_cleanup": "pass"
+  },
+  "cost": {
+    "currency": "USD",
+    "core_monthly": 244.288,
+    "core_hourly": 0.3346410958904108,
+    "estimated_lab_hours": 3.1
+  },
+  "cleanup": {
+    "billable_resources_remaining": 0,
+    "secrets_manager_recovery_window_days": 7,
+    "kms_pending_deletion": 6,
+    "kms_deletion_date": "2026-09-29"
+  }
+}
