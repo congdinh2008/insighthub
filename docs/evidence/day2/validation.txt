@@ -1,0 +1,43 @@
+Day 02 validation - 2026-09-22 UTC
+
+PASS  python -m unittest discover -s tests/milestones/day2 -v
+      14 tests
+PASS  ruff check tools/mcp/day2 tests/milestones/day2
+PASS  ruff format --check tools/mcp/day2 tests/milestones/day2
+PASS  tests/milestones/day2/live_check.py
+      5 live MCP backends, 21 calls, RBAC and Docker policy assertions, PromQL/HTTP comparison
+PASS  tools/mcp/day2/host_check.py
+      6 completed calls through Codex host across filesystem, docker-operations, kubernetes, prometheus and insighthub
+PASS  tools/mcp/day2/host_check.py --debug-only
+      2 Docker MCP calls, DAY2_CONFIG_MISSING diagnosed
+PASS  tools/mcp/day2/host_check.py --debug-only --recovery
+      2 Docker MCP calls, running state and DAY2_CONFIG_OK verified
+PASS  Docker MCP Toolkit profile insighthub-dev
+      1 server, signed filesystem image digest, /project:ro, network disabled, 3 read tools
+PASS  scripts/check-agent-setup.py
+      Codex, Claude Code and Antigravity project configs; 5 server entries each
+PASS  Computer Use / MCP Inspector
+      5 server invocations with visible results
+PASS  Computer Use / InsightHub web
+      file chooser upload, ready document, chat response and source
+PASS  Computer Use / Prometheus UI
+      2 result series, insighthub-api=1 and insighthub-worker=1
+PASS  browser console
+      0 warnings, 0 errors
+PASS  API regression
+      58 tests and 71 subtests
+PASS  ingestion-worker regression
+      10 tests
+PASS  Day 01 live contract
+      6 tests
+PASS  verifier regression
+      68 tests
+PASS  MCP starter regression
+      22 tests; fixture and live SDK smoke; 4 protocol negotiation modes
+PASS  Ruff and mypy strict
+      22 source files typechecked
+PASS  pre-commit run --all-files
+PASS  scripts/verify-day-2.sh with live API
+      status=PASS, runtime_verified=true, milestone_complete=false
+
+MH10 remains PENDING until the learner records the official class quiz score >= 7/10.

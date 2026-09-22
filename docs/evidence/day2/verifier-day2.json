@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "target": "day2",
+  "status": "PASS",
+  "scope": "partial-runtime-contract",
+  "runtime_verified": true,
+  "source_sha256": "f3c16bd9b32c970d0d4c144a9338f7477a3b91a8c6d7715096eda213cb1feceb",
+  "milestone_complete": false,
+  "checks": [
+    {
+      "id": "day2",
+      "status": "PASS",
+      "runtime_verified": true,
+      "sdk_result": {
+        "passed": true,
+        "backend_mode": "live",
+        "live": true,
+        "backend": "live-loopback",
+        "node": "v24.16.0",
+        "server": "@modelcontextprotocol/server@2.0.0",
+        "results": [
+          {
+            "client": "@modelcontextprotocol/client@2.0.0",
+            "mode": "modern",
+            "protocol": "2026-07-28",
+            "methods": [
+              "server/discover",
+              "tools/list",
+              "tools/call"
+            ],
+            "calls": [
+              "insighthub_health",
+              "insighthub_list_documents"
+            ],
+            "passed": true
+          },
+          {
+            "client": "@modelcontextprotocol/client@2.0.0",
+            "mode": "legacy",
+            "protocol": "2025-11-25",
+            "methods": [
+              "initialize",
+              "notifications/initialized",
+              "tools/list",
+              "tools/call"
+            ],
+            "calls": [
+              "insighthub_health",
+              "insighthub_list_documents"
+            ],
+            "passed": true
+          },
+          {
+            "client": "@modelcontextprotocol/sdk@1.30.0",
+            "mode": "v1",
+            "protocol": "2025-11-25",
+            "methods": [
+              "initialize",
+              "notifications/initialized",
+              "tools/list",
+              "tools/call"
+            ],
+            "calls": [
+              "insighthub_health",
+              "insighthub_list_documents"
+            ],
+            "passed": true
+          },
+          {
+            "client": "@modelcontextprotocol/client@2.0.0",
+            "mode": "auto",
+            "protocol": "2026-07-28",
+            "methods": [
+              "server/discover",
+              "tools/list",
+              "tools/call"
+            ],
+            "calls": [
+              "insighthub_health",
+              "insighthub_list_documents"
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "note": "Real SDK subprocess and permission tests executed; backend mode explicitly recorded."
+    }
+  ],
+  "specification_review_required": true,
+  "note": "PASS covers implemented checks only, not all project requirements; use the complete specification and reviewer evidence."
+}

@@ -1,0 +1,60 @@
+{
+  "config_sha256": "a525dc1f5ed0a956de28c705cf60faa47a2f5ae8bf685d8a3ea98d2f31be4b90",
+  "host": "codex-cli 0.154.0",
+  "model_selection": "host default; no override",
+  "started_at": "2026-09-22T05:20:48.671201+00:00",
+  "duration_seconds": 48.526,
+  "exit_code": 0,
+  "approval": "standard --approve-for-me; no bypass",
+  "calls": [
+    {
+      "observed_at": "2026-09-22T05:21:08.385004+00:00",
+      "event": {
+        "type": "item.completed",
+        "item": {
+          "id": "item_2",
+          "type": "mcp_tool_call",
+          "server": "docker-operations",
+          "tool": "list_containers",
+          "arguments": {},
+          "result": {
+            "content": [
+              {
+                "type": "text",
+                "text": "{\"Command\":\"\\\"\\\"\",\"CreatedAt\":\"2026-09-22 05:20:02 +0000 UTC\",\"HealthStatus\":\"\",\"ID\":\"492abb66db87\",\"Image\":\"redis:7-alpine\",\"Labels\":\"\",\"LocalVolumes\":\"0\",\"Mounts\":\"\",\"Names\":\"insighthub-day2-lab-debug-case-1\",\"Networks\":\"\",\"Platform\":null,\"Ports\":\"\",\"RunningFor\":\"About a minute ago\",\"Size\":\"0B\",\"State\":\"exited\",\"Status\":\"Exited (78) About a minute ago\"}\n{\"Command\":\"\\\"\\\"\",\"CreatedAt\":\"2026-09-22 04:54:51 +0000 UTC\",\"HealthStatus\":\"healthy\",\"ID\":\"d51c4e294466\",\"Image\":\"prom/prometheus:v3.14.0\",\"Labels\":\"\",\"LocalVolumes\":\"0\",\"Mounts\":\"\",\"Names\":\"insighthub-day2-lab-prometheus-1\",\"Networks\":\"\",\"Platform\":null,\"Ports\":\"127.0.0.1:19092-\\u003e9090/tcp\",\"RunningFor\":\"26 minutes ago\",\"Size\":\"0B\",\"State\":\"running\",\"Status\":\"Up 26 minutes (healthy)\"}\n{\"Command\":\"\\\"\\\"\",\"CreatedAt\":\"2026-09-22 04:54:51 +0000 UTC\",\"HealthStatus\":\"healthy\",\"ID\":\"6f71de75161d\",\"Image\":\"insighthub-day2-lab-web\",\"Labels\":\"\",\"LocalVolumes\":\"0\",\"Mounts\":\"\",\"Names\":\"insighthub-day2-lab-web-1\",\"Networks\":\"\",\"Platform\":null,\"Ports\":\"127.0.0.1:13002-\\u003e3000/tcp\",\"RunningFor\":\"26 minutes ago\",\"Size\":\"0B\",\"State\":\"running\",\"Status\":\"Up 26 minutes (healthy)\"}\n{\"Command\":\"\\\"\\\"\",\"CreatedAt\":\"2026-09-22 04:54:51 +0000 UTC\",\"HealthStatus\":\"healthy\",\"ID\":\"dffb14bcc191\",\"Image\":\"insighthub-day2-lab-api\",\"Labels\":\"\",\"LocalVolumes\":\"0\",\"Mounts\":\"\",\"Names\":\"insighthub-day2-lab-api-1\",\"Networks\":\"\",\"Platform\":null,\"Ports\":\"127.0.0.1:18002-\\u003e8000/tcp\",\"RunningFor\":\"26 minutes ago\",\"Size\":\"0B\",\"State\":\"running\",\"Status\":\"Up 26 minutes (healthy)\"}\n{\"Command\":\"\\\"\\\"\",\"CreatedAt\":\"2026-09-22 04:54:51 +0000 UTC\",\"HealthStatus\":\"healthy\",\"ID\":\"79dc2288058f\",\"Image\":\"insighthub-day2-lab-ingestion-worker\",\"Labels\":\"\",\"LocalVolumes\":\"0\",\"Mounts\":\"\",\"Names\":\"insighthub-day2-lab-ingestion-worker-1\",\"Networks\":\"\",\"Platform\":null,\"Ports\":\"8081/tcp\",\"RunningFor\":\"26 minutes ago\",\"Size\":\"0B\",\"State\":\"running\",\"Status\":\"Up 26 minutes (healthy)\"}\n{\"Command\":\"\\\"\\\"\",\"CreatedAt\":\"2026-09-22 04:54:51 +0000 UTC\",\"HealthStatus\":\"healthy\",\"ID\":\"1ffe4fd9d841\",\"Image\":\"redis:7-alpine\",\"Labels\":\"\",\"LocalVolumes\":\"0\",\"Mounts\":\"\",\"Names\":\"insighthub-day2-lab-redis-1\",\"Networks\":\"\",\"Platform\":null,\"Ports\":\"6379/tcp\",\"RunningFor\":\"26 minutes ago\",\"Size\":\"0B\",\"State\":\"running\",\"Status\":\"Up 26 minutes (healthy)\"}\n{\"Command\":\"\\\"\\\"\",\"CreatedAt\":\"2026-09-22 04:54:51 +0000 UTC\",\"HealthStatus\":\"healthy\",\"ID\":\"e0054ce59044\",\"Image\":\"pgvector/pgvector:0.8.2-pg16\",\"Labels\":\"\",\"LocalVolumes\":\"0\",\"Mounts\":\"\",\"Names\":\"insighthub-day2-lab-postgres-1\",\"Networks\":\"\",\"Platform\":null,\"Ports\":\"5432/tcp\",\"RunningFor\":\"26 minutes ago\",\"Size\":\"0B\",\"State\":\"running\",\"Status\":\"Up 26 minutes (healthy)\"}\n{\"Command\":\"\\\"\\\"\",\"CreatedAt\":\"2026-09-22 04:54:51 +0000 UTC\",\"HealthStatus\":\"\",\"ID\":\"683868d00a55\",\"Image\":\"insighthub-day2-lab-docker-read-proxy\",\"Labels\":\"\",\"LocalVolumes\":\"0\",\"Mounts\":\"\",\"Names\":\"insighthub-day2-lab-docker-read-proxy-1\",\"Networks\":\"\",\"Platform\":null,\"Ports\":\"127.0.0.1:23752-\\u003e2375/tcp\",\"RunningFor\":\"26 minutes ago\",\"Size\":\"0B\",\"State\":\"running\",\"Status\":\"Up 26 minutes\"}\n"
+              }
+            ],
+            "structured_content": null
+          },
+          "error": null,
+          "status": "completed"
+        }
+      }
+    },
+    {
+      "observed_at": "2026-09-22T05:21:16.312633+00:00",
+      "event": {
+        "type": "item.completed",
+        "item": {
+          "id": "item_3",
+          "type": "mcp_tool_call",
+          "server": "docker-operations",
+          "tool": "get_diagnostic_logs",
+          "arguments": {},
+          "result": {
+            "content": [
+              {
+                "type": "text",
+                "text": "2026-09-22T05:20:05.994740546Z DAY2_CONFIG_MISSING: DAY2_REQUIRED_VALUE must be configured\n"
+              }
+            ],
+            "structured_content": null
+          },
+          "error": null,
+          "status": "completed"
+        }
+      }
+    }
+  ],
+  "passed": true
+}

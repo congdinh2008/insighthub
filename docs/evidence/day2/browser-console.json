@@ -1,0 +1,8 @@
+{
+  "surface": "InsightHub and Prometheus browser E2E",
+  "levels": [
+    "error",
+    "warn"
+  ],
+  "entries": []
+}

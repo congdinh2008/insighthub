@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "reviewed_at": "2026-09-22",
+  "selection": [
+    {
+      "server": "filesystem",
+      "source": "https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem",
+      "artifact": "mcp/filesystem@sha256:35fcf0217ca0d5bf7b0a5bd68fb3b89e08174676c0e0b4f431604512cf7b3f67",
+      "basis": "MCP reference server distributed through Docker MCP Catalog; signed image digest is pinned"
+    },
+    {
+      "server": "docker-operations",
+      "source": "https://github.com/docker/mcp-gateway",
+      "catalog": "https://github.com/docker/mcp-registry",
+      "artifact": "docker-mcp v0.43.3 and Docker CLI 29.7.2",
+      "basis": "Docker-maintained gateway and registry; project catalog narrows operations to fixed read commands"
+    },
+    {
+      "server": "kubernetes",
+      "source": "https://github.com/containers/kubernetes-mcp-server",
+      "artifact": "v0.0.66",
+      "basis": "Upstream containers project; binary release and checksum are pinned"
+    },
+    {
+      "server": "prometheus",
+      "source": "https://github.com/prometheus/prometheus-mcp",
+      "artifact": "v0.18.0",
+      "basis": "Official Prometheus organization; release archive and checksum are pinned"
+    },
+    {
+      "server": "insighthub",
+      "source": "repository tools/mcp",
+      "artifact": "insighthub-readonly 1.0.0 with MCP SDK 2.0.0",
+      "basis": "Existing project MCP reused for domain health and document metadata"
+    }
+  ],
+  "future_candidate": {
+    "server": "AWS MCP",
+    "stage": "Day 03 or later",
+    "reason": "Add only when AWS IaC and live cloud resources enter scope; no AWS access is required for Day 02"
+  }
+}

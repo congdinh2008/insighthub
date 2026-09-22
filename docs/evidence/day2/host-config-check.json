@@ -1,0 +1,35 @@
+{
+  "observed_at": "2026-09-22T05:27:07Z",
+  "checks": [
+    {
+      "status": "PASS",
+      "scope": "static-context-and-config-shape",
+      "host": "codex",
+      "server_entries": 5,
+      "context_contains_todo": false,
+      "host_verified": false,
+      "milestone_complete": false,
+      "note": "Host activation, backend coverage, permissions, live calls and context quality require evidence."
+    },
+    {
+      "status": "PASS",
+      "scope": "static-context-and-config-shape",
+      "host": "claude",
+      "server_entries": 5,
+      "context_contains_todo": false,
+      "host_verified": false,
+      "milestone_complete": false,
+      "note": "Host activation, backend coverage, permissions, live calls and context quality require evidence."
+    },
+    {
+      "status": "PASS",
+      "scope": "static-context-and-config-shape",
+      "host": "antigravity",
+      "server_entries": 5,
+      "context_contains_todo": false,
+      "host_verified": false,
+      "milestone_complete": false,
+      "note": "Host activation, backend coverage, permissions, live calls and context quality require evidence."
+    }
+  ]
+}

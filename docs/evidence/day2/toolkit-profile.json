@@ -1,0 +1,13 @@
+{
+  "id": "insighthub-dev",
+  "name": "InsightHub Development",
+  "server": "filesystem",
+  "image": "mcp/filesystem@sha256:35fcf0217ca0d5bf7b0a5bd68fb3b89e08174676c0e0b4f431604512cf7b3f67",
+  "volume": "/Users/congdinh/Downloads/work/teaching/Training Programs/07_DevOps_with_AI/07_DevOps_Current_Program/insighthub/tmp/day2/source-view:/project:ro",
+  "disableNetwork": true,
+  "tools": [
+    "read_file",
+    "list_directory",
+    "list_allowed_directories"
+  ]
+}

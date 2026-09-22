@@ -1,0 +1,66 @@
+[
+  {
+    "ID": "024b4d0ea2ea",
+    "Names": "insighthub-day2-lab-debug-case-1",
+    "Image": "redis:7-alpine",
+    "State": "running",
+    "Status": "Up 6 minutes",
+    "Ports": "6379/tcp"
+  },
+  {
+    "ID": "d51c4e294466",
+    "Names": "insighthub-day2-lab-prometheus-1",
+    "Image": "prom/prometheus:v3.14.0",
+    "State": "running",
+    "Status": "Up 33 minutes (healthy)",
+    "Ports": "127.0.0.1:19092->9090/tcp"
+  },
+  {
+    "ID": "6f71de75161d",
+    "Names": "insighthub-day2-lab-web-1",
+    "Image": "insighthub-day2-lab-web",
+    "State": "running",
+    "Status": "Up 33 minutes (healthy)",
+    "Ports": "127.0.0.1:13002->3000/tcp"
+  },
+  {
+    "ID": "dffb14bcc191",
+    "Names": "insighthub-day2-lab-api-1",
+    "Image": "insighthub-day2-lab-api",
+    "State": "running",
+    "Status": "Up 33 minutes (healthy)",
+    "Ports": "127.0.0.1:18002->8000/tcp"
+  },
+  {
+    "ID": "79dc2288058f",
+    "Names": "insighthub-day2-lab-ingestion-worker-1",
+    "Image": "insighthub-day2-lab-ingestion-worker",
+    "State": "running",
+    "Status": "Up 33 minutes (healthy)",
+    "Ports": "8081/tcp"
+  },
+  {
+    "ID": "1ffe4fd9d841",
+    "Names": "insighthub-day2-lab-redis-1",
+    "Image": "redis:7-alpine",
+    "State": "running",
+    "Status": "Up 33 minutes (healthy)",
+    "Ports": "6379/tcp"
+  },
+  {
+    "ID": "e0054ce59044",
+    "Names": "insighthub-day2-lab-postgres-1",
+    "Image": "pgvector/pgvector:0.8.2-pg16",
+    "State": "running",
+    "Status": "Up 33 minutes (healthy)",
+    "Ports": "5432/tcp"
+  },
+  {
+    "ID": "683868d00a55",
+    "Names": "insighthub-day2-lab-docker-read-proxy-1",
+    "Image": "insighthub-day2-lab-docker-read-proxy",
+    "State": "running",
+    "Status": "Up 33 minutes",
+    "Ports": "127.0.0.1:23752->2375/tcp"
+  }
+]

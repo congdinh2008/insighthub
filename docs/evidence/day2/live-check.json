@@ -1,0 +1,108 @@
+{
+  "observed_at": "2026-09-22T05:34:37.793517+00:00",
+  "backend_mode": "live",
+  "mcp_calls": 20,
+  "prometheus_http_samples": [
+    {
+      "metric": {
+        "__name__": "up",
+        "instance": "ingestion-worker:8081",
+        "job": "insighthub-worker"
+      },
+      "value": [
+        1790055277.793,
+        "1"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "up",
+        "instance": "api:8000",
+        "job": "insighthub-api"
+      },
+      "value": [
+        1790055277.793,
+        "1"
+      ]
+    }
+  ],
+  "kubernetes_permissions": [
+    {
+      "verb": "get",
+      "resource": "pods",
+      "namespace": "insighthub",
+      "actual": "yes"
+    },
+    {
+      "verb": "get",
+      "resource": "pods/log",
+      "namespace": "insighthub",
+      "actual": "yes"
+    },
+    {
+      "verb": "list",
+      "resource": "deployments",
+      "namespace": "insighthub",
+      "actual": "yes"
+    },
+    {
+      "verb": "delete",
+      "resource": "pods",
+      "namespace": "insighthub",
+      "actual": "no"
+    },
+    {
+      "verb": "create",
+      "resource": "pods",
+      "namespace": "insighthub",
+      "actual": "no"
+    },
+    {
+      "verb": "patch",
+      "resource": "deployments",
+      "namespace": "insighthub",
+      "actual": "no"
+    },
+    {
+      "verb": "create",
+      "resource": "pods/exec",
+      "namespace": "insighthub",
+      "actual": "no"
+    },
+    {
+      "verb": "get",
+      "resource": "secrets",
+      "namespace": "insighthub",
+      "actual": "no"
+    },
+    {
+      "verb": "list",
+      "resource": "pods",
+      "namespace": "kube-system",
+      "actual": "no"
+    }
+  ],
+  "docker_denials": [
+    {
+      "method": "POST",
+      "path": "/containers/create",
+      "status": 403
+    },
+    {
+      "method": "DELETE",
+      "path": "/containers/canary",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "path": "/containers/unrelated/json",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "path": "/events",
+      "status": 403
+    }
+  ],
+  "passed": true
+}
