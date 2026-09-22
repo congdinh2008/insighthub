@@ -1,0 +1,5 @@
+aws_region             = "ap-southeast-1"
+environment            = "dev"
+cluster_name           = "insighthub-dev"
+application_role_arn   = "arn:aws:iam::123456789012:role/insighthub-dev-application"
+application_secret_arn = "arn:aws:secretsmanager:ap-southeast-1:123456789012:secret:insighthub/dev/application-XXXXXX"
