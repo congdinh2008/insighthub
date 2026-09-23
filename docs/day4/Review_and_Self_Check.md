@@ -5,14 +5,16 @@
 | Area | Status | Evidence required to close |
 |---|---|---|
 | Source and static contracts | complete | lint, Helm, promtool, mypy and tests passed |
-| Local monitoring runtime | complete in fixture mode | all pods ready, 4/4 targets UP, 20 rules healthy, 9-panel dashboard imported |
+| Local monitoring runtime | complete | all pods ready, 4/4 targets UP, 20 rules healthy, 9-panel dashboard imported |
+| Real provider smoke | complete | Zenlayer upload, ingestion, RAG, citation, provider usage and Prometheus telemetry verified |
+| Provider cost | pending reviewed rates | exact Zenlayer input/output rates and source URL or dashboard evidence |
 | Baseline >=1 hour | pending | continuous recorded samples and guards |
 | Slack delivery | test transport complete; incident delivery pending | `FIRING` test message in `#alerts`; three incident messages still required |
 | Three incidents and RCA | pending runtime | three distinct JSON reports with live samples |
 | MLOps notes | complete | `mlops-overview-notes.md` |
-| Quiz | practice 5/5; official pending | official form/result if supplied |
+| Quiz | excluded from this implementation by trainer | no implementation evidence required |
 
-Runtime validation details are recorded in `docs/evidence/day4/Runtime_Validation.md`. Fixture mode does not emit provider-reported token usage and cannot close the token/cost or real-provider incident gates. Slack transport is verified; incident-specific Slack evidence remains pending with the three controlled incident runs.
+Runtime validation details are recorded in `docs/evidence/day4/Runtime_Validation.md`. The Zenlayer smoke run emits provider-reported usage and closes the real-provider compatibility gate. Exact cost, the one-hour baseline and three controlled incident runs remain pending. Slack transport is verified; incident-specific Slack evidence remains pending with those runs.
 
 ## AIOps self-check
 

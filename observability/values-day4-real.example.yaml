@@ -7,7 +7,7 @@ faultProxy:
   image: insighthub-api:day4
   # Set this to the reviewed OpenAI-compatible upstream origin. Preserve paths
   # through the proxy; do not include credentials, query strings or fragments.
-  upstreamOrigin: https://api.openai.com
+  upstreamOrigin: https://gateway.theturbo.ai
 
 alerting:
   slack:
