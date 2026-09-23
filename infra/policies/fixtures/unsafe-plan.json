@@ -1,0 +1,27 @@
+{
+  "resource_changes": [
+    {
+      "address": "aws_db_instance.unsafe",
+      "type": "aws_db_instance",
+      "change": {
+        "actions": ["create"],
+        "after": {
+          "publicly_accessible": true,
+          "storage_encrypted": false,
+          "instance_class": "db.r7g.8xlarge",
+          "tags": {"project":"insighthub"}
+        }
+      }
+    },
+    {
+      "address": "aws_security_group.unsafe",
+      "type": "aws_security_group",
+      "change": {
+        "actions": ["create"],
+        "after": {
+          "ingress": [{"cidr_blocks":["0.0.0.0/0"]}]
+        }
+      }
+    }
+  ]
+}

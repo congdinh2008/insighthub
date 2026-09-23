@@ -1,0 +1,430 @@
+name: Day 03 infrastructure and deployment
+
+"on":
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+    paths:
+      - "infra/**"
+      - "deploy/**"
+      - "tools/iac/**"
+      - "tests/milestones/day3/**"
+      - ".github/workflows/iac.yml"
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: Apply the reviewed plan to insighthub-dev
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+env:
+  TF_IN_AUTOMATION: "true"
+  TF_INPUT: "false"
+  TF_VERSION: "1.15.6"
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  TF_VAR_aws_region: ${{ vars.AWS_REGION }}
+  TF_VAR_environment: dev
+  TF_VAR_owner: ${{ vars.LAB_OWNER }}
+  TF_VAR_cost_center: ${{ vars.COST_CENTER }}
+  TF_VAR_lab_id: ${{ github.run_id }}
+  TF_VAR_expires_at: ${{ vars.LAB_EXPIRES_AT }}
+  TF_VAR_admin_cidrs: ${{ vars.EKS_ADMIN_CIDRS }}
+  TF_VAR_cluster_admin_principal_arn: ${{ vars.AWS_APPLY_ROLE_ARN }}
+  TF_VAR_load_balancer_controller_policy_arn: ${{ vars.AWS_LOAD_BALANCER_CONTROLLER_POLICY_ARN }}
+
+concurrency:
+  group: insighthub-dev-iac
+  cancel-in-progress: false
+
+jobs:
+  fmt:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+      - run: terraform fmt -check -recursive infra
+
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: python3 tools/iac/install.py
+      - run: tmp/day3/bin/tflint --chdir=infra --init
+      - run: tmp/day3/bin/tflint --chdir=infra --recursive
+
+  security-scan:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: python3 -m pip install --disable-pip-version-check -r tools/iac/requirements.txt
+      - run: checkov -d infra --quiet --compact
+
+  policy-check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: python3 tools/iac/install.py
+      - run: tmp/day3/bin/conftest test --policy infra/policies/terraform infra/policies/fixtures/valid-plan.json
+      - name: Unsafe fixture must be rejected
+        run: "! tmp/day3/bin/conftest test --policy infra/policies/terraform infra/policies/fixtures/unsafe-plan.json"
+
+  application-test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: docker compose up --build -d --wait
+      - run: python3 -m venv .venv && .venv/bin/pip install --require-hashes -r requirements-dev.txt
+      - run: make test-image test-backend test-worker test-day1 PYTHON=.venv/bin/python
+      - run: python3 scripts/verify.py smoke --json
+      - if: always()
+        run: docker compose --profile ollama down --volumes --remove-orphans
+
+  image-build:
+    needs: application-test
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: |
+          docker build -t insighthub-api:${GITHUB_SHA} api
+          docker build --target runtime -t insighthub-worker:${GITHUB_SHA} -f ingestion-worker/Dockerfile .
+          docker build -t insighthub-web:${GITHUB_SHA} web
+          docker save insighthub-api:${GITHUB_SHA} insighthub-worker:${GITHUB_SHA} insighthub-web:${GITHUB_SHA} | gzip > insighthub-images.tar.gz
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: application-images
+          path: insighthub-images.tar.gz
+          retention-days: 3
+          if-no-files-found: error
+
+  plan:
+    needs: [fmt, lint, security-scan, policy-check]
+    runs-on: ubuntu-24.04
+    environment: insighthub-dev-plan
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Capture clean source fingerprint
+        run: echo "SOURCE_SHA256=$(python3 scripts/verify.py fingerprint --json | jq -r '.source_sha256')" >> "$GITHUB_ENV"
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+      - uses: aws-actions/configure-aws-credentials@00943011d9042930efac3dcd3a170e4273319bc8 # v5.1.0
+        with:
+          role-to-assume: ${{ vars.AWS_PLAN_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+      - run: python3 tools/iac/install.py
+      - name: Initialize remote state
+        run: >-
+          terraform -chdir=infra init -input=false
+          -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}"
+          -backend-config="key=insighthub/dev/core.tfstate"
+          -backend-config="region=${{ env.AWS_REGION }}"
+          -backend-config="kms_key_id=${{ vars.TF_STATE_KMS_ARN }}"
+      - run: terraform -chdir=infra validate -no-color
+      - run: terraform -chdir=infra plan -out=tfplan -no-color
+      - run: terraform -chdir=infra show -json tfplan > infra/tfplan.json
+      - run: tmp/day3/bin/conftest test --policy infra/policies/terraform infra/tfplan.json
+      - run: terraform -chdir=infra show -no-color tfplan > infra/tfplan.txt
+      - name: Build source-bound deployment evidence
+        run: |
+          mkdir -p verification-source
+          tar --sort=name --mtime='UTC 1970-01-01' --owner=0 --group=0 --numeric-owner \
+            -cf verification-source/deployment.tar deploy/helm/insighthub
+          artifact_sha256="$(shasum -a 256 verification-source/deployment.tar | awk '{print $1}')"
+          jq -n \
+            --arg source_sha256 "$SOURCE_SHA256" \
+            --arg artifact_sha256 "$artifact_sha256" \
+            --arg commit_sha "$GITHUB_SHA" \
+            --arg run_id "$GITHUB_RUN_ID" \
+            '{source_sha256:$source_sha256,artifact_sha256:$artifact_sha256,commit_sha:$commit_sha,run_id:$run_id}' \
+            > verification-source/source-manifest.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: verification-source
+          path: verification-source/
+          retention-days: 3
+          if-no-files-found: error
+      - name: Store reviewed plan privately with integrity binding
+        run: |
+          shasum -a 256 infra/tfplan | awk '{print $1}' > infra/tfplan.sha256
+          aws s3 cp infra/tfplan "s3://${{ vars.TF_STATE_BUCKET }}/plans/${GITHUB_RUN_ID}/tfplan" \
+            --sse aws:kms --sse-kms-key-id "${{ vars.TF_STATE_KMS_ARN }}"
+          aws s3 cp infra/tfplan.sha256 "s3://${{ vars.TF_STATE_BUCKET }}/plans/${GITHUB_RUN_ID}/tfplan.sha256" \
+            --sse aws:kms --sse-kms-key-id "${{ vars.TF_STATE_KMS_ARN }}"
+
+  cost-estimate:
+    needs: plan
+    runs-on: ubuntu-24.04
+    environment: insighthub-dev-plan
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: python3 tools/iac/install.py
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+      - uses: aws-actions/configure-aws-credentials@00943011d9042930efac3dcd3a170e4273319bc8 # v5.1.0
+        with:
+          role-to-assume: ${{ vars.AWS_PLAN_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Download and verify the reviewed plan
+        run: |
+          aws s3 cp "s3://${{ vars.TF_STATE_BUCKET }}/plans/${GITHUB_RUN_ID}/tfplan" infra/tfplan
+          aws s3 cp "s3://${{ vars.TF_STATE_BUCKET }}/plans/${GITHUB_RUN_ID}/tfplan.sha256" infra/tfplan.sha256
+          test "$(shasum -a 256 infra/tfplan | awk '{print $1}')" = "$(cat infra/tfplan.sha256)"
+          terraform -chdir=infra init -input=false \
+            -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}" \
+            -backend-config="key=insighthub/dev/core.tfstate" \
+            -backend-config="region=${{ env.AWS_REGION }}" \
+            -backend-config="kms_key_id=${{ vars.TF_STATE_KMS_ARN }}"
+          terraform -chdir=infra show -json tfplan > infra/tfplan.json
+      - name: Produce cost estimate for the reviewed plan
+        env:
+          INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
+        run: tmp/day3/bin/infracost breakdown --path infra/tfplan.json --format json --out-file infra/infracost.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: cost-estimate
+          path: infra/infracost.json
+          retention-days: 3
+          if-no-files-found: error
+      - name: Post or update the Infracost PR comment
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: >-
+          tmp/day3/bin/infracost comment github
+          --path infra/infracost.json
+          --github-token "$GITHUB_TOKEN"
+          --pull-request "$PR_NUMBER"
+          --repo "$GITHUB_REPOSITORY"
+          --behavior update
+
+  apply:
+    if: >-
+      (github.event_name == 'workflow_dispatch' && inputs.apply == true) ||
+      (github.event_name == 'pull_request' && github.event.action == 'labeled' &&
+      github.event.label.name == 'lab-deploy' &&
+      github.event.pull_request.head.repo.full_name == github.repository)
+    needs: [plan, cost-estimate, image-build]
+    runs-on: ubuntu-24.04
+    environment: insighthub-dev
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+      - uses: aws-actions/configure-aws-credentials@00943011d9042930efac3dcd3a170e4273319bc8 # v5.1.0
+        with:
+          role-to-assume: ${{ vars.AWS_APPLY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+      - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        with:
+          name: application-images
+          path: .
+      - name: Download and verify the approved plan
+        run: |
+          aws s3 cp "s3://${{ vars.TF_STATE_BUCKET }}/plans/${GITHUB_RUN_ID}/tfplan" infra/tfplan
+          aws s3 cp "s3://${{ vars.TF_STATE_BUCKET }}/plans/${GITHUB_RUN_ID}/tfplan.sha256" infra/tfplan.sha256
+          test "$(shasum -a 256 infra/tfplan | awk '{print $1}')" = "$(cat infra/tfplan.sha256)"
+      - name: Initialize and apply the reviewed plan
+        run: |
+          terraform -chdir=infra init -input=false \
+            -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}" \
+            -backend-config="key=insighthub/dev/core.tfstate" \
+            -backend-config="region=${{ env.AWS_REGION }}" \
+            -backend-config="kms_key_id=${{ vars.TF_STATE_KMS_ARN }}"
+          terraform -chdir=infra apply -input=false -auto-approve tfplan
+      - name: Temporarily authorize this apply runner for the EKS endpoint
+        run: |
+          cluster_name="$(terraform -chdir=infra output -raw cluster_name)"
+          runner_cidr="$(curl -fsS https://checkip.amazonaws.com)/32"
+          update_id=""
+          for attempt in $(seq 1 60); do
+            if update_id="$(aws eks update-cluster-config \
+              --name "$cluster_name" --region "$AWS_REGION" \
+              --resources-vpc-config "endpointPrivateAccess=true,endpointPublicAccess=true,publicAccessCidrs=$runner_cidr" \
+              --query 'update.id' --output text 2>/tmp/eks-update-error)"; then
+              break
+            fi
+            if grep -q ResourceInUseException /tmp/eks-update-error; then
+              sleep 10
+              continue
+            fi
+            cat /tmp/eks-update-error >&2
+            exit 1
+          done
+          test -n "$update_id"
+          for attempt in $(seq 1 60); do
+            status="$(aws eks describe-update --name "$cluster_name" --region "$AWS_REGION" --update-id "$update_id" --query 'update.status' --output text)"
+            [ "$status" = Successful ] && break
+            [ "$status" = Failed ] && exit 1
+            sleep 10
+          done
+          test "$status" = Successful
+      - name: Load and push images by immutable digest
+        run: |
+          gzip -dc insighthub-images.tar.gz | docker load
+          registry="$(terraform -chdir=infra output -json ecr_repository_urls | jq -r '.api' | cut -d/ -f1)"
+          aws ecr get-login-password | docker login --username AWS --password-stdin "$registry"
+          for component in api worker web; do
+            repository_key="$component"
+            if [ "$component" = worker ]; then repository_key=ingestion-worker; fi
+            repository="$(terraform -chdir=infra output -json ecr_repository_urls | jq -r --arg key "$repository_key" '.[$key]')"
+            docker tag "insighthub-${component}:${GITHUB_SHA}" "${repository}:${GITHUB_SHA}"
+            docker push "${repository}:${GITHUB_SHA}"
+          done
+      - name: Populate runtime secret without exposing values to Terraform state
+        env:
+          PROVIDER_SECRET_JSON: ${{ secrets.INSIGHTHUB_PROVIDER_SECRET_JSON }}
+        run: |
+          master_secret="$(aws secretsmanager get-secret-value --secret-id "$(terraform -chdir=infra output -raw database_master_secret_arn)" --query SecretString --output text)"
+          username="$(jq -r '.username' <<<"$master_secret")"
+          password="$(jq -r '.password' <<<"$master_secret")"
+          endpoint="$(terraform -chdir=infra output -raw database_endpoint):5432"
+          redis_endpoint="$(terraform -chdir=infra output -raw redis_endpoint)"
+          database_url="$(jq -rn --arg user "$username" --arg password "$password" --arg endpoint "$endpoint" '$user|@uri as $u | $password|@uri as $p | "postgresql://\($u):\($p)@\($endpoint)/insighthub?sslmode=require"')"
+          runtime_secret="$(jq -c --arg database_url "$database_url" --arg redis_url "rediss://${redis_endpoint}:6379/0" '. + {DATABASE_URL:$database_url,REDIS_URL:$redis_url}' <<<"$PROVIDER_SECRET_JSON")"
+          aws secretsmanager put-secret-value \
+            --secret-id "$(terraform -chdir=infra output -raw application_secret_arn)" \
+            --secret-string "$runtime_secret" >/dev/null
+      - name: Configure EKS platform and deploy Helm release
+        run: |
+          cluster_name="$(terraform -chdir=infra output -raw cluster_name)"
+          vpc_id="$(aws eks describe-cluster --name "$cluster_name" --region "$AWS_REGION" --query 'cluster.resourcesVpcConfig.vpcId' --output text)"
+          aws eks update-kubeconfig --name "$cluster_name" --region "$AWS_REGION"
+          helm repo add eks https://aws.github.io/eks-charts
+          helm repo add aws-secrets-manager https://aws.github.io/secrets-store-csi-driver-provider-aws
+          helm repo update
+          helm upgrade --install aws-load-balancer-controller eks/aws-load-balancer-controller \
+            --version 3.4.3 --namespace kube-system \
+            --set "clusterName=$cluster_name" \
+            --set "region=$AWS_REGION" \
+            --set "vpcId=$vpc_id" \
+            --set serviceAccount.create=true \
+            --set serviceAccount.name=aws-load-balancer-controller \
+            --set "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn=$(terraform -chdir=infra output -raw load_balancer_controller_role_arn)" \
+            --wait --timeout 10m
+          helm upgrade --install secrets-provider-aws aws-secrets-manager/secrets-store-csi-driver-provider-aws \
+            --version 3.1.3 --namespace kube-system \
+            --set secrets-store-csi-driver.syncSecret.enabled=true \
+            --wait --timeout 10m
+          terraform -chdir=infra/platform init -input=false \
+            -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}" \
+            -backend-config="key=insighthub/dev/platform.tfstate" \
+            -backend-config="region=${{ env.AWS_REGION }}" \
+            -backend-config="kms_key_id=${{ vars.TF_STATE_KMS_ARN }}"
+          terraform -chdir=infra/platform apply -input=false -auto-approve \
+            -var="cluster_name=$cluster_name" \
+            -var="application_role_arn=$(terraform -chdir=infra output -raw application_role_arn)" \
+            -var="application_secret_arn=$(terraform -chdir=infra output -raw application_secret_arn)"
+          helm upgrade --install insighthub deploy/helm/insighthub \
+            --namespace insighthub-dev --values deploy/helm/insighthub/values-dev.yaml \
+            --set "awsSecrets.secretArn=$(terraform -chdir=infra output -raw application_secret_arn)" \
+            --set-string "ingress.host=" \
+            --set "images.api.repository=$(terraform -chdir=infra output -json ecr_repository_urls | jq -r '.api')" \
+            --set "images.worker.repository=$(terraform -chdir=infra output -json ecr_repository_urls | jq -r '.["ingestion-worker"]')" \
+            --set "images.web.repository=$(terraform -chdir=infra output -json ecr_repository_urls | jq -r '.web')" \
+            --set "images.api.tag=${GITHUB_SHA}" --set "images.worker.tag=${GITHUB_SHA}" --set "images.web.tag=${GITHUB_SHA}" \
+            --atomic --wait --wait-for-jobs --timeout 15m
+          kubectl rollout status deployment/insighthub-api -n insighthub-dev --timeout=5m
+          kubectl rollout status deployment/insighthub-ingestion-worker -n insighthub-dev --timeout=5m
+          kubectl rollout status deployment/insighthub-web -n insighthub-dev --timeout=5m
+      - name: Create the temporary trusted HTTPS endpoint
+        run: |
+          for attempt in $(seq 1 60); do
+            alb_hostname="$(kubectl get ingress insighthub -n insighthub-dev -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+            [ -n "$alb_hostname" ] && break
+            sleep 10
+          done
+          test -n "$alb_hostname"
+          edge_tags="$(jq -cn \
+            --arg owner "$TF_VAR_owner" --arg cost_center "$TF_VAR_cost_center" \
+            --arg lab_id "$TF_VAR_lab_id" --arg expires_at "$TF_VAR_expires_at" \
+            '{project:"insighthub",environment:"dev",owner:$owner,cost_center:$cost_center,managed_by:"terraform",Class:"DO2603",LabId:$lab_id,ExpiresAt:$expires_at}')"
+          terraform -chdir=infra/edge init -input=false \
+            -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}" \
+            -backend-config="key=insighthub/dev/edge.tfstate" \
+            -backend-config="region=${{ env.AWS_REGION }}" \
+            -backend-config="kms_key_id=${{ vars.TF_STATE_KMS_ARN }}"
+          terraform -chdir=infra/edge apply -input=false -auto-approve \
+            -var="origin_domain_name=$alb_hostname" -var="tags=$edge_tags"
+          echo "INSIGHTHUB_HTTPS_URL=$(terraform -chdir=infra/edge output -raw https_url)" >> "$GITHUB_ENV"
+      - name: Verify the public HTTPS workflow
+        run: >-
+          python3 scripts/verify.py smoke
+          --api-url "$INSIGHTHUB_HTTPS_URL"
+          --web-url "$INSIGHTHUB_HTTPS_URL"
+          --json
+      - name: Restore the reviewed EKS endpoint CIDRs
+        if: always()
+        run: |
+          cluster_name="$(terraform -chdir=infra output -raw cluster_name 2>/dev/null || true)"
+          if [ -n "$cluster_name" ] && aws eks describe-cluster --name "$cluster_name" --region "$AWS_REGION" >/dev/null 2>&1; then
+            reviewed_cidrs="$(jq -r 'join(",")' <<<"$TF_VAR_admin_cidrs")"
+            current_cidrs="$(aws eks describe-cluster --name "$cluster_name" --region "$AWS_REGION" --query 'cluster.resourcesVpcConfig.publicAccessCidrs' --output json | jq -r 'sort | join(",")')"
+            if [ "$current_cidrs" != "$(jq -r 'sort | join(",")' <<<"$TF_VAR_admin_cidrs")" ]; then
+              update_id=""
+              for attempt in $(seq 1 60); do
+                if update_id="$(aws eks update-cluster-config \
+                  --name "$cluster_name" --region "$AWS_REGION" \
+                  --resources-vpc-config "endpointPrivateAccess=true,endpointPublicAccess=true,publicAccessCidrs=$reviewed_cidrs" \
+                  --query 'update.id' --output text 2>/tmp/eks-update-error)"; then
+                  break
+                fi
+                if grep -q ResourceInUseException /tmp/eks-update-error; then
+                  sleep 10
+                  continue
+                fi
+                cat /tmp/eks-update-error >&2
+                exit 1
+              done
+              test -n "$update_id"
+              for attempt in $(seq 1 60); do
+                status="$(aws eks describe-update --name "$cluster_name" --region "$AWS_REGION" --update-id "$update_id" --query 'update.status' --output text)"
+                [ "$status" = Successful ] && break
+                [ "$status" = Failed ] && exit 1
+                sleep 10
+              done
+              test "$status" = Successful
+            fi
+          fi
+      - name: Remove the consumed private plan
+        if: success()
+        run: |
+          aws s3api delete-object --bucket "${{ vars.TF_STATE_BUCKET }}" --key "plans/${GITHUB_RUN_ID}/tfplan"
+          aws s3api delete-object --bucket "${{ vars.TF_STATE_BUCKET }}" --key "plans/${GITHUB_RUN_ID}/tfplan.sha256"

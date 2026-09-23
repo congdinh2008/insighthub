@@ -45,5 +45,7 @@ tmp/
 
 # Local evidence and release outputs
 evidence/
+!docs/evidence/
+!docs/evidence/**
 reports/
 *.tsbuildinfo

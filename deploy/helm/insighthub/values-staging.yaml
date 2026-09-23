@@ -1,0 +1,34 @@
+runtime:
+  localDataServices: false
+  environment: staging
+  ragMode: real
+  llmProvider: gemini
+  embeddingProvider: gemini
+
+platform:
+  createServiceAccount: false
+  serviceAccountName: insighthub
+
+secret:
+  createLocal: false
+  existingSecret: insighthub-runtime
+
+awsSecrets:
+  enabled: true
+
+ingress:
+  enabled: true
+  className: alb
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+  tls:
+    enabled: false
+
+api:
+  replicas: 2
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 4

@@ -1,0 +1,30 @@
+{
+  "resource_changes": [
+    {
+      "address": "module.database.aws_db_instance.this",
+      "type": "aws_db_instance",
+      "change": {
+        "actions": ["create"],
+        "after": {
+          "publicly_accessible": false,
+          "storage_encrypted": true,
+          "instance_class": "db.t4g.micro",
+          "tags": {"project":"insighthub","environment":"dev","owner":"student","cost_center":"training","managed_by":"terraform"}
+        }
+      }
+    },
+    {
+      "address": "module.cache.aws_elasticache_replication_group.this",
+      "type": "aws_elasticache_replication_group",
+      "change": {
+        "actions": ["create"],
+        "after": {
+          "at_rest_encryption_enabled": true,
+          "transit_encryption_enabled": true,
+          "node_type": "cache.t4g.micro",
+          "tags": {"project":"insighthub","environment":"dev","owner":"student","cost_center":"training","managed_by":"terraform"}
+        }
+      }
+    }
+  ]
+}

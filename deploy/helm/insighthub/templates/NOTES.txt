@@ -1,0 +1,5 @@
+InsightHub release {{ .Release.Name }} targets namespace {{ .Release.Namespace }}.
+Wait for readiness:
+  kubectl rollout status deployment/{{ include "insighthub.fullname" . }}-api -n {{ .Release.Namespace }}
+  kubectl rollout status deployment/{{ include "insighthub.fullname" . }}-ingestion-worker -n {{ .Release.Namespace }}
+  kubectl rollout status deployment/{{ include "insighthub.fullname" . }}-web -n {{ .Release.Namespace }}

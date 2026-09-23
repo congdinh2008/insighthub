@@ -59,3 +59,37 @@ test-day2-live:
 	$(PYTHON) tests/milestones/day2/live_check.py
 test-day2-host:
 	$(PYTHON) tools/mcp/day2/host_check.py
+
+# Day 03 is local-first. Cloud plan/apply requires the reviewed AWS inputs in docs/day3/Runbook.md.
+.PHONY: tools-day3 fmt-day3 validate-day3 lint-day3 security-day3 policy-day3 helm-day3 test-day3 day3-local-up day3-local-status day3-local-down
+tools-day3:
+	$(PYTHON) tools/iac/install.py
+fmt-day3:
+	terraform fmt -check -recursive infra
+validate-day3:
+	terraform -chdir=infra init -backend=false -input=false
+	terraform -chdir=infra validate -no-color
+	terraform -chdir=infra/bootstrap init -backend=false -input=false
+	terraform -chdir=infra/bootstrap validate -no-color
+	terraform -chdir=infra/platform init -backend=false -input=false
+	terraform -chdir=infra/platform validate -no-color
+	terraform -chdir=infra/edge init -backend=false -input=false
+	terraform -chdir=infra/edge validate -no-color
+lint-day3:
+	tmp/day3/bin/tflint --chdir=infra --init
+	tmp/day3/bin/tflint --chdir=infra --recursive
+security-day3:
+	tmp/day3/bin/checkov -d infra --quiet --compact
+policy-day3:
+	tmp/day3/venv/bin/pytest tests/milestones/day3/test_policy.py -v -p no:cacheprovider
+helm-day3:
+	helm lint deploy/helm/insighthub -f deploy/helm/insighthub/values-local.yaml
+	helm template insighthub deploy/helm/insighthub -f deploy/helm/insighthub/values-local.yaml >/dev/null
+test-day3: fmt-day3 validate-day3 lint-day3 security-day3 policy-day3 helm-day3
+	tmp/day3/venv/bin/pytest tests/milestones/day3 -v -p no:cacheprovider
+day3-local-up:
+	$(PYTHON) tools/iac/local_lab.py up
+day3-local-status:
+	$(PYTHON) tools/iac/local_lab.py status
+day3-local-down:
+	$(PYTHON) tools/iac/local_lab.py down

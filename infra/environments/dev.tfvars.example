@@ -1,0 +1,14 @@
+aws_region                    = "ap-southeast-1"
+environment                   = "dev"
+owner                         = "student-name"
+cost_center                   = "training-do2603"
+lab_id                        = "do2603-student-YYYYMMDD"
+expires_at                    = "2026-09-23T11:00:00Z"
+admin_cidrs                   = ["203.0.113.10/32"]
+cluster_admin_principal_arn   = "arn:aws:iam::123456789012:role/insighthub-dev-github-apply"
+load_balancer_controller_policy_arn = "arn:aws:iam::123456789012:policy/AWSLoadBalancerControllerIAMPolicy-v3-4-3"
+application_secret_name       = "insighthub/dev/application"
+node_desired_size             = 2
+rds_instance_class            = "db.t4g.micro"
+redis_node_type               = "cache.t4g.micro"
+database_backup_retention_days = 1

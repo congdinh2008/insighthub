@@ -1,0 +1,63 @@
+{{- if and (not .Values.runtime.localDataServices) .Values.migration.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "insighthub.fullname" . }}-database-schema
+  labels:
+    {{- include "insighthub.labels" . | nindent 4 }}
+data:
+  init.sql: |
+{{ .Files.Get "files/init.sql" | indent 4 }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "insighthub.fullname" . }}-database-migration-{{ .Chart.Version | replace "." "-" }}
+  labels:
+    {{- include "insighthub.labels" . | nindent 4 }}
+spec:
+  backoffLimit: 4
+  ttlSecondsAfterFinished: 600
+  template:
+    metadata:
+      labels:
+        {{- include "insighthub.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: database-migration
+    spec:
+      restartPolicy: OnFailure
+      serviceAccountName: {{ include "insighthub.serviceAccountName" . }}
+      automountServiceAccountToken: true
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: migrate
+          image: {{ .Values.postgres.image }}
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "-ec", "psql \"$(cat /mnt/secrets/DATABASE_URL)\" --set ON_ERROR_STOP=1 --file /schema/init.sql"]
+          resources:
+            requests: {cpu: 25m, memory: 64Mi}
+            limits: {cpu: 250m, memory: 256Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: ["ALL"]}
+          volumeMounts:
+            - {name: schema, mountPath: /schema, readOnly: true}
+            - {name: runtime-secrets, mountPath: /mnt/secrets, readOnly: true}
+            - {name: tmp, mountPath: /tmp}
+      volumes:
+        - name: schema
+          configMap: {name: {{ include "insighthub.fullname" . }}-database-schema}
+        - name: runtime-secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: {{ include "insighthub.fullname" . }}-runtime
+        - name: tmp
+          emptyDir: {sizeLimit: 32Mi}
+{{- end }}

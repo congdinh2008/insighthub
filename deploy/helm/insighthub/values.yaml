@@ -1,0 +1,91 @@
+nameOverride: ""
+fullnameOverride: ""
+
+platform:
+  createServiceAccount: true
+  serviceAccountName: insighthub
+  serviceAccountAnnotations: {}
+
+images:
+  web:
+    repository: insighthub-web
+    tag: day3
+    pullPolicy: IfNotPresent
+  api:
+    repository: insighthub-api
+    tag: day3
+    pullPolicy: IfNotPresent
+  worker:
+    repository: insighthub-worker
+    tag: day3
+    pullPolicy: IfNotPresent
+
+runtime:
+  localDataServices: true
+  environment: development
+  ragMode: fixture
+  llmProvider: fixture
+  embeddingProvider: fixture
+  embeddingDimension: "1024"
+  queueName: insighthub:ingestion
+
+secret:
+  createLocal: true
+  existingSecret: insighthub-runtime
+  databaseUrl: postgresql://insighthub:insighthub@postgres:5432/insighthub
+  redisUrl: redis://redis:6379/0
+
+awsSecrets:
+  enabled: false
+  secretArn: ""
+
+migration:
+  enabled: true
+
+ingress:
+  enabled: false
+  className: nginx
+  host: insighthub.localhost
+  certificateArn: ""
+  annotations: {}
+  tls:
+    enabled: false
+    secretName: insighthub-tls
+
+api:
+  replicas: 2
+  resources:
+    requests: {cpu: 100m, memory: 192Mi}
+    limits: {cpu: 750m, memory: 768Mi}
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 70
+
+web:
+  replicas: 1
+  resources:
+    requests: {cpu: 50m, memory: 128Mi}
+    limits: {cpu: 500m, memory: 512Mi}
+
+worker:
+  replicas: 1
+  terminationGracePeriodSeconds: 150
+  resources:
+    requests: {cpu: 100m, memory: 192Mi}
+    limits: {cpu: 750m, memory: 768Mi}
+
+postgres:
+  image: pgvector/pgvector:0.8.2-pg16@sha256:00ba258a66dac104fd5171074a0084462a64a1369d8513f3d0a634e2f24d15bc
+  storage: 1Gi
+  resources:
+    requests: {cpu: 50m, memory: 128Mi}
+    limits: {cpu: 500m, memory: 512Mi}
+
+redis:
+  image: redis:7-alpine@sha256:6ab0b6e7381779332f97b8ca76193e45b0756f38d4c0dcda72dbb3c32061ab99
+  storage: 256Mi
+  resources:
+    requests: {cpu: 25m, memory: 32Mi}
+    limits: {cpu: 250m, memory: 256Mi}

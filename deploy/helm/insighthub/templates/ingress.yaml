@@ -1,0 +1,52 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "insighthub.fullname" . }}
+  labels:
+    {{- include "insighthub.labels" . | nindent 4 }}
+  annotations:
+    {{- toYaml .Values.ingress.annotations | nindent 4 }}
+    {{- if and (eq .Values.ingress.className "alb") .Values.ingress.certificateArn }}
+    alb.ingress.kubernetes.io/certificate-arn: {{ .Values.ingress.certificateArn | quote }}
+    {{- end }}
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- if .Values.ingress.tls.enabled }}
+  tls:
+    - hosts: [{{ .Values.ingress.host | quote }}]
+      {{- if ne .Values.ingress.className "alb" }}
+      secretName: {{ .Values.ingress.tls.secretName }}
+      {{- end }}
+  {{- end }}
+  rules:
+    - {{- if .Values.ingress.host }}
+      host: {{ .Values.ingress.host | quote }}
+      {{- end }}
+      http:
+        paths:
+          - path: /healthz
+            pathType: Exact
+            backend:
+              service: {name: {{ include "insighthub.fullname" . }}-api, port: {name: http}}
+          - path: /readyz
+            pathType: Exact
+            backend:
+              service: {name: {{ include "insighthub.fullname" . }}-api, port: {name: http}}
+          - path: /metrics
+            pathType: Exact
+            backend:
+              service: {name: {{ include "insighthub.fullname" . }}-api, port: {name: http}}
+          - path: /documents
+            pathType: Prefix
+            backend:
+              service: {name: {{ include "insighthub.fullname" . }}-api, port: {name: http}}
+          - path: /chat
+            pathType: Prefix
+            backend:
+              service: {name: {{ include "insighthub.fullname" . }}-api, port: {name: http}}
+          - path: /
+            pathType: Prefix
+            backend:
+              service: {name: {{ include "insighthub.fullname" . }}-web, port: {name: http}}
+{{- end }}
