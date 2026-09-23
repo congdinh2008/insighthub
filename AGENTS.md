@@ -18,10 +18,12 @@ Codex đọc trực tiếp file này; đây là nguồn context chung, không c�
 - Day 03 local dùng kind namespace insighthub-dev với web/api/worker Deployments và PostgreSQL/Redis StatefulSets.
 - Day 03 AWS dùng CloudFront HTTPS + ALB origin, EKS, RDS PostgreSQL 16, ElastiCache Redis 7, ECR, Secrets Manager/CSI và IRSA.
 - Terraform tách bootstrap/core/platform/edge state; Helm sở hữu workload, Services, HPA, Ingress và migration Job.
+- Day 04 local dùng kube-prometheus-stack, API/worker metrics, PostgreSQL/Redis exporters và Kubernetes metrics cho đủ năm thành phần.
+- Day 04 có dashboard đúng chín query panels, baseline 1h offset 10m, ba anomaly alerts và fault scripts có restore.
 
 ## Conventions
 - Python 3.12; runtime API và worker phải qua mypy --strict, Ruff format/check.
-- Snake_case cho Python; Conventional Commits; branch day1-refactor/day2-mcp/day3-terraform, PR đúng specification.
+- Snake_case cho Python; Conventional Commits; branch day1-refactor/day2-mcp/day3-terraform/day4-observability, PR đúng specification.
 - ServiceError chỉ lộ code/message an toàn; ProviderError.retryable là thông tin nội bộ.
 - Worker JSON log theo allowlist: event, timestamp, document_id, job_id, attempt, status, error_code, duration.
 - Không log raw job arguments, nội dung tài liệu, exception/provider body hoặc secrets.
@@ -43,6 +45,7 @@ Codex đọc trực tiếp file này; đây là nguồn context chung, không c�
 - Day 02: docs/day2/Runbook.md; make test-day2; make test-day2-live; make test-day2-host.
 - Day 03: make tools-day3 test-day3; python3 tools/iac/local_lab.py up|status|down.
 - Day 03 cloud: chỉ theo docs/day3/Runbook.md sau khi đủ AWS/GitHub/domain/reviewer/budget inputs.
+- Day 04: make test-day4; python3 tools/observability/local_lab.py up|status|down; docs/day4/Runbook.md.
 - Day verifier và runtime probes: docs/day1/Runbook.md; không đổi assertions để đạt PASS.
 
 ## Constraints
@@ -63,6 +66,9 @@ Codex đọc trực tiếp file này; đây là nguồn context chung, không c�
 - S3 backend dùng native use_lockfile; không thêm DynamoDB lock. Apply chỉ dùng reviewed saved plan qua protected Environment.
 - Không ghi local Terraform/kind PASS thành EKS/RDS/OIDC/HTTPS PASS. Cloud lab phải teardown ngay sau evidence.
 - Không thêm dashboard/alerts, Slack bot, Promptfoo, LiteLLM hoặc Day 04-06 feature vào Day 03.
+- Day 04 không thêm ChatOps, auto-remediation, Sift/SLO mở rộng, MLflow, training/retraining hoặc Day 05-06 feature.
+- Không ghi RCA runtime, Slack delivery, real-model token/cost hoặc baseline PASS khi chưa có evidence thật.
+- Fault Day 04 chỉ chạy trên context/namespace lab đã chọn; luôn restore proxy mode và worker replicas.
 
 ## Domain
 - Trạng thái DB chỉ pending, ready, failed. Không thêm queued/processing vào schema.
@@ -89,3 +95,4 @@ Codex đọc trực tiếp file này; đây là nguồn context chung, không c�
 - api/app/routers/documents.py, api/app/services/{queue,ingestion}.py, ingestion-worker/worker.py.
 - docs/Guide_Coding_Host_DO2603.md; scripts/VERIFICATION_CONTRACT.md; GETTING_STARTED.md.
 - infra/SPEC.md; docs/plans/Day03_Implementation_Plan_v1.0.md; docs/day3/Runbook.md; ai-prompts/day3.md.
+- observability/; docs/plans/Day04_Implementation_Plan_v1.0.md; docs/day4/Runbook.md; ai-prompts/day4.md.

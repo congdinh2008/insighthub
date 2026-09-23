@@ -133,7 +133,7 @@ insighthub/
 ├── infra/
 │   ├── db/init.sql           # Schema PostgreSQL/pgvector được cung cấp
 │   └── README.md             # Học viên bổ sung Terraform/Helm/IaC Day 3
-├── observability/            # Học viên bổ sung monitoring/anomaly/RCA Day 4
+├── observability/            # Day 4 monitoring chart, rules, tests và dashboard
 ├── chatops-bot/              # Skeleton chưa hoàn thiện Slack bot; Day 5
 ├── security/                 # Promptfoo scaffold; guardrails/gateway/FinOps Day 6
 ├── sample-docs/              # Corpus mô phỏng; có injection cố ý cho Day 6
