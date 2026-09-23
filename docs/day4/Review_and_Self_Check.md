@@ -7,12 +7,12 @@
 | Source and static contracts | complete | lint, Helm, promtool, mypy and tests passed |
 | Local monitoring runtime | complete in fixture mode | all pods ready, 4/4 targets UP, 20 rules healthy, 9-panel dashboard imported |
 | Baseline >=1 hour | pending | continuous recorded samples and guards |
-| Slack delivery | pending external runtime input | test and incident messages in `#alerts` |
+| Slack delivery | test transport complete; incident delivery pending | `FIRING` test message in `#alerts`; three incident messages still required |
 | Three incidents and RCA | pending runtime | three distinct JSON reports with live samples |
 | MLOps notes | complete | `mlops-overview-notes.md` |
 | Quiz | practice 5/5; official pending | official form/result if supplied |
 
-Runtime validation details are recorded in `docs/evidence/day4/Runtime_Validation.md`. Fixture mode does not emit provider-reported token usage and cannot close the token/cost, real-provider incident or Slack acceptance gates.
+Runtime validation details are recorded in `docs/evidence/day4/Runtime_Validation.md`. Fixture mode does not emit provider-reported token usage and cannot close the token/cost or real-provider incident gates. Slack transport is verified; incident-specific Slack evidence remains pending with the three controlled incident runs.
 
 ## AIOps self-check
 
