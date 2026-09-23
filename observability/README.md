@@ -1,5 +1,19 @@
-# Observability và MLOps - bắt buộc Day 4
+# InsightHub Day 04 observability
 
-ServiceMonitor/exporters cho đủ5 thành phần, Grafana9+ panels,3 anomaly và3 incident/RCA, Slack alert, MLOps overview notes4 blocks/quiz. Queue/worker Day 1 và deployment Day 3 phải có thật. [Spec mục 8](../Running-Project-Specification-Student.md).
+Phạm vi này triển khai đúng mục 8 của specification:
 
-Dùng telemetry local cho baseline; không giữ AWS chạy liên tục. Alloy/OTel có thể cải tiến collector, không bỏ các nhiệm vụ gốc.
+- kube-prometheus-stack pin tại chart `89.2.0`, Prometheus retention 15 ngày và resource limits.
+- Bốn ServiceMonitor cho API, worker, PostgreSQL exporter và Redis exporter. Web cùng năm component được quan sát bằng kube-state-metrics/kubelet.
+- Dashboard đúng chín query panels: rate, error, duration, queue, tokens, LLM p95, estimated generation API cost, resources/health và deployment history.
+- Recording/anomaly rules cho LLM latency, queue backlog và error ratio, dùng baseline 1 giờ offset 10 phút.
+- AlertmanagerConfig tới Slack `#alerts`, chỉ bật khi Secret runtime tồn tại.
+- Fault proxy và scripts tái lập ba incident; không có autonomous remediation.
+
+Nguồn canonical:
+
+- `chart/files/anomaly-rules.yaml`
+- `tests/anomaly-rules.test.yaml`
+- `chart/files/insighthub-dashboard.json`
+- `kube-prometheus-stack-values.yaml`
+
+Quy trình chạy, real provider, Slack secret, baseline và cleanup nằm trong [Runbook](../docs/day4/Runbook.md). Không commit API key, Slack webhook, kubeconfig, port-forward log hoặc raw provider response.

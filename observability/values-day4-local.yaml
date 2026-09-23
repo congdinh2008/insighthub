@@ -1,0 +1,11 @@
+applicationNamespace: insighthub-dev
+monitoringRelease: kube-prom-stack
+
+faultProxy:
+  enabled: true
+  image: insighthub-api:day4
+  upstreamOrigin: https://api.openai.com
+  delaySeconds: "3"
+
+mcp:
+  enabled: true

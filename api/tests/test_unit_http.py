@@ -5,16 +5,16 @@ import unittest
 from unittest.mock import patch
 
 import httpx
-from fastapi import HTTPException, UploadFile
-from fastapi.testclient import TestClient
-from pypdf import PdfWriter
-from support import configured
 from app.core.errors import InvalidDocument, ProviderError
-from app.core.metrics import http_requests_total
+from app.core.metrics import http_request_duration, http_requests_total
 from app.core.upload_limit import UploadLimitMiddleware
 from app.main import app
 from app.routers.documents import upload_document
 from app.services.ingestion import extract_text
+from fastapi import HTTPException, UploadFile
+from fastapi.testclient import TestClient
+from pypdf import PdfWriter
+from support import configured
 
 
 class HttpTests(unittest.TestCase):
@@ -106,6 +106,20 @@ class HttpTests(unittest.TestCase):
             any("unknown-" in value or "/documents/10" in value for value in endpoints)
         )
         self.assertFalse(any(label["method"].startswith("UNKNOWN") for label in labels))
+        duration_labels = [
+            sample.labels
+            for metric in http_request_duration.collect()
+            for sample in metric.samples
+        ]
+        self.assertTrue(
+            any(
+                label["endpoint"] == "/documents/{document_id}"
+                for label in duration_labels
+            )
+        )
+        self.assertFalse(
+            any("/documents/10" in label["endpoint"] for label in duration_labels)
+        )
 
 
 class AsyncHttpTests(unittest.IsolatedAsyncioTestCase):

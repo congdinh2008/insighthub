@@ -11,3 +11,5 @@ data:
   EMBEDDING_PROVIDER: {{ .Values.runtime.embeddingProvider | quote }}
   EMBEDDING_DIM: {{ .Values.runtime.embeddingDimension | quote }}
   QUEUE_NAME: {{ .Values.runtime.queueName | quote }}
+  LLM_INPUT_USD_PER_MILLION: {{ .Values.runtime.llmInputUsdPerMillion | quote }}
+  LLM_OUTPUT_USD_PER_MILLION: {{ .Values.runtime.llmOutputUsdPerMillion | quote }}

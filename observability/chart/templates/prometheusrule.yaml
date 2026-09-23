@@ -1,0 +1,9 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: insighthub-anomaly-rules
+  labels:
+    release: {{ .Values.monitoringRelease }}
+spec:
+  groups:
+{{ (.Files.Get "files/anomaly-rules.yaml" | fromYaml).groups | toYaml | indent 4 }}

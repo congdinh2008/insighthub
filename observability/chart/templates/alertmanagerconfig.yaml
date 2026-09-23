@@ -1,0 +1,29 @@
+{{- if .Values.alerting.slack.enabled }}
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: insighthub-slack
+  labels:
+    alertmanagerConfig: insighthub
+spec:
+  route:
+    receiver: slack-alerts
+    groupBy: [alertname, namespace]
+    groupWait: 15s
+    groupInterval: 1m
+    repeatInterval: 4h
+    matchers:
+      - name: project
+        value: insighthub
+        matchType: "="
+  receivers:
+    - name: slack-alerts
+      slackConfigs:
+        - apiURL:
+            name: {{ .Values.alerting.slack.secretName }}
+            key: {{ .Values.alerting.slack.secretKey }}
+          channel: {{ .Values.alerting.slack.channel | quote }}
+          sendResolved: true
+          title: '{{ `{{ .Status | toUpper }}` }} InsightHub {{ `{{ .CommonLabels.alertname }}` }}'
+          text: '{{ `{{ range .Alerts }}{{ .Annotations.summary }}{{ "\\n" }}{{ end }}` }}'
+{{- end }}

@@ -2,6 +2,7 @@ COMPOSE ?= docker compose
 PYTHON ?= python3
 NPM ?= npm
 NODE ?= node
+PROMTOOL_IMAGE ?= prom/prometheus:v3.7.3@sha256:49214755b6153f90a597adcbff0252cc61069f8ab69ce8411285cd4a560e8038
 API_URL ?= http://localhost:8000
 WEB_URL ?= http://localhost:3000
 COMPOSE_PROJECT_NAME ?= insighthub-do2603
@@ -93,3 +94,24 @@ day3-local-status:
 	$(PYTHON) tools/iac/local_lab.py status
 day3-local-down:
 	$(PYTHON) tools/iac/local_lab.py down
+
+# Day 04 is local-first. Slack and real-provider acceptance need runtime inputs.
+.PHONY: test-day4 helm-day4 rules-day4 day4-mcp-configure day4-local-up day4-local-status day4-local-down
+helm-day4:
+	helm lint deploy/helm/insighthub -f deploy/helm/insighthub/values-local.yaml -f deploy/helm/insighthub/values-day4-local.yaml
+	helm lint observability/chart -f observability/values-day4-local.yaml
+	helm template insighthub deploy/helm/insighthub -f deploy/helm/insighthub/values-local.yaml -f deploy/helm/insighthub/values-day4-local.yaml >/dev/null
+	helm template insighthub-observability observability/chart -n monitoring -f observability/values-day4-local.yaml >/dev/null
+rules-day4:
+	docker run --rm --entrypoint=promtool -v "$(CURDIR)/observability:/work" -w /work $(PROMTOOL_IMAGE) check rules chart/files/anomaly-rules.yaml
+	docker run --rm --entrypoint=promtool -v "$(CURDIR)/observability:/work" -w /work $(PROMTOOL_IMAGE) test rules tests/anomaly-rules.test.yaml
+test-day4: helm-day4 rules-day4
+	$(PYTHON) -m pytest tests/milestones/day4 -v -p no:cacheprovider
+day4-mcp-configure:
+	$(PYTHON) tools/mcp/day4/configure.py
+day4-local-up:
+	$(PYTHON) tools/observability/local_lab.py up
+day4-local-status:
+	$(PYTHON) tools/observability/local_lab.py status
+day4-local-down:
+	$(PYTHON) tools/observability/local_lab.py down

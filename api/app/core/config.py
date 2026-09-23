@@ -57,6 +57,8 @@ class Settings(BaseSettings):
     llm_model: str = ""
     embedding_model: str = ""
     llm_max_tokens: int = Field(default=1024, ge=1, le=32768)
+    llm_input_usd_per_million: float = Field(default=0, ge=0, allow_inf_nan=False)
+    llm_output_usd_per_million: float = Field(default=0, ge=0, allow_inf_nan=False)
     embedding_dim: int = Field(default=1024, ge=1, le=2000)
     embedding_revision: str = Field(default="1", min_length=1, max_length=128)
     provider_timeout_seconds: float = Field(

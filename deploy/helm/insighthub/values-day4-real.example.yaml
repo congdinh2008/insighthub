@@ -1,0 +1,15 @@
+# Non-secret Day 04 runtime selection. Create the complete insighthub-runtime
+# Secret separately with database, Redis and provider settings.
+runtime:
+  ragMode: real
+  llmProvider: openai
+  embeddingProvider: openai
+  embeddingDimension: "1024"
+  # Example only. Replace with the reviewed price for the exact model and save
+  # the source URL/date in Day 04 evidence before runtime acceptance.
+  llmInputUsdPerMillion: "0"
+  llmOutputUsdPerMillion: "0"
+
+secret:
+  createLocal: false
+  existingSecret: insighthub-runtime
