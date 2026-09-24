@@ -2,7 +2,7 @@
 
 **Ngày review:** 24/09/2026. **Branch:** `day4-observability`. Quiz đã được trainer loại khỏi phạm vi.
 
-**Kết luận:** Luồng lab Day 04 đã chạy thật: baseline 75 phút, ba incident phục hồi, Slack FIRING/RESOLVED và ba RCA có tám mẫu Prometheus đối chiếu live. Hai lỗi biên của rules đã sửa và kiểm thử. Ngày 24/09, hệ thống local được kiểm lại với 22/22 targets UP; Grafana đã render đủ chín panel và có ảnh nghiệm thu trong khung incident. Verifier PASS nhưng ghi `scope=partial-runtime-contract` và `milestone_complete=false`; vì vậy chưa dùng nó để tuyên bố hoàn tất toàn bộ milestone. Provenance prompt và lời gọi MCP đúng thời điểm incident gốc vẫn chưa xác minh.
+**Kết luận:** Luồng lab Day 04 đã chạy thật: baseline 75 phút, ba incident phục hồi, Slack FIRING/RESOLVED và ba RCA có tám mẫu Prometheus đối chiếu live. Hai lỗi biên của rules đã sửa và kiểm thử. Ngày 24/09, hệ thống local được kiểm lại với 22/22 targets UP; Grafana đã render đủ chín panel và có ảnh nghiệm thu trong khung incident. Verifier PASS nhưng ghi `scope=partial-runtime-contract` và `milestone_complete=false`; vì vậy chưa dùng nó để tuyên bố hoàn tất toàn bộ milestone. Lời gọi MCP đúng thời điểm incident gốc vẫn chưa xác minh. Theo chỉ đạo trainer, Day 04 bàn giao danh sách prompt chuyên nghiệp thay cho nhật ký prompt.
 
 ## Ma trận nghiệm thu
 
@@ -16,7 +16,7 @@
 | MH11 - Quiz | Ngoài phạm vi theo chỉ đạo trainer | Không thực hiện |
 | MLOps notes | Đủ bốn block overview, không triển khai ML platform | [Notes](../../mlops-overview-notes.md) |
 | Baseline và chi phí | 4.505 giây, 70/70 chat; generation estimate cuối `$0.68330` so với budget `$5` | [Baseline](../evidence/day4/baseline.json), [Runtime](../evidence/day4/Runtime_Validation.md) |
-| Prompt log mục 4.4 | `ai-prompts/day4.md` có ba prompt lịch sử đã dịch và ghi rõ metadata chưa xác minh; sáu prompt chuẩn hóa tách riêng | [Log](../../ai-prompts/day4.md), [templates](../../ai-prompts/day4-templates.md) |
+| Danh sách prompt Day 04 | Bảy prompt tiếng Việt có mục tiêu, ràng buộc, đầu ra và ví dụ; trainer không yêu cầu nhật ký prompt trong lượt này | [Danh sách prompt](../../ai-prompts/day4.md), [RCA template](../../prompts/rca-template.md) |
 
 ## Findings và giới hạn
 
@@ -24,7 +24,7 @@
 - **F02 đã sửa:** Guard latency chỉ đếm mẫu p95 hữu hạn. Test một giờ NaN không qua guard. Band và ngưỡng một giờ giữ nguyên.
 - **F03 đã điều tra bổ sung:** Ngày 24/09, client MCP thật gọi Prometheus `range_query` tám lần trên historical incident windows và Kubernetes `pods_list_in_namespace` read-only; tám giá trị trùng RCA. Dấu vết này chứng minh bước điều tra sau incident, không chứng minh coding host đã gọi MCP ngay trong incident ngày 23/09. Kubernetes snapshot lịch sử vẫn là bằng chứng riêng của lab.
 - **F04 đã đóng:** Grafana UID `insighthub-day4` đã render chín biểu đồ có dữ liệu thật và annotation trong khung 15:40-16:05 UTC; ảnh 1600 x 1500 px đã được kiểm trực quan. Lượt chụp đầu cho thấy "No data" vì plugin Prometheus chưa đăng ký và đã bỏ ảnh đó. Tắt auto-update plugin bundled trên image read-only, nâng giới hạn Grafana local lên 1 CPU/1 GiB, xác nhận datasource health `OK`, rồi chụp lại ảnh hợp lệ.
-- **F05 còn thiếu provenance:** Log lịch sử gốc không kèm transcript gốc, giờ gửi chính xác, host version, model và auth mode xác nhận. Đã ghi là chưa xác minh. Model Zenlayer runtime không được điền vào metadata coding host.
+- **Quyết định phạm vi của trainer:** Specification gốc có quy ước nhật ký prompt ở mục 4.4, nhưng lượt triển khai Day 04 này chỉ yêu cầu danh sách prompt chuyên nghiệp. `ai-prompts/day4.md` là prompt pack, không được trình bày như nhật ký hoặc bằng chứng prompt đã chạy.
 
 ## Kiểm tra sau sửa
 

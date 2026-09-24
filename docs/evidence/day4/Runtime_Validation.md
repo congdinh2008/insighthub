@@ -72,8 +72,9 @@ restarted with its plugin and local resource fix, then a dashboard screenshot
 was captured showing nine panels with data. The new verifier PASS covers only
 its declared partial runtime contract. MCP calls made during this review query
 retained history; they do not prove the coding host called MCP during the
-original incident. Exact historical coding-host prompt metadata remain
-unavailable. See [Review and self-check](../../day4/Review_and_Self_Check.md).
+original incident. The trainer requested a professional Day 04 prompt list
+instead of a historical prompt log; see [Day 04 prompts](../../../ai-prompts/day4.md)
+and [Review and self-check](../../day4/Review_and_Self_Check.md).
 
 The trainer excluded the quiz. The `$0.68330` figure is recorded generation
 estimate, not total API billing; embeddings and other charges are excluded.

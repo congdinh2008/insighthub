@@ -1,7 +1,8 @@
 # Day 04 - Prompt RCA dựa trên bằng chứng
 
-Đây là mẫu dùng riêng cho mỗi incident, không phải báo cáo hay lịch sử đã
-chạy. Điền đầu vào thật, dùng coding host có Prometheus MCP và Kubernetes
+Đây là bản chi tiết của [D4-P05](../ai-prompts/day4.md), dùng riêng cho mỗi
+incident, không phải báo cáo hay lịch sử đã chạy. Điền đầu vào thật, dùng
+coding host có Prometheus MCP và Kubernetes
 MCP read-only. Giữ nguyên tên trường JSON/metric; nội dung phân tích viết
 bằng tiếng Việt.
 

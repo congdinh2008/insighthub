@@ -14,8 +14,8 @@ Grafana's local resource limits. A read-only MCP client made eight historical Pr
 queries matching the RCA samples and listed current Kubernetes pods. The live
 verifier passes with the updated source digest but declares a partial runtime
 contract, not milestone completion. Original incident-time host MCP provenance
-and exact coding-host prompt metadata remain unverified.
-`ai-prompts/day4.md` now contains the three translated historical prompt entries;
-the six revised Vietnamese templates and RCA template are separate and are not
-claimed as prompts used for the earlier incidents. Generation cost excludes
-embedding and other charges. No remote push is part of this change.
+remains unverified. At the trainer's request, `ai-prompts/day4.md` is a
+professional seven-prompt implementation list covering the Day 04 workflow,
+not a historical prompt log. The detailed RCA prompt remains in
+`prompts/rca-template.md`. Generation cost excludes embedding and other
+charges. No remote push is part of this change.

@@ -153,8 +153,8 @@ Confirm the provider proxy causes server responses, the error ratio alert fires,
 ## 11. Evidence-first RCA
 
 Use the [Vietnamese RCA prompt](../../prompts/rca-template.md) for each incident
-and the [Day 04 prompt workflow](../../ai-prompts/day4.md). Save actual host MCP
-tool-call references and verified host metadata; a prompt template is not a run log.
+and the [Day 04 prompt list](../../ai-prompts/day4.md). Save actual host MCP
+tool-call references; a prompt template does not prove a tool was called.
 
 For each incident, query Prometheus through the Day 04 Prometheus MCP and inspect pods/events/logs through the read-only Kubernetes MCP. Separate observed, inferred and unknown. Store exact query, time range and returned samples. Each final JSON must contain:
 
