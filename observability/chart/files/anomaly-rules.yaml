@@ -1,0 +1,115 @@
+groups:
+  - name: insighthub-normalization
+    interval: 1m
+    rules:
+      - record: ih:http_requests_5m
+        expr: >-
+          sum(increase(insighthub_http_requests_total{endpoint!~"/(metrics|healthz|readyz)"}[5m]))
+        labels: {service: api}
+      - record: ih:http_error_ratio_5m
+        expr: >-
+          (sum(increase(insighthub_http_requests_total{status=~"5..",endpoint!~"/(metrics|healthz|readyz)"}[5m]))
+          or vector(0))
+          /
+          clamp_min(sum(increase(insighthub_http_requests_total{endpoint!~"/(metrics|healthz|readyz)"}[5m])), 1)
+        labels: {service: api}
+      - record: ih:llm_calls_5m
+        expr: sum(increase(insighthub_llm_call_latency_seconds_count[5m]))
+        labels: {service: api}
+      - record: ih:llm_p95_seconds
+        expr: >-
+          histogram_quantile(0.95,
+            sum by (le) (rate(insighthub_llm_call_latency_seconds_bucket[5m])))
+        labels: {service: api}
+      - record: ih:queue_depth
+        expr: >-
+          (max(redis_key_size{key="insighthub:ingestion"})
+          and on() (max(redis_up) == 1))
+          or on() (max(redis_up == 1) * 0)
+        labels: {service: redis}
+
+  - name: insighthub-anomaly-bands
+    interval: 1m
+    rules:
+      - record: ih:llm_p95_seconds_mean
+        expr: >-
+          avg_over_time(
+            (ih:llm_p95_seconds == ih:llm_p95_seconds)[1h:1m] offset 10m)
+      - record: ih:llm_p95_seconds_stddev
+        expr: >-
+          stddev_over_time(
+            (ih:llm_p95_seconds == ih:llm_p95_seconds)[1h:1m] offset 10m)
+      - record: ih:llm_p95_seconds_upper
+        expr: >-
+          ih:llm_p95_seconds_mean + 3 * clamp_min(ih:llm_p95_seconds_stddev, 0.1)
+      - record: ih:llm_p95_seconds_lower
+        expr: >-
+          clamp_min(ih:llm_p95_seconds_mean - 3 * clamp_min(ih:llm_p95_seconds_stddev, 0.1), 0)
+
+      - record: ih:queue_depth_mean
+        expr: avg_over_time(ih:queue_depth[1h] offset 10m)
+      - record: ih:queue_depth_stddev
+        expr: stddev_over_time(ih:queue_depth[1h] offset 10m)
+      - record: ih:queue_depth_upper
+        expr: ih:queue_depth_mean + 3 * clamp_min(ih:queue_depth_stddev, 1)
+      - record: ih:queue_depth_lower
+        expr: >-
+          clamp_min(ih:queue_depth_mean - 3 * clamp_min(ih:queue_depth_stddev, 1), 0)
+
+      - record: ih:http_error_ratio_5m_mean
+        expr: avg_over_time(ih:http_error_ratio_5m[1h] offset 10m)
+      - record: ih:http_error_ratio_5m_stddev
+        expr: stddev_over_time(ih:http_error_ratio_5m[1h] offset 10m)
+      - record: ih:http_error_ratio_5m_upper
+        expr: >-
+          ih:http_error_ratio_5m_mean + 3 * clamp_min(ih:http_error_ratio_5m_stddev, 0.005)
+      - record: ih:http_error_ratio_5m_lower
+        expr: >-
+          clamp_min(ih:http_error_ratio_5m_mean - 3 * clamp_min(ih:http_error_ratio_5m_stddev, 0.005), 0)
+
+  - name: insighthub-anomaly-alerts
+    interval: 1m
+    rules:
+      - alert: InsightHubLLMLatencyAnomaly
+        expr: >-
+          (ih:llm_p95_seconds > ih:llm_p95_seconds_upper)
+          and on(service) (ih:llm_p95_seconds > 1)
+          and on(service) (count_over_time((ih:llm_p95_seconds == ih:llm_p95_seconds)[1h:1m] offset 10m) >= 60)
+          and on(service) (ih:llm_calls_5m >= 20)
+        for: 2m
+        labels:
+          severity: warning
+          project: insighthub
+          incident: llm-latency
+        annotations:
+          summary: InsightHub LLM p95 latency is outside its one-hour baseline
+          runbook: docs/day4/Runbook.md#incident-1-llm-latency
+
+      - alert: InsightHubQueueBacklogAnomaly
+        expr: >-
+          (ih:queue_depth > ih:queue_depth_upper)
+          and on(service) (ih:queue_depth > 10)
+          and on(service) (count_over_time(ih:queue_depth[1h] offset 10m) >= 60)
+        for: 2m
+        labels:
+          severity: warning
+          project: insighthub
+          incident: queue-backlog
+        annotations:
+          summary: InsightHub ingestion queue is outside its one-hour baseline
+          runbook: docs/day4/Runbook.md#incident-2-queue-backlog
+
+      - alert: InsightHubErrorBurstAnomaly
+        expr: >-
+          (ih:http_error_ratio_5m > ih:http_error_ratio_5m_upper)
+          and on(service) (ih:http_error_ratio_5m > 0.05)
+          and on(service) (count_over_time(ih:http_requests_5m[1h] offset 10m) >= 60)
+          and on(service) (ih:http_requests_5m >= 20)
+        for: 2m
+        labels:
+          severity: warning
+          project: insighthub
+          incident: error-burst
+        annotations:
+          summary: InsightHub server error ratio is outside its one-hour baseline
+          runbook: docs/day4/Runbook.md#incident-3-error-burst

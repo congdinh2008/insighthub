@@ -1,0 +1,7 @@
+apiVersion: v2
+name: insighthub-observability
+description: Day 04 ServiceMonitors, anomaly rules, dashboard and Slack routing
+type: application
+version: 0.4.0
+appVersion: "0.4.0"
+kubeVersion: ">=1.30.0-0"

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "incident_id": "day4-queue-backlog-20260923T154825Z",
+  "environment": "kind-insighthub-local/insighthub-dev",
+  "source_commit": "a7a641d338ba7dc43dea793ac686c9fffb5673bf",
+  "started_at": "2026-09-23T15:48:25Z",
+  "ended_at": "2026-09-23T15:53:40Z",
+  "hypotheses": [
+    "Scaling the ingestion worker to zero caused the Redis ingestion queue to grow above the anomaly band.",
+    "The API remained available and accepted documents, so ingestion capacity rather than request admission caused the backlog."
+  ],
+  "falsifying_checks": [
+    {
+      "check": "Compare queue depth against the upper band while checking desired worker replicas.",
+      "result": "Queue depth was 20, upper band was 3 and desired worker replicas were 0."
+    },
+    {
+      "check": "Restore the saved replica count and verify drain and document completion.",
+      "result": "Worker returned to one available replica, queue depth returned to zero and 20 synthetic documents reached ready."
+    }
+  ],
+  "samples": [
+    {
+      "metric": "ih:queue_depth",
+      "labels": {"service": "redis"},
+      "timestamp": "2026-09-23T15:50:02Z",
+      "value": 20
+    },
+    {
+      "metric": "ih:queue_depth_upper",
+      "labels": {"service": "redis"},
+      "timestamp": "2026-09-23T15:50:02Z",
+      "value": 3
+    }
+  ],
+  "timeline": {
+    "pending_at": "2026-09-23T15:50:02Z",
+    "firing_observed_at": "2026-09-23T15:52:02Z",
+    "slack_firing_at": "2026-09-23T15:51:56Z",
+    "slack_firing_url": "https://insighthubdo2603.slack.com/archives/C0C3DP9B4H5/p1790178716316169",
+    "recovery_started_at": "2026-09-23T15:52:47Z",
+    "resolved_at": "2026-09-23T15:53:40Z",
+    "slack_resolved_at": "2026-09-23T15:53:56Z",
+    "slack_resolved_url": "https://insighthubdo2603.slack.com/archives/C0C3DP9B4H5/p1790178836080329"
+  },
+  "root_cause": {
+    "observed": "The worker was deliberately scaled to zero before 20 unique documents were accepted.",
+    "inferred": "Removing ingestion capacity caused the Redis queue backlog.",
+    "unknown": "The lab does not estimate production throughput from this single-worker recovery."
+  },
+  "confidence": 0.99,
+  "actions": [
+    "Restored the worker to its saved replica count of one.",
+    "Confirmed queue depth zero, one available worker and 20 ready synthetic documents."
+  ]
+}

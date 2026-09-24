@@ -1,0 +1,7 @@
+images:
+  web: {repository: insighthub-web, tag: day4, pullPolicy: IfNotPresent}
+  api: {repository: insighthub-api, tag: day4, pullPolicy: IfNotPresent}
+  worker: {repository: insighthub-worker, tag: day4, pullPolicy: IfNotPresent}
+
+monitoring:
+  enabled: true

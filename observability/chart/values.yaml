@@ -1,0 +1,25 @@
+applicationNamespace: insighthub-dev
+monitoringRelease: kube-prom-stack
+
+scrapeInterval: 30s
+evaluationInterval: 30s
+
+alerting:
+  slack:
+    enabled: false
+    channel: "#alerts"
+    secretName: insighthub-alertmanager-slack
+    secretKey: api-url
+
+faultProxy:
+  enabled: false
+  image: insighthub-api:day3
+  upstreamOrigin: https://api.openai.com
+  delaySeconds: "3"
+  resources:
+    requests: {cpu: 20m, memory: 32Mi}
+    limits: {cpu: 200m, memory: 128Mi}
+
+mcp:
+  enabled: false
+  serviceAccountName: insighthub-day4-mcp-readonly

@@ -50,7 +50,9 @@ def chat(req: ChatRequest) -> ChatResponse:
     for direction in ("input", "output"):
         value = result["usage"].get(f"{direction}_tokens")
         if value is not None:
-            llm_tokens_total.labels(result["provider"], direction).inc(value)
+            llm_tokens_total.labels(result["provider"], result["model"], direction).inc(
+                value
+            )
     return ChatResponse(
         **result,
         contexts=contexts,

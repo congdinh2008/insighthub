@@ -1,6 +1,7 @@
 """InsightHub Day 01 API with asynchronous ingestion."""
 
 import logging
+import time
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Any
@@ -15,7 +16,12 @@ from starlette.middleware.base import RequestResponseEndpoint
 from app.core.config import get_settings
 from app.core.db import close_pool, get_conn, initialize_database
 from app.core.errors import ServiceError
-from app.core.metrics import documents_total, http_requests_total
+from app.core.metrics import (
+    documents_total,
+    http_request_duration,
+    http_requests_total,
+    llm_price_usd_per_million,
+)
 from app.core.upload_limit import UploadLimitMiddleware
 from app.routers import chat, documents, health
 
@@ -56,6 +62,7 @@ async def service_error_handler(request: Request, exc: ServiceError) -> JSONResp
 async def metrics_middleware(
     request: Request, call_next: RequestResponseEndpoint
 ) -> Response:
+    started = time.perf_counter()
     status = 500
     try:
         response = await call_next(request)
@@ -86,6 +93,9 @@ async def metrics_middleware(
             else "OTHER"
         )
         http_requests_total.labels(method, endpoint, str(status)).inc()
+        http_request_duration.labels(method, endpoint).observe(
+            time.perf_counter() - started
+        )
 
 
 @app.get("/metrics")
@@ -98,6 +108,14 @@ def metrics() -> Response:
         )
     for status in ("pending", "ready", "failed"):
         documents_total.labels(status).set(counts.get(status, 0))
+    for direction, price in (
+        ("input", settings.llm_input_usd_per_million),
+        ("output", settings.llm_output_usd_per_million),
+    ):
+        if price > 0:
+            llm_price_usd_per_million.labels(
+                settings.llm_provider, settings.resolved_chat_model, direction
+            ).set(price)
     return Response(generate_latest(), headers={"Content-Type": CONTENT_TYPE_LATEST})
 
 

@@ -7,6 +7,12 @@ http_requests_total = Counter(
     "HTTP requests by route template",
     ["method", "endpoint", "status"],
 )
+http_request_duration = Histogram(
+    "insighthub_http_request_duration_seconds",
+    "HTTP request duration by bounded route template",
+    ["method", "endpoint"],
+    buckets=(0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 30, 60),
+)
 rag_query_latency = Histogram(
     "insighthub_rag_query_latency_seconds",
     "RAG end-to-end latency",
@@ -20,7 +26,12 @@ llm_call_latency = Histogram(
 llm_tokens_total = Counter(
     "insighthub_llm_tokens_total",
     "Provider-reported LLM tokens, not billing totals",
-    ["provider", "direction"],
+    ["provider", "model", "direction"],
+)
+llm_price_usd_per_million = Gauge(
+    "insighthub_llm_price_usd_per_million",
+    "Configured generation price, USD per million provider-reported tokens",
+    ["provider", "model", "direction"],
 )
 embedding_tokens_total = Counter(
     "insighthub_embedding_tokens_total",

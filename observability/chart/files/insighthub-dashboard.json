@@ -1,0 +1,140 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "enable": true,
+        "expr": "changes(kube_deployment_status_observed_generation{namespace=\"insighthub-dev\",deployment=~\"insighthub-(api|web|ingestion-worker)\"}[1m]) > 0",
+        "iconColor": "blue",
+        "name": "InsightHub deployment observed"
+      }
+    ]
+  },
+  "editable": true,
+  "graphTooltip": 1,
+  "panels": [
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "reqps"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 0},
+      "id": 1,
+      "targets": [
+        {"expr": "sum by (endpoint) (rate(insighthub_http_requests_total{endpoint!~\"/(metrics|healthz|readyz)\"}[5m]))", "legendFormat": "{{endpoint}}", "refId": "A"}
+      ],
+      "title": "1. API request rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"max": 1, "min": 0, "unit": "percentunit"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 0},
+      "id": 2,
+      "targets": [
+        {"expr": "ih:http_error_ratio_5m", "legendFormat": "error ratio", "refId": "A"},
+        {"expr": "ih:http_error_ratio_5m_upper", "legendFormat": "upper band", "refId": "B"},
+        {"expr": "ih:http_error_ratio_5m_lower", "legendFormat": "lower band", "refId": "C"}
+      ],
+      "title": "2. API server error ratio",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "s"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 0},
+      "id": 3,
+      "targets": [
+        {"expr": "histogram_quantile(0.95, sum by (le, endpoint) (rate(insighthub_http_request_duration_seconds_bucket{endpoint!~\"/(metrics|healthz|readyz)\"}[5m])))", "legendFormat": "HTTP p95 {{endpoint}}", "refId": "A"},
+        {"expr": "histogram_quantile(0.95, sum by (le) (rate(insighthub_rag_query_latency_seconds_bucket[5m])))", "legendFormat": "RAG p95", "refId": "B"}
+      ],
+      "title": "3. Request and RAG duration",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"min": 0, "unit": "short"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 8},
+      "id": 4,
+      "targets": [
+        {"expr": "ih:queue_depth", "legendFormat": "outstanding entries", "refId": "A"},
+        {"expr": "ih:queue_depth_upper", "legendFormat": "upper band", "refId": "B"},
+        {"expr": "ih:queue_depth_lower", "legendFormat": "lower band", "refId": "C"}
+      ],
+      "title": "4. Ingestion queue depth",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"min": 0, "unit": "short"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 8},
+      "id": 5,
+      "targets": [
+        {"expr": "sum by (provider, model, direction) (increase(insighthub_llm_tokens_total[1h]))", "legendFormat": "{{provider}} {{model}} {{direction}}", "refId": "A"}
+      ],
+      "title": "5. Provider-reported generation tokens (1h)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"min": 0, "unit": "s"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 8},
+      "id": 6,
+      "targets": [
+        {"expr": "ih:llm_p95_seconds", "legendFormat": "LLM p95", "refId": "A"},
+        {"expr": "ih:llm_p95_seconds_upper", "legendFormat": "upper band", "refId": "B"},
+        {"expr": "ih:llm_p95_seconds_lower", "legendFormat": "lower band", "refId": "C"}
+      ],
+      "title": "6. LLM latency p95",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "description": "Generation API estimate only. Prices come from reviewed runtime configuration, not billing.",
+      "fieldConfig": {"defaults": {"min": 0, "unit": "currencyUSD"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 16},
+      "id": 7,
+      "targets": [
+        {"expr": "sum(increase(insighthub_llm_tokens_total[1h]) * on(provider, model, direction) group_left() insighthub_llm_price_usd_per_million) / 1000000", "legendFormat": "estimated USD / hour", "refId": "A"}
+      ],
+      "title": "7. Estimated generation API cost",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "description": "Web/API/worker resource use plus PostgreSQL and Redis exporter health.",
+      "fieldConfig": {"defaults": {"min": 0}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 16},
+      "id": 8,
+      "targets": [
+        {"expr": "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"insighthub-dev\",container!=\"\",image!=\"\"}[5m]))", "legendFormat": "CPU {{pod}}", "refId": "A"},
+        {"expr": "sum by (pod) (container_memory_working_set_bytes{namespace=\"insighthub-dev\",container!=\"\",image!=\"\"}) / 1024 / 1024", "legendFormat": "RAM MiB {{pod}}", "refId": "B"},
+        {"expr": "max(pg_up)", "legendFormat": "PostgreSQL UP", "refId": "C"},
+        {"expr": "max(redis_up)", "legendFormat": "Redis UP", "refId": "D"},
+        {"expr": "sum(kube_deployment_status_replicas_available{namespace=\"insighthub-dev\",deployment=~\"insighthub-(api|web|ingestion-worker)\"})", "legendFormat": "application replicas available", "refId": "E"}
+      ],
+      "title": "8. Component resources and health",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"decimals": 0, "min": 0, "unit": "short"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 16},
+      "id": 9,
+      "targets": [
+        {"expr": "kube_deployment_status_observed_generation{namespace=\"insighthub-dev\",deployment=~\"insighthub-(api|web|ingestion-worker)\"}", "legendFormat": "observed {{deployment}}", "refId": "A"},
+        {"expr": "kube_deployment_metadata_generation{namespace=\"insighthub-dev\",deployment=~\"insighthub-(api|web|ingestion-worker)\"}", "legendFormat": "desired {{deployment}}", "refId": "B"}
+      ],
+      "title": "9. Deployment generation history",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 42,
+  "tags": ["insighthub", "day4", "RED", "USE"],
+  "templating": {"list": []},
+  "time": {"from": "now-3h", "to": "now"},
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "InsightHub Day 04 - RED, USE and anomalies",
+  "uid": "insighthub-day4",
+  "version": 1
+}

@@ -76,6 +76,25 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             capabilities: {drop: ["ALL"]}
+        {{- if .Values.monitoring.enabled }}
+        - name: postgres-exporter
+          image: {{ .Values.monitoring.postgresExporter.image }}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: DATA_SOURCE_NAME
+              value: postgresql://insighthub:insighthub@127.0.0.1:5432/insighthub?sslmode=disable
+          ports:
+            - {name: metrics, containerPort: 9187}
+          readinessProbe:
+            httpGet: {path: /metrics, port: metrics}
+            periodSeconds: 5
+          resources:
+            {{- toYaml .Values.monitoring.postgresExporter.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: ["ALL"]}
+        {{- end }}
       volumes:
         - name: init
           configMap: {name: {{ include "insighthub.fullname" . }}-db-init}
@@ -94,6 +113,7 @@ metadata:
   name: postgres
   labels:
     {{- include "insighthub.labels" . | nindent 4 }}
+    app.kubernetes.io/component: postgres
 spec:
   clusterIP: None
   selector:
@@ -101,4 +121,7 @@ spec:
     app.kubernetes.io/component: postgres
   ports:
     - {name: postgres, port: 5432, targetPort: postgres}
+    {{- if .Values.monitoring.enabled }}
+    - {name: metrics, port: 9187, targetPort: metrics}
+    {{- end }}
 {{- end }}

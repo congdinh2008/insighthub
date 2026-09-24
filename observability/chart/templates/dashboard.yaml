@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: insighthub-day4-dashboard
+  labels:
+    grafana_dashboard: "1"
+data:
+  insighthub-day4.json: |-
+{{ .Files.Get "files/insighthub-dashboard.json" | indent 4 }}

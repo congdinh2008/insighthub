@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "environment": "kind-insighthub-local/insighthub-dev",
+  "source_commit": "a7a641d338ba7dc43dea793ac686c9fffb5673bf",
+  "started_at": "2026-09-23T10:35:45Z",
+  "ended_at": "2026-09-23T11:50:50Z",
+  "duration_seconds": 4505,
+  "workload": {
+    "requests": 70,
+    "http_200": 70
+  },
+  "continuity": {
+    "query_step_seconds": 60,
+    "chat_request_samples": 75,
+    "llm_input_token_samples": 75,
+    "llm_output_token_samples": 75,
+    "finite_llm_p95_samples": 75,
+    "queue_depth_samples": 76,
+    "first_sample_at": "2026-09-23T10:36:45Z",
+    "last_sample_at": "2026-09-23T11:50:45Z"
+  },
+  "provider_usage_at_end": {
+    "input_tokens": 10640,
+    "output_tokens": 8599
+  },
+  "cost": {
+    "currency": "USD",
+    "input_usd_per_million_tokens": 5,
+    "output_usd_per_million_tokens": 30,
+    "estimated_generation_cost_usd": 0.31117,
+    "budget_usd": 5,
+    "within_budget": true
+  }
+}

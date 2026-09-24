@@ -1,0 +1,95 @@
+rule_files:
+  - ../chart/files/anomaly-rules.yaml
+
+evaluation_interval: 1m
+
+tests:
+  - interval: 1m
+    input_series:
+      - series: 'insighthub_llm_call_latency_seconds_bucket{le="0.5"}'
+        values: '0+0x95'
+      - series: 'insighthub_llm_call_latency_seconds_bucket{le="1"}'
+        values: '0+10x74 750+0x5 750+10x15'
+      - series: 'insighthub_llm_call_latency_seconds_bucket{le="2.5"}'
+        values: '0+10x74 750+0x5 750+10x15'
+      - series: 'insighthub_llm_call_latency_seconds_bucket{le="5"}'
+        values: '0+10x74 750+0x5 750+10x15'
+      - series: 'insighthub_llm_call_latency_seconds_bucket{le="10"}'
+        values: '0+10x74 750+0x5 750+10x15'
+      - series: 'insighthub_llm_call_latency_seconds_bucket{le="20"}'
+        values: '0+10x74 750+0x5 750+10x15'
+      - series: 'insighthub_llm_call_latency_seconds_bucket{le="60"}'
+        values: '0+10x95'
+      - series: 'insighthub_llm_call_latency_seconds_bucket{le="+Inf"}'
+        values: '0+10x95'
+      - series: 'insighthub_llm_call_latency_seconds_count'
+        values: '0+10x95'
+      - series: 'redis_up'
+        values: '1x96'
+      - series: 'redis_key_size{key="insighthub:ingestion"}'
+        values: '2x75 20x6 2x15'
+      - series: 'insighthub_http_requests_total{endpoint="/chat",status="200"}'
+        values: '0+99x74 7425+80x5 7905+99x15'
+      - series: 'insighthub_http_requests_total{endpoint="/chat",status="500"}'
+        values: '0+1x74 75+20x5 195+1x15'
+
+    alert_rule_test:
+      - eval_time: 79m
+        alertname: InsightHubLLMLatencyAnomaly
+        exp_alerts:
+          - exp_labels:
+              incident: llm-latency
+              project: insighthub
+              service: api
+              severity: warning
+            exp_annotations:
+              summary: InsightHub LLM p95 latency is outside its one-hour baseline
+              runbook: docs/day4/Runbook.md#incident-1-llm-latency
+      - eval_time: 79m
+        alertname: InsightHubQueueBacklogAnomaly
+        exp_alerts:
+          - exp_labels:
+              incident: queue-backlog
+              project: insighthub
+              service: redis
+              severity: warning
+            exp_annotations:
+              summary: InsightHub ingestion queue is outside its one-hour baseline
+              runbook: docs/day4/Runbook.md#incident-2-queue-backlog
+      - eval_time: 79m
+        alertname: InsightHubErrorBurstAnomaly
+        exp_alerts:
+          - exp_labels:
+              incident: error-burst
+              project: insighthub
+              service: api
+              severity: warning
+            exp_annotations:
+              summary: InsightHub server error ratio is outside its one-hour baseline
+              runbook: docs/day4/Runbook.md#incident-3-error-burst
+      - eval_time: 90m
+        alertname: InsightHubLLMLatencyAnomaly
+        exp_alerts: []
+      - eval_time: 90m
+        alertname: InsightHubQueueBacklogAnomaly
+        exp_alerts: []
+      - eval_time: 90m
+        alertname: InsightHubErrorBurstAnomaly
+        exp_alerts: []
+
+    promql_expr_test:
+      - expr: ih:llm_calls_5m
+        eval_time: 79m
+        exp_samples:
+          - labels: '{__name__="ih:llm_calls_5m",service="api"}'
+            value: 50
+      - expr: ih:queue_depth
+        eval_time: 79m
+        exp_samples:
+          - labels: '{__name__="ih:queue_depth",service="redis"}'
+            value: 20
+      - expr: ih:http_requests_5m
+        eval_time: 79m
+        exp_samples:
+          - labels: '{__name__="ih:http_requests_5m",service="api"}'
+            value: 500

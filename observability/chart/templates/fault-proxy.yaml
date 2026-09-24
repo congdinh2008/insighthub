@@ -1,0 +1,76 @@
+{{- if .Values.faultProxy.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: insighthub-provider-fault
+  namespace: {{ .Values.applicationNamespace }}
+data:
+  mode: normal
+  delay-seconds: {{ .Values.faultProxy.delaySeconds | quote }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: insighthub-provider-fault-proxy-source
+  namespace: {{ .Values.applicationNamespace }}
+data:
+  proxy.py: |-
+{{ .Files.Get "files/provider-fault-proxy.py" | indent 4 }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: insighthub-provider-fault-proxy
+  namespace: {{ .Values.applicationNamespace }}
+  labels: {app.kubernetes.io/name: insighthub-provider-fault-proxy}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app.kubernetes.io/name: insighthub-provider-fault-proxy}
+  template:
+    metadata:
+      labels: {app.kubernetes.io/name: insighthub-provider-fault-proxy}
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        runAsGroup: 1001
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: proxy
+          image: {{ .Values.faultProxy.image }}
+          imagePullPolicy: IfNotPresent
+          command: [python, /fault-proxy/proxy.py]
+          env:
+            - {name: UPSTREAM_ORIGIN, value: {{ .Values.faultProxy.upstreamOrigin | quote }}}
+          ports:
+            - {name: http, containerPort: 8080}
+          readinessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 3
+          resources:
+            {{- toYaml .Values.faultProxy.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: ["ALL"]}
+          volumeMounts:
+            - {name: source, mountPath: /fault-proxy, readOnly: true}
+            - {name: config, mountPath: /fault-config, readOnly: true}
+      volumes:
+        - name: source
+          configMap: {name: insighthub-provider-fault-proxy-source}
+        - name: config
+          configMap: {name: insighthub-provider-fault}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: insighthub-provider-fault-proxy
+  namespace: {{ .Values.applicationNamespace }}
+spec:
+  selector: {app.kubernetes.io/name: insighthub-provider-fault-proxy}
+  ports:
+    - {name: http, port: 8080, targetPort: http}
+{{- end }}

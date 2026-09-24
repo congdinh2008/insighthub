@@ -28,6 +28,8 @@ runtime:
   embeddingProvider: fixture
   embeddingDimension: "1024"
   queueName: insighthub:ingestion
+  llmInputUsdPerMillion: "0"
+  llmOutputUsdPerMillion: "0"
 
 secret:
   createLocal: true
@@ -89,3 +91,17 @@ redis:
   resources:
     requests: {cpu: 25m, memory: 32Mi}
     limits: {cpu: 250m, memory: 256Mi}
+
+# Day 04 is opt-in. Day 03 deployments render unchanged when disabled.
+monitoring:
+  enabled: false
+  postgresExporter:
+    image: quay.io/prometheuscommunity/postgres-exporter:v0.20.1@sha256:ac5ec343104fae0e2d84a27bb8d69b38430a11910c5382cad85d478d2bab713e
+    resources:
+      requests: {cpu: 10m, memory: 32Mi}
+      limits: {cpu: 100m, memory: 96Mi}
+  redisExporter:
+    image: oliver006/redis_exporter:v1.91.1@sha256:c67a432dba6b4ae30f471e3c77cf14a289133bbeeb89abb0bb03e6092efb2836
+    resources:
+      requests: {cpu: 10m, memory: 24Mi}
+      limits: {cpu: 100m, memory: 64Mi}

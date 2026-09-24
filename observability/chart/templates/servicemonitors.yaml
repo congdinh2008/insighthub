@@ -1,0 +1,81 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: insighthub-api
+  labels:
+    release: {{ .Values.monitoringRelease }}
+spec:
+  namespaceSelector:
+    matchNames: [{{ .Values.applicationNamespace }}]
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: insighthub
+      app.kubernetes.io/instance: insighthub
+      app.kubernetes.io/component: api
+  endpoints:
+    - port: http
+      path: /metrics
+      honorLabels: true
+      interval: {{ .Values.scrapeInterval }}
+      scrapeTimeout: 10s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: insighthub-ingestion-worker
+  labels:
+    release: {{ .Values.monitoringRelease }}
+spec:
+  namespaceSelector:
+    matchNames: [{{ .Values.applicationNamespace }}]
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: insighthub
+      app.kubernetes.io/instance: insighthub
+      app.kubernetes.io/component: ingestion-worker
+  endpoints:
+    - port: monitor
+      path: /metrics
+      honorLabels: true
+      interval: {{ .Values.scrapeInterval }}
+      scrapeTimeout: 10s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: insighthub-postgres
+  labels:
+    release: {{ .Values.monitoringRelease }}
+spec:
+  namespaceSelector:
+    matchNames: [{{ .Values.applicationNamespace }}]
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: insighthub
+      app.kubernetes.io/instance: insighthub
+      app.kubernetes.io/component: postgres
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: {{ .Values.scrapeInterval }}
+      scrapeTimeout: 10s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: insighthub-redis
+  labels:
+    release: {{ .Values.monitoringRelease }}
+spec:
+  namespaceSelector:
+    matchNames: [{{ .Values.applicationNamespace }}]
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: insighthub
+      app.kubernetes.io/instance: insighthub
+      app.kubernetes.io/component: redis
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: {{ .Values.scrapeInterval }}
+      scrapeTimeout: 10s

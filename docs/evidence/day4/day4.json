@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "day": 4,
+  "mode": "real",
+  "observed_at": "2026-09-23T16:25:00Z",
+  "source_sha256": "10bb86572623f6b5478beda3e882c291b59889ffaa5ae7bcf748f7b4405ef2d7",
+  "artifacts": {
+    "rca": {
+      "path": "docs/evidence/day4/incident-llm-latency.json",
+      "sha256": "81566b11d549a917c120d5a9833b5408005ce878eb8064a113e2544a04584c01"
+    },
+    "rca_2": {
+      "path": "docs/evidence/day4/incident-queue-backlog.json",
+      "sha256": "e9eff67d2b296b1f020610492c44fe9a2098e7903fba9ade181940561be12f7d"
+    },
+    "rca_3": {
+      "path": "docs/evidence/day4/incident-error-burst.json",
+      "sha256": "18223d40da68644819bd39b914d31db8b8f97373c80b26668ba05b256d6014d6"
+    },
+    "rules": {
+      "path": "observability/chart/files/anomaly-rules.yaml",
+      "sha256": "6f37acc9e592ddd16d8658395f307116b999b07c2994f229227ed3ad6bd6689e"
+    },
+    "rule_tests": {
+      "path": "observability/tests/anomaly-rules.test.yaml",
+      "sha256": "c4f394d13fdc07975f65893f1c438d35450c61124f4faf039de0aeb5565c41c2"
+    },
+    "dashboard": {
+      "path": "observability/chart/files/insighthub-dashboard.json",
+      "sha256": "9dbba7007c79554a5050425cc6d7bffc571fce4fda7a75e56de14d3cc7e22611"
+    },
+    "mlops_notes": {
+      "path": "mlops-overview-notes.md",
+      "sha256": "f14693f2a7c8edf2879ec25efec7ebf43271dd36b8a221b6c635213af2fcc6bc"
+    },
+    "edge_rule_tests": {
+      "path": "observability/tests/day4-edge-cases.test.yaml",
+      "sha256": "07bbe7e0cb2948e2c6eb67bde8a03e8e5100b81ce894c9de56752a33bcf5199c"
+    },
+    "dashboard_validation": {
+      "path": "docs/evidence/day4/dashboard-panel-validation.json",
+      "sha256": "1a44504168a959690175e6a41a373b350d1eafa8ff88f3a376ec8bc1d7989191"
+    },
+    "mcp_investigation": {
+      "path": "docs/evidence/day4/mcp-investigation.json",
+      "sha256": "9c3c6549b6d96d4afeafb3233450b1e5091d856d1c3ebe5ea73fa1f88dd56a22"
+    },
+    "dashboard_screenshot": {
+      "path": "docs/evidence/day4/grafana-day4-9-panels.png",
+      "sha256": "a05e903c5aa03b96895ec6a5fcf0c68ef3f21988801f8f6888e6ac470d558ad9"
+    }
+  }
+}
