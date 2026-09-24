@@ -46,3 +46,33 @@ jobs:
       - name: Remove this CI project and its ephemeral data
         if: always()
         run: docker compose --profile ollama down --volumes --remove-orphans
+  chatops-day5:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      redis:
+        image: redis:7-alpine@sha256:6ab0b6e7381779332f97b8ca76193e45b0756f38d4c0dcda72dbb3c32061ab99
+        ports:
+          - 16380:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      CHATOPS_REDIS_URL: redis://127.0.0.1:16380/0
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install locked bot and quality dependencies
+        run: |
+          python3 -m venv .venv-day5
+          .venv-day5/bin/pip install --require-hashes -r requirements-dev.txt
+          .venv-day5/bin/pip install --require-hashes -r chatops-bot/requirements.txt
+      - name: Test Day 05 bot and milestone contracts
+        run: .venv-day5/bin/python -m pytest -q chatops-bot/tests tests/milestones/day5
+      - name: Check Day 05 code quality
+        run: |
+          .venv-day5/bin/ruff check chatops-bot/app chatops-bot/tests tests/milestones/day5 tools/mcp/day5
+          .venv-day5/bin/mypy --follow-untyped-imports --ignore-missing-imports chatops-bot/app

@@ -1,0 +1,216 @@
+{
+  "events": [
+    {
+      "timestamp": "2026-09-24T11:26:36.395998+00:00",
+      "event_id": "Ev0C410A4H9T",
+      "user": "U0C3ETL1LKD",
+      "action": "health",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "health"
+    },
+    {
+      "timestamp": "2026-09-24T11:26:37.299804+00:00",
+      "event_id": "Ev0C410A4H9T",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "insighthub.GET /readyz",
+      "result_summary": "API ready"
+    },
+    {
+      "timestamp": "2026-09-24T11:26:37.300665+00:00",
+      "event_id": "Ev0C410A4H9T",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "kubernetes.pods_list_in_namespace",
+      "result_summary": "0 pod/container lỗi"
+    },
+    {
+      "timestamp": "2026-09-24T11:26:37.300893+00:00",
+      "event_id": "Ev0C410A4H9T",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "prometheus.query",
+      "result_summary": "5xx/5m=0"
+    },
+    {
+      "timestamp": "2026-09-24T11:27:38.622245+00:00",
+      "event_id": "Ev0C49LCCARJ",
+      "user": "U0C3ETL1LKD",
+      "action": "ingestion",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "ingestion"
+    },
+    {
+      "timestamp": "2026-09-24T11:27:39.441008+00:00",
+      "event_id": "Ev0C49LCCARJ",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "insighthub.GET /documents",
+      "result_summary": "count=0"
+    },
+    {
+      "timestamp": "2026-09-24T11:27:39.441397+00:00",
+      "event_id": "Ev0C49LCCARJ",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "prometheus.query",
+      "result_summary": "ready inventory observed"
+    },
+    {
+      "timestamp": "2026-09-24T11:28:59.036827+00:00",
+      "event_id": "Ev0C3QKDQ8MV",
+      "user": "U0C3ETL1LKD",
+      "action": "pods",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "pods"
+    },
+    {
+      "timestamp": "2026-09-24T11:28:59.149611+00:00",
+      "event_id": "Ev0C3QKDQ8MV",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "kubernetes.pods_list_in_namespace",
+      "result_summary": "pods=6 failed=0"
+    },
+    {
+      "timestamp": "2026-09-24T11:29:34.049182+00:00",
+      "event_id": "Ev0C3ZPW3DRR",
+      "user": "U0C3ETL1LKD",
+      "action": "destructive",
+      "decision": "denied",
+      "outcome": "unsupported_or_destructive"
+    },
+    {
+      "timestamp": "2026-09-24T11:35:16.609798+00:00",
+      "event_id": "Ev0C45U676D8",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "approval_required",
+      "operation_id": "5801fc4670ebfda7bd441f8343f91e11",
+      "target": "insighthub-api",
+      "replicas": 2,
+      "current_replicas": 1
+    },
+    {
+      "timestamp": "2026-09-24T11:35:20.374983+00:00",
+      "event_id": "Ev0C3ZR2SF5Z",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "allowed",
+      "operation_id": "5801fc4670ebfda7bd441f8343f91e11",
+      "target": "insighthub-api",
+      "replicas": 2
+    },
+    {
+      "timestamp": "2026-09-24T11:35:20.554921+00:00",
+      "event_id": "Ev0C3ZR2SF5Z",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api_result",
+      "decision": "allowed",
+      "operation_id": "5801fc4670ebfda7bd441f8343f91e11",
+      "outcome": "verified",
+      "replicas": 2
+    },
+    {
+      "timestamp": "2026-09-24T11:35:56.899636+00:00",
+      "event_id": "Ev0C3ZR6D5UK",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "denied",
+      "outcome": "approval_invalid_expired_or_replayed"
+    },
+    {
+      "timestamp": "2026-09-24T11:36:35.945696+00:00",
+      "event_id": "Ev0C480MR51P",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "approval_required",
+      "operation_id": "fb442accc029f567b2ea9d6aa576bb2e",
+      "target": "insighthub-api",
+      "replicas": 1,
+      "current_replicas": 2
+    },
+    {
+      "timestamp": "2026-09-24T11:36:41.914189+00:00",
+      "event_id": "Ev0C480NGDEV",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "allowed",
+      "operation_id": "fb442accc029f567b2ea9d6aa576bb2e",
+      "target": "insighthub-api",
+      "replicas": 1
+    },
+    {
+      "timestamp": "2026-09-24T11:36:42.109364+00:00",
+      "event_id": "Ev0C480NGDEV",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api_result",
+      "decision": "allowed",
+      "operation_id": "fb442accc029f567b2ea9d6aa576bb2e",
+      "outcome": "verified",
+      "replicas": 1
+    },
+    {
+      "timestamp": "2026-09-24T11:48:57.887834+00:00",
+      "event_id": "Ev0C3ZTHGUR1",
+      "user": "U0C3ETL1LKD",
+      "action": "health",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "health"
+    },
+    {
+      "timestamp": "2026-09-24T11:48:58.961255+00:00",
+      "event_id": "Ev0C3ZTHGUR1",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "insighthub.GET /readyz",
+      "result_summary": "API ready"
+    },
+    {
+      "timestamp": "2026-09-24T11:48:58.961600+00:00",
+      "event_id": "Ev0C3ZTHGUR1",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "kubernetes.pods_list_in_namespace",
+      "result_summary": "0 pod/container lỗi"
+    },
+    {
+      "timestamp": "2026-09-24T11:48:58.961739+00:00",
+      "event_id": "Ev0C3ZTHGUR1",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "prometheus.query",
+      "result_summary": "5xx/5m=0"
+    },
+    {
+      "timestamp": "2026-09-24T11:49:04.289312+00:00",
+      "event_id": "Ev0C3ZTHGUR1",
+      "user": "U0C3ETL1LKD",
+      "action": "model_summary",
+      "decision": "allowed",
+      "outcome": "generated"
+    }
+  ]
+}

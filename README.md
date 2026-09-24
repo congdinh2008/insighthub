@@ -13,6 +13,7 @@ InsightHub cho phép người dùng upload tài liệu **.txt, .md, .pdf**, sau 
 | Tình huống | Tài liệu hoặc lệnh |
 |---|---|
 | Thực hiện solution Day 01 | [Solution guide và prompt pack](docs/day1/README.md) |
+| Triển khai ChatOps Day 05 | [Bot](chatops-bot/README.md), [runbook](docs/day5/Runbook.md), [plan](docs/plans/Day05_Implementation_Plan_v1.0.md) |
 | Lần đầu setup, chạy app hoặc gặp lỗi môi trường | [GETTING_STARTED.md](GETTING_STARTED.md) |
 | Đọc toàn bộ yêu cầu và tiêu chí hoàn thành | [Running-Project-Specification-Student.md](Running-Project-Specification-Student.md) |
 | Daily workflow, nộp bài và chấm điểm | [Submission & Grading Protocol](Running-Project-Specification-Student.md#4-submission--grading-protocol), cùng checklist của từng day |
