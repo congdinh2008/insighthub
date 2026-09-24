@@ -8,7 +8,8 @@ groups:
         labels: {service: api}
       - record: ih:http_error_ratio_5m
         expr: >-
-          sum(increase(insighthub_http_requests_total{status=~"5..",endpoint!~"/(metrics|healthz|readyz)"}[5m]))
+          (sum(increase(insighthub_http_requests_total{status=~"5..",endpoint!~"/(metrics|healthz|readyz)"}[5m]))
+          or vector(0))
           /
           clamp_min(sum(increase(insighthub_http_requests_total{endpoint!~"/(metrics|healthz|readyz)"}[5m])), 1)
         labels: {service: api}
@@ -22,17 +23,22 @@ groups:
         labels: {service: api}
       - record: ih:queue_depth
         expr: >-
-          max(redis_key_size{key="insighthub:ingestion"})
-          or on() (max(redis_up) * 0)
+          (max(redis_key_size{key="insighthub:ingestion"})
+          and on() (max(redis_up) == 1))
+          or on() (max(redis_up == 1) * 0)
         labels: {service: redis}
 
   - name: insighthub-anomaly-bands
     interval: 1m
     rules:
       - record: ih:llm_p95_seconds_mean
-        expr: avg_over_time(ih:llm_p95_seconds[1h] offset 10m)
+        expr: >-
+          avg_over_time(
+            (ih:llm_p95_seconds == ih:llm_p95_seconds)[1h:1m] offset 10m)
       - record: ih:llm_p95_seconds_stddev
-        expr: stddev_over_time(ih:llm_p95_seconds[1h] offset 10m)
+        expr: >-
+          stddev_over_time(
+            (ih:llm_p95_seconds == ih:llm_p95_seconds)[1h:1m] offset 10m)
       - record: ih:llm_p95_seconds_upper
         expr: >-
           ih:llm_p95_seconds_mean + 3 * clamp_min(ih:llm_p95_seconds_stddev, 0.1)
@@ -68,7 +74,7 @@ groups:
         expr: >-
           (ih:llm_p95_seconds > ih:llm_p95_seconds_upper)
           and on(service) (ih:llm_p95_seconds > 1)
-          and on(service) (count_over_time(ih:llm_p95_seconds[1h] offset 10m) >= 60)
+          and on(service) (count_over_time((ih:llm_p95_seconds == ih:llm_p95_seconds)[1h:1m] offset 10m) >= 60)
           and on(service) (ih:llm_calls_5m >= 20)
         for: 2m
         labels:
@@ -97,7 +103,7 @@ groups:
         expr: >-
           (ih:http_error_ratio_5m > ih:http_error_ratio_5m_upper)
           and on(service) (ih:http_error_ratio_5m > 0.05)
-          and on(service) (count_over_time(ih:http_error_ratio_5m[1h] offset 10m) >= 60)
+          and on(service) (count_over_time(ih:http_requests_5m[1h] offset 10m) >= 60)
           and on(service) (ih:http_requests_5m >= 20)
         for: 2m
         labels:

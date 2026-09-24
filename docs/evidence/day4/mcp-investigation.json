@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-09-24T08:50:57.107645+00:00",
+  "method": "MCP JSON-RPC 2025-03-26 via local stdio client",
+  "provenance_limit": "Host client calls performed on 2026-09-24 against retained Prometheus history and current Kubernetes state. They do not establish that MCP was called during the 2026-09-23 incidents.",
+  "prometheus_calls": [
+    {
+      "incident_id": "day4-llm-latency-20260923T154039Z",
+      "server": "prometheus",
+      "tool": "range_query",
+      "arguments": {
+        "query": "ih:llm_p95_seconds{service=\"api\"}",
+        "start_time": "2026-09-23T15:42:05Z",
+        "end_time": "2026-09-23T15:42:06Z",
+        "step": "1s"
+      },
+      "observed_metric": "ih:llm_p95_seconds",
+      "observed_labels": {
+        "service": "api"
+      },
+      "observed_timestamp": "2026-09-23T15:42:05Z",
+      "observed_value": 19.470588235294116,
+      "matches_rca": true
+    },
+    {
+      "incident_id": "day4-llm-latency-20260923T154039Z",
+      "server": "prometheus",
+      "tool": "range_query",
+      "arguments": {
+        "query": "ih:llm_p95_seconds_upper{service=\"api\"}",
+        "start_time": "2026-09-23T15:42:05Z",
+        "end_time": "2026-09-23T15:42:06Z",
+        "step": "1s"
+      },
+      "observed_metric": "ih:llm_p95_seconds_upper",
+      "observed_labels": {
+        "service": "api"
+      },
+      "observed_timestamp": "2026-09-23T15:42:05Z",
+      "observed_value": 10.05,
+      "matches_rca": true
+    },
+    {
+      "incident_id": "day4-llm-latency-20260923T154039Z",
+      "server": "prometheus",
+      "tool": "range_query",
+      "arguments": {
+        "query": "ih:llm_calls_5m{service=\"api\"}",
+        "start_time": "2026-09-23T15:42:05Z",
+        "end_time": "2026-09-23T15:42:06Z",
+        "step": "1s"
+      },
+      "observed_metric": "ih:llm_calls_5m",
+      "observed_labels": {
+        "service": "api"
+      },
+      "observed_timestamp": "2026-09-23T15:42:05Z",
+      "observed_value": 20.0,
+      "matches_rca": true
+    },
+    {
+      "incident_id": "day4-queue-backlog-20260923T154825Z",
+      "server": "prometheus",
+      "tool": "range_query",
+      "arguments": {
+        "query": "ih:queue_depth{service=\"redis\"}",
+        "start_time": "2026-09-23T15:50:02Z",
+        "end_time": "2026-09-23T15:50:03Z",
+        "step": "1s"
+      },
+      "observed_metric": "ih:queue_depth",
+      "observed_labels": {
+        "service": "redis"
+      },
+      "observed_timestamp": "2026-09-23T15:50:02Z",
+      "observed_value": 20.0,
+      "matches_rca": true
+    },
+    {
+      "incident_id": "day4-queue-backlog-20260923T154825Z",
+      "server": "prometheus",
+      "tool": "range_query",
+      "arguments": {
+        "query": "ih:queue_depth_upper{service=\"redis\"}",
+        "start_time": "2026-09-23T15:50:02Z",
+        "end_time": "2026-09-23T15:50:03Z",
+        "step": "1s"
+      },
+      "observed_metric": "ih:queue_depth_upper",
+      "observed_labels": {
+        "service": "redis"
+      },
+      "observed_timestamp": "2026-09-23T15:50:02Z",
+      "observed_value": 3.0,
+      "matches_rca": true
+    },
+    {
+      "incident_id": "day4-error-burst-20260923T155517Z",
+      "server": "prometheus",
+      "tool": "range_query",
+      "arguments": {
+        "query": "ih:http_error_ratio_5m{service=\"api\"}",
+        "start_time": "2026-09-23T15:57:03Z",
+        "end_time": "2026-09-23T15:57:04Z",
+        "step": "1s"
+      },
+      "observed_metric": "ih:http_error_ratio_5m",
+      "observed_labels": {
+        "service": "api"
+      },
+      "observed_timestamp": "2026-09-23T15:57:03Z",
+      "observed_value": 1.0,
+      "matches_rca": true
+    },
+    {
+      "incident_id": "day4-error-burst-20260923T155517Z",
+      "server": "prometheus",
+      "tool": "range_query",
+      "arguments": {
+        "query": "ih:http_error_ratio_5m_upper{service=\"api\"}",
+        "start_time": "2026-09-23T15:57:03Z",
+        "end_time": "2026-09-23T15:57:04Z",
+        "step": "1s"
+      },
+      "observed_metric": "ih:http_error_ratio_5m_upper",
+      "observed_labels": {
+        "service": "api"
+      },
+      "observed_timestamp": "2026-09-23T15:57:03Z",
+      "observed_value": 0.015,
+      "matches_rca": true
+    },
+    {
+      "incident_id": "day4-error-burst-20260923T155517Z",
+      "server": "prometheus",
+      "tool": "range_query",
+      "arguments": {
+        "query": "ih:http_requests_5m{service=\"api\"}",
+        "start_time": "2026-09-23T15:57:03Z",
+        "end_time": "2026-09-23T15:57:04Z",
+        "step": "1s"
+      },
+      "observed_metric": "ih:http_requests_5m",
+      "observed_labels": {
+        "service": "api"
+      },
+      "observed_timestamp": "2026-09-23T15:57:03Z",
+      "observed_value": 32.23198631126321,
+      "matches_rca": true
+    }
+  ],
+  "kubernetes_call": {
+    "server": "kubernetes",
+    "tool": "pods_list_in_namespace",
+    "arguments": {
+      "namespace": "insighthub-dev"
+    },
+    "pods": [
+      {
+        "name": "insighthub-api-7966c49d6d-m98dn",
+        "ready": "1/1",
+        "status": "Running"
+      },
+      {
+        "name": "insighthub-ingestion-worker-7c4b969945-6pgcl",
+        "ready": "1/1",
+        "status": "Running"
+      },
+      {
+        "name": "insighthub-provider-fault-proxy-675f5cbffc-vjt6n",
+        "ready": "1/1",
+        "status": "Running"
+      },
+      {
+        "name": "insighthub-web-559d56d699-z9mdd",
+        "ready": "1/1",
+        "status": "Running"
+      },
+      {
+        "name": "postgres-0",
+        "ready": "2/2",
+        "status": "Running"
+      },
+      {
+        "name": "redis-0",
+        "ready": "2/2",
+        "status": "Running"
+      }
+    ],
+    "historical_incident_evidence": false
+  },
+  "credential_exposure": "No token, kubeconfig, logs or Secret values stored"
+}

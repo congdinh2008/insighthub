@@ -16,4 +16,8 @@ Nguồn canonical:
 - `chart/files/insighthub-dashboard.json`
 - `kube-prometheus-stack-values.yaml`
 
+Grafana local tắt auto-update plugin bundled để plugin Prometheus hoạt động trên
+image distroless có filesystem chỉ đọc. Giới hạn 1 CPU/1 GiB cho Grafana đã
+được kiểm bằng ảnh dashboard chín panel; cấu hình này thuộc lab Day 04.
+
 Quy trình chạy, real provider, Slack secret, baseline và cleanup nằm trong [Runbook](../docs/day4/Runbook.md). Không commit API key, Slack webhook, kubeconfig, port-forward log hoặc raw provider response.

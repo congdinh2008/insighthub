@@ -30,9 +30,12 @@ alertmanager:
       limits: {cpu: 200m, memory: 256Mi}
 
 grafana:
+  grafana.ini:
+    plugins:
+      preinstall_auto_update: false
   resources:
-    requests: {cpu: 50m, memory: 128Mi}
-    limits: {cpu: 500m, memory: 512Mi}
+    requests: {cpu: 100m, memory: 256Mi}
+    limits: {cpu: '1', memory: 1Gi}
   sidecar:
     dashboards:
       enabled: true

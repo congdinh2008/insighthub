@@ -105,6 +105,7 @@ helm-day4:
 rules-day4:
 	docker run --rm --entrypoint=promtool -v "$(CURDIR)/observability:/work" -w /work $(PROMTOOL_IMAGE) check rules chart/files/anomaly-rules.yaml
 	docker run --rm --entrypoint=promtool -v "$(CURDIR)/observability:/work" -w /work $(PROMTOOL_IMAGE) test rules tests/anomaly-rules.test.yaml
+	docker run --rm --entrypoint=promtool -v "$(CURDIR)/observability:/work" -w /work $(PROMTOOL_IMAGE) test rules tests/day4-edge-cases.test.yaml
 test-day4: helm-day4 rules-day4
 	$(PYTHON) -m pytest tests/milestones/day4 -v -p no:cacheprovider
 day4-mcp-configure:

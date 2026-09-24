@@ -1,0 +1,67 @@
+rule_files:
+  - ../chart/files/anomaly-rules.yaml
+
+evaluation_interval: 1m
+
+tests:
+  - name: redis-down-does-not-emit-healthy-queue-zero
+    interval: 1m
+    input_series:
+      - series: redis_up
+        values: '0x80'
+      - series: 'redis_key_size{key="insighthub:ingestion"}'
+        values: '20x80'
+    promql_expr_test:
+      - expr: ih:queue_depth
+        eval_time: 75m
+        exp_samples: []
+
+  - name: redis-healthy-and-empty-queue-emits-zero
+    interval: 1m
+    input_series:
+      - series: redis_up
+        values: '1x80'
+    promql_expr_test:
+      - expr: ih:queue_depth
+        eval_time: 75m
+        exp_samples:
+          - labels: '{__name__="ih:queue_depth",service="redis"}'
+            value: 0
+
+  - name: redis-healthy-and-backlogged-emits-depth
+    interval: 1m
+    input_series:
+      - series: redis_up
+        values: '1x80'
+      - series: 'redis_key_size{key="insighthub:ingestion"}'
+        values: '20x80'
+    promql_expr_test:
+      - expr: ih:queue_depth
+        eval_time: 75m
+        exp_samples:
+          - labels: '{__name__="ih:queue_depth",service="redis"}'
+            value: 20
+
+  - name: redis-missing-scrape-remains-unknown
+    interval: 1m
+    input_series:
+      - series: 'redis_key_size{key="insighthub:ingestion"}'
+        values: '20x80'
+    promql_expr_test:
+      - expr: ih:queue_depth
+        eval_time: 75m
+        exp_samples: []
+
+  - name: empty-llm-histogram-is-not-valid-baseline
+    interval: 1m
+    input_series:
+      - series: 'insighthub_llm_call_latency_seconds_bucket{le="1"}'
+        values: '0x80'
+      - series: 'insighthub_llm_call_latency_seconds_bucket{le="+Inf"}'
+        values: '0x80'
+      - series: insighthub_llm_call_latency_seconds_count
+        values: '0x80'
+    promql_expr_test:
+      - expr: 'count_over_time((ih:llm_p95_seconds == ih:llm_p95_seconds)[1h:1m] offset 10m) >= 60'
+        eval_time: 75m
+        exp_samples: []

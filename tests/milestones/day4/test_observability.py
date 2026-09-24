@@ -153,6 +153,12 @@ def test_rules_have_three_anomalies_and_one_hour_offset_baselines() -> None:
     assert expressions.count("[1h] offset 10m") >= 6
     assert "count_over_time" in expressions
     assert "redis_key_size" in expressions
+    assert "ih:llm_p95_seconds == ih:llm_p95_seconds" in expressions
+    assert "or vector(0)" in expressions
+    assert "count_over_time(ih:http_requests_5m[1h] offset 10m)" in expressions
+    assert "max(redis_up == 1) * 0" in expressions
+    assert "max(redis_up) == 1" in expressions
+    assert "count_over_time((ih:llm_p95_seconds == ih:llm_p95_seconds)[1h:1m] offset 10m)" in expressions
 
 
 def test_incident_scripts_are_bounded_and_recoverable() -> None:

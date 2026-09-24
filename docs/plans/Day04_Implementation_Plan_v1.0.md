@@ -1,10 +1,10 @@
 # InsightHub - Kế hoạch hoàn thiện Day 04
 
-**Trạng thái:** Đã được duyệt triển khai; core và fixture runtime đã hoàn thành, external acceptance còn pending.  
+**Trạng thái cập nhật 24/09/2026:** Core và các lượt real runtime đã có evidence; acceptance còn findings cần đóng theo [review](../day4/Review_and_Self_Check.md).
 **Ngày khảo sát:** 23/09/2026. **Lớp:** DO2603.  
 **Baseline triển khai:** `main` sau merge Day 03, commit `1dfa6b76ceca5e1e659545c535ad3c3266f495a2`.  
 **Branch triển khai dự kiến:** `day4-observability`.  
-**Mục tiêu:** Hoàn thiện 12 Must-have, các functional/non-functional acceptance Day 04 và evidence tương ứng, đạt rubric L3.
+**Mục tiêu:** Hoàn thiện MH1-MH10, MH12, các functional/non-functional acceptance Day 04 và evidence tương ứng, đạt rubric L3. MH11 (quiz) do trainer phụ trách, đã loại khỏi phạm vi triển khai.
 
 ## 1. Nguồn yêu cầu và giới hạn phạm vi
 
@@ -16,11 +16,11 @@ Thứ tự đối chiếu:
 4. [AGENTS.md](../../AGENTS.md), source Day 01-03 và evidence Day 03: baseline triển khai.
 5. [Học liệu Day 04 ngày 17/09/2026](<../../../9. AI for Devops/06_Customize/DO2603/03_HocLieu/Day04_KienThuc_ThucHanh_20260917/Day04_KienThuc_ThucHanh_AIOps_MLOps_InsightHub_v1.0.md>): tham khảo metric semantics, baseline, RCA và cấu trúc notes; không nhập toàn bộ bài mở rộng vào scope.
 
-**Trong phạm vi:** ServiceMonitor/exporters đủ năm thành phần, một dashboard có chín query panels, recording/anomaly rules cho ba tín hiệu, Alertmanager tới Slack thật, ba incident với baseline/failure/recovery và AI RCA, MLOps overview notes, quiz, prompt log, kiểm thử và tài liệu tái lập.
+**Trong phạm vi:** ServiceMonitor/exporters đủ năm thành phần, một dashboard có chín query panels, recording/anomaly rules cho ba tín hiệu, Alertmanager tới Slack thật, ba incident với baseline/failure/recovery và AI RCA, MLOps overview notes, prompt log, kiểm thử và tài liệu tái lập. Quiz do trainer phụ trách.
 
 **Không đưa vào kế hoạch:** Grafana Sift/Pro, routing nâng cao theo severity, Adaptive Telemetry/tail sampling/log filtering, SLO/burn-rate alerts, runbook riêng từng alert, knowledge graph, auto-postmortem, chaos engineering platform, dashboard chi phí monitoring stack. Đây là Should-have/Nice-to-have, không cần để đạt L3. Ba script inject incident tối thiểu vẫn là bắt buộc.
 
-Không triển khai Slack ChatOps bot, autonomous remediation, LiteLLM, Promptfoo hoặc Day 05-06. MLOps chỉ notes/quiz, không dựng MLflow, registry server, training/retraining hoặc serving pipeline. Không đổi schema, embedding identity, layout web hay business feature.
+Không triển khai Slack ChatOps bot, autonomous remediation, LiteLLM, Promptfoo hoặc Day 05-06. MLOps chỉ notes, không dựng MLflow, registry server, training/retraining hoặc serving pipeline. Không đổi schema, embedding identity, layout web hay business feature.
 
 Plan này đã được dùng làm baseline triển khai trên branch `day4-observability`. Runtime evidence chỉ được ghi khi quan sát thật; các gate thiếu provider, Slack hoặc thời lượng baseline giữ trạng thái pending.
 
@@ -90,7 +90,7 @@ Mỗi panel có `targets[].expr` thực. Annotation-only panel không đáp ứn
 
 ### 3.4. Anomaly rules và baseline
 
-- Một file canonical `observability/anomaly-rules.yaml` chứa normalization, mean/stddev/bands, volume/warmup guards và đúng ba anomaly alerts: LLM latency, queue backlog, server error ratio.
+- Một file canonical `observability/chart/files/anomaly-rules.yaml` chứa normalization, mean/stddev/bands, volume/warmup guards và đúng ba anomaly alerts: LLM latency, queue backlog, server error ratio.
 - Dùng PromQL statistical bands theo hướng [grafana/promql-anomaly-detection](https://github.com/grafana/promql-anomaly-detection), với lab windows được ghi rõ. Không cài nguyên adaptive defaults cần history dài rồi tuyên bố đủ bằng một giờ dữ liệu.
 - Thiết kế lab dự kiến: baseline window **1h**, offset **10m**, recording interval **1m**, alert `for: 2m`. Sigma/impact floors có units và được review theo workload, trước khi inject lỗi.
 - Cần ít nhất **70 phút recorded history**, thực tế nên dự trù 75 phút để tránh biên thời gian; raw history có trước không tự backfill recording series mới. Bắt đầu tích lũy sau khi metric contract/rules đã ổn định.
@@ -135,12 +135,12 @@ Mỗi `rca-reports/incident-N.json` có tối thiểu `incident_id`, `started_at
 | MH8 | `incident-2.json` | Backlog thật, alert fire, worker restored, queue drain |
 | MH9 | `incident-3.json` | Server error burst thật, alert fire, chat hoạt động lại |
 | MH10 | Citations trong cả ba RCA | Metric/labels/value/timestamp khớp query Prometheus, suy luận được review |
-| MH11 | Quiz evidence | MH ghi ≥4/5 nhưng acceptance/submission ghi 5/5: hướng tới 5/5; lưu điểm thực và phần sửa sai |
+| MH11 | Quiz | Ngoài phạm vi triển khai theo trainer; không tạo điểm hoặc nộp form |
 | MH12 | `mlops-overview-notes.md` | Đủ bốn block, trả lời được self-check, không gọi notes là implementation |
 | NFR | Baseline/storage/resources | Recorded baseline ≥1h hợp lệ trước lỗi; retention 15d; limits; expensive query qua recording rules |
 | Submission | Prompt log/source/PR/evidence | Conventional Commits, branch đúng, AI workflow và kết quả thực kiểm được |
 
-**Quiz:** tạo tài liệu ôn tập và câu trả lời được phép, nhưng không tự ghi điểm chính thức hoặc nộp form thay người học. Nếu chưa có quiz form/kết quả lớp, MH11 giữ pending. Tương tự, verifier PASS không tự chứng minh Slack delivery, causality của RCA, panel semantics hoặc MLOps understanding.
+**Quiz:** Trainer đã loại khỏi phạm vi triển khai; tài liệu practice chỉ là tham khảo, không thay điểm lớp. Verifier PASS không tự chứng minh Slack delivery, causality của RCA, panel semantics hoặc MLOps understanding.
 
 **Bốn block MLOps notes:** (1) App artifact so với model artifact; (2) ML lifecycle và ownership DevOps/ML; (3) Registry, Approval Gate, Data/Concept Drift, Rollback; (4) case release decision và bằng chứng cần có. DevOps vận hành pipeline được giao, không tự quyết định retrain/promote ngoài ownership. Notes liên hệ InsightHub nhưng không thêm model feature.
 
@@ -153,14 +153,14 @@ Mỗi `rca-reports/incident-N.json` có tối thiểu `incident_id`, `started_at
 | 3. Rules/dashboard | Hoàn thiện canonical rules + tests, render PrometheusRule, provision chín panels/annotations/receiver | Static/rule tests PASS, loaded rules đúng, metric/query review xong |
 | 4. Baseline | Chạy workload ổn định có giới hạn, thu recorded history dự kiến ≥75 phút; làm notes/prompt documentation trong thời gian chờ | Warmup/span/sample-count/volume guards đủ, không có false firing không giải thích được |
 | 5. Incident/RCA | Test Slack rồi chạy ba incident tuần tự, MCP query/review, restore sau mỗi incident | Ba bộ baseline/failure/recovery, alerts thật, RCA citations chính xác |
-| 6. Nghiệm thu | Browser E2E, verifier Day 04, regression phù hợp diff; review notes/quiz/prompt log | Ma trận MH/NFR có trạng thái và evidence rõ, không bỏ qua integration pending |
+| 6. Nghiệm thu | Browser E2E, verifier Day 04, regression phù hợp diff; review notes/prompt log | Ma trận MH/NFR có trạng thái và evidence rõ, không bỏ qua integration pending |
 | 7. Bàn giao | Runbook, self-check, evidence index, commits và PR Day 04; kết thúc fault/load, cleanup lab được tạo cho lượt này sau kiểm chứng | Source tái lập, dữ liệu nghiệm thu đã lưu, không còn fault/traffic generator chạy |
 
 Các bước 2-3 phải ổn định trước giờ baseline. Có thể hoàn thiện notes và tài liệu trong thời gian thu baseline, nhưng không thay rules/model/labels làm mất tính liên tục. Tổng thời gian thực tế gồm setup/test và ít nhất một lượt warmup; không coi lab 50 phút trên lớp là đủ toàn bộ yêu cầu.
 
 ### Prompt workflow dự kiến
 
-`ai-prompts/day4.md` lưu prompt **đã dùng**, không ghi prompt pack dự kiến thành lịch sử thực thi. Mỗi entry có host/version/model/auth mode thực tế, timestamp, context/evidence, prompt constraint-first, lý do hiệu quả và điều người học review/chỉnh.
+`ai-prompts/day4.md` là nhật ký ba prompt lịch sử đã dịch, có giới hạn provenance ghi rõ. `ai-prompts/day4-templates.md` là bộ prompt tiếng Việt chuẩn hóa để sử dụng tiếp. Không ghi prompt pack mới thành lịch sử đã dùng. Mỗi entry thực thi cần host/version/model/auth mode có căn cứ, timestamp, context/evidence, prompt constraint-first, lý do hiệu quả và điều người học review/chỉnh. Dùng `prompts/rca-template.md` cho bước điều tra từng incident.
 
 1. Khảo sát kiến trúc và mapping requirement/gap.
 2. Lập plan; scope review và chốt lựa chọn vừa đủ.
@@ -181,7 +181,7 @@ Các bước 2-3 phải ổn định trước giờ baseline. Có thể hoàn th
 | `scripts/chaos/` | Ba script inject/restore và helper/proxy lab tối thiểu |
 | `tools/mcp/` | Cấu hình endpoint/namespace Day 04 tái sử dụng backend hiện có, không thay pin tùy tiện |
 | `rca-reports/incident-1.json` tới `incident-3.json` | Ba báo cáo incident có citations runtime |
-| `mlops-overview-notes.md`, `ai-prompts/day4.md` | Notes bốn block và prompt history thực tế |
+| `mlops-overview-notes.md`, `ai-prompts/day4.md`, `ai-prompts/day4-templates.md`, `prompts/rca-template.md` | Notes bốn block, nhật ký prompt, bộ prompt tiếng Việt để dùng tiếp và mẫu RCA |
 | `docs/day4/` | Runbook, metric contract, self-check/acceptance, quiz status và PR description |
 | `docs/evidence/day4/` | Manifest, rule/verification output, MCP traces đã lọc, baseline/incident/recovery và browser/Slack evidence |
 
@@ -228,9 +228,9 @@ Source fingerprint đã bao phủ `observability/`, `tools/` và `scripts/`, nh�
 | Real provider/model có usage, credential và hạn mức workload | Dùng adapter sẵn có, ưu tiên OpenAI-compatible cho lab proxy; xác minh cấu hình và đơn giá trước run. Không thêm provider integration mới |
 | Embedding/index | Tái sử dụng identity phù hợp; nếu cần real dataset mới thì tạo lab dataset/index tách biệt, không đổi identity tại chỗ |
 | Local capacity/storage | Kiểm trước install, chọn requests/limits/PVC tương ứng; giữ retention 15d |
-| Quiz form/kết quả chính thức | Ghi đúng trạng thái; practice có đáp án không thay điểm lớp |
+| Quiz form/kết quả chính thức | Trainer phụ trách, ngoài phạm vi triển khai |
 | Namespace spec `insighthub` so với chart `insighthub-dev` | Dùng namespace chart hiện tại nhất quán và ghi mapping trong runbook/evidence |
 | Baseline ≥1h so với window 1h offset 10m | Thu ít nhất 70 phút recorded history, dự trù 75 phút; không hạ window cho kịp demo |
 | 9 panels so với 9 query panels | Panel deployment có query thực và annotations; không dùng annotation-only để đếm đủ |
 
-**Điều kiện kết thúc:** hoàn tất MH1-MH12 và NFR/submission tương ứng, ba incident có evidence thật, smoke sau recovery PASS, không còn fault hoặc load generator. Mục còn thiếu đầu vào/quiz/Slack phải ghi pending; không công bố hoàn tất Day 04 chỉ vì verifier PASS.
+**Điều kiện kết thúc:** hoàn tất MH1-MH10, MH12 và NFR/submission tương ứng, ba incident có evidence thật, smoke sau recovery PASS, không còn fault hoặc load generator. Mục còn thiếu đầu vào/runtime evidence phải ghi pending; MH11 ngoài phạm vi. Không công bố hoàn tất Day 04 chỉ vì verifier PASS. Evidence đã triển khai ở `docs/evidence/day4/incident-*.json`, khác đường dẫn dự kiến ban đầu `rca-reports/incident-N.json`; manifest ánh xạ ba file thực.

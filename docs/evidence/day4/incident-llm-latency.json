@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "incident_id": "day4-llm-latency-20260923T154039Z",
+  "environment": "kind-insighthub-local/insighthub-dev",
+  "source_commit": "a7a641d338ba7dc43dea793ac686c9fffb5673bf",
+  "started_at": "2026-09-23T15:40:39Z",
+  "ended_at": "2026-09-23T15:46:45Z",
+  "hypotheses": [
+    "The bounded provider-proxy delay increased generation latency above the finite one-hour anomaly band.",
+    "API or worker unavailability did not cause the latency spike because all three deployments remained available during the incident."
+  ],
+  "falsifying_checks": [
+    {
+      "check": "Compare p95 against the recorded upper band and minimum-volume guard.",
+      "result": "p95 was 19.470588235294116 seconds, upper band was 10.05 seconds and volume was 20 calls per five minutes."
+    },
+    {
+      "check": "Inspect Kubernetes deployment availability.",
+      "result": "API, worker and provider fault proxy each had one updated and available replica."
+    }
+  ],
+  "samples": [
+    {
+      "metric": "ih:llm_p95_seconds",
+      "labels": {"service": "api"},
+      "timestamp": "2026-09-23T15:42:05Z",
+      "value": 19.470588235294116
+    },
+    {
+      "metric": "ih:llm_p95_seconds_upper",
+      "labels": {"service": "api"},
+      "timestamp": "2026-09-23T15:42:05Z",
+      "value": 10.05
+    },
+    {
+      "metric": "ih:llm_calls_5m",
+      "labels": {"service": "api"},
+      "timestamp": "2026-09-23T15:42:05Z",
+      "value": 20
+    }
+  ],
+  "timeline": {
+    "pending_at": "2026-09-23T15:42:05Z",
+    "firing_observed_at": "2026-09-23T15:44:00Z",
+    "slack_firing_at": "2026-09-23T15:43:56Z",
+    "slack_firing_url": "https://insighthubdo2603.slack.com/archives/C0C3DP9B4H5/p1790178236224429",
+    "recovery_started_at": "2026-09-23T15:45:57Z",
+    "resolved_at": "2026-09-23T15:46:45Z",
+    "slack_resolved_at": "2026-09-23T15:46:56Z",
+    "slack_resolved_url": "https://insighthubdo2603.slack.com/archives/C0C3DP9B4H5/p1790178416099459",
+    "recovery_browser_e2e_at": "2026-09-23T16:25:00Z"
+  },
+  "root_cause": {
+    "observed": "The controlled proxy added ten seconds before each provider call while application deployments stayed available.",
+    "inferred": "The injected provider delay caused the p95 anomaly.",
+    "unknown": "This lab does not infer production provider behavior from the controlled fault."
+  },
+  "confidence": 0.98,
+  "actions": [
+    "Restored provider fault mode to normal and delay to three seconds.",
+    "Confirmed the Prometheus alert became inactive and Slack emitted RESOLVED.",
+    "Confirmed the recovered browser flow returned the expected under-five-minute target, citation and 3700 ms latency."
+  ]
+}

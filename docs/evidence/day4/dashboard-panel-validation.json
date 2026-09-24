@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-09-24T09:23:19.112258+00:00",
+  "environment": "kind-insighthub-local/monitoring",
+  "dashboard_uid": "insighthub-day4",
+  "dashboard_source_sha256": "9dbba7007c79554a5050425cc6d7bffc571fce4fda7a75e56de14d3cc7e22611",
+  "range_start": "2026-09-23T15:40:00Z",
+  "range_end": "2026-09-23T16:05:00Z",
+  "query_step_seconds": 60,
+  "panels": [
+    {
+      "id": 1,
+      "title": "1. API request rate",
+      "targets": [
+        {
+          "ref_id": "A",
+          "series_count": 2,
+          "finite_samples": 42
+        }
+      ],
+      "has_finite_data": true
+    },
+    {
+      "id": 2,
+      "title": "2. API server error ratio",
+      "targets": [
+        {
+          "ref_id": "A",
+          "series_count": 1,
+          "finite_samples": 26
+        },
+        {
+          "ref_id": "B",
+          "series_count": 1,
+          "finite_samples": 26
+        },
+        {
+          "ref_id": "C",
+          "series_count": 1,
+          "finite_samples": 26
+        }
+      ],
+      "has_finite_data": true
+    },
+    {
+      "id": 3,
+      "title": "3. Request and RAG duration",
+      "targets": [
+        {
+          "ref_id": "A",
+          "series_count": 2,
+          "finite_samples": 11
+        },
+        {
+          "ref_id": "B",
+          "series_count": 1,
+          "finite_samples": 11
+        }
+      ],
+      "has_finite_data": true
+    },
+    {
+      "id": 4,
+      "title": "4. Ingestion queue depth",
+      "targets": [
+        {
+          "ref_id": "A",
+          "series_count": 1,
+          "finite_samples": 26
+        },
+        {
+          "ref_id": "B",
+          "series_count": 1,
+          "finite_samples": 26
+        },
+        {
+          "ref_id": "C",
+          "series_count": 1,
+          "finite_samples": 26
+        }
+      ],
+      "has_finite_data": true
+    },
+    {
+      "id": 5,
+      "title": "5. Provider-reported generation tokens (1h)",
+      "targets": [
+        {
+          "ref_id": "A",
+          "series_count": 2,
+          "finite_samples": 52
+        }
+      ],
+      "has_finite_data": true
+    },
+    {
+      "id": 6,
+      "title": "6. LLM latency p95",
+      "targets": [
+        {
+          "ref_id": "A",
+          "series_count": 1,
+          "finite_samples": 10
+        },
+        {
+          "ref_id": "B",
+          "series_count": 1,
+          "finite_samples": 25
+        },
+        {
+          "ref_id": "C",
+          "series_count": 1,
+          "finite_samples": 25
+        }
+      ],
+      "has_finite_data": true
+    },
+    {
+      "id": 7,
+      "title": "7. Estimated generation API cost",
+      "targets": [
+        {
+          "ref_id": "A",
+          "series_count": 1,
+          "finite_samples": 26
+        }
+      ],
+      "has_finite_data": true
+    },
+    {
+      "id": 8,
+      "title": "8. Component resources and health",
+      "targets": [
+        {
+          "ref_id": "A",
+          "series_count": 11,
+          "finite_samples": 174
+        },
+        {
+          "ref_id": "B",
+          "series_count": 11,
+          "finite_samples": 155
+        },
+        {
+          "ref_id": "C",
+          "series_count": 1,
+          "finite_samples": 26
+        },
+        {
+          "ref_id": "D",
+          "series_count": 1,
+          "finite_samples": 26
+        },
+        {
+          "ref_id": "E",
+          "series_count": 1,
+          "finite_samples": 26
+        }
+      ],
+      "has_finite_data": true
+    },
+    {
+      "id": 9,
+      "title": "9. Deployment generation history",
+      "targets": [
+        {
+          "ref_id": "A",
+          "series_count": 3,
+          "finite_samples": 78
+        },
+        {
+          "ref_id": "B",
+          "series_count": 3,
+          "finite_samples": 78
+        }
+      ],
+      "has_finite_data": true
+    }
+  ],
+  "annotations": [
+    {
+      "name": "InsightHub deployment observed",
+      "series_count": 1,
+      "finite_samples": 1
+    }
+  ],
+  "panels_with_data": 9,
+  "credential_exposure": "No credential values or tokens stored in this report",
+  "browser_e2e": {
+    "observed_at": "2026-09-24T09:33:55.235300+00:00",
+    "dashboard_url": "http://127.0.0.1:13001/d/insighthub-day4/insighthub-day-04-red-use-and-anomalies",
+    "range_start": "2026-09-23T15:40:00Z",
+    "range_end": "2026-09-23T16:05:00Z",
+    "rendered_panels": 9,
+    "panels_showing_no_data": 0,
+    "grafana_prometheus_datasource_health": "OK",
+    "screenshot_path": "docs/evidence/day4/grafana-day4-9-panels.png",
+    "screenshot_sha256": "a05e903c5aa03b96895ec6a5fcf0c68ef3f21988801f8f6888e6ac470d558ad9",
+    "screenshot_width": 1600,
+    "screenshot_height": 1500,
+    "login": "direct Grafana form; credential held only in memory"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "incident_id": "day4-error-burst-20260923T155517Z",
+  "environment": "kind-insighthub-local/insighthub-dev",
+  "source_commit": "a7a641d338ba7dc43dea793ac686c9fffb5673bf",
+  "started_at": "2026-09-23T15:55:17Z",
+  "ended_at": "2026-09-23T16:00:54Z",
+  "hypotheses": [
+    "The bounded provider-proxy error mode caused API chat requests to return server errors above the anomaly band.",
+    "API pod failure did not cause the burst because the API and proxy deployments each remained available."
+  ],
+  "falsifying_checks": [
+    {
+      "check": "Compare error ratio, upper band and request-volume guard.",
+      "result": "Error ratio was 1, upper band was 0.015 and volume was 32.23198631126321 requests per five minutes."
+    },
+    {
+      "check": "Inspect Kubernetes availability and restore normal proxy mode.",
+      "result": "API and proxy each had one available replica; the alert resolved after proxy mode returned to normal."
+    }
+  ],
+  "samples": [
+    {
+      "metric": "ih:http_error_ratio_5m",
+      "labels": {"service": "api"},
+      "timestamp": "2026-09-23T15:57:03Z",
+      "value": 1
+    },
+    {
+      "metric": "ih:http_error_ratio_5m_upper",
+      "labels": {"service": "api"},
+      "timestamp": "2026-09-23T15:57:03Z",
+      "value": 0.015
+    },
+    {
+      "metric": "ih:http_requests_5m",
+      "labels": {"service": "api"},
+      "timestamp": "2026-09-23T15:57:03Z",
+      "value": 32.23198631126321
+    }
+  ],
+  "timeline": {
+    "pending_at": "2026-09-23T15:57:03Z",
+    "firing_observed_at": "2026-09-23T15:59:02Z",
+    "slack_firing_at": "2026-09-23T15:58:56Z",
+    "slack_firing_url": "https://insighthubdo2603.slack.com/archives/C0C3DP9B4H5/p1790179136306809",
+    "recovery_started_at": "2026-09-23T15:59:44Z",
+    "resolved_at": "2026-09-23T16:00:54Z",
+    "slack_resolved_at": "2026-09-23T16:00:56Z",
+    "slack_resolved_url": "https://insighthubdo2603.slack.com/archives/C0C3DP9B4H5/p1790179256083209",
+    "recovery_browser_e2e_at": "2026-09-23T16:25:00Z"
+  },
+  "root_cause": {
+    "observed": "The controlled proxy returned HTTP 503 before calling the external provider, and the API surfaced 30 HTTP 502 responses.",
+    "inferred": "The injected upstream failure caused the server-error burst.",
+    "unknown": "The controlled local failure does not identify any production-provider defect."
+  },
+  "confidence": 0.99,
+  "actions": [
+    "Restored provider fault mode to normal.",
+    "Confirmed the Prometheus alert became inactive and Slack emitted RESOLVED.",
+    "Confirmed a post-recovery browser chat returned the expected answer, citation and 3700 ms latency."
+  ]
+}

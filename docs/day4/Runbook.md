@@ -5,7 +5,7 @@
 - Work only on branch `day4-observability` derived from merged Day 03 `main`.
 - Docker Desktop, kubectl, Helm and the Day 03 `kind` binary are available.
 - The selected context must be `kind-insighthub-local` unless `DAY4_KUBE_CONTEXT` explicitly selects another isolated lab.
-- For full acceptance: a real OpenAI-compatible generation/embedding provider with usage, exact model prices, Slack workspace/channel `#alerts`, incoming webhook and the official quiz result are available.
+- For implementation acceptance: a real OpenAI-compatible generation/embedding provider with usage, exact model prices, Slack workspace/channel `#alerts` and incoming webhook are available. The trainer excluded the official quiz from this implementation scope.
 - Never put provider keys or the Slack webhook in source, commands pasted into evidence or screenshots.
 
 ## 2. Static verification
@@ -152,6 +152,10 @@ Confirm the provider proxy causes server responses, the error ratio alert fires,
 
 ## 11. Evidence-first RCA
 
+Use the [Vietnamese RCA prompt](../../prompts/rca-template.md) for each incident
+and the [Day 04 prompt workflow](../../ai-prompts/day4.md). Save actual host MCP
+tool-call references and verified host metadata; a prompt template is not a run log.
+
 For each incident, query Prometheus through the Day 04 Prometheus MCP and inspect pods/events/logs through the read-only Kubernetes MCP. Separate observed, inferred and unknown. Store exact query, time range and returned samples. Each final JSON must contain:
 
 - unique `incident_id`, `started_at`, `ended_at`;
@@ -170,6 +174,6 @@ Every verifier sample must still exist in live Prometheus and match the timestam
   --json
 ```
 
-Then perform Browser E2E for the nine panels, annotation, alert state, Slack evidence and final InsightHub upload/chat/citations. Record missing official quiz or external input as pending.
+Then perform Browser E2E for the nine panels, annotation, alert state, Slack evidence and final InsightHub upload/chat/citations. Save dashboard screenshots with the selected time range. Record missing runtime inputs as pending; quiz is excluded by the trainer. Read the [current review](Review_and_Self_Check.md) before claiming complete acceptance.
 
 Always restore fault mode and worker replicas before ending. Stop port-forwards. After evidence is saved and reviewed, remove the isolated lab with `make day4-local-down`. Do not use Docker prune or delete unrelated volumes/clusters.
