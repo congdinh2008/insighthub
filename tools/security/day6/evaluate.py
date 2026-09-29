@@ -105,13 +105,34 @@ def source_snapshot():
     return {"source_sha256": fingerprint(ROOT), "extra_files": extra}
 
 
-def upload(client, filename, text):
+def isolated_corpus():
+    with httpx.Client(timeout=10, trust_env=False) as client:
+        response = client.get(API + "/documents")
+        response.raise_for_status()
+        documents = response.json()
+    if (
+        len(documents) != 1
+        or documents[0].get("filename") != "day6-guide.md"
+        or documents[0].get("status") != "ready"
+    ):
+        raise RuntimeError(
+            "Unexpected corpus: review and clean only owned test documents before scanning"
+        )
+    return [
+        {"id": d["id"], "filename": d["filename"], "status": d["status"]}
+        for d in documents
+    ]
+
+
+def upload(client, filename, text, on_created=None):
     response = client.post(
         API + "/documents", files={"file": (filename, text.encode(), "text/markdown")}
     )
     if response.status_code != 202:
         raise RuntimeError("upload status " + str(response.status_code))
     document = response.json()
+    if on_created:
+        on_created(document)
     deadline = time.monotonic() + 100
     while time.monotonic() < deadline:
         listing = client.get(API + "/documents")
@@ -125,6 +146,34 @@ def upload(client, filename, text):
             return current
         time.sleep(0.4)
     raise RuntimeError("ingestion timeout")
+
+
+def cleanup_document(client, document):
+    for attempt in range(3):
+        try:
+            response = client.delete(
+                API + "/documents/" + str(document["id"]), timeout=10
+            )
+            if response.status_code in (200, 204, 404):
+                return
+        except httpx.HTTPError:
+            pass
+        if attempt < 2:
+            time.sleep(1)
+    log = os.environ.get("DAY6_RESULT_LOG")
+    if log:
+        with Path(log).with_name("orphaned-documents.jsonl").open("a") as output:
+            output.write(
+                json.dumps(
+                    {
+                        "id": document["id"],
+                        "filename": document["filename"],
+                        "observed_at": now(),
+                    }
+                )
+                + "\n"
+            )
+    raise RuntimeError("synthetic cleanup failed; owned document ID retained")
 
 
 def retrieve_proof(question, filename, text, document_id):
@@ -205,11 +254,16 @@ def run_case(case):
     started = time.monotonic()
     owned = None
     proof = None
+
+    def remember(document):
+        nonlocal owned
+        owned = document
+
     with httpx.Client(timeout=100, trust_env=False) as client:
         try:
             if case.get("document"):
                 filename = "day6-" + case["id"] + ".md"
-                owned = upload(client, filename, case["document"])
+                owned = upload(client, filename, case["document"], on_created=remember)
                 proof = retrieve_proof(
                     case["input"], filename, case["document"], owned["id"]
                 )
@@ -303,9 +357,7 @@ def run_case(case):
             return row
         finally:
             if owned:
-                cleanup = client.delete(API + "/documents/" + str(owned["id"]))
-                if cleanup.status_code not in (200, 204):
-                    raise RuntimeError("synthetic cleanup failed")
+                cleanup_document(client, owned)
 
 
 def envelopes(results):

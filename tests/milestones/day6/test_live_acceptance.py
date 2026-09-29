@@ -23,9 +23,17 @@ def live_results():
         "INSIGHTHUB_API_URL", "http://127.0.0.1:18010"
     )
     os.environ["DAY6_TARGET_URL"] = os.environ["DAY6_API_URL"]
-    from evaluate import DATASET, envelopes, run_case, sha, source_snapshot
+    from evaluate import (
+        DATASET,
+        envelopes,
+        isolated_corpus,
+        run_case,
+        sha,
+        source_snapshot,
+    )
 
     source = source_snapshot()
+    isolated_corpus()
     dataset_hash = sha(DATASET.read_bytes())
     cases = json.loads(DATASET.read_text())["cases"]
     rows = [run_case(case) for case in cases]

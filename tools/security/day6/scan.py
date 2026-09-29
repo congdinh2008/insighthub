@@ -9,7 +9,15 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from evaluate import DATASET, ROOT, envelopes, now, sha, source_snapshot
+from evaluate import (
+    DATASET,
+    ROOT,
+    envelopes,
+    isolated_corpus,
+    now,
+    sha,
+    source_snapshot,
+)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("profile", choices=["initial", "final"])
@@ -31,6 +39,7 @@ started = {
     **source_snapshot(),
     "dataset_sha256": sha(DATASET.read_bytes()),
     "profile": args.profile,
+    "corpus": isolated_corpus(),
 }
 (folder / "start.json").write_text(json.dumps(started, indent=2))
 env = dict(os.environ)
