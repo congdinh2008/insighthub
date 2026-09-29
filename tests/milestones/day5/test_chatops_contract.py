@@ -181,3 +181,56 @@ def test_ack_before_processing_and_recovery():
             await app.state.redis.aclose()
             app.state.settings, app.state.redis = original_settings, original_redis
     asyncio.run(check())
+
+
+def test_expired_approval_is_denied():
+    from app.permissions import approval_key
+    async def check():
+        client = Redis.from_url(REDIS_URL)
+        try:
+            token, record = await request_approval(client, workspace="T", channel="C", thread="expired",
+                requester="U", approver="A", replicas=2, target_uid="uid", resource_version="1",
+                current_replicas=1, namespace="insighthub-dev", cluster="kind-insighthub-local")
+            record["expires_at"] = int(time.time()) - 1
+            await client.set(approval_key(token), json.dumps(record), ex=60)
+            assert await consume_approval(client, token, workspace="T", channel="C", thread="expired", approver="A") is None
+            await client.delete(approval_key(token))
+        finally:
+            await client.aclose()
+    asyncio.run(check())
+
+
+def test_audit_failure_prevents_scale(monkeypatch):
+    async def confirmed(*args, **kwargs):
+        return {"operation_id": "op", "replicas": 2}
+    async def forbidden(*args):
+        raise AssertionError("must never mutate without durable audit")
+    def fail_audit(*args, **kwargs):
+        raise OSError("audit disk unavailable")
+    monkeypatch.setattr("app.worker.consume_approval", confirmed)
+    monkeypatch.setattr("app.worker.scale_api", forbidden)
+    monkeypatch.setattr("app.worker.record", fail_audit)
+    with pytest.raises(OSError):
+        asyncio.run(process(event("confirm abcdefghijklmnopqrstuvwxyz", "U_APPROVER"), settings(), None))
+
+
+def test_retry_deadletter_and_cached_delivery_state():
+    from app.queue import DEAD, PROCESSING, deadletter, retry
+    async def check():
+        client = Redis.from_url(REDIS_URL)
+        row = event("health")
+        raw = json.dumps(row, ensure_ascii=False, separators=(",", ":")).encode()
+        try:
+            await client.lpush(PROCESSING, raw)
+            row["attempts"] = 1
+            assert await retry(client, raw, row)
+            assert not await retry(client, raw, row)
+            leased = await next_job(client, timeout=1)
+            assert json.loads(leased)["attempts"] == 1
+            assert await deadletter(client, leased)
+            assert not await deadletter(client, leased)
+            assert leased in await client.lrange(DEAD, 0, -1)
+            await client.lrem(DEAD, 1, leased)
+        finally:
+            await client.aclose()
+    asyncio.run(check())

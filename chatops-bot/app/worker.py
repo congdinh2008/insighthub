@@ -94,7 +94,7 @@ async def process(event: dict[str, Any], settings: Settings, redis: Redis) -> st
                        outcome="verified", replicas=after["replicas"])
                 result = (f"Đã scale insighthub-api tới {after['replicas']} replicas "
                           f"ở {settings.namespace}. Kiểm readiness và đối chiếu với baseline demo.")
-            except ScaleError:
+            except (ScaleError, TimeoutError, OSError, ValueError, KeyError):
                 record(settings.audit_path, event_id=event_id, user=user, action="scale_api_result",
                        decision="denied", operation_id=confirmed["operation_id"],
                        outcome="unknown_or_failed")

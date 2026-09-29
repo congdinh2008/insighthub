@@ -1,6 +1,7 @@
 """Evidence-first handlers for the three Day 05 operational questions."""
 
 import json
+import math
 import re
 from datetime import UTC, datetime, time
 from typing import Any
@@ -59,9 +60,17 @@ def _pod_rows(value: Any) -> list[dict[str, Any]]:
                 parsed.append({"metadata": {"name": parts[3]},
                                "status": {"phase": parts[5], "ready_ratio": parts[4],
                                           "restarts": parts[6]}})
-        return parsed
+        return _pod_rows(parsed)
     if isinstance(value, list):
-        return [item for item in value if isinstance(item, dict)]
+        for item in value:
+            if (not isinstance(item, dict)
+                    or not isinstance(item.get("metadata"), dict)
+                    or not isinstance(item["metadata"].get("name"), str)
+                    or not item["metadata"]["name"]
+                    or not isinstance(item.get("status"), dict)
+                    or not isinstance(item["status"].get("phase"), str)):
+                raise ValueError("invalid pod observation")
+        return value
     if isinstance(value, dict):
         if isinstance(value.get("items"), list):
             return _pod_rows(value["items"])
@@ -78,7 +87,9 @@ def failing_pods(value: Any) -> list[str]:
         name = str(meta.get("name", "unknown"))
         reasons: list[str] = []
         phase = status.get("phase")
-        if phase in {"Failed", "Unknown"}:
+        if phase == "Succeeded":
+            continue
+        if phase in {"Pending", "Failed", "Unknown"}:
             reasons.append(str(phase))
         if status.get("ready_ratio"):
             ready, total = str(status["ready_ratio"]).split("/", 1)
@@ -86,7 +97,9 @@ def failing_pods(value: Any) -> list[str]:
                 reasons.append(f"ready {ready}/{total}")
             if phase not in {"Running", "Succeeded", "Failed", "Unknown"}:
                 reasons.append(str(phase))
-        for item in status.get("containerStatuses", []) or []:
+        for item in (status.get("initContainerStatuses", []) or []) + (status.get("containerStatuses", []) or []):
+            if item.get("state", {}).get("terminated", {}).get("exitCode") == 0:
+                continue
             if item.get("ready") is False:
                 reasons.append(str(item.get("state", {}).get("waiting", {}).get("reason")
                                    or item.get("state", {}).get("terminated", {}).get("reason")
@@ -102,8 +115,9 @@ def failing_pods(value: Any) -> list[str]:
 def _scalar(value: Any) -> float | None:
     if not isinstance(value, dict) or not isinstance(value.get("result"), str):
         return None
-    found = re.search(r"=>\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*@", value["result"])
-    return float(found.group(1)) if found else None
+    found = re.search(r"=>\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?)\s*@", value["result"])
+    number = float(found.group(1)) if found else None
+    return number if number is not None and math.isfinite(number) and number >= 0 else None
 
 
 async def answer(intent: str, settings: Settings) -> tuple[str, list[tuple[str, str]]]:
@@ -118,7 +132,7 @@ async def answer(intent: str, settings: Settings) -> tuple[str, list[tuple[str, 
             await call(settings.mcp_config, "prometheus", "query",
                        {"query": 'sum(insighthub_documents_total{status="ready"})'})
             calls.append(("prometheus.query", "ready inventory observed"))
-        except MCPUnavailable:
+        except (MCPUnavailable, ValueError, TypeError):
             calls.append(("prometheus.query", "unavailable; count from API only"))
         return (f"InsightHub {settings.namespace}: {count} tài liệu được *tạo hôm nay và hiện đã ready*. "
                 f"Ngày ICT từ {start.astimezone(ICT):%H:%M %d/%m/%Y} đến "
@@ -160,12 +174,12 @@ async def answer(intent: str, settings: Settings) -> tuple[str, list[tuple[str, 
                 pod_failures = len(bad)
                 state.append(f"{len(bad)} pod/container lỗi")
             calls.append(("kubernetes.pods_list_in_namespace", state[-1]))
-        except MCPUnavailable:
+        except (MCPUnavailable, ValueError, TypeError):
             state.append("pods chưa xác minh")
             calls.append(("kubernetes.pods_list_in_namespace", "unknown"))
         try:
             metric = await call(settings.mcp_config, "prometheus", "query",
-                                {"query": 'sum(increase(insighthub_http_requests_total{status=~"5.."}[5m])) or vector(0)'})
+                                {"query": 'sum(increase(insighthub_http_requests_total{status=~"5.."}[5m])) or (0 * sum(increase(insighthub_http_requests_total[5m])))'})
             errors = _scalar(metric)
             if errors is None:
                 state.append("Prometheus 5xx chưa xác minh")
@@ -173,7 +187,7 @@ async def answer(intent: str, settings: Settings) -> tuple[str, list[tuple[str, 
             else:
                 state.append(f"5xx/5m={errors:g}")
                 calls.append(("prometheus.query", f"5xx/5m={errors:g}"))
-        except MCPUnavailable:
+        except (MCPUnavailable, ValueError, TypeError):
             state.append("Prometheus chưa xác minh")
             calls.append(("prometheus.query", "unknown"))
         if not (api_ready and pods_known and errors is not None):

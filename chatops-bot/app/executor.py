@@ -18,7 +18,13 @@ async def _kubectl(settings: Settings, *args: str) -> str:
                "--context", settings.cluster_context, "-n", settings.namespace, *args]
     proc = await asyncio.create_subprocess_exec(*command, stdout=asyncio.subprocess.PIPE,
                                                 stderr=asyncio.subprocess.DEVNULL)
-    stdout, _ = await asyncio.wait_for(proc.communicate(), timeout=8)
+    try:
+        stdout, _ = await asyncio.wait_for(proc.communicate(), timeout=8)
+    except (TimeoutError, asyncio.CancelledError):
+        if proc.returncode is None:
+            proc.kill()
+        await proc.communicate()
+        raise
     if proc.returncode != 0:
         raise ScaleError("Kubernetes rejected scoped action")
     return stdout.decode()

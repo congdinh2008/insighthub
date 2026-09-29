@@ -227,7 +227,7 @@ tmp/day5/venv/bin/ruff check chatops-bot/app chatops-bot/tests tests/milestones/
 tmp/day5/venv/bin/mypy --follow-untyped-imports --ignore-missing-imports chatops-bot/app
 ```
 
-Kỳ vọng từ bản source hiện tại: **4 bot tests** và **6 milestone tests** pass, Ruff/Mypy pass. Milestone kiểm signature sai và timestamp cũ, ACK trước xử lý, dedup, worker recovery, policy deny, approval binding/replay. Tests cục bộ không thay thế lượt gửi Slack thật.
+Kỳ vọng từ bản source hiện tại: **25 bot tests** và **9 milestone tests** pass, Ruff/Mypy pass. Milestone kiểm signature sai và timestamp cũ, ACK trước xử lý, dedup, worker recovery, policy deny, approval binding/replay. Tests cục bộ không thay thế lượt gửi Slack thật.
 
 Verifier cần `docs/evidence/day5/day5.json` và audit đã lọc, gắn với source fingerprint hiện hành. Sau khi học viên đã tạo evidence của **lượt chạy riêng**, chạy:
 

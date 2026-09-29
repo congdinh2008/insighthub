@@ -1,5 +1,6 @@
 """Authenticated Slack Events HTTP intake; no MCP or model work before ACK."""
 
+import asyncio
 import json
 
 from fastapi import FastAPI, HTTPException, Request
@@ -18,7 +19,9 @@ app.state.redis = Redis.from_url(app.state.settings.redis_url, decode_responses=
 @app.get("/healthz")
 async def health() -> dict[str, object]:
     settings: Settings = app.state.settings
-    configured = bool(settings.signing_secret and settings.bot_token and settings.channel_id)
+    configured = all((settings.signing_secret, settings.bot_token, settings.channel_id,
+                      settings.app_id, settings.workspace_id, settings.bot_user_id,
+                      settings.approver_user_id, settings.mcp_config, settings.kubeconfig_scale))
     try:
         redis_ready = bool(await app.state.redis.ping())
         worker_ready = bool(await app.state.redis.exists(PREFIX + "worker:heartbeat"))
@@ -32,7 +35,13 @@ async def health() -> dict[str, object]:
 @app.post("/slack/events")
 async def slack_events(request: Request) -> dict[str, object]:
     settings: Settings = app.state.settings
-    body = await request.body()
+    # Bound memory before authenticating an untrusted public HTTP body.
+    chunks = bytearray()
+    async for chunk in request.stream():
+        chunks.extend(chunk)
+        if len(chunks) > 64 * 1024:
+            raise HTTPException(status_code=413, detail="payload too large")
+    body = bytes(chunks)
     if not verify_request(body, request.headers, settings.signing_secret):
         raise HTTPException(status_code=401, detail="invalid Slack signature or timestamp")
     try:
@@ -62,7 +71,9 @@ async def slack_events(request: Request) -> dict[str, object]:
             or not isinstance(stamp, str)):
         return {"ok": True, "ignored": True}
     event_id = payload.get("event_id")
-    if not isinstance(event_id, str) or len(event_id) > 128 or len(text) > 2048:
+    if (not isinstance(event_id, str) or not event_id or len(event_id) > 128
+            or len(text) > 2048 or not user or not stamp
+            or not isinstance(event.get("thread_ts", stamp), str)):
         raise HTTPException(status_code=400, detail="invalid event")
     normalized = {
         "workspace": settings.workspace_id, "event_id": event_id,
@@ -70,7 +81,8 @@ async def slack_events(request: Request) -> dict[str, object]:
         "text": text, "attempts": 0,
     }
     try:
-        fresh = await accept(app.state.redis, settings.workspace_id, event_id, normalized)
+        fresh = await asyncio.wait_for(
+            accept(app.state.redis, settings.workspace_id, event_id, normalized), timeout=2)
     except Exception:
         raise HTTPException(status_code=503, detail="event inbox unavailable") from None
     return {"ok": True, "duplicate": not fresh}

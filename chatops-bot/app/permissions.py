@@ -31,13 +31,15 @@ def route(question: str) -> tuple[str, int | str | None]:
     text = re.sub(r"<@[A-Z0-9]+>", " ", question).strip()
     if DESTRUCTIVE.search(text):
         return "destructive", None
-    match = CONFIRM.search(text)
+    match = CONFIRM.fullmatch(text)
     if match:
         return "confirm", match.group(1)
-    match = SCALE.search(text)
+    match = SCALE.fullmatch(text)
     if match:
         replicas = int(match.group(1))
         return ("scale", replicas) if 1 <= replicas <= 5 else ("denied", None)
+    if re.search(r"\b(scale|confirm)\b", text, re.I):
+        return "denied", None
     lowered = text.casefold()
     if any(x in lowered for x in ("pod", "crashloop", "container", "workload")):
         return "pods", None
