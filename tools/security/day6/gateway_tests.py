@@ -12,6 +12,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import httpx
+from budget_settle import settled_info
 
 ROOT = Path(__file__).resolve().parents[3]
 TMP = ROOT / "tmp/day6"
@@ -165,7 +166,9 @@ def budget():
         original = info(key)["max_budget"]
         try:
             for concurrency in [1, 2, 5]:
-                before = info(key)["spend"]
+                # The live suite may have just completed billed calls. Do not
+                # place a tiny cap on an unflushed historical spend snapshot.
+                before = settled_info(lambda: info(key))["spend"]
                 cap = before + 0.000001
                 update(key, cap)
                 started = time.monotonic()
@@ -179,14 +182,33 @@ def budget():
                     "statuses": [r.status_code for r in responses],
                 }
                 usage = [r.json()["usage"] for r in successful]
+                expected_delta = sum(
+                    (
+                        (
+                            u["prompt_tokens"]
+                            - (u.get("prompt_tokens_details") or {}).get(
+                                "cached_tokens", 0
+                            )
+                        )
+                        * 0.4
+                        + (u.get("prompt_tokens_details") or {}).get("cached_tokens", 0)
+                        * 0.1
+                        + u["completion_tokens"] * 1.6
+                    )
+                    / 1e6
+                    for u in usage
+                )
                 # Wait for actual asynchronous PostgreSQL spend writes, no fabricated overshoot.
                 deadline = time.monotonic() + 45
                 while time.monotonic() < deadline:
                     after = info(key)["spend"]
-                    if after > before:
+                    if after + 1e-9 >= before + expected_delta:
                         break
                     time.sleep(1)
                 assert after > before, "Accounting did not advance"
+                assert after + 1e-9 >= before + expected_delta, (
+                    "Not all completed calls were accounted"
+                )
                 # Do not refresh/update authentication caches: enforcement must happen automatically.
                 denied = chat(workload)
                 assert denied.status_code in (400, 402, 429), denied.status_code
@@ -203,6 +225,8 @@ def budget():
                     "overshoot_usd": max(0, after - cap),
                     "accounting_delay_seconds": time.monotonic() - started,
                     "provider_usage": usage,
+                    "completed_calls_expected_cost_usd": expected_delta,
+                    "pre_probe_stable_seconds": 12,
                     "native_budget_type": "soft cap; in-flight overshoot measured; automatic enforcement without cache refresh",
                 }
                 # At most four UTF-8 bytes per code point and one byte per token
