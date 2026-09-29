@@ -60,6 +60,45 @@ def test_master_key_not_workload():
     assert err.value.status_code == 403
 
 
+@pytest.mark.parametrize("count", [2, 0, -1, True, "1"])
+def test_extra_choices_rejected_before_provider_admission(count):
+    with patch.object(hooks, "check_text", AsyncMock()) as guard:
+        with pytest.raises(HTTPException) as err:
+            invoke({"messages": [{"role": "user", "content": "safe"}], "n": count})
+        assert err.value.status_code == 400
+        assert err.value.detail == {"code": "single_completion_required"}
+        guard.assert_not_awaited()
+
+
+@pytest.mark.parametrize("choices", [None, [], ["first", "unreviewed second"]])
+def test_unexpected_provider_choice_count_never_released(choices):
+    with pytest.raises(HTTPException) as err:
+        asyncio.run(
+            hooks.policy.async_post_call_success_hook(
+                {"messages": [{"role": "user", "content": "safe"}]},
+                SimpleNamespace(key_alias="day6-insighthub"),
+                SimpleNamespace(choices=choices),
+            )
+        )
+    assert err.value.status_code == 502
+
+
+def test_single_completion_is_checked_and_returned():
+    response = SimpleNamespace(
+        choices=[SimpleNamespace(message=SimpleNamespace(content="safe"))]
+    )
+    with patch.object(hooks, "check_text", AsyncMock()) as guard:
+        result = asyncio.run(
+            hooks.policy.async_post_call_success_hook(
+                {"messages": [{"role": "user", "content": "safe"}]},
+                SimpleNamespace(key_alias="day6-insighthub"),
+                response,
+            )
+        )
+    assert result is response
+    guard.assert_awaited_once_with("safe", "output")
+
+
 def test_embedding_preserves_operation_contract():
     out = invoke(
         {"model": "app-embedding", "input": ["data"], "dimensions": 1024},

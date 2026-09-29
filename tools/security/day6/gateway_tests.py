@@ -108,6 +108,26 @@ def auth():
                 }
             )
             assert r.status_code in (400, 403, 422), results[-1]
+        choices = call(
+            key,
+            "/v1/chat/completions",
+            {
+                "model": model,
+                "n": 2,
+                "max_tokens": 8,
+                "messages": [{"role": "user", "content": "Say ready."}],
+            },
+        )
+        assert choices.status_code == 400
+        assert "single_completion_required" in choices.text
+        results.append(
+            {
+                "workload": workload,
+                "probe": "multiple-completions",
+                "status": choices.status_code,
+                "error_code": "single_completion_required",
+            }
+        )
     invalid = chat("insighthub", "sk-invalid-day6-key")
     assert invalid.status_code in (401, 403)
     results.append({"probe": "invalid-key", "status": invalid.status_code})
@@ -166,9 +186,11 @@ def budget():
                     "provider_usage": usage,
                     "native_budget_type": "soft cap; in-flight overshoot measured; automatic enforcement without cache refresh",
                 }
-                # Maximum 24k input characters (<=24k UTF8 tokens conservative) + 1024 output per request.
+                # At most four UTF-8 bytes per code point and one byte per token
+                # is a conservative bound for the pinned byte-level tokenizer.
+                # Single-choice admission bounds output to 1024 tokens total.
                 entry["overshoot_bound_usd"] = (
-                    concurrency * (24000 * 0.4 + 1024 * 1.6) / 1e6
+                    concurrency * (4 * 24000 * 0.4 + 1024 * 1.6) / 1e6
                 )
                 assert entry["overshoot_usd"] <= entry["overshoot_bound_usd"]
                 results.append(entry)

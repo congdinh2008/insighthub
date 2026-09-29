@@ -12,6 +12,7 @@ Baseline: `docs/evidence/day6/initial/`, 164 executed, 98 passed, 66 strict-orac
 | Native cached authorization can outlive accounting DB connectivity | Failure-mode review | Require live accounting query before admission, fail closed on connection/query errors; retain native per-key budgets and measured in-flight overshoot |
 | Coding model returns inconsistent hunk counts / missing terminal newline | First coding attempt failed `git apply` | Normalize only terminal newline and use `git apply --recount`; exact paths remain allowlisted, fixed tests immutable; successful second patch preserved |
 | ChatOps queue consumer exits on Redis read timeout | Day06 fault/resource pressure followed by delayed ingestion reply | Reconnect supervisor, leased-job recovery and heartbeat TTL expiry; two focused outage/cancellation tests plus live queue recovery |
+| Multiple completion choices can exceed the single-answer output review boundary | Final source review: post-hook originally checked only choices[0] while callers could send n>1 | Require integer n=1 before admission and reject unexpected provider choice counts; boundary tests plus live denial for every workload key; re-freeze source and replay baseline/final/verifier |
 
 Fixes are source changes with corresponding boundary tests. Commit identifiers and final scan disposition are recorded in the final evidence index after source freeze. Open findings are not marked resolved solely because code was written.
 

@@ -98,6 +98,11 @@ class Day6Policy(CustomLogger):
         meta["day6_request_id"] = str(uuid.uuid4())
         meta["day6_run_id"] = os.environ.get("DAY6_RUN_ID", "local")
         if call_type not in {"embedding", "aembedding"}:
+            # All Day06 consumers use one answer. Additional choices would widen
+            # both the output review boundary and the per-request token budget.
+            if type(data.get("n", 1)) is not int or data.get("n", 1) != 1:
+                raise HTTPException(400, detail={"code": "single_completion_required"})
+            data["n"] = 1
             cap = data.get("max_tokens", data.get("max_completion_tokens", 512))
             if type(cap) is not int or cap < 1:
                 raise HTTPException(400, detail={"code": "invalid_token_limit"})
@@ -155,6 +160,9 @@ class Day6Policy(CustomLogger):
             and os.environ.get("DAY6_POLICY_MODE", "enforce") == "enforce"
         ):
             choices = getattr(response, "choices", None)
+            if choices is not None or data.get("messages"):
+                if not isinstance(choices, list) or len(choices) != 1:
+                    raise HTTPException(502, detail={"code": "invalid_model_output"})
             if choices:
                 content = getattr(choices[0].message, "content", None)
                 if not isinstance(content, str) or not content:
