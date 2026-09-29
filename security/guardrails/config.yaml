@@ -1,0 +1,27 @@
+# NeMo IORails performs real checks; this file contains no credentials.
+models: []
+rails:
+  input:
+    flows: [regex check input]
+  output:
+    flows: [regex check output]
+  config:
+    regex_detection:
+      input:
+        patterns:
+          - '(?i)(ignore|disregard|override)\s+(all\s+|the\s+|your\s+)?(previous|system|developer|security|prior)'
+          - '(?i)(reveal|print|dump|exfiltrate|send).{0,45}(api.key|password|secret|system.prompt|private.key)'
+          - '(?i)(bỏ qua|phớt lờ).{0,40}(chỉ dẫn|chỉ thị|hướng dẫn|hệ thống|quy tắc)'
+          - '(?i)(tiết lộ|in ra|gửi).{0,40}(mật khẩu|khóa api|bí mật|system prompt)'
+          - '(?i)(kubectl\s+delete|rm\s+-rf|delete\s+namespace)'
+          - '(?i)\bsk-[a-zA-Z0-9_-]{20,}\b'
+          - '(?i)\b[\w.+-]+@[\w.-]+\.[a-z]{2,}\b'
+          - '\b\d{3}-\d{2}-\d{4}\b'
+          - '\b0[35789][0-9]{8}\b'
+      output:
+        patterns:
+          - '(?i)\bsk-[a-zA-Z0-9_-]{20,}\b'
+          - '(?i)\b[\w.+-]+@[\w.-]+\.[a-z]{2,}\b'
+          - '\b\d{3}-\d{2}-\d{4}\b'
+          - '\b0[35789][0-9]{8}\b'
+          - 'DAY6_SECRET_[A-Z0-9_]+'

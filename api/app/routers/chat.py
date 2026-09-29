@@ -7,6 +7,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, ConfigDict, Field
 
 from app.core.metrics import llm_call_latency, llm_tokens_total, rag_query_latency
+from app.services.guardrails import check, safe_contexts
 from app.services.llm import generate
 from app.services.retrieval import retrieve
 
@@ -40,13 +41,16 @@ class ChatResponse(BaseModel):
 def chat(req: ChatRequest) -> ChatResponse:
     start = time.perf_counter()
     with rag_query_latency.time():
+        check(req.question, "input")
         contexts = retrieve(req.question, top_k=req.top_k)
         if not contexts:
             raise HTTPException(
                 404, "Chưa có tài liệu nào sẵn sàng. Hãy upload tài liệu trước."
             )
+        contexts = safe_contexts(contexts)
         with llm_call_latency.time():
             result = generate(req.question, contexts)
+        check(result["answer"], "output")
     for direction in ("input", "output"):
         value = result["usage"].get(f"{direction}_tokens")
         if value is not None:

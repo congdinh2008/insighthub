@@ -159,7 +159,7 @@ insighthub/
 └── .env.example
 ~~~
 
-Solution Day 01 nằm trong [docs/day1](docs/day1/README.md). Solution Day 02-05 nằm trong `docs/day2` đến `docs/day5`; security Day 06 vẫn là scaffold. Học liệu trước buổi do mentor cung cấp riêng. Chi tiết corpus và injection mô phỏng tại [sample-docs/README.md](sample-docs/README.md).
+Solution Day 01 nằm trong [docs/day1](docs/day1/README.md). Solution Day 02-05 nằm trong `docs/day2` đến `docs/day5`. Day 06 có gateway, guardrails, red-team và FinOps opt-in: [runbook](docs/day6/Runbook.md), [self-check và phạm vi nghiệm thu](docs/day6/Self_Check.md), [threat model](security/threat-model.md). Học liệu trước buổi do mentor cung cấp riêng. Chi tiết corpus và injection mô phỏng tại [sample-docs/README.md](sample-docs/README.md).
 
 ## Lộ trình 7 ngày - Bạn sẽ làm gì với InsightHub
 

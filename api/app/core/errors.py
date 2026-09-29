@@ -26,6 +26,24 @@ class InvalidDocument(ServiceError):
     message = "Tài liệu trống, không hợp lệ hoặc không có nội dung văn bản."
 
 
+class PolicyBlocked(ProviderError):
+    status_code = 422
+    code = "policy_blocked"
+    message = "Nội dung bị chặn bởi chính sách bảo mật. Hãy thử câu hỏi khác."
+
+
+class BudgetExceeded(ProviderError):
+    status_code = 429
+    code = "budget_exceeded"
+    message = "Ngân sách AI của workload đã hết. Liên hệ người quản lý lab."
+
+
+class GuardrailUnavailable(ProviderError):
+    status_code = 503
+    code = "guardrail_unavailable"
+    message = "Kiểm tra bảo mật đang không khả dụng. Vui lòng thử lại sau."
+
+
 class DocumentNotFound(ServiceError):
     status_code = 404
     code = "document_not_found"

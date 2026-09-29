@@ -1,0 +1,8 @@
+{
+  "name": "insighthub-day6-security",
+  "private": true,
+  "version": "1.0.0",
+  "engines": { "node": ">=22.22.0" },
+  "scripts": { "eval": "promptfoo eval --config datasets/frozen-eval.yaml --no-cache" },
+  "devDependencies": { "promptfoo": "0.123.1" }
+}

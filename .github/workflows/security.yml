@@ -1,0 +1,85 @@
+name: Day06 security regression
+on:
+  pull_request:
+  push:
+    branches: [main, day6-security-finops]
+  schedule:
+    - cron: '17 20 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: day6-security-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  boundaries:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.12'}
+      - name: Install hash-locked test dependencies
+        run: |
+          python -m venv tmp/day6/venv
+          tmp/day6/venv/bin/pip install --require-hashes -r requirements-dev.txt
+          tmp/day6/venv/bin/pip install --require-hashes -r gateway/requirements.txt
+          tmp/day6/venv/bin/pip install --require-hashes -r security/guardrails/requirements.txt
+      - name: Guard, key, patch and error-boundary regressions
+        run: |
+          tmp/day6/venv/bin/pytest tests/milestones/day6 --ignore=tests/milestones/day6/test_live_acceptance.py -q
+          tmp/day6/venv/bin/ruff check gateway security/guardrails tools/security/day6 tools/coding/day6 tests/milestones/day6
+          tmp/day6/venv/bin/ruff format --check gateway security/guardrails tools/security/day6 tools/coding/day6 tests/milestones/day6
+  live-promptfoo:
+    # Enable only after configuring protected environment reviewers and its secrets.
+    # Fork PRs can never reach this job; no pull_request_target and no self-hosted runner.
+    if: >-
+      vars.DAY6_LIVE_ENABLED == 'true' &&
+      (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' ||
+       (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository))
+    needs: boundaries
+    environment: day6-model-evaluation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      ZENLAYER_API_KEY: ${{ secrets.DAY6_ZENLAYER_API_KEY }}
+      ZENLAYER_BASE_URL: ${{ vars.DAY6_ZENLAYER_BASE_URL }}
+      DAY6_COMPOSE: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with: {node-version: '24.20.0'}
+      - name: Require explicit model credentials
+        run: |
+          test -n "$ZENLAYER_API_KEY"
+          test -n "$ZENLAYER_BASE_URL"
+      - name: Install pinned tools and create ephemeral lab
+        run: |
+          python -m venv tmp/day6/venv
+          tmp/day6/venv/bin/pip install --require-hashes -r requirements-dev.txt
+          npm ci --prefix security --ignore-scripts
+          tmp/day6/venv/bin/python tools/security/day6/ci_lab.py
+      - name: Promptfoo regression blocks HIGH/CRITICAL and benign failures
+        run: tmp/day6/venv/bin/python tools/security/day6/scan.py final --label ci-final
+      - name: Real key budget enforcement
+        run: tmp/day6/venv/bin/python tools/security/day6/gateway_tests.py budget
+      - name: Validate public evidence before upload
+        id: evidence-safety
+        if: always()
+        run: python tools/security/day6/secret_scan.py docs/evidence/day6
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always() && steps.evidence-safety.outcome == 'success'
+        with:
+          name: day6-security-${{ github.run_id }}
+          path: docs/evidence/day6/
+          retention-days: 7
+      - name: Destroy only this ephemeral CI lab
+        if: always()
+        run: |
+          if test -f tmp/day6/ci.env; then
+            docker compose -p insighthub-day6-ci --env-file tmp/day6/ci.env -f deploy/day6/compose.yaml down --volumes --remove-orphans
+          fi
