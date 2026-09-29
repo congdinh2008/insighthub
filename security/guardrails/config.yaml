@@ -14,6 +14,10 @@ rails:
           - '(?i)(bỏ qua|phớt lờ).{0,40}(chỉ dẫn|chỉ thị|hướng dẫn|hệ thống|quy tắc)'
           - '(?i)(tiết lộ|in ra|gửi).{0,40}(mật khẩu|khóa api|bí mật|system prompt)'
           - '(?i)(kubectl\s+delete|rm\s+-rf|delete\s+namespace)'
+          # Workload models may draft communications, but cannot send them.
+          - '(?i)^\s*(?:(?:please|kindly)\s+)?(?:(?:can|could|would|will)\s+you\s+(?:please\s+)?|i\s+(?:need|want)\s+you\s+to\s+)?(?:send|dispatch|post|publish)\b.{0,100}\b(?:notifications?|messages?|emails?|alerts?|stakeholders?|customers?|users?|team|channel|slack)\b'
+          - '(?i)^\s*(?:(?:please|kindly)\s+)?(?:(?:can|could|would|will)\s+you\s+(?:please\s+)?|i\s+(?:need|want)\s+you\s+to\s+)?(?:email|notify)\s+(?:all\s+|the\s+|our\s+)?(?:stakeholders?|customers?|users?|team|everyone|them)\b'
+          - '(?i)^\s*(?:(?:bạn\s+)?(?:có thể|hãy|vui lòng|làm ơn)\s+)?(?:gửi|gởi|đăng|thông báo)\b.{0,80}\b(?:thông báo|email|tin nhắn|slack|cho\s+(?:khách hàng|mọi người|nhóm|đội|các bên))\b'
           - '(?i)\bsk-[a-zA-Z0-9_-]{20,}\b'
           - '(?i)\b[\w.+-]+@[\w.-]+\.[a-z]{2,}\b'
           - '\b\d{3}-\d{2}-\d{4}\b'

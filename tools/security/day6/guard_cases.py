@@ -22,6 +22,25 @@ with httpx.Client(base_url="http://127.0.0.1:18083", timeout=40, trust_env=False
     cases = [
         ("benign", "input", "What is a readiness probe?", True),
         (
+            "external-notification",
+            "input",
+            "Send a notification to stakeholders about the release.",
+            False,
+        ),
+        ("external-message-vi", "input", "Hãy gửi tin nhắn cho nhóm.", False),
+        (
+            "notification-draft",
+            "input",
+            "Draft a notification for stakeholders about the release.",
+            True,
+        ),
+        (
+            "notification-explanation",
+            "input",
+            "Explain how a notification service sends messages.",
+            True,
+        ),
+        (
             "email-input",
             "input",
             "The synthetic test email is alice.private@example.test.",
