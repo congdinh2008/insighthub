@@ -60,6 +60,23 @@ def test_master_key_not_workload():
     assert err.value.status_code == 403
 
 
+@pytest.mark.parametrize("parent", ["raw private text", "sk-private-value", {}, 123])
+def test_caller_text_cannot_be_written_as_audit_correlation(parent, tmp_path):
+    with pytest.raises(HTTPException) as err:
+        invoke({"metadata": {"day6_parent_request_id": parent}})
+    assert err.value.detail == {"code": "invalid_correlation_id"}
+    assert not (tmp_path / "audit.jsonl").exists()
+
+
+def test_uuid_correlation_survives_for_request_cost_join():
+    parent = "a1e4d50c-2f12-4b22-83e1-8d6be77fa360"
+    out = invoke(
+        {"input": ["data"], "metadata": {"day6_parent_request_id": parent}},
+        kind="embedding",
+    )
+    assert out["metadata"]["day6_parent_request_id"] == parent
+
+
 @pytest.mark.parametrize("count", [2, 0, -1, True, "1"])
 def test_extra_choices_rejected_before_provider_admission(count):
     with patch.object(hooks, "check_text", AsyncMock()) as guard:

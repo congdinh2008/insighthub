@@ -94,6 +94,18 @@ class Day6Policy(CustomLogger):
             raise HTTPException(403, detail={"code": "tools_not_enabled"})
         # Authenticated identity owns these fields, never incoming client metadata.
         meta = data.setdefault("metadata", {})
+        if not isinstance(meta, dict):
+            raise HTTPException(400, detail={"code": "invalid_metadata"})
+        parent = meta.get("day6_parent_request_id")
+        if parent is not None:
+            try:
+                if not isinstance(parent, str):
+                    raise ValueError("invalid correlation ID")
+                meta["day6_parent_request_id"] = str(uuid.UUID(parent))
+            except ValueError:
+                raise HTTPException(
+                    400, detail={"code": "invalid_correlation_id"}
+                ) from None
         meta["day6_workload"] = WORKLOADS[alias]
         meta["day6_request_id"] = str(uuid.uuid4())
         meta["day6_run_id"] = os.environ.get("DAY6_RUN_ID", "local")

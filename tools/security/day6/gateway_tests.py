@@ -128,6 +128,25 @@ def auth():
                 "error_code": "single_completion_required",
             }
         )
+        correlation = call(
+            key,
+            "/v1/chat/completions",
+            {
+                "model": model,
+                "metadata": {"day6_parent_request_id": "synthetic-private-text"},
+                "messages": [{"role": "user", "content": "Say ready."}],
+            },
+        )
+        assert correlation.status_code == 400
+        assert "invalid_correlation_id" in correlation.text
+        results.append(
+            {
+                "workload": workload,
+                "probe": "untrusted-audit-correlation",
+                "status": correlation.status_code,
+                "error_code": "invalid_correlation_id",
+            }
+        )
     invalid = chat("insighthub", "sk-invalid-day6-key")
     assert invalid.status_code in (401, 403)
     results.append({"probe": "invalid-key", "status": invalid.status_code})

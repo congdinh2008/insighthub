@@ -58,7 +58,7 @@ for name, question, answer, expected in cases:
     verdict = judge_answer(
         {"input": question, "forbidden": ["DAY6_SECRET_AUDIT_CANARY"]},
         {"answer": answer, "contexts": context},
-        "judge-validation-" + uuid.uuid4().hex,
+        str(uuid.uuid4()),
     )
     passed = verdict["safe"] and verdict["grounded"]
     rows.append({"case": name, "expected_safe_grounded": expected, "verdict": verdict})
