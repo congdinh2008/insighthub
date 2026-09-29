@@ -6,13 +6,14 @@
 
 InsightHub cho phép người dùng upload tài liệu **.txt, .md, .pdf**, sau đó hỏi đáp dựa trên nội dung tài liệu bằng Retrieval-Augmented Generation (RAG). Câu trả lời có nguồn trích dẫn để đối chiếu.
 
-**Day 01 trên starter 0.2.3 / Specification v3.3.** Branch này cung cấp solution tham khảo: async ingestion và controlled retry. [Hướng dẫn solution Day 01](docs/day1/README.md). [Kết quả và self-review](docs/day1/Review_and_Self_Check.md), [runbook tái lập](docs/day1/Runbook.md), [prompt log](ai-prompts/day1.md). README trình bày yêu cầu cơ bản, kiến trúc và cách bắt đầu. [Running Project Specification](Running-Project-Specification-Student.md) là nguồn yêu cầu chi tiết, Must-have, acceptance, submission và rubric cho từng day. Học viên hoàn thiện dự án trước, trong và sau buổi học, không chỉ trong thời gian lab trên lớp.
+**Solution Day 01-05 trên starter 0.2.3 / Specification v3.3.** Branch `day5-chatops-bot` có async ingestion, MCP, IaC, observability và Slack ChatOps local. [Trạng thái nghiệm thu Day 05](docs/day5/Self_Check.md), [báo cáo E2E trên Edge](docs/evidence/day5/20260929/Runtime_Validation.md). [Hướng dẫn solution Day 01](docs/day1/README.md). [Kết quả và self-review](docs/day1/Review_and_Self_Check.md), [runbook tái lập](docs/day1/Runbook.md), [prompt log](ai-prompts/day1.md). README trình bày yêu cầu cơ bản, kiến trúc và cách bắt đầu. [Running Project Specification](Running-Project-Specification-Student.md) là nguồn yêu cầu chi tiết, Must-have, acceptance, submission và rubric cho từng day. Học viên hoàn thiện dự án trước, trong và sau buổi học, không chỉ trong thời gian lab trên lớp.
 
 ## Bắt đầu ở đây - Student Quick Links
 
 | Tình huống | Tài liệu hoặc lệnh |
 |---|---|
 | Thực hiện solution Day 01 | [Solution guide và prompt pack](docs/day1/README.md) |
+| Triển khai ChatOps Day 05 | [Guideline học viên](docs/day5/Student_Guideline.md), [Bot](chatops-bot/README.md), [runbook](docs/day5/Runbook.md), [plan](docs/plans/Day05_Implementation_Plan_v1.0.md) |
 | Lần đầu setup, chạy app hoặc gặp lỗi môi trường | [GETTING_STARTED.md](GETTING_STARTED.md) |
 | Đọc toàn bộ yêu cầu và tiêu chí hoàn thành | [Running-Project-Specification-Student.md](Running-Project-Specification-Student.md) |
 | Daily workflow, nộp bài và chấm điểm | [Submission & Grading Protocol](Running-Project-Specification-Student.md#4-submission--grading-protocol), cùng checklist của từng day |
@@ -134,7 +135,7 @@ insighthub/
 │   ├── db/init.sql           # Schema PostgreSQL/pgvector được cung cấp
 │   └── README.md             # Học viên bổ sung Terraform/Helm/IaC Day 3
 ├── observability/            # Day 4 monitoring chart, rules, tests và dashboard
-├── chatops-bot/              # Skeleton chưa hoàn thiện Slack bot; Day 5
+├── chatops-bot/              # Day 5 Slack HTTP intake, Redis worker, MCP, policy và audit
 ├── security/                 # Promptfoo scaffold; guardrails/gateway/FinOps Day 6
 ├── sample-docs/              # Corpus mô phỏng; có injection cố ý cho Day 6
 ├── scripts/                  # Setup, smoke, milestone verifier, host config checker
@@ -158,7 +159,7 @@ insighthub/
 └── .env.example
 ~~~
 
-Solution Day 01 nằm trong [docs/day1](docs/day1/README.md). MCP mẫu hai tool, CI baseline và bot skeleton là nền để tiếp tục các bài thực hành sau. Học liệu trước buổi do mentor cung cấp riêng. Chi tiết corpus và injection mô phỏng tại [sample-docs/README.md](sample-docs/README.md).
+Solution Day 01 nằm trong [docs/day1](docs/day1/README.md). Solution Day 02-05 nằm trong `docs/day2` đến `docs/day5`; security Day 06 vẫn là scaffold. Học liệu trước buổi do mentor cung cấp riêng. Chi tiết corpus và injection mô phỏng tại [sample-docs/README.md](sample-docs/README.md).
 
 ## Lộ trình 7 ngày - Bạn sẽ làm gì với InsightHub
 

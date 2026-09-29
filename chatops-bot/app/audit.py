@@ -1,44 +1,35 @@
-"""
-InsightHub ChatOps Bot — Audit log (SKELETON)
+"""Small, append-only JSON audit for the bounded Day 05 lab."""
 
-Mọi tool call của bot PHẢI được ghi audit. Đây là yêu cầu bảo mật cốt lõi:
-khi AI agent có quyền chạm vào hạ tầng, phải có dấu vết kiểm toán.
-
-TODO Day 5: hoàn thiện theo gợi ý dưới.
-"""
 import json
-import logging
-from datetime import datetime, timezone
+import os
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any
 
-logger = logging.getLogger("chatops-bot.audit")
 
-
-def log_tool_call(
-    user: str,
-    tool: str,
-    args: dict,
-    result_summary: str,
-    approved: bool = True,
-) -> None:
-    """
-    Ghi 1 dòng audit cho mỗi tool call.
-
-    TODO Day 5:
-    - Ghi ra file hoặc stdout dạng structured JSON (mỗi dòng 1 record).
-    - Trong production thật: đẩy sang log aggregator (Loki...).
-    - Trường tối thiểu: timestamp, user, tool, args, kết quả, approved.
-
-    Ví dụ record:
-      {"ts": "...", "user": "U123", "tool": "kubectl_get_pods",
-       "args": {...}, "result": "5 pods Running", "approved": true}
-    """
-    record = {
-        "ts": datetime.now(timezone.utc).isoformat(),
+def record(path: str, *, event_id: str, user: str, action: str,
+           decision: str, **details: Any) -> dict[str, Any]:
+    if decision not in {"allowed", "denied", "approval_required"}:
+        raise ValueError("invalid audit decision")
+    entry: dict[str, Any] = {
+        "timestamp": datetime.now(UTC).isoformat(),
+        "event_id": event_id,
         "user": user,
-        "tool": tool,
-        "args": args,
-        "result": result_summary,
-        "approved": approved,
+        "action": action,
+        "decision": decision,
     }
-    # TODO: thay bằng ghi file / gửi log aggregator
-    logger.info("AUDIT %s", json.dumps(record, ensure_ascii=False))
+    if os.getenv("INSIGHTHUB_VERIFY_RUN_ID"):
+        entry["test_run_id"] = os.environ["INSIGHTHUB_VERIFY_RUN_ID"]
+    entry.update(details)
+    parent = Path(path).parent
+    parent.mkdir(parents=True, exist_ok=True)
+    line = (json.dumps(entry, ensure_ascii=False, separators=(",", ":")) + "\n").encode()
+    if len(line) > 4096:
+        raise ValueError("audit record too large")
+    fd = os.open(path, os.O_CREAT | os.O_APPEND | os.O_WRONLY, 0o600)
+    try:
+        os.write(fd, line)
+        os.fsync(fd)
+    finally:
+        os.close(fd)
+    return entry

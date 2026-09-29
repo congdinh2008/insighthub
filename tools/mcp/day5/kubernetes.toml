@@ -1,0 +1,8 @@
+read_only = true
+cluster_provider_strategy = "disabled"
+toolsets = ["core"]
+enabled_tools = ["pods_list_in_namespace", "pods_get", "pods_log", "events_list"]
+[[denied_resources]]
+group = ""
+version = "v1"
+kind = "Secret"

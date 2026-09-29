@@ -1,0 +1,518 @@
+{
+  "events": [
+    {
+      "timestamp": "2026-09-29T06:17:44.660867+00:00",
+      "event_id": "Ev0C613WMN0G",
+      "user": "U0C3ETL1LKD",
+      "action": "health",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "health"
+    },
+    {
+      "timestamp": "2026-09-29T06:17:47.241625+00:00",
+      "event_id": "Ev0C613WMN0G",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "insighthub.GET /readyz",
+      "result_summary": "API ready"
+    },
+    {
+      "timestamp": "2026-09-29T06:17:47.242001+00:00",
+      "event_id": "Ev0C613WMN0G",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "kubernetes.pods_list_in_namespace",
+      "result_summary": "0 pod/container lỗi"
+    },
+    {
+      "timestamp": "2026-09-29T06:17:47.242132+00:00",
+      "event_id": "Ev0C613WMN0G",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "prometheus.query",
+      "result_summary": "5xx/5m=0"
+    },
+    {
+      "timestamp": "2026-09-29T06:37:33.230809+00:00",
+      "event_id": "Ev0C5AH8956Y",
+      "user": "U0C3ETL1LKD",
+      "action": "ingestion",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "ingestion"
+    },
+    {
+      "timestamp": "2026-09-29T06:37:34.130309+00:00",
+      "event_id": "Ev0C5AH8956Y",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "insighthub.GET /documents",
+      "result_summary": "count=0"
+    },
+    {
+      "timestamp": "2026-09-29T06:37:34.130649+00:00",
+      "event_id": "Ev0C5AH8956Y",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "prometheus.query",
+      "result_summary": "ready inventory observed"
+    },
+    {
+      "timestamp": "2026-09-29T06:37:50.311074+00:00",
+      "event_id": "Ev0C5AHA0WUC",
+      "user": "U0C3ETL1LKD",
+      "action": "pods",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "pods"
+    },
+    {
+      "timestamp": "2026-09-29T06:37:50.524149+00:00",
+      "event_id": "Ev0C5AHA0WUC",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "kubernetes.pods_list_in_namespace",
+      "result_summary": "pods=6 failed=0"
+    },
+    {
+      "timestamp": "2026-09-29T06:38:29.025822+00:00",
+      "event_id": "Ev0C4RFKGS0P",
+      "user": "U0C3ETL1LKD",
+      "action": "destructive",
+      "decision": "denied",
+      "outcome": "unsupported_or_destructive"
+    },
+    {
+      "timestamp": "2026-09-29T06:38:47.297789+00:00",
+      "event_id": "Ev0C56NSQ5AN",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "approval_required",
+      "operation_id": "ae5b8b264881bbc27ec8a59a14d1ff41",
+      "target": "insighthub-api",
+      "replicas": 2,
+      "current_replicas": 1
+    },
+    {
+      "timestamp": "2026-09-29T06:39:18.441426+00:00",
+      "event_id": "Ev0C58R99R5X",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "allowed",
+      "operation_id": "ae5b8b264881bbc27ec8a59a14d1ff41",
+      "target": "insighthub-api",
+      "replicas": 2
+    },
+    {
+      "timestamp": "2026-09-29T06:39:18.598068+00:00",
+      "event_id": "Ev0C58R99R5X",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api_result",
+      "decision": "allowed",
+      "operation_id": "ae5b8b264881bbc27ec8a59a14d1ff41",
+      "outcome": "verified",
+      "replicas": 2
+    },
+    {
+      "timestamp": "2026-09-29T06:39:51.338556+00:00",
+      "event_id": "Ev0C54UJF0LW",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "denied",
+      "outcome": "approval_invalid_expired_or_replayed"
+    },
+    {
+      "timestamp": "2026-09-29T06:40:08.026585+00:00",
+      "event_id": "Ev0C618BF5T2",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "approval_required",
+      "operation_id": "485810f979e21a15965c2ea8eaff3f8b",
+      "target": "insighthub-api",
+      "replicas": 1,
+      "current_replicas": 2
+    },
+    {
+      "timestamp": "2026-09-29T06:40:37.493373+00:00",
+      "event_id": "Ev0C618EGPCG",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "allowed",
+      "operation_id": "485810f979e21a15965c2ea8eaff3f8b",
+      "target": "insighthub-api",
+      "replicas": 1
+    },
+    {
+      "timestamp": "2026-09-29T06:40:37.666722+00:00",
+      "event_id": "Ev0C618EGPCG",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api_result",
+      "decision": "allowed",
+      "operation_id": "485810f979e21a15965c2ea8eaff3f8b",
+      "outcome": "verified",
+      "replicas": 1
+    },
+    {
+      "timestamp": "2026-09-29T06:42:19.832281+00:00",
+      "event_id": "Ev0C4RGB045D",
+      "user": "U0C3ETL1LKD",
+      "action": "pods",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "pods"
+    },
+    {
+      "timestamp": "2026-09-29T06:42:20.055249+00:00",
+      "event_id": "Ev0C4RGB045D",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "kubernetes.pods_list_in_namespace",
+      "result_summary": "pods=7 failed=1"
+    },
+    {
+      "timestamp": "2026-09-29T06:44:08.455413+00:00",
+      "event_id": "Ev0C54VD70HL",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "approval_required",
+      "operation_id": "0e5a1697e592fa5ba06615ec7feae42c",
+      "target": "insighthub-api",
+      "replicas": 5,
+      "current_replicas": 1
+    },
+    {
+      "timestamp": "2026-09-29T06:45:34.900025+00:00",
+      "event_id": "Ev0C5AJU5X0C",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "denied",
+      "outcome": "approval_invalid_expired_or_replayed"
+    },
+    {
+      "timestamp": "2026-09-29T06:47:48.072369+00:00",
+      "event_id": "Ev0C4RHEKUK1",
+      "user": "U0C3ETL1LKD",
+      "action": "health",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "health"
+    },
+    {
+      "timestamp": "2026-09-29T06:47:49.292310+00:00",
+      "event_id": "Ev0C4RHEKUK1",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "insighthub.GET /readyz",
+      "result_summary": "API ready"
+    },
+    {
+      "timestamp": "2026-09-29T06:47:49.292679+00:00",
+      "event_id": "Ev0C4RHEKUK1",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "kubernetes.pods_list_in_namespace",
+      "result_summary": "0 pod/container lỗi"
+    },
+    {
+      "timestamp": "2026-09-29T06:47:49.292810+00:00",
+      "event_id": "Ev0C4RHEKUK1",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "prometheus.query",
+      "result_summary": "5xx/5m=0"
+    },
+    {
+      "timestamp": "2026-09-29T06:49:04.288947+00:00",
+      "event_id": "Ev0C51QHB4MT",
+      "user": "U0C3ETL1LKD",
+      "action": "health",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "health"
+    },
+    {
+      "timestamp": "2026-09-29T06:49:05.486865+00:00",
+      "event_id": "Ev0C51QHB4MT",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "insighthub.GET /readyz",
+      "result_summary": "API ready"
+    },
+    {
+      "timestamp": "2026-09-29T06:49:05.487258+00:00",
+      "event_id": "Ev0C51QHB4MT",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "kubernetes.pods_list_in_namespace",
+      "result_summary": "0 pod/container lỗi"
+    },
+    {
+      "timestamp": "2026-09-29T06:49:05.487410+00:00",
+      "event_id": "Ev0C51QHB4MT",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "prometheus.query",
+      "result_summary": "5xx/5m=0"
+    },
+    {
+      "timestamp": "2026-09-29T06:49:44.385411+00:00",
+      "event_id": "Ev0C50NGS4HZ",
+      "user": "U0C3ETL1LKD",
+      "action": "ingestion",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "ingestion"
+    },
+    {
+      "timestamp": "2026-09-29T06:49:45.286981+00:00",
+      "event_id": "Ev0C50NGS4HZ",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "insighthub.GET /documents",
+      "result_summary": "count=0"
+    },
+    {
+      "timestamp": "2026-09-29T06:49:45.287346+00:00",
+      "event_id": "Ev0C50NGS4HZ",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "prometheus.query",
+      "result_summary": "ready inventory observed"
+    },
+    {
+      "timestamp": "2026-09-29T06:50:28.736050+00:00",
+      "event_id": "Ev0C5AKTJ6BW",
+      "user": "U0C3ETL1LKD",
+      "action": "pods",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "pods"
+    },
+    {
+      "timestamp": "2026-09-29T06:50:28.946374+00:00",
+      "event_id": "Ev0C5AKTJ6BW",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "kubernetes.pods_list_in_namespace",
+      "result_summary": "pods=6 failed=0"
+    },
+    {
+      "timestamp": "2026-09-29T06:51:09.567111+00:00",
+      "event_id": "Ev0C551DEYSJ",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "approval_required",
+      "operation_id": "8d858bc034d070b3fa9b792cd5f24d3e",
+      "target": "insighthub-api",
+      "replicas": 2,
+      "current_replicas": 1
+    },
+    {
+      "timestamp": "2026-09-29T06:51:17.788903+00:00",
+      "event_id": "Ev0C4RJ3TS79",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "allowed",
+      "operation_id": "8d858bc034d070b3fa9b792cd5f24d3e",
+      "target": "insighthub-api",
+      "replicas": 2
+    },
+    {
+      "timestamp": "2026-09-29T06:51:17.966076+00:00",
+      "event_id": "Ev0C4RJ3TS79",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api_result",
+      "decision": "allowed",
+      "operation_id": "8d858bc034d070b3fa9b792cd5f24d3e",
+      "outcome": "verified",
+      "replicas": 2
+    },
+    {
+      "timestamp": "2026-09-29T06:51:27.662305+00:00",
+      "event_id": "Ev0C4RJ592B1",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "denied",
+      "outcome": "approval_invalid_expired_or_replayed"
+    },
+    {
+      "timestamp": "2026-09-29T06:51:51.199085+00:00",
+      "event_id": "Ev0C56RDCR2N",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "approval_required",
+      "operation_id": "610bc201a65f139912d5f206b1b7d95b",
+      "target": "insighthub-api",
+      "replicas": 1,
+      "current_replicas": 2
+    },
+    {
+      "timestamp": "2026-09-29T06:52:00.139898+00:00",
+      "event_id": "Ev0C61AP7EHW",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api",
+      "decision": "allowed",
+      "operation_id": "610bc201a65f139912d5f206b1b7d95b",
+      "target": "insighthub-api",
+      "replicas": 1
+    },
+    {
+      "timestamp": "2026-09-29T06:52:00.297099+00:00",
+      "event_id": "Ev0C61AP7EHW",
+      "user": "U0C3ETL1LKD",
+      "action": "scale_api_result",
+      "decision": "allowed",
+      "operation_id": "610bc201a65f139912d5f206b1b7d95b",
+      "outcome": "verified",
+      "replicas": 1
+    },
+    {
+      "timestamp": "2026-09-29T06:52:28.097329+00:00",
+      "event_id": "Ev0C50P18CLB",
+      "user": "U0C3ETL1LKD",
+      "action": "destructive",
+      "decision": "denied",
+      "outcome": "unsupported_or_destructive"
+    },
+    {
+      "timestamp": "2026-09-29T06:52:39.419967+00:00",
+      "event_id": "Ev0C51R7H8E9",
+      "user": "U0C3ETL1LKD",
+      "action": "health",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "health"
+    },
+    {
+      "timestamp": "2026-09-29T06:52:40.550983+00:00",
+      "event_id": "Ev0C51R7H8E9",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "insighthub.GET /readyz",
+      "result_summary": "API ready"
+    },
+    {
+      "timestamp": "2026-09-29T06:52:40.551329+00:00",
+      "event_id": "Ev0C51R7H8E9",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "kubernetes.pods_list_in_namespace",
+      "result_summary": "0 pod/container lỗi"
+    },
+    {
+      "timestamp": "2026-09-29T06:52:40.551461+00:00",
+      "event_id": "Ev0C51R7H8E9",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "prometheus.query",
+      "result_summary": "5xx/5m=0"
+    },
+    {
+      "timestamp": "2026-09-29T06:54:02.803767+00:00",
+      "event_id": "Ev0C61B3CLUQ",
+      "user": "U0C3ETL1LKD",
+      "action": "health",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "health"
+    },
+    {
+      "timestamp": "2026-09-29T06:54:03.860948+00:00",
+      "event_id": "Ev0C61B3CLUQ",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "insighthub.GET /readyz",
+      "result_summary": "API ready"
+    },
+    {
+      "timestamp": "2026-09-29T06:54:03.861349+00:00",
+      "event_id": "Ev0C61B3CLUQ",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "kubernetes.pods_list_in_namespace",
+      "result_summary": "0 pod/container lỗi"
+    },
+    {
+      "timestamp": "2026-09-29T06:54:03.861486+00:00",
+      "event_id": "Ev0C61B3CLUQ",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "prometheus.query",
+      "result_summary": "unknown"
+    },
+    {
+      "timestamp": "2026-09-29T06:56:57.051613+00:00",
+      "event_id": "Ev0C50PZ8K43",
+      "user": "U0C3ETL1LKD",
+      "action": "ingestion",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "intent": "ingestion"
+    },
+    {
+      "timestamp": "2026-09-29T06:56:57.947632+00:00",
+      "event_id": "Ev0C50PZ8K43",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "insighthub.GET /documents",
+      "result_summary": "count=1"
+    },
+    {
+      "timestamp": "2026-09-29T06:56:57.948036+00:00",
+      "event_id": "Ev0C50PZ8K43",
+      "user": "U0C3ETL1LKD",
+      "action": "tool_call",
+      "decision": "allowed",
+      "workspace_id": "T0C35P86Z1D",
+      "tool": "prometheus.query",
+      "result_summary": "ready inventory observed"
+    }
+  ]
+}

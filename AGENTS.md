@@ -1,4 +1,4 @@
-# InsightHub DO2603 - Day 01-03 context
+# InsightHub DO2603 - Day 01-05 context
 
 Codex đọc trực tiếp file này; đây là nguồn context chung, không cần adapter riêng.
 
@@ -20,6 +20,7 @@ Codex đọc trực tiếp file này; đây là nguồn context chung, không c�
 - Terraform tách bootstrap/core/platform/edge state; Helm sở hữu workload, Services, HPA, Ingress và migration Job.
 - Day 04 local dùng kube-prometheus-stack, API/worker metrics, PostgreSQL/Redis exporters và Kubernetes metrics cho đủ năm thành phần.
 - Day 04 có dashboard đúng chín query panels, baseline 1h offset 10m, ba anomaly alerts và fault scripts có restore.
+- Day 05 ChatOps chạy local qua cloudflared vào FastAPI, Redis queue và worker; chỉ đọc API/MCP và scale insighthub-api bằng identity riêng sau approval Slack.
 
 ## Conventions
 - Python 3.12; runtime API và worker phải qua mypy --strict, Ruff format/check.
@@ -46,6 +47,7 @@ Codex đọc trực tiếp file này; đây là nguồn context chung, không c�
 - Day 03: make tools-day3 test-day3; python3 tools/iac/local_lab.py up|status|down.
 - Day 03 cloud: chỉ theo docs/day3/Runbook.md sau khi đủ AWS/GitHub/domain/reviewer/budget inputs.
 - Day 04: make test-day4; python3 tools/observability/local_lab.py up|status|down; docs/day4/Runbook.md.
+- Day 05: docs/day5/Runbook.md; python -m pytest chatops-bot/tests tests/milestones/day5; scripts/verify-day-5.sh.
 - Day verifier và runtime probes: docs/day1/Runbook.md; không đổi assertions để đạt PASS.
 
 ## Constraints
@@ -69,6 +71,7 @@ Codex đọc trực tiếp file này; đây là nguồn context chung, không c�
 - Day 04 không thêm ChatOps, auto-remediation, Sift/SLO mở rộng, MLflow, training/retraining hoặc Day 05-06 feature.
 - Không ghi RCA runtime, Slack delivery, real-model token/cost hoặc baseline PASS khi chưa có evidence thật.
 - Fault Day 04 chỉ chạy trên context/namespace lab đã chọn; luôn restore proxy mode và worker replicas.
+- Day 05 không sửa API/ingestion worker/schema; count là tài liệu tạo hôm nay theo ICT và hiện ready, không phải completion lần đầu. Không commit Slack token, signing secret, kubeconfig hoặc Quick Tunnel URL.
 
 ## Domain
 - Trạng thái DB chỉ pending, ready, failed. Không thêm queued/processing vào schema.
@@ -96,3 +99,4 @@ Codex đọc trực tiếp file này; đây là nguồn context chung, không c�
 - docs/Guide_Coding_Host_DO2603.md; scripts/VERIFICATION_CONTRACT.md; GETTING_STARTED.md.
 - infra/SPEC.md; docs/plans/Day03_Implementation_Plan_v1.0.md; docs/day3/Runbook.md; ai-prompts/day3.md.
 - observability/; docs/plans/Day04_Implementation_Plan_v1.0.md; docs/day4/Runbook.md; ai-prompts/day4.md.
+- chatops-bot/; docs/plans/Day05_Implementation_Plan_v1.0.md; docs/day5/Runbook.md; ai-prompts/day5.md.

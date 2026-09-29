@@ -1,0 +1,219 @@
+Excerpt of the current Day 05 thread visible in Edge; Slack virtualizes older messages. Confirmation tokens redacted.
+    - dialog "Thread in channel chatops-test (private)":
+      - toolbar "Secondary view actions":
+        - generic: Thread
+        - button "Summarize thread":
+        - button "More channel actions":
+        - button "Close":
+      - list "Thread in chatops-test (private channel, 49 replies)":
+        - document:
+          - button:
+          - button "Cong Dinh"
+          - link "Today at 1:50:27 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664627743529?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 7 minutes ago
+          - link "@insighthub-do-2603":
+            - /url: https://insighthubdo2603.slack.com/team/U0C3M2D0282
+          - text: pod nào đang lỗi?
+        - document:
+          - link:
+            - /url: /team/U0C3M2D0282
+          - button "insighthub-do-2603"
+          - generic: AGENT
+          - link "Today at 1:50:29 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664629227959?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 7 minutes ago
+          - generic: "InsightHub insighthub-dev, 2026-09-29T06:50:28+00:00 UTC: Không thấy pod/container lỗi trong 6 pod. Nguồn: Kubernetes MCP; nếu cần, kiểm events/logs đọc giới hạn."
+        - document:
+          - button:
+          - button "Cong Dinh"
+          - link "Today at 1:51:08 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664668338139?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 6 minutes ago
+          - link "@insighthub-do-2603":
+            - /url: https://insighthubdo2603.slack.com/team/U0C3M2D0282
+          - text: scale api to 2
+        - document:
+          - link:
+            - /url: /team/U0C3M2D0282
+          - button "insighthub-do-2603"
+          - generic: AGENT
+          - link "Today at 1:51:09 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664669889979?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 6 minutes ago
+          - text: Yêu cầu scale insighthub-api 1 -> 2 ở insighthub-dev. Chưa thay đổi. Người duyệt dùng
+          - code: "confirm [REDACTED]"
+          - text: trong thread này trong 60 giây.
+        - document:
+          - button:
+          - button "Cong Dinh"
+          - link "Today at 1:51:17 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664677352529?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 6 minutes ago
+          - link "@insighthub-do-2603":
+            - /url: https://insighthubdo2603.slack.com/team/U0C3M2D0282
+          - text: confirm [REDACTED]
+        - document:
+          - link:
+            - /url: /team/U0C3M2D0282
+          - button "insighthub-do-2603"
+          - generic: AGENT
+          - link "Today at 1:51:18 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664678341189?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 6 minutes ago
+          - generic: Đã scale insighthub-api tới 2 replicas ở insighthub-dev. Kiểm readiness và đối chiếu với baseline demo.
+        - document:
+          - button:
+          - button "Cong Dinh"
+          - link "Today at 1:51:27 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664687273389?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 6 minutes ago
+          - link "@insighthub-do-2603":
+            - /url: https://insighthubdo2603.slack.com/team/U0C3M2D0282
+          - text: confirm [REDACTED]
+        - document:
+          - link:
+            - /url: /team/U0C3M2D0282
+          - button "insighthub-do-2603"
+          - generic: AGENT
+          - link "Today at 1:51:27 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664687918369?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 6 minutes ago
+          - generic: Confirmation không hợp lệ, hết hạn hoặc đã dùng. Không scale.
+        - document:
+          - button:
+          - button "Cong Dinh"
+          - link "Today at 1:51:50 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664710668739?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 6 minutes ago
+          - link "@insighthub-do-2603":
+            - /url: https://insighthubdo2603.slack.com/team/U0C3M2D0282
+          - text: scale api to 1
+        - document:
+          - link:
+            - /url: /team/U0C3M2D0282
+          - button "insighthub-do-2603"
+          - generic: AGENT
+          - link "Today at 1:51:51 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664711480149?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 6 minutes ago
+          - text: Yêu cầu scale insighthub-api 2 -> 1 ở insighthub-dev. Chưa thay đổi. Người duyệt dùng
+          - code: "confirm [REDACTED]"
+          - text: trong thread này trong 60 giây.
+        - document:
+          - button:
+          - button "Cong Dinh"
+          - link "Today at 1:51:59 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664719736439?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 6 minutes ago
+          - link "@insighthub-do-2603":
+            - /url: https://insighthubdo2603.slack.com/team/U0C3M2D0282
+          - text: confirm [REDACTED]
+        - document:
+          - link:
+            - /url: /team/U0C3M2D0282
+          - button "insighthub-do-2603"
+          - generic: AGENT
+          - link "Today at 1:52:00 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664720591369?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 6 minutes ago
+          - generic: Đã scale insighthub-api tới 1 replicas ở insighthub-dev. Kiểm readiness và đối chiếu với baseline demo.
+        - document:
+          - button:
+          - button "Cong Dinh"
+          - link "Today at 1:52:27 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664747506969?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 5 minutes ago
+          - link "@insighthub-do-2603":
+            - /url: https://insighthubdo2603.slack.com/team/U0C3M2D0282
+          - text: delete namespace insighthub-dev
+        - document:
+          - link:
+            - /url: /team/U0C3M2D0282
+          - button "insighthub-do-2603"
+          - generic: AGENT
+          - link "Today at 1:52:28 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664748380689?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 5 minutes ago
+          - generic: Chỉ hỗ trợ đọc health, ingestion hôm nay, pods lỗi và scale API có approval.
+        - document:
+          - button:
+          - button "Cong Dinh"
+          - link "Today at 1:52:38 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664758524819?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 5 minutes ago
+          - link "@insighthub-do-2603":
+            - /url: https://insighthubdo2603.slack.com/team/U0C3M2D0282
+          - text: api healthy?
+        - document:
+          - link:
+            - /url: /team/U0C3M2D0282
+          - button "insighthub-do-2603"
+          - generic: AGENT
+          - link "Today at 1:52:40 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664760827729?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 5 minutes ago
+          - generic: "InsightHub insighthub-dev, 2026-09-29T06:52:39+00:00 UTC: API/pods ổn theo tín hiệu kiểm tra; chưa kết luận toàn hệ thống. API ready; 0 pod/container lỗi; 5xx/5m=0. Nguồn: API, Kubernetes MCP, Prometheus MCP."
+        - document:
+          - button:
+          - button "Cong Dinh"
+          - link "Today at 1:54:01 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664841662609?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 4 minutes ago
+          - link "@insighthub-do-2603":
+            - /url: https://insighthubdo2603.slack.com/team/U0C3M2D0282
+          - text: api healthy?
+        - document:
+          - link:
+            - /url: /team/U0C3M2D0282
+          - button "insighthub-do-2603"
+          - generic: AGENT
+          - link "Today at 1:54:04 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790664844134369?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 4 minutes ago
+          - generic: "InsightHub insighthub-dev, 2026-09-29T06:54:02+00:00 UTC: unknown/partial. API ready; 0 pod/container lỗi; Prometheus chưa xác minh. Nguồn: API, Kubernetes MCP, Prometheus MCP."
+        - document:
+          - button:
+          - button "Cong Dinh"
+          - link "Today at 1:56:56 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790665016524339?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 1 minute ago
+          - link "@insighthub-do-2603":
+            - /url: https://insighthubdo2603.slack.com/team/U0C3M2D0282
+          - text: hôm nay ingest bao nhiêu doc?
+        - document:
+          - link:
+            - /url: /team/U0C3M2D0282
+          - button "insighthub-do-2603"
+          - generic: AGENT
+          - link "Today at 1:56:58 PM. Open in channel":
+            - /url: https://insighthubdo2603.slack.com/archives/C0C3QBVE6AK/p1790665018259069?thread_ts=1790662664.155339&cid=C0C3QBVE6AK
+            - text: 1 minute ago
+          - generic: "InsightHub insighthub-dev: 1 tài liệu được tạo hôm nay và hiện đã ready. Ngày ICT từ 00:00 29/09/2026 đến 13:56:57; quan sát 2026-09-29T06:56:57+00:00 UTC. Đây là inventory hiện tại, không phải số hoàn tất ingestion lần đầu hôm nay."
+        - group "composer":
+          - toolbar "Formatting":
+            - button "Bold":
+            - button "Italic":
+            - button "Underline":
+            - button "Strikethrough":
+            - button "Link":
+            - button "Ordered list":
+            - button "Bulleted list":
+            - button "Blockquote":
+            - button "Code":
+            - button "Code block":
+          - textbox "Reply to thread in chatops-test" [active]:
+            - paragraph
+          - generic: Reply…
+          - text: Also send to
+          - generic: chatops-test
+          - checkbox "Also send to chatops-test"
+          - toolbar "Composer actions":
+            - button "Attach":
+            - button
+            - button "Show formatting" [pressed]:
+            - button "Emoji":
+            - button "Mention someone":
+            - button "More options":
+            - button "Send now" [disabled]:
+            - button "Schedule for later" [disabled]:

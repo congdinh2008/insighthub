@@ -1,0 +1,13 @@
+NAME                                                   READY   STATUS    RESTARTS       AGE
+pod/insighthub-api-7966c49d6d-m98dn                    1/1     Running   3 (47m ago)    5d20h
+pod/insighthub-ingestion-worker-7c4b969945-6pgcl       1/1     Running   4 (47m ago)    5d15h
+pod/insighthub-provider-fault-proxy-675f5cbffc-vjt6n   1/1     Running   2 (3d2h ago)   5d14h
+pod/insighthub-web-559d56d699-z9mdd                    1/1     Running   2 (3d2h ago)   5d22h
+pod/postgres-0                                         2/2     Running   4 (3d2h ago)   5d22h
+pod/redis-0                                            2/2     Running   4 (3d2h ago)   5d22h
+
+NAME                                              READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/insighthub-api                    1/1     1            1           6d17h
+deployment.apps/insighthub-ingestion-worker       1/1     1            1           6d17h
+deployment.apps/insighthub-provider-fault-proxy   1/1     1            1           5d22h
+deployment.apps/insighthub-web                    1/1     1            1           6d17h

@@ -1,0 +1,1442 @@
+[
+  {
+    "path": "01-00.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 0,
+    "observed_at": "2026-09-29T06:49:02.197Z",
+    "sha256": "5e920646644935b8c76eb6ae4f3a97a04b3212b00ccbb7d3538aefbb960e2586"
+  },
+  {
+    "path": "01-01.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 1,
+    "observed_at": "2026-09-29T06:49:03.757Z",
+    "sha256": "d4b095ad0ddb533c142ee2cf279af2040c4a9d6507b2e29cb3115e104c8bf826"
+  },
+  {
+    "path": "01-02.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 2,
+    "observed_at": "2026-09-29T06:49:04.172Z",
+    "sha256": "fbaa232a3700188d0449c3733770f3dab7dd25efa81411e6991f6a667e02469c"
+  },
+  {
+    "path": "01-03.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 3,
+    "observed_at": "2026-09-29T06:49:05.169Z",
+    "sha256": "fbaa232a3700188d0449c3733770f3dab7dd25efa81411e6991f6a667e02469c"
+  },
+  {
+    "path": "01-04.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 4,
+    "observed_at": "2026-09-29T06:49:06.174Z",
+    "sha256": "858a4570f3cd56c073e52c85216bffd0826c5169dc34bb7917958ac3ab32f48f"
+  },
+  {
+    "path": "01-05.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 5,
+    "observed_at": "2026-09-29T06:49:07.175Z",
+    "sha256": "b20696b80ae3e9645e8ca23f4f154c5ebe4060d6c916b0552f886a207cbf72a0"
+  },
+  {
+    "path": "01-06.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 6,
+    "observed_at": "2026-09-29T06:49:08.191Z",
+    "sha256": "858a4570f3cd56c073e52c85216bffd0826c5169dc34bb7917958ac3ab32f48f"
+  },
+  {
+    "path": "01-07.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 7,
+    "observed_at": "2026-09-29T06:49:09.196Z",
+    "sha256": "377b001012744d49545a3145ba582454637131d14dc52456c3faa116259cc529"
+  },
+  {
+    "path": "01-08.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 8,
+    "observed_at": "2026-09-29T06:49:10.177Z",
+    "sha256": "377b001012744d49545a3145ba582454637131d14dc52456c3faa116259cc529"
+  },
+  {
+    "path": "01-09.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 9,
+    "observed_at": "2026-09-29T06:49:11.166Z",
+    "sha256": "377b001012744d49545a3145ba582454637131d14dc52456c3faa116259cc529"
+  },
+  {
+    "path": "01-10.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 10,
+    "observed_at": "2026-09-29T06:49:12.260Z",
+    "sha256": "377b001012744d49545a3145ba582454637131d14dc52456c3faa116259cc529"
+  },
+  {
+    "path": "01-11.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 11,
+    "observed_at": "2026-09-29T06:49:13.187Z",
+    "sha256": "377b001012744d49545a3145ba582454637131d14dc52456c3faa116259cc529"
+  },
+  {
+    "path": "01-12.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 12,
+    "observed_at": "2026-09-29T06:49:14.181Z",
+    "sha256": "377b001012744d49545a3145ba582454637131d14dc52456c3faa116259cc529"
+  },
+  {
+    "path": "01-13.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 13,
+    "observed_at": "2026-09-29T06:49:15.174Z",
+    "sha256": "377b001012744d49545a3145ba582454637131d14dc52456c3faa116259cc529"
+  },
+  {
+    "path": "01-14.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 14,
+    "observed_at": "2026-09-29T06:49:16.173Z",
+    "sha256": "377b001012744d49545a3145ba582454637131d14dc52456c3faa116259cc529"
+  },
+  {
+    "path": "01-15.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 15,
+    "observed_at": "2026-09-29T06:49:17.165Z",
+    "sha256": "377b001012744d49545a3145ba582454637131d14dc52456c3faa116259cc529"
+  },
+  {
+    "path": "01-16.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 16,
+    "observed_at": "2026-09-29T06:49:18.192Z",
+    "sha256": "377b001012744d49545a3145ba582454637131d14dc52456c3faa116259cc529"
+  },
+  {
+    "path": "01-17.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 17,
+    "observed_at": "2026-09-29T06:49:19.176Z",
+    "sha256": "f10a8d3fdf771d2c01639ff826975055d4be3147064fc740cc1079d39d53d154"
+  },
+  {
+    "path": "01-18.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 18,
+    "observed_at": "2026-09-29T06:49:20.174Z",
+    "sha256": "f10a8d3fdf771d2c01639ff826975055d4be3147064fc740cc1079d39d53d154"
+  },
+  {
+    "path": "01-19.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 19,
+    "observed_at": "2026-09-29T06:49:21.180Z",
+    "sha256": "9f9d2c7afaba3dfff2cb3b81faaea7f5eb6bab366f6ed080183f50e5ca7fbff8"
+  },
+  {
+    "path": "01-20.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 20,
+    "observed_at": "2026-09-29T06:49:22.176Z",
+    "sha256": "9f9d2c7afaba3dfff2cb3b81faaea7f5eb6bab366f6ed080183f50e5ca7fbff8"
+  },
+  {
+    "path": "01-21.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 21,
+    "observed_at": "2026-09-29T06:49:23.173Z",
+    "sha256": "9f9d2c7afaba3dfff2cb3b81faaea7f5eb6bab366f6ed080183f50e5ca7fbff8"
+  },
+  {
+    "path": "01-22.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 22,
+    "observed_at": "2026-09-29T06:49:24.179Z",
+    "sha256": "9f9d2c7afaba3dfff2cb3b81faaea7f5eb6bab366f6ed080183f50e5ca7fbff8"
+  },
+  {
+    "path": "01-23.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 23,
+    "observed_at": "2026-09-29T06:49:25.169Z",
+    "sha256": "9f9d2c7afaba3dfff2cb3b81faaea7f5eb6bab366f6ed080183f50e5ca7fbff8"
+  },
+  {
+    "path": "01-24.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 24,
+    "observed_at": "2026-09-29T06:49:26.173Z",
+    "sha256": "9f9d2c7afaba3dfff2cb3b81faaea7f5eb6bab366f6ed080183f50e5ca7fbff8"
+  },
+  {
+    "path": "01-25.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 25,
+    "observed_at": "2026-09-29T06:49:27.171Z",
+    "sha256": "9f9d2c7afaba3dfff2cb3b81faaea7f5eb6bab366f6ed080183f50e5ca7fbff8"
+  },
+  {
+    "path": "01-26.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 26,
+    "observed_at": "2026-09-29T06:49:28.179Z",
+    "sha256": "9f9d2c7afaba3dfff2cb3b81faaea7f5eb6bab366f6ed080183f50e5ca7fbff8"
+  },
+  {
+    "path": "01-27.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 27,
+    "observed_at": "2026-09-29T06:49:29.188Z",
+    "sha256": "9f9d2c7afaba3dfff2cb3b81faaea7f5eb6bab366f6ed080183f50e5ca7fbff8"
+  },
+  {
+    "path": "01-28.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 28,
+    "observed_at": "2026-09-29T06:49:30.175Z",
+    "sha256": "9f9d2c7afaba3dfff2cb3b81faaea7f5eb6bab366f6ed080183f50e5ca7fbff8"
+  },
+  {
+    "path": "01-29.png",
+    "label": "Health: API + Kubernetes MCP + Prometheus MCP",
+    "segment": 1,
+    "second": 29,
+    "observed_at": "2026-09-29T06:49:31.167Z",
+    "sha256": "9f9d2c7afaba3dfff2cb3b81faaea7f5eb6bab366f6ed080183f50e5ca7fbff8"
+  },
+  {
+    "path": "02-00.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 0,
+    "observed_at": "2026-09-29T06:49:42.351Z",
+    "sha256": "66777a3c18c624ef96365b87bdba580d2b9fc6f198c5d6afe70d9b7c3e4cc502"
+  },
+  {
+    "path": "02-01.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 1,
+    "observed_at": "2026-09-29T06:49:43.889Z",
+    "sha256": "7187757815d2996f5acc3f799b5fe4d83ad280301e27a874700e4b4f37ae2270"
+  },
+  {
+    "path": "02-02.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 2,
+    "observed_at": "2026-09-29T06:49:44.356Z",
+    "sha256": "546e26917ab9986064f40d9d194b0fa1158bfd4934547f2e5cf2d2eca07e6e18"
+  },
+  {
+    "path": "02-03.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 3,
+    "observed_at": "2026-09-29T06:49:45.337Z",
+    "sha256": "546e26917ab9986064f40d9d194b0fa1158bfd4934547f2e5cf2d2eca07e6e18"
+  },
+  {
+    "path": "02-04.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 4,
+    "observed_at": "2026-09-29T06:49:46.328Z",
+    "sha256": "65871e53d5a4bd73579f60abc612e6b15598b00fbeb888e371861924e319e846"
+  },
+  {
+    "path": "02-05.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 5,
+    "observed_at": "2026-09-29T06:49:47.325Z",
+    "sha256": "5191781138f53420fea2a5d70146b2073ebd91a7d1ba6f5178f2897d0007f443"
+  },
+  {
+    "path": "02-06.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 6,
+    "observed_at": "2026-09-29T06:49:48.326Z",
+    "sha256": "aea11f96b49adb9df64aba6f9fd87c1c5ec7d24a00d34899a0177c5e921b0cd4"
+  },
+  {
+    "path": "02-07.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 7,
+    "observed_at": "2026-09-29T06:49:49.340Z",
+    "sha256": "aea11f96b49adb9df64aba6f9fd87c1c5ec7d24a00d34899a0177c5e921b0cd4"
+  },
+  {
+    "path": "02-08.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 8,
+    "observed_at": "2026-09-29T06:49:50.336Z",
+    "sha256": "816e7edb4be87798c5e8c2d0b962e3d35be31724bfe588d3d6e0845a6588e1bf"
+  },
+  {
+    "path": "02-09.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 9,
+    "observed_at": "2026-09-29T06:49:51.331Z",
+    "sha256": "816e7edb4be87798c5e8c2d0b962e3d35be31724bfe588d3d6e0845a6588e1bf"
+  },
+  {
+    "path": "02-10.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 10,
+    "observed_at": "2026-09-29T06:49:52.323Z",
+    "sha256": "816e7edb4be87798c5e8c2d0b962e3d35be31724bfe588d3d6e0845a6588e1bf"
+  },
+  {
+    "path": "02-11.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 11,
+    "observed_at": "2026-09-29T06:49:53.362Z",
+    "sha256": "816e7edb4be87798c5e8c2d0b962e3d35be31724bfe588d3d6e0845a6588e1bf"
+  },
+  {
+    "path": "02-12.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 12,
+    "observed_at": "2026-09-29T06:49:54.332Z",
+    "sha256": "816e7edb4be87798c5e8c2d0b962e3d35be31724bfe588d3d6e0845a6588e1bf"
+  },
+  {
+    "path": "02-13.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 13,
+    "observed_at": "2026-09-29T06:49:55.345Z",
+    "sha256": "816e7edb4be87798c5e8c2d0b962e3d35be31724bfe588d3d6e0845a6588e1bf"
+  },
+  {
+    "path": "02-14.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 14,
+    "observed_at": "2026-09-29T06:49:56.327Z",
+    "sha256": "816e7edb4be87798c5e8c2d0b962e3d35be31724bfe588d3d6e0845a6588e1bf"
+  },
+  {
+    "path": "02-15.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 15,
+    "observed_at": "2026-09-29T06:49:57.339Z",
+    "sha256": "816e7edb4be87798c5e8c2d0b962e3d35be31724bfe588d3d6e0845a6588e1bf"
+  },
+  {
+    "path": "02-16.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 16,
+    "observed_at": "2026-09-29T06:49:58.326Z",
+    "sha256": "816e7edb4be87798c5e8c2d0b962e3d35be31724bfe588d3d6e0845a6588e1bf"
+  },
+  {
+    "path": "02-17.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 17,
+    "observed_at": "2026-09-29T06:49:59.396Z",
+    "sha256": "816e7edb4be87798c5e8c2d0b962e3d35be31724bfe588d3d6e0845a6588e1bf"
+  },
+  {
+    "path": "02-18.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 18,
+    "observed_at": "2026-09-29T06:50:00.354Z",
+    "sha256": "816e7edb4be87798c5e8c2d0b962e3d35be31724bfe588d3d6e0845a6588e1bf"
+  },
+  {
+    "path": "02-19.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 19,
+    "observed_at": "2026-09-29T06:50:01.337Z",
+    "sha256": "816e7edb4be87798c5e8c2d0b962e3d35be31724bfe588d3d6e0845a6588e1bf"
+  },
+  {
+    "path": "02-20.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 20,
+    "observed_at": "2026-09-29T06:50:02.343Z",
+    "sha256": "816e7edb4be87798c5e8c2d0b962e3d35be31724bfe588d3d6e0845a6588e1bf"
+  },
+  {
+    "path": "02-21.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 21,
+    "observed_at": "2026-09-29T06:50:03.334Z",
+    "sha256": "816e7edb4be87798c5e8c2d0b962e3d35be31724bfe588d3d6e0845a6588e1bf"
+  },
+  {
+    "path": "02-22.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 22,
+    "observed_at": "2026-09-29T06:50:04.343Z",
+    "sha256": "83fd6201f245f7edf6214f087c65fbe472ff1026b177cc5c056554aa625b4b3e"
+  },
+  {
+    "path": "02-23.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 23,
+    "observed_at": "2026-09-29T06:50:05.335Z",
+    "sha256": "83fd6201f245f7edf6214f087c65fbe472ff1026b177cc5c056554aa625b4b3e"
+  },
+  {
+    "path": "02-24.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 24,
+    "observed_at": "2026-09-29T06:50:06.329Z",
+    "sha256": "b904d65c9b818ea91ce89e63b255e1131b811aa75fb8816d5f0ce04240002460"
+  },
+  {
+    "path": "02-25.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 25,
+    "observed_at": "2026-09-29T06:50:07.331Z",
+    "sha256": "b904d65c9b818ea91ce89e63b255e1131b811aa75fb8816d5f0ce04240002460"
+  },
+  {
+    "path": "02-26.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 26,
+    "observed_at": "2026-09-29T06:50:08.342Z",
+    "sha256": "e7b03403ebdb6cc1117b0db1b063954b81cb71157ba935ff6630e361aa78107f"
+  },
+  {
+    "path": "02-27.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 27,
+    "observed_at": "2026-09-29T06:50:09.335Z",
+    "sha256": "e3b2a9945ff51ce58d00b912ad6be6f7ba88f5c9a21a13feb232d2f175bba99f"
+  },
+  {
+    "path": "02-28.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 28,
+    "observed_at": "2026-09-29T06:50:10.341Z",
+    "sha256": "e3b2a9945ff51ce58d00b912ad6be6f7ba88f5c9a21a13feb232d2f175bba99f"
+  },
+  {
+    "path": "02-29.png",
+    "label": "Ingestion: ngày ICT và inventory ready",
+    "segment": 2,
+    "second": 29,
+    "observed_at": "2026-09-29T06:50:11.350Z",
+    "sha256": "e3b2a9945ff51ce58d00b912ad6be6f7ba88f5c9a21a13feb232d2f175bba99f"
+  },
+  {
+    "path": "03-00.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 0,
+    "observed_at": "2026-09-29T06:50:26.156Z",
+    "sha256": "1d9fd48639c3aaeb048ffc99212f70e852dbaf7b0b4ce2de5a4886ba2ebb0d89"
+  },
+  {
+    "path": "03-01.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 1,
+    "observed_at": "2026-09-29T06:50:27.754Z",
+    "sha256": "b15376efd740ae46a25c9af89dcf3fec452aece22a2d807a7dd3b7f002a8d7e8"
+  },
+  {
+    "path": "03-02.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 2,
+    "observed_at": "2026-09-29T06:50:28.155Z",
+    "sha256": "044d70aaaa815613f2f08c8c9226558dc49254a6062270930a15e4de9f5e9de7"
+  },
+  {
+    "path": "03-03.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 3,
+    "observed_at": "2026-09-29T06:50:29.126Z",
+    "sha256": "044d70aaaa815613f2f08c8c9226558dc49254a6062270930a15e4de9f5e9de7"
+  },
+  {
+    "path": "03-04.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 4,
+    "observed_at": "2026-09-29T06:50:30.234Z",
+    "sha256": "55260d471629049c350cf36cb41cc987ed8e87b1bc78b4481ef334ab46b50938"
+  },
+  {
+    "path": "03-05.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 5,
+    "observed_at": "2026-09-29T06:50:31.142Z",
+    "sha256": "52ab7f2dfb944c21eba3404290683841914ca0845f65539f388c18a4785583f8"
+  },
+  {
+    "path": "03-06.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 6,
+    "observed_at": "2026-09-29T06:50:32.141Z",
+    "sha256": "52ab7f2dfb944c21eba3404290683841914ca0845f65539f388c18a4785583f8"
+  },
+  {
+    "path": "03-07.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 7,
+    "observed_at": "2026-09-29T06:50:33.152Z",
+    "sha256": "52ab7f2dfb944c21eba3404290683841914ca0845f65539f388c18a4785583f8"
+  },
+  {
+    "path": "03-08.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 8,
+    "observed_at": "2026-09-29T06:50:34.136Z",
+    "sha256": "08029f76c3980e67778f4c397957ade1acd1ccebdbb7f316d3d4fccdb4c3dd22"
+  },
+  {
+    "path": "03-09.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 9,
+    "observed_at": "2026-09-29T06:50:35.153Z",
+    "sha256": "08029f76c3980e67778f4c397957ade1acd1ccebdbb7f316d3d4fccdb4c3dd22"
+  },
+  {
+    "path": "03-10.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 10,
+    "observed_at": "2026-09-29T06:50:36.144Z",
+    "sha256": "771fbc887c49a2c513a865d422ac07d1d4d802ffad038ebe615809cc3c6180c9"
+  },
+  {
+    "path": "03-11.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 11,
+    "observed_at": "2026-09-29T06:50:37.127Z",
+    "sha256": "771fbc887c49a2c513a865d422ac07d1d4d802ffad038ebe615809cc3c6180c9"
+  },
+  {
+    "path": "03-12.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 12,
+    "observed_at": "2026-09-29T06:50:38.198Z",
+    "sha256": "771fbc887c49a2c513a865d422ac07d1d4d802ffad038ebe615809cc3c6180c9"
+  },
+  {
+    "path": "03-13.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 13,
+    "observed_at": "2026-09-29T06:50:39.130Z",
+    "sha256": "771fbc887c49a2c513a865d422ac07d1d4d802ffad038ebe615809cc3c6180c9"
+  },
+  {
+    "path": "03-14.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 14,
+    "observed_at": "2026-09-29T06:50:40.135Z",
+    "sha256": "771fbc887c49a2c513a865d422ac07d1d4d802ffad038ebe615809cc3c6180c9"
+  },
+  {
+    "path": "03-15.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 15,
+    "observed_at": "2026-09-29T06:50:41.131Z",
+    "sha256": "771fbc887c49a2c513a865d422ac07d1d4d802ffad038ebe615809cc3c6180c9"
+  },
+  {
+    "path": "03-16.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 16,
+    "observed_at": "2026-09-29T06:50:42.128Z",
+    "sha256": "771fbc887c49a2c513a865d422ac07d1d4d802ffad038ebe615809cc3c6180c9"
+  },
+  {
+    "path": "03-17.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 17,
+    "observed_at": "2026-09-29T06:50:43.130Z",
+    "sha256": "771fbc887c49a2c513a865d422ac07d1d4d802ffad038ebe615809cc3c6180c9"
+  },
+  {
+    "path": "03-18.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 18,
+    "observed_at": "2026-09-29T06:50:44.135Z",
+    "sha256": "771fbc887c49a2c513a865d422ac07d1d4d802ffad038ebe615809cc3c6180c9"
+  },
+  {
+    "path": "03-19.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 19,
+    "observed_at": "2026-09-29T06:50:45.190Z",
+    "sha256": "1fa8547d8123816c8aa1978e16685e13c6266ecb3f69b67b0406abed027eb3c8"
+  },
+  {
+    "path": "03-20.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 20,
+    "observed_at": "2026-09-29T06:50:46.150Z",
+    "sha256": "c2c87921b37809b1b3460751792409cfb4fa70eefdcdfe203425aabce9c9fddb"
+  },
+  {
+    "path": "03-21.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 21,
+    "observed_at": "2026-09-29T06:50:47.127Z",
+    "sha256": "c2c87921b37809b1b3460751792409cfb4fa70eefdcdfe203425aabce9c9fddb"
+  },
+  {
+    "path": "03-22.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 22,
+    "observed_at": "2026-09-29T06:50:48.128Z",
+    "sha256": "49b0c4d3903c5f526ea3956dc5bee21b80aca1ac00f9994b049901cf5015debd"
+  },
+  {
+    "path": "03-23.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 23,
+    "observed_at": "2026-09-29T06:50:49.129Z",
+    "sha256": "49b0c4d3903c5f526ea3956dc5bee21b80aca1ac00f9994b049901cf5015debd"
+  },
+  {
+    "path": "03-24.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 24,
+    "observed_at": "2026-09-29T06:50:50.133Z",
+    "sha256": "1dca582cf1185b3b015946fa7e367a2879609993aa75e8bb17d49170284d2621"
+  },
+  {
+    "path": "03-25.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 25,
+    "observed_at": "2026-09-29T06:50:51.116Z",
+    "sha256": "1dca582cf1185b3b015946fa7e367a2879609993aa75e8bb17d49170284d2621"
+  },
+  {
+    "path": "03-26.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 26,
+    "observed_at": "2026-09-29T06:50:52.126Z",
+    "sha256": "1dca582cf1185b3b015946fa7e367a2879609993aa75e8bb17d49170284d2621"
+  },
+  {
+    "path": "03-27.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 27,
+    "observed_at": "2026-09-29T06:50:53.130Z",
+    "sha256": "1dca582cf1185b3b015946fa7e367a2879609993aa75e8bb17d49170284d2621"
+  },
+  {
+    "path": "03-28.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 28,
+    "observed_at": "2026-09-29T06:50:54.124Z",
+    "sha256": "1dca582cf1185b3b015946fa7e367a2879609993aa75e8bb17d49170284d2621"
+  },
+  {
+    "path": "03-29.png",
+    "label": "Pods: kiểm tra qua Kubernetes MCP",
+    "segment": 3,
+    "second": 29,
+    "observed_at": "2026-09-29T06:50:55.121Z",
+    "sha256": "1dca582cf1185b3b015946fa7e367a2879609993aa75e8bb17d49170284d2621"
+  },
+  {
+    "path": "04-00.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 0,
+    "observed_at": "2026-09-29T06:51:06.766Z",
+    "sha256": "b4b353980cdc5788ee7c0864a05db2940b3f444d8193a19e742d529781c86c57"
+  },
+  {
+    "path": "04-01.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 1,
+    "observed_at": "2026-09-29T06:51:08.263Z",
+    "sha256": "56e6811b3e98218e8809c044257b8397a3bbfeef9c92e4d4741bf42de90bde82"
+  },
+  {
+    "path": "04-02.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 2,
+    "observed_at": "2026-09-29T06:51:08.750Z",
+    "sha256": "f4ad78ceb3b631a06734797f322c21e2ffd1cffd129d22f43cf2b7e7d52a3ad3"
+  },
+  {
+    "path": "04-03.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 3,
+    "observed_at": "2026-09-29T06:51:09.712Z",
+    "sha256": "f4ad78ceb3b631a06734797f322c21e2ffd1cffd129d22f43cf2b7e7d52a3ad3"
+  },
+  {
+    "path": "04-04.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 4,
+    "observed_at": "2026-09-29T06:51:10.717Z",
+    "sha256": "b5ef57a9cbc8cc86209f0865d9608c2ee581685c6e56db3b164c60bc83b0efcf"
+  },
+  {
+    "path": "04-05.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 5,
+    "observed_at": "2026-09-29T06:51:11.717Z",
+    "sha256": "211366c672a2272add0c21c689e924befbf0a58ea29443407ac4d6f1287518ec"
+  },
+  {
+    "path": "04-06.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 6,
+    "observed_at": "2026-09-29T06:51:12.720Z",
+    "sha256": "211366c672a2272add0c21c689e924befbf0a58ea29443407ac4d6f1287518ec"
+  },
+  {
+    "path": "04-07.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 7,
+    "observed_at": "2026-09-29T06:51:13.733Z",
+    "sha256": "211366c672a2272add0c21c689e924befbf0a58ea29443407ac4d6f1287518ec"
+  },
+  {
+    "path": "04-08.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 8,
+    "observed_at": "2026-09-29T06:51:14.732Z",
+    "sha256": "211366c672a2272add0c21c689e924befbf0a58ea29443407ac4d6f1287518ec"
+  },
+  {
+    "path": "04-09.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 9,
+    "observed_at": "2026-09-29T06:51:15.730Z",
+    "sha256": "211366c672a2272add0c21c689e924befbf0a58ea29443407ac4d6f1287518ec"
+  },
+  {
+    "path": "04-10.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 10,
+    "observed_at": "2026-09-29T06:51:17.351Z",
+    "sha256": "fc25021bf76e98ad21d7a8faee0b9aaef56bd05fe8c7338129663b2dc62ea807"
+  },
+  {
+    "path": "04-11.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 11,
+    "observed_at": "2026-09-29T06:51:17.721Z",
+    "sha256": "41a310bb5ac0fb0b44f40c3bda1c84214ebc627c485aee2a95c19fb0089d1718"
+  },
+  {
+    "path": "04-12.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 12,
+    "observed_at": "2026-09-29T06:51:18.745Z",
+    "sha256": "50a3d231775f4c7d05a7209abfee677c4788af844a5981a9c7bb30a8906019ae"
+  },
+  {
+    "path": "04-13.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 13,
+    "observed_at": "2026-09-29T06:51:19.718Z",
+    "sha256": "2e93b800511596c9f76f85852f0ce5d333db38246c07fbab63b1e2c122119fa2"
+  },
+  {
+    "path": "04-14.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 14,
+    "observed_at": "2026-09-29T06:51:20.730Z",
+    "sha256": "ec4b7343f1d8bec55946a5fae03a81e454a5cff3c733f09360840fc1757cf523"
+  },
+  {
+    "path": "04-15.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 15,
+    "observed_at": "2026-09-29T06:51:21.721Z",
+    "sha256": "551bb5ef3b3edb78256fe500c88c3cbcac5db923f9ed1aaa5562829c7b62ed63"
+  },
+  {
+    "path": "04-16.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 16,
+    "observed_at": "2026-09-29T06:51:22.740Z",
+    "sha256": "ec4b7343f1d8bec55946a5fae03a81e454a5cff3c733f09360840fc1757cf523"
+  },
+  {
+    "path": "04-17.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 17,
+    "observed_at": "2026-09-29T06:51:23.747Z",
+    "sha256": "ec4b7343f1d8bec55946a5fae03a81e454a5cff3c733f09360840fc1757cf523"
+  },
+  {
+    "path": "04-18.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 18,
+    "observed_at": "2026-09-29T06:51:24.729Z",
+    "sha256": "ec4b7343f1d8bec55946a5fae03a81e454a5cff3c733f09360840fc1757cf523"
+  },
+  {
+    "path": "04-19.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 19,
+    "observed_at": "2026-09-29T06:51:25.740Z",
+    "sha256": "ec4b7343f1d8bec55946a5fae03a81e454a5cff3c733f09360840fc1757cf523"
+  },
+  {
+    "path": "04-20.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 20,
+    "observed_at": "2026-09-29T06:51:27.256Z",
+    "sha256": "5fe7c97172f5fab24f77b49cadf970ce1142e5e4170a71e771f299a174981033"
+  },
+  {
+    "path": "04-21.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 21,
+    "observed_at": "2026-09-29T06:51:27.730Z",
+    "sha256": "045a8c7ca153525e53070ec24dcc5c11e38733b6c9d0b98347708b9201657ae3"
+  },
+  {
+    "path": "04-22.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 22,
+    "observed_at": "2026-09-29T06:51:28.725Z",
+    "sha256": "c36de78ed4c4b2998739c374f68e2e29d368b05b02c7d3c0585e457afc48f953"
+  },
+  {
+    "path": "04-23.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 23,
+    "observed_at": "2026-09-29T06:51:29.727Z",
+    "sha256": "5e5574903b37d0a836ccc72ee3e74baad239ca33c8003bc9e2bf2d8ca26dd1cf"
+  },
+  {
+    "path": "04-24.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 24,
+    "observed_at": "2026-09-29T06:51:30.732Z",
+    "sha256": "5e5574903b37d0a836ccc72ee3e74baad239ca33c8003bc9e2bf2d8ca26dd1cf"
+  },
+  {
+    "path": "04-25.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 25,
+    "observed_at": "2026-09-29T06:51:31.720Z",
+    "sha256": "5e5574903b37d0a836ccc72ee3e74baad239ca33c8003bc9e2bf2d8ca26dd1cf"
+  },
+  {
+    "path": "04-26.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 26,
+    "observed_at": "2026-09-29T06:51:32.755Z",
+    "sha256": "5e5574903b37d0a836ccc72ee3e74baad239ca33c8003bc9e2bf2d8ca26dd1cf"
+  },
+  {
+    "path": "04-27.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 27,
+    "observed_at": "2026-09-29T06:51:33.722Z",
+    "sha256": "5e5574903b37d0a836ccc72ee3e74baad239ca33c8003bc9e2bf2d8ca26dd1cf"
+  },
+  {
+    "path": "04-28.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 28,
+    "observed_at": "2026-09-29T06:51:34.757Z",
+    "sha256": "5e5574903b37d0a836ccc72ee3e74baad239ca33c8003bc9e2bf2d8ca26dd1cf"
+  },
+  {
+    "path": "04-29.png",
+    "label": "Approval: scale 1 -> 2, one-use token và replay deny",
+    "segment": 4,
+    "second": 29,
+    "observed_at": "2026-09-29T06:51:35.734Z",
+    "sha256": "5e5574903b37d0a836ccc72ee3e74baad239ca33c8003bc9e2bf2d8ca26dd1cf"
+  },
+  {
+    "path": "05-00.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 0,
+    "observed_at": "2026-09-29T06:51:49.138Z",
+    "sha256": "ff28da0b4c78a3e46e920776a0bd2d7ac2bae0592a6a341f24b087b36c81e15b"
+  },
+  {
+    "path": "05-01.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 1,
+    "observed_at": "2026-09-29T06:51:50.658Z",
+    "sha256": "9fd4ceb7a3669036073a3378678c80606c704aef34db5c794cd9b5dcb47edb0e"
+  },
+  {
+    "path": "05-02.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 2,
+    "observed_at": "2026-09-29T06:51:51.107Z",
+    "sha256": "2a2dd300fc14bce7a6900b1df4dab52b192f205e2d211d474aac55d031eddec7"
+  },
+  {
+    "path": "05-03.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 3,
+    "observed_at": "2026-09-29T06:51:52.100Z",
+    "sha256": "eaee443a228bba0ca444513f5d38b1d41cede9ca17fb71feadc09a68c73f990b"
+  },
+  {
+    "path": "05-04.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 4,
+    "observed_at": "2026-09-29T06:51:53.109Z",
+    "sha256": "ba815ea3d4a24e719c9ab4c7321fda55b2fcc1a37486128f088e3228facd2126"
+  },
+  {
+    "path": "05-05.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 5,
+    "observed_at": "2026-09-29T06:51:54.124Z",
+    "sha256": "ba815ea3d4a24e719c9ab4c7321fda55b2fcc1a37486128f088e3228facd2126"
+  },
+  {
+    "path": "05-06.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 6,
+    "observed_at": "2026-09-29T06:51:55.122Z",
+    "sha256": "ba815ea3d4a24e719c9ab4c7321fda55b2fcc1a37486128f088e3228facd2126"
+  },
+  {
+    "path": "05-07.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 7,
+    "observed_at": "2026-09-29T06:51:56.104Z",
+    "sha256": "ba815ea3d4a24e719c9ab4c7321fda55b2fcc1a37486128f088e3228facd2126"
+  },
+  {
+    "path": "05-08.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 8,
+    "observed_at": "2026-09-29T06:51:57.127Z",
+    "sha256": "ba815ea3d4a24e719c9ab4c7321fda55b2fcc1a37486128f088e3228facd2126"
+  },
+  {
+    "path": "05-09.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 9,
+    "observed_at": "2026-09-29T06:51:58.117Z",
+    "sha256": "ba815ea3d4a24e719c9ab4c7321fda55b2fcc1a37486128f088e3228facd2126"
+  },
+  {
+    "path": "05-10.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 10,
+    "observed_at": "2026-09-29T06:51:59.718Z",
+    "sha256": "fb83f2f678c41c7db8eb29e967b44c5705aec22ffd6794d78554dc4a6d4f5898"
+  },
+  {
+    "path": "05-11.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 11,
+    "observed_at": "2026-09-29T06:52:00.116Z",
+    "sha256": "c76b061a4d9ac376c71b6bf1b0ccfbebdea8ba6723f662a46627e1adecf2b36c"
+  },
+  {
+    "path": "05-12.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 12,
+    "observed_at": "2026-09-29T06:52:01.116Z",
+    "sha256": "820a8ad75db0537185d004f731ae9adfc0406fb0067eb593947134abd04d040b"
+  },
+  {
+    "path": "05-13.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 13,
+    "observed_at": "2026-09-29T06:52:02.104Z",
+    "sha256": "ad505011d5a058e0fcaff139134b8bd9b5b3e06f1d1c253eaa1f5709595ed938"
+  },
+  {
+    "path": "05-14.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 14,
+    "observed_at": "2026-09-29T06:52:03.118Z",
+    "sha256": "ad505011d5a058e0fcaff139134b8bd9b5b3e06f1d1c253eaa1f5709595ed938"
+  },
+  {
+    "path": "05-15.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 15,
+    "observed_at": "2026-09-29T06:52:04.153Z",
+    "sha256": "ad505011d5a058e0fcaff139134b8bd9b5b3e06f1d1c253eaa1f5709595ed938"
+  },
+  {
+    "path": "05-16.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 16,
+    "observed_at": "2026-09-29T06:52:05.117Z",
+    "sha256": "ad505011d5a058e0fcaff139134b8bd9b5b3e06f1d1c253eaa1f5709595ed938"
+  },
+  {
+    "path": "05-17.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 17,
+    "observed_at": "2026-09-29T06:52:06.115Z",
+    "sha256": "ad505011d5a058e0fcaff139134b8bd9b5b3e06f1d1c253eaa1f5709595ed938"
+  },
+  {
+    "path": "05-18.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 18,
+    "observed_at": "2026-09-29T06:52:07.122Z",
+    "sha256": "ad505011d5a058e0fcaff139134b8bd9b5b3e06f1d1c253eaa1f5709595ed938"
+  },
+  {
+    "path": "05-19.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 19,
+    "observed_at": "2026-09-29T06:52:08.133Z",
+    "sha256": "ad505011d5a058e0fcaff139134b8bd9b5b3e06f1d1c253eaa1f5709595ed938"
+  },
+  {
+    "path": "05-20.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 20,
+    "observed_at": "2026-09-29T06:52:09.128Z",
+    "sha256": "e8841e2eafd5eef474ab5507bf5485be0b1012edffe3610f9bfb640722393b0b"
+  },
+  {
+    "path": "05-21.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 21,
+    "observed_at": "2026-09-29T06:52:10.103Z",
+    "sha256": "e8841e2eafd5eef474ab5507bf5485be0b1012edffe3610f9bfb640722393b0b"
+  },
+  {
+    "path": "05-22.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 22,
+    "observed_at": "2026-09-29T06:52:11.106Z",
+    "sha256": "86ef7b1ff4f7c32b2da810a8c1f416974acbdd42ad9ab97b9917aa1c1cb6ea58"
+  },
+  {
+    "path": "05-23.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 23,
+    "observed_at": "2026-09-29T06:52:12.104Z",
+    "sha256": "86ef7b1ff4f7c32b2da810a8c1f416974acbdd42ad9ab97b9917aa1c1cb6ea58"
+  },
+  {
+    "path": "05-24.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 24,
+    "observed_at": "2026-09-29T06:52:13.106Z",
+    "sha256": "86ef7b1ff4f7c32b2da810a8c1f416974acbdd42ad9ab97b9917aa1c1cb6ea58"
+  },
+  {
+    "path": "05-25.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 25,
+    "observed_at": "2026-09-29T06:52:14.118Z",
+    "sha256": "86ef7b1ff4f7c32b2da810a8c1f416974acbdd42ad9ab97b9917aa1c1cb6ea58"
+  },
+  {
+    "path": "05-26.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 26,
+    "observed_at": "2026-09-29T06:52:15.113Z",
+    "sha256": "86ef7b1ff4f7c32b2da810a8c1f416974acbdd42ad9ab97b9917aa1c1cb6ea58"
+  },
+  {
+    "path": "05-27.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 27,
+    "observed_at": "2026-09-29T06:52:16.124Z",
+    "sha256": "86ef7b1ff4f7c32b2da810a8c1f416974acbdd42ad9ab97b9917aa1c1cb6ea58"
+  },
+  {
+    "path": "05-28.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 28,
+    "observed_at": "2026-09-29T06:52:17.114Z",
+    "sha256": "86ef7b1ff4f7c32b2da810a8c1f416974acbdd42ad9ab97b9917aa1c1cb6ea58"
+  },
+  {
+    "path": "05-29.png",
+    "label": "Restore: approval mới để đưa API về 1 replica",
+    "segment": 5,
+    "second": 29,
+    "observed_at": "2026-09-29T06:52:18.142Z",
+    "sha256": "f409498dd90b1baac2894054060a8ce297bc431744b52777ab8768888617fdb6"
+  },
+  {
+    "path": "06-00.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 0,
+    "observed_at": "2026-09-29T06:52:25.975Z",
+    "sha256": "78b2e0943ed9bf646755745bc4cc8bd219a95373491306391d72f43f3fa8c71f"
+  },
+  {
+    "path": "06-01.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 1,
+    "observed_at": "2026-09-29T06:52:27.542Z",
+    "sha256": "8169c3fdb03fe53ede535a2407c3870d5608927eb51aeb4269091e96abca0f5a"
+  },
+  {
+    "path": "06-02.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 2,
+    "observed_at": "2026-09-29T06:52:27.976Z",
+    "sha256": "06ee3efc1979cb2f29ca9095340cbf3cb0292df3cbbd386be48dc90aaa411f45"
+  },
+  {
+    "path": "06-03.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 3,
+    "observed_at": "2026-09-29T06:52:28.965Z",
+    "sha256": "c0612f2194510418b4694be31e56100c36a64799a312a63e2f9a34fda79bed6a"
+  },
+  {
+    "path": "06-04.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 4,
+    "observed_at": "2026-09-29T06:52:29.958Z",
+    "sha256": "7b1a10ce0cafb39375efb2f0a12d22481c3cffa56553839647268d8fe058fd27"
+  },
+  {
+    "path": "06-05.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 5,
+    "observed_at": "2026-09-29T06:52:30.965Z",
+    "sha256": "7b1a10ce0cafb39375efb2f0a12d22481c3cffa56553839647268d8fe058fd27"
+  },
+  {
+    "path": "06-06.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 6,
+    "observed_at": "2026-09-29T06:52:31.967Z",
+    "sha256": "7b1a10ce0cafb39375efb2f0a12d22481c3cffa56553839647268d8fe058fd27"
+  },
+  {
+    "path": "06-07.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 7,
+    "observed_at": "2026-09-29T06:52:32.974Z",
+    "sha256": "7b1a10ce0cafb39375efb2f0a12d22481c3cffa56553839647268d8fe058fd27"
+  },
+  {
+    "path": "06-08.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 8,
+    "observed_at": "2026-09-29T06:52:33.976Z",
+    "sha256": "7b1a10ce0cafb39375efb2f0a12d22481c3cffa56553839647268d8fe058fd27"
+  },
+  {
+    "path": "06-09.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 9,
+    "observed_at": "2026-09-29T06:52:34.970Z",
+    "sha256": "7b1a10ce0cafb39375efb2f0a12d22481c3cffa56553839647268d8fe058fd27"
+  },
+  {
+    "path": "06-10.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 10,
+    "observed_at": "2026-09-29T06:52:35.962Z",
+    "sha256": "7b1a10ce0cafb39375efb2f0a12d22481c3cffa56553839647268d8fe058fd27"
+  },
+  {
+    "path": "06-11.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 11,
+    "observed_at": "2026-09-29T06:52:36.963Z",
+    "sha256": "7b1a10ce0cafb39375efb2f0a12d22481c3cffa56553839647268d8fe058fd27"
+  },
+  {
+    "path": "06-12.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 12,
+    "observed_at": "2026-09-29T06:52:38.509Z",
+    "sha256": "679c40167b4d6b8a67b5a5cd7c96c0a295c4b97f758f75501fd973fa88540dfe"
+  },
+  {
+    "path": "06-13.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 13,
+    "observed_at": "2026-09-29T06:52:38.960Z",
+    "sha256": "8d9d58ce1fb885689dbff655093c6f78fd1dd12dc7c097fe668750ecf9ebdfad"
+  },
+  {
+    "path": "06-14.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 14,
+    "observed_at": "2026-09-29T06:52:39.960Z",
+    "sha256": "8d9d58ce1fb885689dbff655093c6f78fd1dd12dc7c097fe668750ecf9ebdfad"
+  },
+  {
+    "path": "06-15.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 15,
+    "observed_at": "2026-09-29T06:52:40.991Z",
+    "sha256": "8d9d58ce1fb885689dbff655093c6f78fd1dd12dc7c097fe668750ecf9ebdfad"
+  },
+  {
+    "path": "06-16.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 16,
+    "observed_at": "2026-09-29T06:52:41.962Z",
+    "sha256": "e7f9c40aa82cd907eb893ac0bbbe491f045165780a62471fcd34faf3d722c829"
+  },
+  {
+    "path": "06-17.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 17,
+    "observed_at": "2026-09-29T06:52:43.052Z",
+    "sha256": "22f1d04f4154539b8e7cde9a045b110bcc9bf9ee5860e8ce6a7baae01214d720"
+  },
+  {
+    "path": "06-18.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 18,
+    "observed_at": "2026-09-29T06:52:43.981Z",
+    "sha256": "22f1d04f4154539b8e7cde9a045b110bcc9bf9ee5860e8ce6a7baae01214d720"
+  },
+  {
+    "path": "06-19.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 19,
+    "observed_at": "2026-09-29T06:52:44.962Z",
+    "sha256": "22f1d04f4154539b8e7cde9a045b110bcc9bf9ee5860e8ce6a7baae01214d720"
+  },
+  {
+    "path": "06-20.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 20,
+    "observed_at": "2026-09-29T06:52:45.958Z",
+    "sha256": "22f1d04f4154539b8e7cde9a045b110bcc9bf9ee5860e8ce6a7baae01214d720"
+  },
+  {
+    "path": "06-21.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 21,
+    "observed_at": "2026-09-29T06:52:50.463Z",
+    "sha256": "284e25bb53c8518cb8082a74044a334a83d1c600ea8dd18ae4ebb5e1f8635823"
+  },
+  {
+    "path": "06-22.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 22,
+    "observed_at": "2026-09-29T06:52:50.517Z",
+    "sha256": "284e25bb53c8518cb8082a74044a334a83d1c600ea8dd18ae4ebb5e1f8635823"
+  },
+  {
+    "path": "06-23.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 23,
+    "observed_at": "2026-09-29T06:52:50.588Z",
+    "sha256": "284e25bb53c8518cb8082a74044a334a83d1c600ea8dd18ae4ebb5e1f8635823"
+  },
+  {
+    "path": "06-24.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 24,
+    "observed_at": "2026-09-29T06:52:50.658Z",
+    "sha256": "284e25bb53c8518cb8082a74044a334a83d1c600ea8dd18ae4ebb5e1f8635823"
+  },
+  {
+    "path": "06-25.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 25,
+    "observed_at": "2026-09-29T06:52:50.994Z",
+    "sha256": "8a9f5dec5006879285f7689f7f0d284678c0e8c887b656139deba893514bba1c"
+  },
+  {
+    "path": "06-26.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 26,
+    "observed_at": "2026-09-29T06:52:51.959Z",
+    "sha256": "b9aaaf84851a49a69493b4accd75c4e4f041ab7a7d0dd5a85188f7e28b2657ea"
+  },
+  {
+    "path": "06-27.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 27,
+    "observed_at": "2026-09-29T06:52:53.370Z",
+    "sha256": "b9aaaf84851a49a69493b4accd75c4e4f041ab7a7d0dd5a85188f7e28b2657ea"
+  },
+  {
+    "path": "06-28.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 28,
+    "observed_at": "2026-09-29T06:52:53.981Z",
+    "sha256": "b9aaaf84851a49a69493b4accd75c4e4f041ab7a7d0dd5a85188f7e28b2657ea"
+  },
+  {
+    "path": "06-29.png",
+    "label": "Policy: destructive deny và xác nhận health cuối",
+    "segment": 6,
+    "second": 29,
+    "observed_at": "2026-09-29T06:52:54.972Z",
+    "sha256": "b9aaaf84851a49a69493b4accd75c4e4f041ab7a7d0dd5a85188f7e28b2657ea"
+  }
+]
