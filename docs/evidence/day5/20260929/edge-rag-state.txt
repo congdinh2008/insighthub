@@ -1,0 +1,69 @@
+Browser tab: 111433277, Title: "InsightHub - RAG Notebook", URL: "http://127.0.0.1:13000/".
+1 AXWebArea InsightHub - RAG Notebook, URL: 127.0.0.1:13000/
+	2 container
+		3 heading InsightHub, Value: 1
+			4 text InsightHub
+		5 text RAG Notebook - AI for DevOps DO2603
+	6 heading Tài liệu, Value: 2
+		7 text Tài liệu
+	8 button Chọn tài liệu .txt, .md hoặc .pdf
+	9 button Làm mới trạng thái
+	10 content list
+		11 container
+			12 text day5-edge-e2e.md ( 1  chunks) ready
+		13 container
+			14 text verify-cb89287642114d8b8304001d10d7d5d4.md ( 1  chunks) ready
+		15 container
+			16 text day4-backlog-20.txt ( 1  chunks) ready
+		17 container
+			18 text day4-backlog-19.txt ( 1  chunks) ready
+		19 container
+			20 text day4-backlog-18.txt ( 1  chunks) ready
+		21 container
+			22 text day4-backlog-17.txt ( 1  chunks) ready
+		23 container
+			24 text day4-backlog-16.txt ( 1  chunks) ready
+		25 container
+			26 text day4-backlog-15.txt ( 1  chunks) ready
+		27 container
+			28 text day4-backlog-14.txt ( 1  chunks) ready
+		29 container
+			30 text day4-backlog-13.txt ( 1  chunks) ready
+		31 container
+			32 text day4-backlog-12.txt ( 1  chunks) ready
+		33 container
+			34 text day4-backlog-11.txt ( 1  chunks) ready
+		35 container
+			36 text day4-backlog-10.txt ( 1  chunks) ready
+		37 container
+			38 text day4-backlog-9.txt ( 1  chunks) ready
+		39 container
+			40 text day4-backlog-8.txt ( 1  chunks) ready
+		41 container
+			42 text day4-backlog-7.txt ( 1  chunks) ready
+		43 container
+			44 text day4-backlog-6.txt ( 1  chunks) ready
+		45 container
+			46 text day4-backlog-5.txt ( 1  chunks) ready
+		47 container
+			48 text day4-backlog-4.txt ( 1  chunks) ready
+		49 container
+			50 text day4-backlog-3.txt ( 1  chunks) ready
+		51 container
+			52 text day4-backlog-2.txt ( 1  chunks) ready
+		53 container
+			54 text day4-backlog-1.txt ( 1  chunks) ready
+		55 container
+			56 text day4-zenlayer-smoke.txt ( 1  chunks) ready
+	57 heading Hỏi đáp (RAG), Value: 2
+		58 text Hỏi đáp (RAG)
+	59 text entry area (settable) Description: Câu hỏi về tài liệu, Value: Mã nghiệm thu Day 05 ngày 29/09/2026 là gì và token xác nhận scale có hiệu lực bao lâu?
+	60 button Hỏi
+	62 text Mã nghiệm thu là **CHATOPS-2909**. Token xác nhận scale có hiệu lực trong **60 giây**. [nguồn: day5-edge-e2e.md]
+	63 container
+		64 text Nguồn:  day5-edge-e2e.md, day4-backlog-5.txt, day4-backlog-10.txt, day4-backlog-6.txt, day4-backlog-20.txt
+	65 container
+		66 text Latency:  2313  ms
+	61 text InsightHub starter DO2603 · Next.js + FastAPI + pgvector · Đây là project nền cho 7 buổi học - học viên sẽ containerize, deploy, observe, secure và tối ưu cost.
+
+The focused UI element is 1 AXWebArea InsightHub - RAG Notebook, URL: 127.0.0.1:13000/

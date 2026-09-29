@@ -32,3 +32,9 @@ Trước và sau scale lưu `kubectl -n insighthub-dev get deploy insighthub-api
 Chạy `python -m pytest chatops-bot/tests tests/milestones/day5`, Ruff, Mypy và `scripts/verify-day-5.sh --evidence-dir docs/evidence/day5 --bot-transport http --bot-url http://127.0.0.1:18080 --json`. Verifier chỉ kiểm một tập con local, không thay thế link Slack/screencast. Export audit bằng cách chọn các JSON Lines có `event_id` của lượt E2E, lọc token và dữ liệu riêng tư, đặt trong `{ "events": [...] }`; `docs/evidence/day5/day5.json` chứa SHA và source fingerprint hiện hành.
 
 Cloudflared Quick Tunnel không có uptime cố định. Bot chỉ gửi facts đã lọc cho model khi `CHATOPS_MODEL_*` được cấu hình và đích model được cho phép; nếu chưa, câu trả lời deterministic vẫn hoạt động. Không đưa nội dung tài liệu, raw Slack request, token hoặc provider key vào audit/evidence.
+
+## Kết quả rà soát 29/09/2026
+
+Xem [report](../evidence/day5/20260929/Runtime_Validation.md) và [review](Review_Findings_20260929.md). Bộ test mở rộng có 34 tests. Mutation command phải nguyên câu `scale api to N` hoặc `confirm TOKEN`, không chấp nhận số thập phân/lệnh ghép. Thiếu series Prometheus trả unknown/partial, không mặc định zero. HTTP body tối đa 64 KiB, enqueue deadline 2 giây.
+
+Chỉ chạy một worker cho lab hiện tại; processing list dùng để recover sau restart, không thiết kế multi-worker. Nếu dùng image HTTP, healthcheck kiểm `ready` thực. Để chạy worker MCP trong container cần thêm các binary/config đã pin tương ứng; Dockerfile hiện dùng cho HTTP intake của mô hình local, không tự nhận là K8s bot production.

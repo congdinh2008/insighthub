@@ -1,0 +1,42 @@
+[
+  {
+    "case": "unsigned",
+    "status": 401,
+    "response": {
+      "detail": "invalid Slack signature or timestamp"
+    },
+    "elapsed_ms": 640
+  },
+  {
+    "case": "valid-challenge",
+    "status": 200,
+    "response": {
+      "challenge": "day5-e2e-probe"
+    },
+    "elapsed_ms": 156
+  },
+  {
+    "case": "expired-valid-signature",
+    "status": 401,
+    "response": {
+      "detail": "invalid Slack signature or timestamp"
+    },
+    "elapsed_ms": 253
+  },
+  {
+    "case": "future-valid-signature",
+    "status": 401,
+    "response": {
+      "detail": "invalid Slack signature or timestamp"
+    },
+    "elapsed_ms": 163
+  },
+  {
+    "case": "oversized",
+    "status": 413,
+    "response": {
+      "detail": "payload too large"
+    },
+    "elapsed_ms": 363
+  }
+]

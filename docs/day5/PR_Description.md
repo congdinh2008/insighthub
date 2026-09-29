@@ -1,9 +1,18 @@
-# feat(day5): add bounded Slack ChatOps bot for InsightHub lab
+# fix(day5): harden ChatOps evidence, approvals and HTTP intake
 
-The Day 05 Slack app previously had a placeholder `/slack/events` endpoint. This change verifies Slack request signatures, durably queues mentions before ACK, and replies to three fixed operational questions using InsightHub, Kubernetes MCP and Prometheus MCP data. The ingestion answer explicitly counts documents created today in ICT that are currently ready; it does not claim first-completion semantics.
+The Day 05 completion review found that missing Prometheus metrics could be reported as zero errors, malformed or Pending/init-failing pods could be misclassified, and partial command matching could accept ambiguous scale requests. This change preserves unknown health states, validates pod data, requires an exact scale command and kills/reaps timed-out kubectl processes. Slack intake now bounds the body before signature verification, validates event fields, limits enqueue time and exposes meaningful readiness.
 
-The only write action is scaling `insighthub-api`. A one-time, 60-second approval bound to the workspace, channel, thread, approver and deployment state is required before the separate scale identity can execute it. Destructive and unsupported requests are denied. The lab includes structured audit, Redis recovery/dedup, scoped RBAC, local cloudflared runbook, bot tests, Day 05 milestone tests and a CI job. No application business code or schema changes are included.
+The local bot provides three read intents through API/Kubernetes MCP/Prometheus MCP, structured audit, a durable Redis inbox and a separate identity for scaling only insighthub-api. Scale requires a one-use 60-second approval bound to workspace, channel, thread, approver and deployment state. Destructive requests are denied. No API, ingestion, schema or verifier changes are included.
 
-Validation: bot suite 4/4, milestone suite 6/6, Ruff/Mypy, Docker build, Day 05 verifier and upload -> ready -> chat regression smoke all pass. Live Slack evidence covers all three reads, destructive denial, approval/scale/replay/restore and one Zenlayer summary. The verifier intentionally reports partial-runtime-contract. The 3-minute screencast and remote CI run remain pending; see `docs/day5/Self_Check.md` and `docs/evidence/day5/Runtime_Validation.md`.
+## Validation
 
-Proposed base: a remote branch containing local Day 04 merge commit `7613ba0`. Current remote `main` is `1dfa6b7` (Day 03), so opening against it now would include Day 04 changes outside this PR's intended scope. GitHub CLI auth also needs renewal before pushing/opening the PR.
+- 34 tests pass: 25 bot tests and 9 milestone contracts. Ten regression cases failed on the previous implementation. Ruff, Mypy, pre-commit and Docker build pass.
+- Microsoft Edge Computer Use on real Slack covers health/ingestion/pods, destructive denial, approval with no early mutation, scale 1 -> 2, replay/expiry denial and restore to 1/1. A failing pod and unavailable Prometheus are detected; both faults are restored.
+- Live HTTPS probes verify signature/timestamp rejection, a valid challenge and the 64 KiB request limit.
+- API upload -> ready -> chat/citation in Edge passes using the configured real provider. The browser file chooser remains unverified because the Edge extension requires Allow access to file URLs.
+- Push CI and PR CI each passed local-baseline and chatops-day5. The verifier passes its partial-runtime-contract; it does not certify the whole milestone.
+- A 179.93-second local MP4 records actual Edge Slack interaction in six sequential screen-capture segments. Loom submission is pending permission to access the account.
+
+## Evidence and handoff
+
+[Current evidence](../evidence/day5/20260929/Runtime_Validation.md), [self-check](Self_Check.md), and [review findings](Review_Findings_20260929.md). The draft PR targets day4-observability because remote main is at Day 03. The baseline must land before this PR can target main cleanly. Keep the PR draft until the pending submission/UI checks are resolved. The lab runs one queue worker; a production Kubernetes bot deployment is outside this scope.
