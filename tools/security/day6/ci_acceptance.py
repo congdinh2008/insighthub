@@ -111,6 +111,9 @@ def main():
     finally:
         rows = ledger()
         report["known_cost_usd"] = known_cost(rows)
+        report["within_approved_envelope"] = report["known_cost_usd"] < 0.5
+        if not report["within_approved_envelope"]:
+            report["status"] = "FAIL"
         admitted = {r["request_id"] for r in rows if r["event"] == "admitted"}
         completed = {r["request_id"] for r in rows if r["event"] == "completion"}
         report["unresolved_admissions"] = sorted(admitted - completed)

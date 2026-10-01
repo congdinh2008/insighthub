@@ -1,5 +1,7 @@
 # Day 06 - Self-check và phạm vi nghiệm thu
 
+> Snapshot nghiệm thu local trước release follow-up. Các sửa đổi accounting/CI và kết quả mới nằm tại [Release_Readiness](Release_Readiness.md); không đổi source fingerprint của evidence lịch sử dưới đây.
+
 Source implementation kết thúc ở `a9eab4d` trên branch `day6-security-finops`; ngày 01/10/2026. **Must-have local đã có evidence, AWS N/A.** Final và fresh verifier đều 164/164 cases PASS, benign 20/20; verifier 80 tests PASS, không skip. Fingerprint `c49623b4b2600af16d9e01e01f0b2c1c95afc9e88e30eae03df712fc6593dd8d`. Giữ optional P7 OFF theo xác nhận của anh. UI-08 mở HTML và remote CI/publication còn giới hạn riêng phía dưới.
 
 ## Must-have

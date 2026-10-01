@@ -1,0 +1,211 @@
+{
+  "observed_at": 1790838534.3044422,
+  "exporter": [
+    "day6_llm_unknown_cost_total{workload=\"insighthub\"} 16.0",
+    "day6_llm_unknown_cost_total{workload=\"chatops-bot\"} 0.0",
+    "day6_llm_unknown_cost_total{workload=\"coding-workflow\"} 0.0",
+    "day6_llm_unknown_cost_total{workload=\"guardrail\"} 2.0",
+    "day6_llm_unknown_cost_total{workload=\"evaluator\"} 130.0",
+    "day6_accounting_available 1.0"
+  ],
+  "prometheus": {
+    "sum(day6_llm_unknown_cost_total)": [
+      {
+        "metric": {},
+        "value": [
+          1790838534.28,
+          "148"
+        ]
+      }
+    ],
+    "day6_llm_spend_usd_total - day6_key_spend_usd": [
+      {
+        "metric": {
+          "container": "cost-exporter",
+          "endpoint": "metrics",
+          "instance": "10.244.1.26:9091",
+          "job": "day6-cost",
+          "namespace": "insighthub-dev",
+          "pod": "day6-gateway-5c4bcbb57b-x4b86",
+          "service": "day6-cost",
+          "workload": "insighthub"
+        },
+        "value": [
+          1790838534.29,
+          "-1.1657341758564144e-15"
+        ]
+      },
+      {
+        "metric": {
+          "container": "cost-exporter",
+          "endpoint": "metrics",
+          "instance": "10.244.1.26:9091",
+          "job": "day6-cost",
+          "namespace": "insighthub-dev",
+          "pod": "day6-gateway-5c4bcbb57b-x4b86",
+          "service": "day6-cost",
+          "workload": "chatops-bot"
+        },
+        "value": [
+          1790838534.29,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "container": "cost-exporter",
+          "endpoint": "metrics",
+          "instance": "10.244.1.26:9091",
+          "job": "day6-cost",
+          "namespace": "insighthub-dev",
+          "pod": "day6-gateway-5c4bcbb57b-x4b86",
+          "service": "day6-cost",
+          "workload": "coding-workflow"
+        },
+        "value": [
+          1790838534.29,
+          "8.673617379884035e-19"
+        ]
+      },
+      {
+        "metric": {
+          "container": "cost-exporter",
+          "endpoint": "metrics",
+          "instance": "10.244.1.26:9091",
+          "job": "day6-cost",
+          "namespace": "insighthub-dev",
+          "pod": "day6-gateway-5c4bcbb57b-x4b86",
+          "service": "day6-cost",
+          "workload": "guardrail"
+        },
+        "value": [
+          1790838534.29,
+          "-1.9984014443252818e-15"
+        ]
+      },
+      {
+        "metric": {
+          "container": "cost-exporter",
+          "endpoint": "metrics",
+          "instance": "10.244.1.26:9091",
+          "job": "day6-cost",
+          "namespace": "insighthub-dev",
+          "pod": "day6-gateway-5c4bcbb57b-x4b86",
+          "service": "day6-cost",
+          "workload": "evaluator"
+        },
+        "value": [
+          1790838534.29,
+          "0.00043240000000244194"
+        ]
+      }
+    ],
+    "ALERTS{alertname=~\"Day6.*\"}": [
+      {
+        "metric": {
+          "__name__": "ALERTS",
+          "alertname": "Day6KeyBudgetNearLimit",
+          "alertstate": "firing",
+          "container": "cost-exporter",
+          "endpoint": "metrics",
+          "instance": "10.244.1.26:9091",
+          "job": "day6-cost",
+          "namespace": "insighthub-dev",
+          "pod": "day6-gateway-5c4bcbb57b-x4b86",
+          "scope": "day6-local",
+          "service": "day6-cost",
+          "severity": "warning",
+          "workload": "evaluator"
+        },
+        "value": [
+          1790838534.296,
+          "1"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "ALERTS",
+          "alertname": "Day6UnresolvedCharge",
+          "alertstate": "pending",
+          "container": "cost-exporter",
+          "endpoint": "metrics",
+          "instance": "10.244.1.26:9091",
+          "job": "day6-cost",
+          "namespace": "insighthub-dev",
+          "pod": "day6-gateway-5c4bcbb57b-x4b86",
+          "scope": "day6-local",
+          "service": "day6-cost",
+          "severity": "warning",
+          "workload": "insighthub"
+        },
+        "value": [
+          1790838534.296,
+          "1"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "ALERTS",
+          "alertname": "Day6UnresolvedCharge",
+          "alertstate": "pending",
+          "container": "cost-exporter",
+          "endpoint": "metrics",
+          "instance": "10.244.1.26:9091",
+          "job": "day6-cost",
+          "namespace": "insighthub-dev",
+          "pod": "day6-gateway-5c4bcbb57b-x4b86",
+          "scope": "day6-local",
+          "service": "day6-cost",
+          "severity": "warning",
+          "workload": "guardrail"
+        },
+        "value": [
+          1790838534.296,
+          "1"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "ALERTS",
+          "alertname": "Day6UnresolvedCharge",
+          "alertstate": "pending",
+          "container": "cost-exporter",
+          "endpoint": "metrics",
+          "instance": "10.244.1.26:9091",
+          "job": "day6-cost",
+          "namespace": "insighthub-dev",
+          "pod": "day6-gateway-5c4bcbb57b-x4b86",
+          "scope": "day6-local",
+          "service": "day6-cost",
+          "severity": "warning",
+          "workload": "evaluator"
+        },
+        "value": [
+          1790838534.296,
+          "1"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "ALERTS",
+          "alertname": "Day6AccountingMismatch",
+          "alertstate": "pending",
+          "container": "cost-exporter",
+          "endpoint": "metrics",
+          "instance": "10.244.1.26:9091",
+          "job": "day6-cost",
+          "namespace": "insighthub-dev",
+          "pod": "day6-gateway-5c4bcbb57b-x4b86",
+          "scope": "day6-local",
+          "service": "day6-cost",
+          "severity": "warning",
+          "workload": "evaluator"
+        },
+        "value": [
+          1790838534.296,
+          "1"
+        ]
+      }
+    ]
+  }
+}

@@ -16,3 +16,11 @@ User scope: finish necessary local acceptance, create PR and merge main; semanti
 - Edge local HTML navigation remains blocked by the browser tool policy. Raw HTML/JSON and real app/Slack/Grafana UI evidence are retained. No alternate route is used to bypass that rejection.
 - Old local evidence retains its original source fingerprint. The release CI reports identify the later source; do not relabel historical artifacts.
 - AWS N/A. No claim of Level 4, all-OWASP coverage, hard native budget caps or production HA.
+
+## Local follow-up results
+
+- 82 offline Day06 tests PASS, Ruff PASS. Two exporter tests fail against the unmodified old exporter in an isolated temporary directory, and pass against the fix. No intentionally failing test was added to the PR branch.
+- Initial test collection lacked prometheus-client in the local Day06 venv; installed the exact version/hashes already present in requirements-dev.txt. The failed log is preserved separately; the CI workflow installs this full lock file.
+- Prometheus reports 148 unresolved charges: app 16, guard 2, evaluator 130; accounting endpoint available=1. Exact native evaluator delta remains USD 0.0004324.
+- GitHub Environment `day6-model-evaluation` now requires the repository owner's review; the approved ZenLayer key is stored as an encrypted Environment secret. No live SHA has been authorized yet; no CI model charge incurred at this step.
+- Public push/PR remains pending explicit payload confirmation after automatic approval review rejected publication of the evidence bundle. Code/evidence remain local until that confirmation.
