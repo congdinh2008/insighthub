@@ -1,0 +1,64 @@
+{
+  "observed_at": 1790838741.620428,
+  "source_commit": "ba427500fa3478a03b6023b1ec7aa38dbab2f571",
+  "exporter_sha256": "7b909d4d3a49780dd5063b79f8610d8c37f4d808cff1a26b173fefdd7e52bfc6",
+  "runtime_hash_matches": true,
+  "deployments": [
+    {
+      "name": "day6-baseline-api",
+      "desired": 0,
+      "ready": 0
+    },
+    {
+      "name": "day6-gateway",
+      "desired": 1,
+      "ready": 1
+    },
+    {
+      "name": "day6-guardrails",
+      "desired": 1,
+      "ready": 1
+    },
+    {
+      "name": "insighthub-api",
+      "desired": 1,
+      "ready": 1
+    },
+    {
+      "name": "insighthub-ingestion-worker",
+      "desired": 1,
+      "ready": 1
+    },
+    {
+      "name": "insighthub-web",
+      "desired": 1,
+      "ready": 1
+    }
+  ],
+  "alerts": [
+    {
+      "alertname": "Day6AccountingMismatch",
+      "alertstate": "pending",
+      "workload": "evaluator"
+    },
+    {
+      "alertname": "Day6UnresolvedCharge",
+      "alertstate": "firing",
+      "workload": "evaluator"
+    },
+    {
+      "alertname": "Day6UnresolvedCharge",
+      "alertstate": "firing",
+      "workload": "insighthub"
+    },
+    {
+      "alertname": "Day6UnresolvedCharge",
+      "alertstate": "firing",
+      "workload": "guardrail"
+    }
+  ],
+  "public_payload_confirmation": "pending",
+  "live_ci_calls": 0,
+  "optional_p7": "OFF",
+  "aws_used": false
+}
