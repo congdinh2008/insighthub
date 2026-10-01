@@ -70,11 +70,11 @@ def main():
         "evaluator": ("eval-chat", "app-embedding"),
     }
     budgets = {
-        "insighthub": 1.5,
-        "bot": 0.5,
-        "coding": 1.0,
-        "guard": 1.0,
-        "evaluator": 0.5,
+        "insighthub": 0.05,
+        "bot": 0.01,
+        "coding": 0.01,
+        "guard": 0.13,
+        "evaluator": 0.20,
     }
     with httpx.Client(
         base_url="http://127.0.0.1:14010",
@@ -124,7 +124,9 @@ def main():
         upload(
             client, "day6-guide.md", (ROOT / "security/datasets/guide.md").read_text()
         )
-    print("Trusted ephemeral CI lab ready; secrets remain in ignored 0600 files")
+    print(
+        "Trusted ephemeral CI lab ready; total soft caps USD 0.40, approved envelope USD 0.50"
+    )
 
 
 if __name__ == "__main__":

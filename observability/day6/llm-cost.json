@@ -356,7 +356,7 @@
     },
     {
       "id": 11,
-      "title": "Unknown cost events",
+      "title": "Unresolved or unknown charge",
       "type": "stat",
       "gridPos": {
         "x": 0,

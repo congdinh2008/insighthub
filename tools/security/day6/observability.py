@@ -49,7 +49,12 @@ PANELS = [
         "short",
         "timeseries",
     ),
-    ("Unknown cost events", "sum(day6_llm_unknown_cost_total)", "short", "stat"),
+    (
+        "Unresolved or unknown charge",
+        "sum(day6_llm_unknown_cost_total)",
+        "short",
+        "stat",
+    ),
     ("Accounting endpoint available", "day6_accounting_available", "short", "stat"),
     (
         "Provider call latency p95",
@@ -210,7 +215,31 @@ def main():
                                 "annotations": {
                                     "summary": "Day06 workload is at or above 80% of its measured key budget"
                                 },
-                            }
+                            },
+                            {
+                                "alert": "Day6UnresolvedCharge",
+                                "expr": "day6_llm_unknown_cost_total > 0",
+                                "for": "2m",
+                                "labels": {
+                                    "severity": "warning",
+                                    "scope": "day6-local",
+                                },
+                                "annotations": {
+                                    "summary": "Day06 has unresolved admissions or completion costs; do not treat charges as zero"
+                                },
+                            },
+                            {
+                                "alert": "Day6AccountingMismatch",
+                                "expr": "abs(day6_llm_spend_usd_total - day6_key_spend_usd) > 0.000001",
+                                "for": "5m",
+                                "labels": {
+                                    "severity": "warning",
+                                    "scope": "day6-local",
+                                },
+                                "annotations": {
+                                    "summary": "Day06 ledger and native accounting differ beyond rounding after the settling window"
+                                },
+                            },
                         ],
                     }
                 ]

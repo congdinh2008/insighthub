@@ -2,6 +2,7 @@
 
 import json
 import os
+import time
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -37,6 +38,8 @@ async def metrics():
     events = Counter()
     unknown = Counter()
     latency = defaultdict(list)
+    admitted = {}
+    completed = set()
     path = Path(os.environ.get("DAY6_AUDIT_PATH", "/ledger/audit.jsonl"))
     if path.exists():
         for line in path.read_text().splitlines():
@@ -46,7 +49,12 @@ async def metrics():
                 continue
             event = row.get("event")
             events[(w, event)] += 1
+            identity = (w, row.get("request_id"))
+            if event == "admitted" and identity[1]:
+                admitted[identity] = row["timestamp"]
             if event == "completion":
+                if identity[1]:
+                    completed.add(identity)
                 duration = row.get("duration_seconds")
                 if isinstance(duration, (int, float)):
                     latency[w].append(duration)
@@ -77,15 +85,20 @@ async def metrics():
         ["workload", "event"],
         registry=registry,
     )
+    unresolved = Counter(
+        w
+        for (w, request), started in admitted.items()
+        if (w, request) not in completed and time.time() - started >= 120
+    )
     missing = Gauge(
         "day6_llm_unknown_cost_total",
-        "Completions without known cost",
+        "Completions without cost plus admissions unresolved for at least 120 seconds; charges unknown, not zero",
         ["workload"],
         registry=registry,
     )
     for w in ALIASES:
         spend.labels(w).set(totals[w])
-        missing.labels(w).set(unknown[w])
+        missing.labels(w).set(unknown[w] + unresolved[w])
         for event in (
             "admitted",
             "denied",

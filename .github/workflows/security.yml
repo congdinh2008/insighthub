@@ -6,6 +6,11 @@ on:
   schedule:
     - cron: '17 20 * * *'
   workflow_dispatch:
+    inputs:
+      run_live:
+        description: 'Run the explicitly approved, budget-limited model evaluation'
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -32,12 +37,15 @@ jobs:
           tmp/day6/venv/bin/ruff check gateway security/guardrails tools/security/day6 tools/coding/day6 tests/milestones/day6
           tmp/day6/venv/bin/ruff format --check gateway security/guardrails tools/security/day6 tools/coding/day6 tests/milestones/day6
   live-promptfoo:
-    # Enable only after configuring protected environment reviewers and its secrets.
-    # Fork PRs can never reach this job; no pull_request_target and no self-hosted runner.
+    # A reviewed exact SHA authorizes one run; scheduled jobs remain offline.
+    # Clear DAY6_LIVE_APPROVED_SHA after starting the authorized run.
     if: >-
-      vars.DAY6_LIVE_ENABLED == 'true' &&
-      (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' ||
-       (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository))
+      vars.DAY6_LIVE_APPROVED_SHA != '' &&
+      ((github.event_name == 'workflow_dispatch' && inputs.run_live &&
+        github.sha == vars.DAY6_LIVE_APPROVED_SHA) ||
+       (github.event_name == 'pull_request' &&
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        github.event.pull_request.head.sha == vars.DAY6_LIVE_APPROVED_SHA))
     needs: boundaries
     environment: day6-model-evaluation
     runs-on: ubuntu-24.04
@@ -61,12 +69,12 @@ jobs:
         run: |
           python -m venv tmp/day6/venv
           tmp/day6/venv/bin/pip install --require-hashes -r requirements-dev.txt
+          tmp/day6/venv/bin/pip install --require-hashes -r gateway/requirements.txt
+          tmp/day6/venv/bin/pip install --require-hashes -r security/guardrails/requirements.txt
           npm ci --prefix security --ignore-scripts
           tmp/day6/venv/bin/python tools/security/day6/ci_lab.py
       - name: Promptfoo regression blocks HIGH/CRITICAL and benign failures
-        run: tmp/day6/venv/bin/python tools/security/day6/scan.py final --label ci-final
-      - name: Real key budget enforcement
-        run: tmp/day6/venv/bin/python tools/security/day6/gateway_tests.py budget
+        run: tmp/day6/venv/bin/python tools/security/day6/ci_acceptance.py
       - name: Validate public evidence before upload
         id: evidence-safety
         if: always()
@@ -75,7 +83,7 @@ jobs:
         if: always() && steps.evidence-safety.outcome == 'success'
         with:
           name: day6-security-${{ github.run_id }}
-          path: docs/evidence/day6/
+          path: docs/evidence/day6/ci-*/
           retention-days: 7
       - name: Destroy only this ephemeral CI lab
         if: always()
