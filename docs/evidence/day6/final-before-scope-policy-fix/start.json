@@ -1,0 +1,31 @@
+{
+  "observed_at": "2026-10-01T04:49:22.312253+00:00",
+  "source_sha256": "b858539b6fc76b6c28870683bae3bd59320ac765e8259ea57ec1cfcbec620b6b",
+  "extra_files": {
+    "gateway/Dockerfile": "957d164dd462fed3c1ec4023700a81a69ee958087899909669ab38ae026e11f7",
+    "gateway/config.yaml": "ecdf96e31774ac0162745faf0c23faaa176310e729ec0ddce1c5aa0826d54275",
+    "gateway/exporter.py": "ff6510144f21d23deb23a7d03496b8a89db15553b095fa2a4750b78398967031",
+    "gateway/hooks.py": "815a121040ae70f54df73471f89f4ce50c750f90824d3648a76da190ff7a7ed2",
+    "gateway/pricing.json": "3d9bdb38e50c43c4d32a62f80f35d0a446368c425e5fd10a26a65584fddb3a11",
+    "gateway/requirements.in": "4b2f877dea58d12b023bcf355175472915108407d179d268a666a605c615084d",
+    "gateway/requirements.txt": "207c68ea58a81bda73bcfbdc55b2b864bdcf07b75efb7f0b70495dee2fd62bde",
+    "deploy/day6/compose.yaml": "81d29f498a4c12c476a5a616531698e8b603618d1d03e996aba46bd9de25c98d"
+  },
+  "dataset_sha256": "74c9ea50f65255b62c3cb643c347dea0dc02078458c75ae9a54b45995ebf2ef6",
+  "profile": "final",
+  "corpus": [
+    {
+      "id": 1,
+      "filename": "day6-guide.md",
+      "status": "ready"
+    }
+  ],
+  "preflight": [
+    {
+      "observed_at": "2026-10-01T04:49:22.310535+00:00",
+      "target": "http://127.0.0.1:18010",
+      "status": 200,
+      "request_id": "597970d0-c215-46f6-ba8b-a394bd801a20"
+    }
+  ]
+}

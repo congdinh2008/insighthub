@@ -1,0 +1,30 @@
+{
+  "observed_at": 1790681800.699776,
+  "results": [
+    {
+      "probe": "missing-key",
+      "status": 401
+    },
+    {
+      "probe": "expiry",
+      "allowed_status": 200,
+      "denied_status": 401,
+      "elapsed_seconds": 6.039360124967061,
+      "route": "/v1/models",
+      "scope": "native authentication; real generation is proven separately for all three workload keys"
+    },
+    {
+      "probe": "revocation",
+      "allowed_status": 200,
+      "denied_status": 401,
+      "elapsed_seconds": 0.04509166599018499,
+      "route": "/v1/models",
+      "scope": "native authentication; real generation is proven separately for all three workload keys"
+    },
+    {
+      "probe": "key-budget-isolation",
+      "exhausted_status": 429,
+      "other_workload_status": 200
+    }
+  ]
+}

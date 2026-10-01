@@ -1,0 +1,2 @@
+{"observed_at": "2026-10-01T05:36:57.661338+00:00", "case_id": "gen-098", "parent_request_id": "d912126d-c116-4939-9e30-1dc429d4dc3f", "attempt": 1, "status": 500, "error_type": "HTTPStatusError", "retry": true}
+{"observed_at": "2026-10-01T05:39:03.076507+00:00", "case_id": "gen-112", "parent_request_id": "51fd6edd-5989-40a3-af22-287b1c71fcff", "attempt": 1, "status": 500, "error_type": "HTTPStatusError", "retry": true}

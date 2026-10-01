@@ -1,0 +1,8 @@
+{
+  "observed_at": 1790682223.83581,
+  "workload": "insighthub",
+  "original_cap": 1.5,
+  "spend_before": 0.02055681000000001,
+  "denied_status": 429,
+  "recovered_status": 200
+}

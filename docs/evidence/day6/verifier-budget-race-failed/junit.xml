@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="44" time="799.166" timestamp="2026-09-29T20:28:22.704725+07:00" hostname="MeoMeo-2.local"><testcase classname="" name="test_patch_path_escape_and_verifier_rejected[../task.py]" time="0.000" /><testcase classname="" name="test_patch_path_escape_and_verifier_rejected[/tmp/task.py]" time="0.000" /><testcase classname="" name="test_patch_path_escape_and_verifier_rejected[check.py]" time="0.000" /><testcase classname="" name="test_patch_path_escape_and_verifier_rejected[.env]" time="0.000" /><testcase classname="" name="test_patch_path_escape_and_verifier_rejected[scripts/verify.py]" time="0.000" /><testcase classname="" name="test_patch_path_escape_and_verifier_rejected[a/../../task.py]" time="0.000" /><testcase classname="" name="test_symlink_executable_rename_and_binary_patch_rejected[new file mode 120000]" time="0.000" /><testcase classname="" name="test_symlink_executable_rename_and_binary_patch_rejected[new mode 100755]" time="0.000" /><testcase classname="" name="test_symlink_executable_rename_and_binary_patch_rejected[rename to task.py]" time="0.000" /><testcase classname="" name="test_symlink_executable_rename_and_binary_patch_rejected[GIT binary patch]" time="0.000" /><testcase classname="" name="test_symlink_executable_rename_and_binary_patch_rejected[copy from .env]" time="0.000" /><testcase classname="" name="test_second_file_cannot_be_smuggled" time="0.000" /><testcase classname="" name="test_bounded_task_patch_accepted" time="0.000" /><testcase classname="" name="test_failed_ingestion_still_deletes_exact_owned_document" time="0.001" /><testcase classname="" name="test_cleanup_retries_without_deleting_other_documents" time="0.000" /><testcase classname="" name="test_dirty_corpus_is_rejected_without_cleanup" time="0.000" /><testcase classname="" name="test_spoofed_identity_overwritten_and_guards_cannot_be_disabled" time="0.003" /><testcase classname="" name="test_unsupported_generation_rejected[extra0]" time="0.001" /><testcase classname="" name="test_unsupported_generation_rejected[extra1]" time="0.001" /><testcase classname="" name="test_unsupported_generation_rejected[extra2]" time="0.001" /><testcase classname="" name="test_unsupported_generation_rejected[extra3]" time="0.001" /><testcase classname="" name="test_master_key_not_workload" time="0.001" /><testcase classname="" name="test_caller_text_cannot_be_written_as_audit_correlation[raw private text]" time="0.001" /><testcase classname="" name="test_caller_text_cannot_be_written_as_audit_correlation[sk-private-value]" time="0.001" /><testcase classname="" name="test_caller_text_cannot_be_written_as_audit_correlation[parent2]" time="0.001" /><testcase classname="" name="test_caller_text_cannot_be_written_as_audit_correlation[123]" time="0.001" /><testcase classname="" name="test_uuid_correlation_survives_for_request_cost_join" time="0.002" /><testcase classname="" name="test_extra_choices_rejected_before_provider_admission[2]" time="0.002" /><testcase classname="" name="test_extra_choices_rejected_before_provider_admission[0]" time="0.002" /><testcase classname="" name="test_extra_choices_rejected_before_provider_admission[-1]" time="0.002" /><testcase classname="" name="test_extra_choices_rejected_before_provider_admission[True]" time="0.001" /><testcase classname="" name="test_extra_choices_rejected_before_provider_admission[1]" time="0.001" /><testcase classname="" name="test_unexpected_provider_choice_count_never_released[None]" time="0.001" /><testcase classname="" name="test_unexpected_provider_choice_count_never_released[choices1]" time="0.001" /><testcase classname="" name="test_unexpected_provider_choice_count_never_released[choices2]" time="0.001" /><testcase classname="" name="test_single_completion_is_checked_and_returned" time="0.001" /><testcase classname="" name="test_embedding_preserves_operation_contract" time="0.002" /><testcase classname="" name="test_unavailable_guard_aborts_provider_admission" time="0.002" /><testcase classname="" name="test_accounting_outage_blocks_even_cached_valid_key" time="0.001" /><testcase classname="" name="test_rail_failure_is_unavailable_not_policy_denial[blocked-I'm sorry, an internal error has occurred.]" time="0.001" /><testcase classname="" name="test_rail_failure_is_unavailable_not_policy_denial[modified-redacted]" time="0.001" /><testcase classname="" name="test_injection_blocked" time="795.874" /><testcase classname="" name="test_benign_allowed" time="0.001" /><testcase classname="" name="test_budget_enforced" time="0.093"><failure message="AssertionError: {'workload': 'insighthub', 'statuses': [429]}">live_results = [{'answer': '', 'blocked': True, 'case_id': 'gen-001', 'category': 'injection', ...}, {'answer': '', 'blocked': True, ...category': 'injection', ...}, {'answer': '', 'blocked': True, 'case_id': 'gen-006', 'category': 'injection', ...}, ...]
+
+    def test_budget_enforced(live_results):
+        from gateway_tests import budget
+    
+&gt;       rows = budget()
+               ^^^^^^^^
+
+/Users/congdinh/Downloads/work/teaching/Training Programs/07_DevOps_with_AI/07_DevOps_Current_Program/insighthub/tests/milestones/day6/test_live_acceptance.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def budget():
+        results = []
+        for workload in MODELS:
+            key = KEYS[workload]
+            original = info(key)["max_budget"]
+            try:
+                for concurrency in [1, 2, 5]:
+                    before = info(key)["spend"]
+                    cap = before + 0.000001
+                    update(key, cap)
+                    started = time.monotonic()
+                    with ThreadPoolExecutor(max_workers=concurrency) as pool:
+                        responses = list(
+                            pool.map(lambda _: chat(workload), range(concurrency))
+                        )
+                    successful = [r for r in responses if r.status_code == 200]
+&gt;                   assert successful, {
+                           ^^^^^^^^^^
+                        "workload": workload,
+                        "statuses": [r.status_code for r in responses],
+                    }
+E                   AssertionError: {'workload': 'insighthub', 'statuses': [429]}
+
+/Users/congdinh/Downloads/work/teaching/Training Programs/07_DevOps_with_AI/07_DevOps_Current_Program/insighthub/tools/security/day6/gateway_tests.py:177: AssertionError</failure></testcase></testsuite></testsuites>

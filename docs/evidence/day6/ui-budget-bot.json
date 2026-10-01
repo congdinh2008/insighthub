@@ -1,0 +1,8 @@
+{
+  "observed_at": 1790682822.868871,
+  "workload": "bot",
+  "original_cap": 0.5,
+  "spend_before": 0.0009832,
+  "denied_status": 429,
+  "recovered_status": 200
+}

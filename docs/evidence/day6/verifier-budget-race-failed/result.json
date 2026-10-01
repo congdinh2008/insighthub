@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "target": "day6",
+  "status": "FAIL",
+  "scope": "partial-runtime-contract",
+  "runtime_verified": false,
+  "source_sha256": "671f4c3eadd5907342b01db01ff7ebfcce1b1c98fb9d9280518b1256aee2a2d8",
+  "milestone_complete": false,
+  "checks": [
+    {
+      "id": "day6",
+      "status": "FAIL",
+      "runtime_verified": false,
+      "message": "Test runner failed (exit 1): + 0.000001\n                    update(key, cap)\n                    started = time.monotonic()\n                    with ThreadPoolExecutor(max_workers=concurrency) as pool:\n                        responses = list(\n                            pool.map(lambda _: chat(workload), range(concurrency))\n                        )\n                    successful = [r for r in responses if r.status_code == 200]\n>                   assert successful, {\n                           ^^^^^^^^^^\n                        \"workload\": workload,\n                        \"statuses\": [r.status_code for r in responses],\n                    }\nE                   AssertionError: {'workload': 'insighthub', 'statuses': [429]}\n\n/Users/congdinh/Downloads/work/teaching/Training Programs/07_DevOps_with_AI/07_DevOps_Current_Program/insighthub/tools/security/day6/gateway_tests.py:177: AssertionError\n--- generated xml file: /tmp/insighthub-verify-hg_zw0tz/day6/day6-junit.xml ----\n=========================== short test summary info ============================\nFAILED ../../../../dev::test_budget_enforced - AssertionError: {'workload': '...\n=================== 1 failed, 43 passed in 799.17s (0:13:19) ===================\n"
+    }
+  ],
+  "specification_review_required": true,
+  "note": "PASS covers implemented checks only, not all project requirements; use the complete specification and reviewer evidence."
+}

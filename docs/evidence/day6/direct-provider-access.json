@@ -1,0 +1,8 @@
+{
+  "upstream_credentials_absent": true,
+  "canonical_virtual_key": true,
+  "unauthenticated_provider_status": 401,
+  "observed_at": 1790681574.574555,
+  "host": "gateway.theturbo.ai",
+  "network_policy": "No enforced-CNI claim; endpoint is reachable but unauthenticated access is denied"
+}

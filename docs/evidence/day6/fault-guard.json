@@ -1,0 +1,27 @@
+{
+  "fault": "guard",
+  "target": "deployment/day6-guardrails",
+  "observed_at": 1790681934.861612,
+  "original_replicas": 1,
+  "during": {
+    "status": 503,
+    "code": "guardrail_unavailable",
+    "duration_seconds": 0.019026499998290092,
+    "request_id": "e43df5f1-7134-4e8d-9950-1e52d02a4ab7"
+  },
+  "restored_replicas": 1,
+  "recovery_attempts": [
+    {
+      "status": 200,
+      "code": null,
+      "duration_seconds": 9.252964125014842,
+      "request_id": "c064f3f7-81b3-4383-8b3c-91fee1cd02db"
+    }
+  ],
+  "after": {
+    "status": 200,
+    "code": null,
+    "duration_seconds": 9.252964125014842,
+    "request_id": "c064f3f7-81b3-4383-8b3c-91fee1cd02db"
+  }
+}

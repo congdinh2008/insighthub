@@ -1,0 +1,23 @@
+{
+  "observed_at": 1790832417.102741,
+  "checks": {
+    "http://127.0.0.1:18010/readyz": {
+      "statuses": [
+        200,
+        200,
+        200
+      ],
+      "consecutive_ready": 3
+    },
+    "http://127.0.0.1:18011/readyz": {
+      "statuses": [
+        "connection-error",
+        "connection-error",
+        200,
+        200,
+        200
+      ],
+      "consecutive_ready": 3
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "observed_at": 1790684653.0468988,
+  "status": 200,
+  "caller_selected_response_observed": false,
+  "scope": "Negative gateway routing override probe, not a real-model completion",
+  "response": {
+    "id": "chatcmpl-ETRARcHHIqRdMDbJPL7a9E43Mz15v",
+    "created": 1790684651,
+    "model": "coding-chat",
+    "object": "chat.completion",
+    "system_fingerprint": "fp_8957c4f4dd",
+    "choices": [
+      {
+        "finish_reason": "length",
+        "index": 0,
+        "message": {
+          "content": "A **readiness probe** in Kubernetes is a mechanism used to determine if a container within a Pod is ready to accept network traffic. It helps the Kubernetes control plane know when a container is prepared to",
+          "role": "assistant",
+          "provider_specific_fields": {
+            "refusal": null
+          },
+          "annotations": []
+        },
+        "provider_specific_fields": {}
+      }
+    ],
+    "usage": {
+      "completion_tokens": 40,
+      "prompt_tokens": 14,
+      "total_tokens": 54,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 11,
+        "engine_ttft_ms": 60,
+        "engine_ttlt_ms": 508,
+        "pre_inference_ms": 75,
+        "service_tbt_ms": 11,
+        "service_ttft_ms": 386,
+        "service_ttlt_ms": 830,
+        "user_visible_ttft_ms": 311
+      }
+    },
+    "service_tier": "default",
+    "routing": {
+      "serving_pipereplica": "d20260927061522-179374b7-default-r2-dp0-default"
+    }
+  }
+}

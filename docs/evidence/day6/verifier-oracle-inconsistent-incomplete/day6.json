@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "day": 6,
+  "mode": "real",
+  "observed_at": "2026-09-29T14:37:16.415171+00:00",
+  "source_sha256": "5a417727e79c4bc14481304142259f7a2eaf2630c3660feba2e18980dea5c118",
+  "artifacts": {
+    "dataset": {
+      "path": "security/datasets/day6.json",
+      "sha256": "74c9ea50f65255b62c3cb643c347dea0dc02078458c75ae9a54b45995ebf2ef6"
+    },
+    "eval_initial": {
+      "path": "docs/evidence/day6/baseline-single-choice/eval.json",
+      "sha256": "92b69e4b612694a00a8063212be9ce2e37ff9b9ecc192034b30442acec064071"
+    },
+    "eval_final": {
+      "path": "docs/evidence/day6/final/eval.json",
+      "sha256": "35e92f0f2dda3a17d984e14da49da275be37a3127e6faf9d44a279791f71f737"
+    },
+    "cost": {
+      "path": "docs/evidence/day6/final/cost.json",
+      "sha256": "a25bbede9c15ccbcaa1dee971ee6adcbbca4659d5a84230853d3c115ca8764dd"
+    }
+  }
+}

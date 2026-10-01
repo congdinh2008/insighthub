@@ -1,0 +1,50 @@
+{
+  "observed_at": 1790836554.269142,
+  "browser": "Microsoft Edge",
+  "source_commit": "a9eab4d",
+  "method": "Computer Use real browser interactions; no model calls after final cost snapshot",
+  "app_url": "http://127.0.0.1:13000/",
+  "checks": {
+    "unsupported_external_communication": "policy blocked",
+    "benign_scope_recovery": "answer explicitly local; AWS not verified",
+    "file_chooser_upload": "pending 0 chunks -> ready 1 chunk",
+    "grounded_answer": "DAY6_LOCAL_FINAL_20261001 with citation to uploaded file",
+    "provenance": "exact DB document/chunk/fixture hashes in edge-final-upload.json",
+    "cleanup": "owned document401 deleted204; only day6-guide.md remains after reload"
+  },
+  "grafana": {
+    "uid": "insighthub-day6-finops",
+    "rendered_panel_titles": [
+      "LLM total cost",
+      "LLM Cost rate USD/hour",
+      "Cost by workload",
+      "Remaining key budget",
+      "PostgreSQL key spend",
+      "Tokens by model and workload",
+      "Policy denials",
+      "Budget denials",
+      "Completions",
+      "Upstream errors",
+      "Unknown cost events",
+      "Accounting endpoint available",
+      "Provider call latency p95",
+      "Cost per completed call",
+      "Accounting reconciliation delta"
+    ],
+    "visible_total_usd_rounded": 1.23,
+    "accounting_available": 1,
+    "screenshots": [
+      "grafana-cost-final.png",
+      "grafana-panels-middle-final.png",
+      "grafana-panels-final.png"
+    ],
+    "recovery": "A transient local NodeNotReady interrupted accounting and left the browser tunnel stale; exact Grafana forward reconnected. Bottom panels show accounting=1 after reload. Earlier outage screenshot retained."
+  },
+  "app_screenshots": [
+    "edge-capability-final.png",
+    "edge-scope-recovery-final.png",
+    "edge-upload-chat-final.png"
+  ],
+  "html_report_ui": "BLOCKED by browser file URL policy; not counted PASS",
+  "optional_p7": "OFF"
+}

@@ -1,0 +1,110 @@
+
+> insighthub-readonly-mcp@1.0.0 test
+> node --test test/*.test.mjs
+
+✔ origin parser rejects SSRF, DNS/rebinding, path and credential inputs (1.196292ms)
+✔ configuration is closed by default and fails on misspelled controls (0.607167ms)
+✔ service projects metadata, limits rows, uses only fixed GET routes (17.300125ms)
+✔ readiness 503 is a valid unhealthy observation (3.536166ms)
+✔ Prometheus allows only fixed aggregate queries and drops labels (2.429375ms)
+✔ redirect fails closed without reflecting body (1.242417ms)
+✔ declared body limit fails closed without reflecting body (2.576333ms)
+✔ chunked body limit fails closed without reflecting body (2.252917ms)
+✔ malformed JSON fails closed without reflecting body (2.463833ms)
+✔ wrong content type fails closed without reflecting body (1.170625ms)
+✔ compressed body fails closed without reflecting body (0.952875ms)
+✔ upstream error fails closed without reflecting body (1.040666ms)
+✔ slow headers fails closed without reflecting body (152.093708ms)
+✔ slow body fails closed without reflecting body (150.916833ms)
+✔ malicious metadata and malformed metrics fail instead of leaking (2.62375ms)
+✔ cancellation and maximum four concurrent tool calls are enforced (1.329625ms)
+✔ modern: server allowlist cannot be bypassed through direct tools/call (280.59875ms)
+✔ modern: list bounds and arbitrary PromQL are rejected by server (250.41725ms)
+✔ legacy: server allowlist cannot be bypassed through direct tools/call (132.149916ms)
+✔ legacy: list bounds and arbitrary PromQL are rejected by server (126.218375ms)
+✔ empty allowlist exposes no tools and denies direct invocation (238.908459ms)
+✔ invalid endpoint exits without reflecting a credential on stderr/stdout (110.111542ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1333.810209
+{
+  "passed": true,
+  "backend_mode": "fixture",
+  "live": false,
+  "backend": "fixture-loopback",
+  "node": "v24.16.0",
+  "server": "@modelcontextprotocol/server@2.0.0",
+  "results": [
+    {
+      "client": "@modelcontextprotocol/client@2.0.0",
+      "mode": "modern",
+      "protocol": "2026-07-28",
+      "methods": [
+        "server/discover",
+        "tools/list",
+        "tools/call"
+      ],
+      "calls": [
+        "insighthub_health",
+        "insighthub_list_documents",
+        "prometheus_summary"
+      ],
+      "passed": true
+    },
+    {
+      "client": "@modelcontextprotocol/client@2.0.0",
+      "mode": "legacy",
+      "protocol": "2025-11-25",
+      "methods": [
+        "initialize",
+        "notifications/initialized",
+        "tools/list",
+        "tools/call"
+      ],
+      "calls": [
+        "insighthub_health",
+        "insighthub_list_documents",
+        "prometheus_summary"
+      ],
+      "passed": true
+    },
+    {
+      "client": "@modelcontextprotocol/sdk@1.30.0",
+      "mode": "v1",
+      "protocol": "2025-11-25",
+      "methods": [
+        "initialize",
+        "notifications/initialized",
+        "tools/list",
+        "tools/call"
+      ],
+      "calls": [
+        "insighthub_health",
+        "insighthub_list_documents",
+        "prometheus_summary"
+      ],
+      "passed": true
+    },
+    {
+      "client": "@modelcontextprotocol/client@2.0.0",
+      "mode": "auto",
+      "protocol": "2026-07-28",
+      "methods": [
+        "server/discover",
+        "tools/list",
+        "tools/call"
+      ],
+      "calls": [
+        "insighthub_health",
+        "insighthub_list_documents",
+        "prometheus_summary"
+      ],
+      "passed": true
+    }
+  ]
+}

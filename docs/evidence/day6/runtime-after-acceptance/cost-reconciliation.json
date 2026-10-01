@@ -1,0 +1,214 @@
+{
+  "observed_at": 1790835226.354955,
+  "currency": "USD",
+  "pricing_source": "ZenLayer catalog 2026-09-29, not an invoice",
+  "source_sha256": "c49623b4b2600af16d9e01e01f0b2c1c95afc9e88e30eae03df712fc6593dd8d",
+  "total_ledger_usd": 1.2140485699999994,
+  "keys": {
+    "insighthub": {
+      "native_spend_usd": 0.1384118900000003,
+      "ledger_spend_usd": 0.1384118899999992,
+      "delta_usd": -1.0824674490095276e-15,
+      "max_budget_usd": 1.25,
+      "models": [
+        "app-chat",
+        "app-embedding"
+      ],
+      "expires": "2026-10-06T10:20:14.849000+00:00",
+      "cached_input_tokens": 0,
+      "unknown_completions": 0
+    },
+    "chatops-bot": {
+      "native_spend_usd": 0.0020544,
+      "ledger_spend_usd": 0.0020544,
+      "delta_usd": 0.0,
+      "max_budget_usd": 0.5,
+      "models": [
+        "bot-chat"
+      ],
+      "expires": "2026-10-06T10:20:14.954000+00:00",
+      "cached_input_tokens": 0,
+      "unknown_completions": 0
+    },
+    "coding-workflow": {
+      "native_spend_usd": 0.003932,
+      "ledger_spend_usd": 0.003932000000000001,
+      "delta_usd": 8.673617379884035e-19,
+      "max_budget_usd": 1.0,
+      "models": [
+        "coding-chat"
+      ],
+      "expires": "2026-10-06T10:20:14.976000+00:00",
+      "cached_input_tokens": 5376,
+      "unknown_completions": 0
+    },
+    "guardrail": {
+      "native_spend_usd": 0.3682887999999997,
+      "ledger_spend_usd": 0.3682887999999978,
+      "delta_usd": -1.887379141862766e-15,
+      "max_budget_usd": 1.0,
+      "models": [
+        "guard-classifier"
+      ],
+      "expires": "2026-10-06T10:20:14.994000+00:00",
+      "cached_input_tokens": 5760,
+      "unknown_completions": 0
+    },
+    "evaluator": {
+      "native_spend_usd": 0.7009290800000004,
+      "ledger_spend_usd": 0.7013614800000025,
+      "delta_usd": 0.0004324000000021089,
+      "max_budget_usd": 0.75,
+      "models": [
+        "eval-chat",
+        "app-embedding"
+      ],
+      "expires": "2026-10-06T10:20:15.012000+00:00",
+      "cached_input_tokens": 0,
+      "unknown_completions": 0
+    }
+  },
+  "events": [
+    {
+      "workload": null,
+      "event": "upstream_failure",
+      "count": 171
+    },
+    {
+      "workload": "insighthub",
+      "event": "denied",
+      "count": 203
+    },
+    {
+      "workload": "insighthub",
+      "event": "upstream_failure",
+      "count": 220
+    },
+    {
+      "workload": "guardrail",
+      "event": "admitted",
+      "count": 3665
+    },
+    {
+      "workload": "insighthub",
+      "event": "admitted",
+      "count": 2023
+    },
+    {
+      "workload": "guardrail",
+      "event": "completion",
+      "count": 3663
+    },
+    {
+      "workload": "insighthub",
+      "event": "completion",
+      "count": 2007
+    },
+    {
+      "workload": "evaluator",
+      "event": "admitted",
+      "count": 4159
+    },
+    {
+      "workload": "evaluator",
+      "event": "completion",
+      "count": 4029
+    },
+    {
+      "workload": "coding-workflow",
+      "event": "admitted",
+      "count": 19
+    },
+    {
+      "workload": "coding-workflow",
+      "event": "completion",
+      "count": 19
+    },
+    {
+      "workload": "chatops-bot",
+      "event": "denied",
+      "count": 2
+    },
+    {
+      "workload": "chatops-bot",
+      "event": "upstream_failure",
+      "count": 3
+    },
+    {
+      "workload": "coding-workflow",
+      "event": "denied",
+      "count": 2
+    },
+    {
+      "workload": "coding-workflow",
+      "event": "upstream_failure",
+      "count": 3
+    },
+    {
+      "workload": "chatops-bot",
+      "event": "admitted",
+      "count": 17
+    },
+    {
+      "workload": "chatops-bot",
+      "event": "completion",
+      "count": 17
+    },
+    {
+      "workload": "insighthub",
+      "event": "budget_denied",
+      "count": 38
+    },
+    {
+      "workload": "chatops-bot",
+      "event": "budget_denied",
+      "count": 34
+    },
+    {
+      "workload": "coding-workflow",
+      "event": "budget_denied",
+      "count": 32
+    },
+    {
+      "workload": "insighthub",
+      "event": "request_failed",
+      "count": 221
+    },
+    {
+      "workload": "guardrail",
+      "event": "request_failed",
+      "count": 28
+    },
+    {
+      "workload": "evaluator",
+      "event": "request_failed",
+      "count": 131
+    },
+    {
+      "workload": "unauthenticated",
+      "event": "request_failed",
+      "count": 18
+    },
+    {
+      "workload": "guardrail",
+      "event": "upstream_failure",
+      "count": 3
+    },
+    {
+      "workload": "chatops-bot",
+      "event": "request_failed",
+      "count": 6
+    },
+    {
+      "workload": "coding-workflow",
+      "event": "request_failed",
+      "count": 6
+    },
+    {
+      "workload": "evaluator",
+      "event": "upstream_failure",
+      "count": 130
+    }
+  ],
+  "scope": "All gateway calls since lab bootstrap, including generator, baseline, classifier, ingestion, failed-then-retried coding and output-denied completions. Subscription usage is separate."
+}

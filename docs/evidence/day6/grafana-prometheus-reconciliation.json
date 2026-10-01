@@ -1,0 +1,1138 @@
+{
+  "observed_at": 1790835755.198949,
+  "queries": [
+    {
+      "panel": "LLM total cost",
+      "expression": "sum(day6_llm_spend_usd_total)",
+      "result": [
+        {
+          "metric": {},
+          "value": [
+            1790835755.199,
+            "1.2345556099999997"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "LLM Cost rate USD/hour",
+      "expression": "sum(rate(day6_llm_spend_usd_total[5m])) * 3600",
+      "result": [
+        {
+          "metric": {},
+          "value": [
+            1790835755.199,
+            "0.02159317870802484"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "Cost by workload",
+      "expression": "day6_llm_spend_usd_total",
+      "result": [
+        {
+          "metric": {
+            "__name__": "day6_llm_spend_usd_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "insighthub"
+          },
+          "value": [
+            1790835755.199,
+            "0.14344370999999914"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_spend_usd_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "chatops-bot"
+          },
+          "value": [
+            1790835755.199,
+            "0.0020544"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_spend_usd_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "coding-workflow"
+          },
+          "value": [
+            1790835755.199,
+            "0.003932000000000001"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_spend_usd_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "guardrail"
+          },
+          "value": [
+            1790835755.199,
+            "0.3801227999999977"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_spend_usd_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "evaluator"
+          },
+          "value": [
+            1790835755.199,
+            "0.7050027000000029"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "Remaining key budget",
+      "expression": "clamp_min(day6_key_budget_usd - day6_key_spend_usd, 0)",
+      "result": [
+        {
+          "metric": {
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "insighthub"
+          },
+          "value": [
+            1790835755.199,
+            "1.1065562899999997"
+          ]
+        },
+        {
+          "metric": {
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "chatops-bot"
+          },
+          "value": [
+            1790835755.199,
+            "0.4979456"
+          ]
+        },
+        {
+          "metric": {
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "coding-workflow"
+          },
+          "value": [
+            1790835755.199,
+            "0.996068"
+          ]
+        },
+        {
+          "metric": {
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "guardrail"
+          },
+          "value": [
+            1790835755.199,
+            "0.6198772000000004"
+          ]
+        },
+        {
+          "metric": {
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "evaluator"
+          },
+          "value": [
+            1790835755.199,
+            "0.04542969999999957"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "PostgreSQL key spend",
+      "expression": "day6_key_spend_usd",
+      "result": [
+        {
+          "metric": {
+            "__name__": "day6_key_spend_usd",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "insighthub"
+          },
+          "value": [
+            1790835755.199,
+            "0.1434437100000003"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_key_spend_usd",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "chatops-bot"
+          },
+          "value": [
+            1790835755.199,
+            "0.0020544"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_key_spend_usd",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "coding-workflow"
+          },
+          "value": [
+            1790835755.199,
+            "0.003932"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_key_spend_usd",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "guardrail"
+          },
+          "value": [
+            1790835755.199,
+            "0.3801227999999997"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_key_spend_usd",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "evaluator"
+          },
+          "value": [
+            1790835755.199,
+            "0.7045703000000004"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "Tokens by model and workload",
+      "expression": "day6_llm_tokens_total",
+      "result": [
+        {
+          "metric": {
+            "__name__": "day6_llm_tokens_total",
+            "container": "cost-exporter",
+            "direction": "input",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "model": "gpt-4.1-mini",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "guardrail"
+          },
+          "value": [
+            1790835755.199,
+            "939531"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_tokens_total",
+            "container": "cost-exporter",
+            "direction": "output",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "model": "gpt-4.1-mini",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "guardrail"
+          },
+          "value": [
+            1790835755.199,
+            "3774"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_tokens_total",
+            "container": "cost-exporter",
+            "direction": "input",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "model": "gpt-4.1-mini",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "insighthub"
+          },
+          "value": [
+            1790835755.199,
+            "147957"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_tokens_total",
+            "container": "cost-exporter",
+            "direction": "output",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "model": "gpt-4.1-mini",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "insighthub"
+          },
+          "value": [
+            1790835755.199,
+            "48717"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_tokens_total",
+            "container": "cost-exporter",
+            "direction": "input",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "model": "gpt-4.1-mini",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "evaluator"
+          },
+          "value": [
+            1790835755.199,
+            "950004"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_tokens_total",
+            "container": "cost-exporter",
+            "direction": "output",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "model": "gpt-4.1-mini",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "evaluator"
+          },
+          "value": [
+            1790835755.199,
+            "200260"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_tokens_total",
+            "container": "cost-exporter",
+            "direction": "input",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "model": "text-embedding-3-large",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "insighthub"
+          },
+          "value": [
+            1790835755.199,
+            "48567"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_tokens_total",
+            "container": "cost-exporter",
+            "direction": "output",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "model": "text-embedding-3-large",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "insighthub"
+          },
+          "value": [
+            1790835755.199,
+            "0"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_tokens_total",
+            "container": "cost-exporter",
+            "direction": "input",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "model": "text-embedding-3-large",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "evaluator"
+          },
+          "value": [
+            1790835755.199,
+            "35270"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_tokens_total",
+            "container": "cost-exporter",
+            "direction": "output",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "model": "text-embedding-3-large",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "evaluator"
+          },
+          "value": [
+            1790835755.199,
+            "0"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_tokens_total",
+            "container": "cost-exporter",
+            "direction": "input",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "model": "gpt-4.1-mini",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "coding-workflow"
+          },
+          "value": [
+            1790835755.199,
+            "8318"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_tokens_total",
+            "container": "cost-exporter",
+            "direction": "output",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "model": "gpt-4.1-mini",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "coding-workflow"
+          },
+          "value": [
+            1790835755.199,
+            "1386"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_tokens_total",
+            "container": "cost-exporter",
+            "direction": "input",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "model": "gpt-4.1-mini",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "chatops-bot"
+          },
+          "value": [
+            1790835755.199,
+            "720"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_tokens_total",
+            "container": "cost-exporter",
+            "direction": "output",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "model": "gpt-4.1-mini",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "chatops-bot"
+          },
+          "value": [
+            1790835755.199,
+            "1104"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "Policy denials",
+      "expression": "sum by (workload) (day6_gateway_events_total{event=\"denied\"})",
+      "result": [
+        {
+          "metric": {
+            "workload": "insighthub"
+          },
+          "value": [
+            1790835755.199,
+            "203"
+          ]
+        },
+        {
+          "metric": {
+            "workload": "chatops-bot"
+          },
+          "value": [
+            1790835755.199,
+            "2"
+          ]
+        },
+        {
+          "metric": {
+            "workload": "coding-workflow"
+          },
+          "value": [
+            1790835755.199,
+            "2"
+          ]
+        },
+        {
+          "metric": {
+            "workload": "guardrail"
+          },
+          "value": [
+            1790835755.199,
+            "0"
+          ]
+        },
+        {
+          "metric": {
+            "workload": "evaluator"
+          },
+          "value": [
+            1790835755.199,
+            "0"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "Budget denials",
+      "expression": "sum by (workload) (day6_gateway_events_total{event=\"budget_denied\"})",
+      "result": [
+        {
+          "metric": {
+            "workload": "insighthub"
+          },
+          "value": [
+            1790835755.199,
+            "38"
+          ]
+        },
+        {
+          "metric": {
+            "workload": "chatops-bot"
+          },
+          "value": [
+            1790835755.199,
+            "34"
+          ]
+        },
+        {
+          "metric": {
+            "workload": "coding-workflow"
+          },
+          "value": [
+            1790835755.199,
+            "32"
+          ]
+        },
+        {
+          "metric": {
+            "workload": "guardrail"
+          },
+          "value": [
+            1790835755.199,
+            "0"
+          ]
+        },
+        {
+          "metric": {
+            "workload": "evaluator"
+          },
+          "value": [
+            1790835755.199,
+            "0"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "Completions",
+      "expression": "day6_gateway_events_total{event=\"completion\"}",
+      "result": [
+        {
+          "metric": {
+            "__name__": "day6_gateway_events_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "event": "completion",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "insighthub"
+          },
+          "value": [
+            1790835755.199,
+            "2052"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_gateway_events_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "event": "completion",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "chatops-bot"
+          },
+          "value": [
+            1790835755.199,
+            "17"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_gateway_events_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "event": "completion",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "coding-workflow"
+          },
+          "value": [
+            1790835755.199,
+            "19"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_gateway_events_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "event": "completion",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "guardrail"
+          },
+          "value": [
+            1790835755.199,
+            "3774"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_gateway_events_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "event": "completion",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "evaluator"
+          },
+          "value": [
+            1790835755.199,
+            "4069"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "Upstream errors",
+      "expression": "day6_gateway_events_total{event=\"upstream_failure\"}",
+      "result": [
+        {
+          "metric": {
+            "__name__": "day6_gateway_events_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "event": "upstream_failure",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "insighthub"
+          },
+          "value": [
+            1790835755.199,
+            "220"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_gateway_events_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "event": "upstream_failure",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "chatops-bot"
+          },
+          "value": [
+            1790835755.199,
+            "3"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_gateway_events_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "event": "upstream_failure",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "coding-workflow"
+          },
+          "value": [
+            1790835755.199,
+            "3"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_gateway_events_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "event": "upstream_failure",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "guardrail"
+          },
+          "value": [
+            1790835755.199,
+            "3"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_gateway_events_total",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "event": "upstream_failure",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "evaluator"
+          },
+          "value": [
+            1790835755.199,
+            "130"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "Unknown cost events",
+      "expression": "sum(day6_llm_unknown_cost_total)",
+      "result": [
+        {
+          "metric": {},
+          "value": [
+            1790835755.199,
+            "0"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "Accounting endpoint available",
+      "expression": "day6_accounting_available",
+      "result": [
+        {
+          "metric": {
+            "__name__": "day6_accounting_available",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost"
+          },
+          "value": [
+            1790835755.199,
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "Provider call latency p95",
+      "expression": "day6_llm_latency_seconds{quantile=\"0.95\"}",
+      "result": [
+        {
+          "metric": {
+            "__name__": "day6_llm_latency_seconds",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "quantile": "0.95",
+            "service": "day6-cost",
+            "workload": "guardrail"
+          },
+          "value": [
+            1790835755.199,
+            "2.261234"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_latency_seconds",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "quantile": "0.95",
+            "service": "day6-cost",
+            "workload": "insighthub"
+          },
+          "value": [
+            1790835755.199,
+            "3.213511"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_latency_seconds",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "quantile": "0.95",
+            "service": "day6-cost",
+            "workload": "evaluator"
+          },
+          "value": [
+            1790835755.199,
+            "3.584759"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_latency_seconds",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "quantile": "0.95",
+            "service": "day6-cost",
+            "workload": "coding-workflow"
+          },
+          "value": [
+            1790835755.199,
+            "3.987877"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "day6_llm_latency_seconds",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "quantile": "0.95",
+            "service": "day6-cost",
+            "workload": "chatops-bot"
+          },
+          "value": [
+            1790835755.199,
+            "2.450619"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "Cost per completed call",
+      "expression": "day6_llm_spend_usd_total / on(workload) day6_gateway_events_total{event=\"completion\"}",
+      "result": [
+        {
+          "metric": {
+            "workload": "insighthub"
+          },
+          "value": [
+            1790835755.199,
+            "0.00006990434210526274"
+          ]
+        },
+        {
+          "metric": {
+            "workload": "chatops-bot"
+          },
+          "value": [
+            1790835755.199,
+            "0.00012084705882352941"
+          ]
+        },
+        {
+          "metric": {
+            "workload": "coding-workflow"
+          },
+          "value": [
+            1790835755.199,
+            "0.00020694736842105267"
+          ]
+        },
+        {
+          "metric": {
+            "workload": "guardrail"
+          },
+          "value": [
+            1790835755.199,
+            "0.0001007214626391091"
+          ]
+        },
+        {
+          "metric": {
+            "workload": "evaluator"
+          },
+          "value": [
+            1790835755.199,
+            "0.00017326190710248288"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "Accounting reconciliation delta",
+      "expression": "day6_llm_spend_usd_total - day6_key_spend_usd",
+      "result": [
+        {
+          "metric": {
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "insighthub"
+          },
+          "value": [
+            1790835755.199,
+            "-1.1657341758564144e-15"
+          ]
+        },
+        {
+          "metric": {
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "chatops-bot"
+          },
+          "value": [
+            1790835755.199,
+            "0"
+          ]
+        },
+        {
+          "metric": {
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "coding-workflow"
+          },
+          "value": [
+            1790835755.199,
+            "8.673617379884035e-19"
+          ]
+        },
+        {
+          "metric": {
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "guardrail"
+          },
+          "value": [
+            1790835755.199,
+            "-1.9984014443252818e-15"
+          ]
+        },
+        {
+          "metric": {
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.16:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7d585488b8-bblsl",
+            "service": "day6-cost",
+            "workload": "evaluator"
+          },
+          "value": [
+            1790835755.199,
+            "0.00043240000000244194"
+          ]
+        }
+      ]
+    }
+  ],
+  "total_prometheus_usd": 1.2345556099999997,
+  "total_ledger_usd": 1.2345556099999997,
+  "delta_usd": 0.0,
+  "snapshot_has_all_panels": true,
+  "all_panels_have_series": true
+}

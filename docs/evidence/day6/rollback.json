@@ -1,0 +1,78 @@
+{
+  "observed_at": 1790683694.4711318,
+  "rollback_status": "PASS",
+  "old_runtime": [
+    {
+      "deployment": "insighthub-api",
+      "image": "insighthub-api:day4",
+      "envFrom": [
+        {
+          "configMapRef": {
+            "name": "insighthub-config"
+          }
+        },
+        {
+          "secretRef": {
+            "name": "insighthub-runtime"
+          }
+        }
+      ],
+      "ready": 1
+    },
+    {
+      "deployment": "insighthub-ingestion-worker",
+      "image": "insighthub-worker:day4",
+      "envFrom": [
+        {
+          "configMapRef": {
+            "name": "insighthub-config"
+          }
+        },
+        {
+          "secretRef": {
+            "name": "insighthub-runtime"
+          }
+        }
+      ],
+      "ready": 1
+    }
+  ],
+  "reapply_status": "PASS",
+  "reapplied_at": 1790683889.490459,
+  "day6_runtime": [
+    {
+      "deployment": "insighthub-api",
+      "image": "insighthub-api:day6",
+      "envFrom": [
+        {
+          "configMapRef": {
+            "name": "insighthub-config"
+          }
+        },
+        {
+          "secretRef": {
+            "name": "day6-app-runtime"
+          }
+        }
+      ],
+      "ready": 1
+    },
+    {
+      "deployment": "insighthub-ingestion-worker",
+      "image": "insighthub-worker:day6",
+      "envFrom": [
+        {
+          "configMapRef": {
+            "name": "insighthub-config"
+          }
+        },
+        {
+          "secretRef": {
+            "name": "day6-app-runtime"
+          }
+        }
+      ],
+      "ready": 1
+    }
+  ]
+}

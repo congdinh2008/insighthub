@@ -1,0 +1,11 @@
+{
+  "observed_at": 1790684878.138897,
+  "status": 401,
+  "provider_connection_error": false,
+  "closed_local_port_verified": true,
+  "scope": "Negative api_base-only override to verified closed gateway-loopback port; no destination listener or secret recipient",
+  "error_type": "auth_error",
+  "error_code": "401",
+  "safe_message": "Authentication Error, Rejected Request: api_base is not allowed in request body. Clientside passthrough requires explicit admin opt-in via either `general_settings.allow_client_side_credentials = true` (proxy-wide) or `configurable_clientside_auth_params` on the deployment in your proxy config.yaml. Relevant Issue: https://huntr.com/bounties/4001e1a2-7b7a-4776-a3ae-e6692ec3d997",
+  "verified_native_deny": true
+}

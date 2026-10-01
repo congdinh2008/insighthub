@@ -32,13 +32,11 @@ Giữ terminal forward chạy. Tại terminal khác:
 tmp/day6/venv/bin/python tools/security/day6/bootstrap.py
 tmp/day6/venv/bin/python tools/security/day6/switch_app.py
 tmp/day6/venv/bin/python tools/security/day6/observability.py
-kubectl --context kind-insighthub-local -n insighthub-dev port-forward --address 127.0.0.1 svc/insighthub-web 13000:3000
-kubectl --context kind-insighthub-local -n monitoring port-forward --address 127.0.0.1 svc/kube-prom-stack-grafana 13001:80
 ```
 
 `switch_app.py` backup original runtime Secret/Helm values, kiểm pending documents và queue cũ, đổi API/worker cùng nhau. Endpoint/embedding revision mới sử dụng DB và queue Day06 riêng. Không thay identity trên index cũ. Baseline có `security_enabled=false`, restricted evaluator key và không có Service public; chỉ chạy với dữ liệu synthetic.
 
-Endpoints: web `http://127.0.0.1:13000`, API `:18010`, baseline `:18011`, gateway `:14010`, guard `:18083`, exporter `:19091`, Grafana `:13001/d/insighthub-day6-finops`. Sau rollout, port-forward cũ có thể đứt ở request đầu; supervisor nối lại. Prewarm health và xác nhận ready trước khi chạy đo.
+Endpoints: web `http://127.0.0.1:13000`, API `:18010`, baseline `:18011`, gateway `:14010`, guard `:18083`, exporter `:19091`, Grafana `:13001/d/insighthub-day6-finops`. Sau rollout, port-forward cũ có thể đứt ở request đầu; supervisor nối lại. Prewarm `/readyz` và yêu cầu HTTP200 liên tiếp trước khi chạy đo. Endpoint `/health` không tồn tại. Bước preflight phải trả nonzero để chặn toàn bộ chain khi readiness không đạt; không đặt scan sau một lệnh preflight có thể fail mà shell vẫn tiếp tục.
 
 ## Chạy kiểm thử
 
@@ -52,6 +50,8 @@ tmp/day6/venv/bin/python tools/security/day6/direct_access.py
 tmp/day6/venv/bin/python tools/security/day6/judge_validation.py
 ```
 
+Budget probes chờ native spend ổn định 12 giây trước mỗi cap nhỏ, rồi kiểm đủ chi phí của tất cả completion thành công đã persist trước khi thử automatic denial. Không chạy model traffic khác trong cửa sổ đo; không refresh key cache để ép kết quả.
+
 Đọc `--help` của coding/fault scripts trước khi chạy. Fault harness chỉ scale target đã hard-code thuộc lab và restore trong `finally`. Không chạy fault cùng lúc với full scan. `ui_budget.py insighthub|bot` hạ cap riêng key trong 45 giây rồi khôi phục, dành cho thao tác Edge/Slack.
 
 Dataset `security/datasets/day6.json` có 164 cases: 120 generated native, 24 RAG local reviewed, 20 benign. `generated.yaml` giữ nguyên cấu hình lịch sử của lượt generate, kể cả port bootstrap cũ. Config chạy frozen nằm trong `frozen-eval.yaml`. Không regenerate dataset giữa initial/final. Xem [coverage](../../security/coverage.md) và [findings](../../security/findings.md) về oracle v1/v2.
@@ -59,19 +59,22 @@ Dataset `security/datasets/day6.json` có 164 cases: 120 generated native, 24 RA
 Để nghiệm thu: hoàn tất code/format/test trước; giữ source nguyên trạng suốt baseline replay, final và verifier. `scan.py` từ chối overwrite và từ chối source/dataset thay đổi giữa lượt. Chạy baseline trước final:
 
 ```sh
+DAY6_REPLAY_LABEL="replay-$(date -u +%Y%m%dT%H%M%SZ)"
 kubectl --context kind-insighthub-local -n insighthub-dev scale deployment/day6-baseline-api --replicas=1
 kubectl --context kind-insighthub-local -n insighthub-dev rollout status deployment/day6-baseline-api
-make day6-baseline
+tmp/day6/venv/bin/python tools/security/day6/scan.py initial --label "$DAY6_REPLAY_LABEL-baseline"
 kubectl --context kind-insighthub-local -n insighthub-dev scale deployment/day6-baseline-api --replicas=0
-make day6-scan
+tmp/day6/venv/bin/python tools/security/day6/scan.py final --label "$DAY6_REPLAY_LABEL-final"
 ```
+
+Các target Makefile dùng tên folder cố định và sẽ từ chối khi evidence đã có; không xóa hoặc ghi đè reports để chạy lại. Khi baseline lỗi, vẫn scale baseline về0 trước khi điều tra. Preflight chỉ chấp nhận corpus có một guide synthetic ready và yêu cầu chat model thật trả đúng fact PostgreSQL kèm sources trên từng endpoint trước khi tạo run. Key hết hạn, budget deny hoặc model path lỗi sẽ dừng scan trước bulk evaluation. Nếu có orphan, đối chiếu exact document ID, filename, content SHA và thời điểm trong manifest của lượt trước; cleanup qua API đúng IDs đó. Không xóa documents chỉ dựa vào prefix filename. Harness lưu ID ngay sau202 và retry cleanup có giới hạn; `orphaned-documents.jsonl` ghi các ID cần xử lý khi cleanup không thành công.
 
 Reports trong `docs/evidence/day6/<label>/`. Baseline replay cùng final source không thay thế initial trước fixes. Dataset không đổi; policy profile khác nhau được ghi rõ. LLM judge chỉ nhận synthetic question/answer/public contexts, không nhận application internal prompt. Cùng họ model nên đây là đánh giá có giới hạn, không phải chứng nhận bảo mật độc lập.
 
 Verifier cần `day6.json` với `mode=real`, source/dataset fingerprints và artifacts `dataset`, `eval_initial`, `eval_final`, `cost`; đường dẫn artifacts là repository-relative. Sau khi tạo envelope theo verification contract:
 
 ```sh
-INSIGHTHUB_API_URL=http://127.0.0.1:18010 tmp/day6/venv/bin/python scripts/verify.py day6 --evidence-dir docs/evidence/day6/verifier --test-timeout 2400 --json
+tmp/day6/venv/bin/python scripts/verify.py day6 --api-url http://127.0.0.1:18010 --evidence-dir docs/evidence/day6/verifier --test-timeout 2400 --json
 ```
 
 Verifier chạy mới toàn bộ 164 cases cùng budget probes, không copy observations cũ. PASS chỉ bao phủ contract tự động; vẫn cần MH review, UI và FinOps evidence.
@@ -89,7 +92,7 @@ make day6-evidence
 python3 tools/security/day6/secret_scan.py docs/evidence/day6
 ```
 
-Budget keys: app 1.50 USD, bot 0.50, coding 1.00, guard 1.00, evaluator 0.50; TTL 7 ngày. Lab tự ngừng admission ở tổng native spend 4 USD để giữ reserve trong envelope 5 USD. Caps là soft do accounting asynchronous/in-flight; đọc measured overshoot, không tuyên bố hard limit tuyệt đối.
+Budget keys: app 1.50 USD, bot 0.50, coding 1.00, guard 1.00, evaluator 0.50; TTL 7 ngày. Lab tự ngừng admission ở tổng native spend 4 USD để giữ reserve trong envelope 5 USD. Trong lượt acceptance hiện tại, 0.25 USD reserve được chuyển từ app sang evaluator: app 1.25/evaluator 0.75, tổng caps vẫn 4.50 USD; xem `budget-reallocation.json`. Caps là soft do accounting asynchronous/in-flight; đọc measured overshoot, không tuyên bố hard limit tuyệt đối.
 
 Ledger fsync vào PVC, chỉ metadata allowlist; exporter đối soát native PostgreSQL spend. Catalog estimate phân biệt invoice. Chi phí toàn lab gồm generation, embeddings, guard, generator/judge, retries và paid output bị chặn. Cost/success của report semantic khác cost/completed-call trên dashboard. Không dùng latency để suy cache hit; chỉ dùng usage cache tokens thật.
 
@@ -108,3 +111,5 @@ Script dùng saved values, giữ cả PVC cũ và Day06. Để bật lại, ch�
 Dừng lab mà giữ dữ liệu: dừng bot worker/HTTP và cloudflared đúng process của lab; Ctrl-C forwards; scale baseline/gateway/guardrails về 0 khi không demo. Không dừng workload chia sẻ khi task khác đang dùng. Không xóa PVC/secrets/keys cho đến khi export evidence và xác nhận không còn consumer. Key hết hạn sau 7 ngày; reprovision cần cập nhật cả app/bot/classifier/coding consumers. Không xóa volumes hoặc `docker prune`.
 
 CI boundary tests chạy trên PR/push. Live CI Compose chỉ bật khi protected environment `day6-model-evaluation` có reviewer, secret `DAY6_ZENLAYER_API_KEY`, variable `DAY6_ZENLAYER_BASE_URL` và `DAY6_LIVE_ENABLED=true`. Fork không nhận secrets. Chưa provision credentials thì live job skipped, không được báo nightly/live CI PASS.
+
+Evaluator transport chỉ retry tối đa một lần cho timeout/network/HTTP5xx, giữ nguyên payload và ghi `judge-transport.jsonl` metadata. Không retry HTTP4xx/budget, response200 malformed hoặc verdict hợp lệ dù FAIL. Rubric, dataset và verifier assertions không thay đổi. Lỗi app/guard vẫn là lỗi thực thi, không được tính policy PASS.

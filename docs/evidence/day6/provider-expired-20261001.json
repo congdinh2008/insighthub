@@ -1,0 +1,11 @@
+{
+  "observed_at": 1790829014.5348392,
+  "upstream_status": 401,
+  "error_type": "authentication_error",
+  "reason": "Expired upstream API key",
+  "provider_expiry_utc": "2026-09-30T09:49:10Z",
+  "application_status": 503,
+  "internal_virtual_keys_expire_utc": "2026-10-06T10:20Z",
+  "status": "BLOCKED_PENDING_UPSTREAM_CREDENTIAL",
+  "credentials_included": false
+}

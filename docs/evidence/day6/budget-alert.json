@@ -1,0 +1,413 @@
+{
+  "observed_at": 1790683645.742861,
+  "status": "PASS",
+  "workload": "coding-workflow",
+  "original_cap": 1.0,
+  "test_cap": 0.0018065882352941178,
+  "restored_cap": 1.0,
+  "samples": [
+    {
+      "observed_at": 1790683510.367927,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683515.375783,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683520.386047,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683525.406705,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683530.420942,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683535.434946,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683540.4459321,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683545.458034,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683550.472327,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683555.484985,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683560.499279,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683565.510447,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683570.5255601,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683575.5326872,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683580.547612,
+      "alerts": []
+    },
+    {
+      "observed_at": 1790683585.556457,
+      "alerts": [
+        {
+          "labels": {
+            "alertname": "Day6KeyBudgetNearLimit",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.43:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7bf9bf7c7d-7wqk4",
+            "scope": "day6-local",
+            "service": "day6-cost",
+            "severity": "warning",
+            "workload": "coding-workflow"
+          },
+          "annotations": {
+            "summary": "Day06 workload is at or above 80% of its measured key budget"
+          },
+          "state": "pending",
+          "activeAt": "2026-09-29T12:06:22.006081879Z",
+          "value": "8.499999999999999e-01"
+        }
+      ]
+    },
+    {
+      "observed_at": 1790683590.568531,
+      "alerts": [
+        {
+          "labels": {
+            "alertname": "Day6KeyBudgetNearLimit",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.43:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7bf9bf7c7d-7wqk4",
+            "scope": "day6-local",
+            "service": "day6-cost",
+            "severity": "warning",
+            "workload": "coding-workflow"
+          },
+          "annotations": {
+            "summary": "Day06 workload is at or above 80% of its measured key budget"
+          },
+          "state": "pending",
+          "activeAt": "2026-09-29T12:06:22.006081879Z",
+          "value": "8.499999999999999e-01"
+        }
+      ]
+    },
+    {
+      "observed_at": 1790683595.5927749,
+      "alerts": [
+        {
+          "labels": {
+            "alertname": "Day6KeyBudgetNearLimit",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.43:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7bf9bf7c7d-7wqk4",
+            "scope": "day6-local",
+            "service": "day6-cost",
+            "severity": "warning",
+            "workload": "coding-workflow"
+          },
+          "annotations": {
+            "summary": "Day06 workload is at or above 80% of its measured key budget"
+          },
+          "state": "pending",
+          "activeAt": "2026-09-29T12:06:22.006081879Z",
+          "value": "8.499999999999999e-01"
+        }
+      ]
+    },
+    {
+      "observed_at": 1790683600.604827,
+      "alerts": [
+        {
+          "labels": {
+            "alertname": "Day6KeyBudgetNearLimit",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.43:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7bf9bf7c7d-7wqk4",
+            "scope": "day6-local",
+            "service": "day6-cost",
+            "severity": "warning",
+            "workload": "coding-workflow"
+          },
+          "annotations": {
+            "summary": "Day06 workload is at or above 80% of its measured key budget"
+          },
+          "state": "pending",
+          "activeAt": "2026-09-29T12:06:22.006081879Z",
+          "value": "8.499999999999999e-01"
+        }
+      ]
+    },
+    {
+      "observed_at": 1790683605.6177049,
+      "alerts": [
+        {
+          "labels": {
+            "alertname": "Day6KeyBudgetNearLimit",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.43:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7bf9bf7c7d-7wqk4",
+            "scope": "day6-local",
+            "service": "day6-cost",
+            "severity": "warning",
+            "workload": "coding-workflow"
+          },
+          "annotations": {
+            "summary": "Day06 workload is at or above 80% of its measured key budget"
+          },
+          "state": "pending",
+          "activeAt": "2026-09-29T12:06:22.006081879Z",
+          "value": "8.499999999999999e-01"
+        }
+      ]
+    },
+    {
+      "observed_at": 1790683610.632064,
+      "alerts": [
+        {
+          "labels": {
+            "alertname": "Day6KeyBudgetNearLimit",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.43:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7bf9bf7c7d-7wqk4",
+            "scope": "day6-local",
+            "service": "day6-cost",
+            "severity": "warning",
+            "workload": "coding-workflow"
+          },
+          "annotations": {
+            "summary": "Day06 workload is at or above 80% of its measured key budget"
+          },
+          "state": "pending",
+          "activeAt": "2026-09-29T12:06:22.006081879Z",
+          "value": "8.499999999999999e-01"
+        }
+      ]
+    },
+    {
+      "observed_at": 1790683615.643899,
+      "alerts": [
+        {
+          "labels": {
+            "alertname": "Day6KeyBudgetNearLimit",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.43:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7bf9bf7c7d-7wqk4",
+            "scope": "day6-local",
+            "service": "day6-cost",
+            "severity": "warning",
+            "workload": "coding-workflow"
+          },
+          "annotations": {
+            "summary": "Day06 workload is at or above 80% of its measured key budget"
+          },
+          "state": "firing",
+          "activeAt": "2026-09-29T12:06:22.006081879Z",
+          "value": "8.499999999999999e-01"
+        }
+      ]
+    },
+    {
+      "observed_at": 1790683615.6720839,
+      "alerts": [
+        {
+          "labels": {
+            "alertname": "Day6KeyBudgetNearLimit",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.43:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7bf9bf7c7d-7wqk4",
+            "scope": "day6-local",
+            "service": "day6-cost",
+            "severity": "warning",
+            "workload": "coding-workflow"
+          },
+          "annotations": {
+            "summary": "Day06 workload is at or above 80% of its measured key budget"
+          },
+          "state": "firing",
+          "activeAt": "2026-09-29T12:06:22.006081879Z",
+          "value": "8.499999999999999e-01"
+        }
+      ]
+    },
+    {
+      "observed_at": 1790683620.682444,
+      "alerts": [
+        {
+          "labels": {
+            "alertname": "Day6KeyBudgetNearLimit",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.43:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7bf9bf7c7d-7wqk4",
+            "scope": "day6-local",
+            "service": "day6-cost",
+            "severity": "warning",
+            "workload": "coding-workflow"
+          },
+          "annotations": {
+            "summary": "Day06 workload is at or above 80% of its measured key budget"
+          },
+          "state": "firing",
+          "activeAt": "2026-09-29T12:06:22.006081879Z",
+          "value": "8.499999999999999e-01"
+        }
+      ]
+    },
+    {
+      "observed_at": 1790683625.689575,
+      "alerts": [
+        {
+          "labels": {
+            "alertname": "Day6KeyBudgetNearLimit",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.43:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7bf9bf7c7d-7wqk4",
+            "scope": "day6-local",
+            "service": "day6-cost",
+            "severity": "warning",
+            "workload": "coding-workflow"
+          },
+          "annotations": {
+            "summary": "Day06 workload is at or above 80% of its measured key budget"
+          },
+          "state": "firing",
+          "activeAt": "2026-09-29T12:06:22.006081879Z",
+          "value": "8.499999999999999e-01"
+        }
+      ]
+    },
+    {
+      "observed_at": 1790683630.701131,
+      "alerts": [
+        {
+          "labels": {
+            "alertname": "Day6KeyBudgetNearLimit",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.43:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7bf9bf7c7d-7wqk4",
+            "scope": "day6-local",
+            "service": "day6-cost",
+            "severity": "warning",
+            "workload": "coding-workflow"
+          },
+          "annotations": {
+            "summary": "Day06 workload is at or above 80% of its measured key budget"
+          },
+          "state": "firing",
+          "activeAt": "2026-09-29T12:06:22.006081879Z",
+          "value": "8.499999999999999e-01"
+        }
+      ]
+    },
+    {
+      "observed_at": 1790683635.710779,
+      "alerts": [
+        {
+          "labels": {
+            "alertname": "Day6KeyBudgetNearLimit",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.43:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7bf9bf7c7d-7wqk4",
+            "scope": "day6-local",
+            "service": "day6-cost",
+            "severity": "warning",
+            "workload": "coding-workflow"
+          },
+          "annotations": {
+            "summary": "Day06 workload is at or above 80% of its measured key budget"
+          },
+          "state": "firing",
+          "activeAt": "2026-09-29T12:06:22.006081879Z",
+          "value": "8.499999999999999e-01"
+        }
+      ]
+    },
+    {
+      "observed_at": 1790683640.72166,
+      "alerts": [
+        {
+          "labels": {
+            "alertname": "Day6KeyBudgetNearLimit",
+            "container": "cost-exporter",
+            "endpoint": "metrics",
+            "instance": "10.244.1.43:9091",
+            "job": "day6-cost",
+            "namespace": "insighthub-dev",
+            "pod": "day6-gateway-7bf9bf7c7d-7wqk4",
+            "scope": "day6-local",
+            "service": "day6-cost",
+            "severity": "warning",
+            "workload": "coding-workflow"
+          },
+          "annotations": {
+            "summary": "Day06 workload is at or above 80% of its measured key budget"
+          },
+          "state": "firing",
+          "activeAt": "2026-09-29T12:06:22.006081879Z",
+          "value": "8.499999999999999e-01"
+        }
+      ]
+    },
+    {
+      "observed_at": 1790683645.742827,
+      "alerts": []
+    }
+  ],
+  "notification_delivery": "Not requested; rule firing/resolved only"
+}

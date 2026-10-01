@@ -1,0 +1,29 @@
+{
+  "native_evaluator_rows": 4068,
+  "ledger_evaluator_completions_at_snapshot": 4069,
+  "unmatched_ledger_completions": [
+    {
+      "timestamp": 1790698949.104877,
+      "event": "completion",
+      "request_id": "4e9c2a2d-ea9d-4c37-a5e5-d0b6a9a69867",
+      "provider_request_id": "chatcmpl-ETUszXWBhEm7sPVSDUeW5qSgpAJJ7",
+      "run_id": "day6-local",
+      "parent_request_id": "b91cdad6-aa24-4fed-8520-8b82b533a5a1",
+      "workload": "evaluator",
+      "model": "gpt-4.1-mini",
+      "provider": "openai",
+      "input_tokens": 273,
+      "output_tokens": 202,
+      "cached_tokens": 0,
+      "cost_usd": 0.0004324,
+      "duration_seconds": 3.409908
+    }
+  ],
+  "cost_mismatches": [],
+  "unmatched_ledger_cost_usd": 0.0004324,
+  "ledger_total_usd": 0.7050027,
+  "native_spendlogs_total_usd": 0.7045703,
+  "embedding_ledger_cost_usd": 0.0045851,
+  "embedding_native_cost_usd": 0.0045851,
+  "method": "Join chat provider_request_id to native SpendLogs.request_id. Embedding responses have no provider ID, so compare their aggregate cost separately. Native rows are bounded by the ledger snapshot timestamp. No prompts, credentials or private account fields exported."
+}

@@ -1,0 +1,7 @@
+tmp/day6/venv/bin/python -m pytest tests/milestones/day6 --ignore=tests/milestones/day6/test_live_acceptance.py -q -p no:cacheprovider
+.........................................                                [100%]
+41 passed in 2.82s
+tmp/day6/venv/bin/python -m ruff check gateway security/guardrails tools/security/day6 tools/coding/day6 tests/milestones/day6
+All checks passed!
+tmp/day6/venv/bin/python -m ruff format --check gateway security/guardrails tools/security/day6 tools/coding/day6 tests/milestones/day6
+31 files already formatted

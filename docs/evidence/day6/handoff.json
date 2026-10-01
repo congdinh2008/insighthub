@@ -1,0 +1,141 @@
+{
+  "observed_at": 1790836338.920877,
+  "source_unchanged": true,
+  "source": {
+    "source_sha256": "c49623b4b2600af16d9e01e01f0b2c1c95afc9e88e30eae03df712fc6593dd8d",
+    "extra_files": {
+      "gateway/Dockerfile": "957d164dd462fed3c1ec4023700a81a69ee958087899909669ab38ae026e11f7",
+      "gateway/config.yaml": "ecdf96e31774ac0162745faf0c23faaa176310e729ec0ddce1c5aa0826d54275",
+      "gateway/exporter.py": "ff6510144f21d23deb23a7d03496b8a89db15553b095fa2a4750b78398967031",
+      "gateway/hooks.py": "815a121040ae70f54df73471f89f4ce50c750f90824d3648a76da190ff7a7ed2",
+      "gateway/pricing.json": "3d9bdb38e50c43c4d32a62f80f35d0a446368c425e5fd10a26a65584fddb3a11",
+      "gateway/requirements.in": "4b2f877dea58d12b023bcf355175472915108407d179d268a666a605c615084d",
+      "gateway/requirements.txt": "207c68ea58a81bda73bcfbdc55b2b864bdcf07b75efb7f0b70495dee2fd62bde",
+      "deploy/day6/compose.yaml": "81d29f498a4c12c476a5a616531698e8b603618d1d03e996aba46bd9de25c98d"
+    }
+  },
+  "deployments": [
+    {
+      "name": "insighthub-api",
+      "namespace": "insighthub-dev",
+      "desired": 1,
+      "ready": 1,
+      "expected": 1
+    },
+    {
+      "name": "insighthub-ingestion-worker",
+      "namespace": "insighthub-dev",
+      "desired": 1,
+      "ready": 1,
+      "expected": 1
+    },
+    {
+      "name": "insighthub-web",
+      "namespace": "insighthub-dev",
+      "desired": 1,
+      "ready": 1,
+      "expected": 1
+    },
+    {
+      "name": "day6-gateway",
+      "namespace": "insighthub-dev",
+      "desired": 1,
+      "ready": 1,
+      "expected": 1
+    },
+    {
+      "name": "day6-guardrails",
+      "namespace": "insighthub-dev",
+      "desired": 1,
+      "ready": 1,
+      "expected": 1
+    },
+    {
+      "name": "day6-baseline-api",
+      "namespace": "insighthub-dev",
+      "desired": 0,
+      "ready": 0,
+      "expected": 0
+    },
+    {
+      "name": "kube-prom-stack-grafana",
+      "namespace": "monitoring",
+      "desired": 1,
+      "ready": 1,
+      "expected": 1
+    }
+  ],
+  "corpus": [
+    {
+      "id": 1,
+      "filename": "day6-guide.md",
+      "status": "ready"
+    }
+  ],
+  "queue_depth": 0,
+  "keys": {
+    "insighthub": {
+      "max_budget_usd": 1.25,
+      "native_spend_usd": 0.1434437100000003,
+      "remaining_usd": 1.1065562899999997,
+      "cap_restored": true
+    },
+    "bot": {
+      "max_budget_usd": 0.5,
+      "native_spend_usd": 0.0020544,
+      "remaining_usd": 0.4979456,
+      "cap_restored": true
+    },
+    "coding": {
+      "max_budget_usd": 1.0,
+      "native_spend_usd": 0.003932,
+      "remaining_usd": 0.996068,
+      "cap_restored": true
+    },
+    "guard": {
+      "max_budget_usd": 1.0,
+      "native_spend_usd": 0.3801227999999997,
+      "remaining_usd": 0.6198772000000004,
+      "cap_restored": true
+    },
+    "evaluator": {
+      "max_budget_usd": 0.75,
+      "native_spend_usd": 0.7045703000000004,
+      "remaining_usd": 0.04542969999999957,
+      "cap_restored": true
+    }
+  },
+  "alerts": [
+    {
+      "metric": {
+        "__name__": "ALERTS",
+        "alertname": "Day6KeyBudgetNearLimit",
+        "alertstate": "firing",
+        "container": "cost-exporter",
+        "endpoint": "metrics",
+        "instance": "10.244.1.16:9091",
+        "job": "day6-cost",
+        "namespace": "insighthub-dev",
+        "pod": "day6-gateway-7d585488b8-bblsl",
+        "scope": "day6-local",
+        "service": "day6-cost",
+        "severity": "warning",
+        "workload": "evaluator"
+      },
+      "value": [
+        1790836338.489,
+        "1"
+      ]
+    }
+  ],
+  "accounting_available": 1.0,
+  "health": {
+    "http://127.0.0.1:18010/readyz": 200,
+    "http://127.0.0.1:18083/healthz": 200,
+    "http://127.0.0.1:13000/api/health": 200
+  },
+  "optional_p7": "OFF",
+  "aws_used": false,
+  "runtime_interruption": "At 06:26 UTC local nodes briefly NotReady and application containers restarted; readiness/accounting recovered. No source change or acceptance rerun.",
+  "handoff_ready": true
+}

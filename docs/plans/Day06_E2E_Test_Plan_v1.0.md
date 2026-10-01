@@ -1,6 +1,6 @@
 # Day 06 - Kế hoạch kiểm thử E2E
 
-Ngày lập: 29/09/2026. Liên kết [implementation plan](Day06_Implementation_Plan_v1.0.md). Tất cả case dưới đây có trạng thái ban đầu **NOT RUN**; đây không phải test report.
+Ngày lập: 29/09/2026. Liên kết [implementation plan](Day06_Implementation_Plan_v1.0.md). Các case dưới đây là kế hoạch gốc, không phải test report. Kết quả triển khai và phân biệt live/unit/blocked được cập nhật ở [Self_Check](../day6/Self_Check.md).
 
 ## 1. Mục tiêu, lớp test và môi trường
 

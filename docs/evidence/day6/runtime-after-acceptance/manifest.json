@@ -1,0 +1,156 @@
+{
+  "observed_at": 1790835226.012584,
+  "aws_used": false,
+  "source_sha256": "c49623b4b2600af16d9e01e01f0b2c1c95afc9e88e30eae03df712fc6593dd8d",
+  "file_sha256": {
+    "gateway/Dockerfile": "957d164dd462fed3c1ec4023700a81a69ee958087899909669ab38ae026e11f7",
+    "gateway/config.yaml": "ecdf96e31774ac0162745faf0c23faaa176310e729ec0ddce1c5aa0826d54275",
+    "gateway/exporter.py": "ff6510144f21d23deb23a7d03496b8a89db15553b095fa2a4750b78398967031",
+    "gateway/hooks.py": "815a121040ae70f54df73471f89f4ce50c750f90824d3648a76da190ff7a7ed2",
+    "gateway/pricing.json": "3d9bdb38e50c43c4d32a62f80f35d0a446368c425e5fd10a26a65584fddb3a11",
+    "gateway/requirements.in": "4b2f877dea58d12b023bcf355175472915108407d179d268a666a605c615084d",
+    "gateway/requirements.txt": "207c68ea58a81bda73bcfbdc55b2b864bdcf07b75efb7f0b70495dee2fd62bde",
+    "security/guardrails/Dockerfile": "fe636843d33ce052a556b8986fdba19ac2af9f13d543c257494c9627e8361e9b",
+    "security/guardrails/config.yaml": "e3bfea205ff1ac86953bccf545bcc027cc21e3c10e3a58fcc5d4cfd780dafe51",
+    "security/guardrails/requirements.in": "2cb2e67c48ce92aaaa969dce91767b2428ef788076d0dd0b18f2c23d5f9174df",
+    "security/guardrails/requirements.txt": "9311fe10f7e1775f6bc7c4e32023a6e72282ab55d9d3d121c5572bec96524995",
+    "security/guardrails/service.py": "287fcbbbd0297b7641ec3fb77061c4bce6af9dc35171abc106f2f385aeb02ba5",
+    "api/app/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "api/app/core/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "api/app/core/config.py": "a27af655097236e96b2737209d6b519a2ea574002452361f64dfacda38884816",
+    "api/app/core/db.py": "f442a7864e24ba75710fdff01c71ab61c7f93ba931bd778e0597769602e96353",
+    "api/app/core/errors.py": "79bcc6436bc55c76f39750eae279913a0565d424e781ece6a83475ce0e24d883",
+    "api/app/core/index.py": "6a0b1e93ae60b4304d6a585428c2bb0ec17cf3e6a74229e7cfd3a9a1b67ab103",
+    "api/app/core/metrics.py": "75d28206b49e45db6aba7c96d7fb0534a0d3291fae2447ced1c47f2a5c5bfa80",
+    "api/app/core/providers.py": "17ba390ac6947d95e42485800698facc0746a8bb88924524ea1470a96faf2f75",
+    "api/app/core/request_context.py": "b0f78d7f7761f2e5678619010b0a5367dd5b42f3426dccf0baedeb2b238a6e37",
+    "api/app/core/upload_limit.py": "a646351797b37da16ed08ece65645c2dd4e1ae697ea25df18dde982afb567165",
+    "api/app/main.py": "7e155ffe654b0a15fffcccd9ec661e5fe5f91cd26920e6a4ebed8f9ef5454b55",
+    "api/app/routers/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "api/app/routers/chat.py": "c3776b5a6ff433569e5b18dbb0b49ba65a84ac47f6e9edae171af287798a6105",
+    "api/app/routers/documents.py": "4086ca214c5bdcdeb7505ec8be018fa61e64daf811c84b01dbd00b60a2dde790",
+    "api/app/routers/health.py": "2babd2102520c4673b6abec1fef4fb91d5671bc00d5495220a3a3fae4277655d",
+    "api/app/services/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "api/app/services/chunking.py": "b9154afbeb4e2bd2e4104491397de3aa513031a8fe1a5ef5ba6614378e2c28a0",
+    "api/app/services/embeddings.py": "4c8670f2bf45f1e05782503a7f2b2c8568aca83840ff45cbec939650e459f5c5",
+    "api/app/services/guardrails.py": "f66baf8af713f177621b3cb7524ea78826e34d8cfc2f0a578bdadc845b1451aa",
+    "api/app/services/ingestion.py": "53719b74d0222c5ddd0cab97abb1acfca6c4cb992a239dfb3e1996142b0887ad",
+    "api/app/services/llm.py": "56e60d204448a55c3ebb09f4b1edcfa123606be4d33427a88114221c2a287140",
+    "api/app/services/queue.py": "360a8bd48a44c4bd0556c17351a082490c6cb9a6bf45022183f4dce4cc6408ec",
+    "api/app/services/retrieval.py": "7b5d08b050da2f396ead33d98ae4bd53c8c87a4d748f968f87212d7cca8c8903",
+    "tools/security/day6/alert_probe.py": "e6ffac295c3a8fda009a9cee2c4e476d6017d64b042cd6f3951a212e584df29f",
+    "tools/security/day6/bootstrap.py": "74adc4c4bd5daf84dd55bd4084cb0feb7d4b750424fd411c61d755ed35e59d11",
+    "tools/security/day6/budget_settle.py": "88fcf4c196708055f881415a3677555f48badb087fe278b6b84c2ffe28f9f5d7",
+    "tools/security/day6/ci_lab.py": "40b6009257ec489adb714746df92802212c86a35765a198f02b2fde261ed0ea8",
+    "tools/security/day6/direct_access.py": "c13452a3c5488c75de9def4136a982a53e414b5885a04d1cf12e84aa101ea14e",
+    "tools/security/day6/evaluate.py": "fcc92d518915caa931aa215c51ea5d1f80594a2581f9446644d4f1b0ffe4adf9",
+    "tools/security/day6/evidence.py": "4314c50ca985b49318e6e7da355f24e98e1209fdd9386343523d3edd03830c60",
+    "tools/security/day6/faults.py": "06b634a931a821b484b999a49a9b68233c5a93f6c298ca2041c66c8f1e0e970c",
+    "tools/security/day6/forward.py": "1edaa493e9f5eed027f7f0792bad14525f0454243cd2c83cc11bf957d17ce082",
+    "tools/security/day6/freeze_dataset.py": "432bde2d1b8ce2d890e25f96ad3207bc491181fa5f05fbc52e84a4aa586e8b9a",
+    "tools/security/day6/gateway_tests.py": "7aae2a1b91624496e4b7bf01121f2ad2e1ee0368227d4b2679e9a3a6623e005f",
+    "tools/security/day6/guard_cases.py": "626ecb0e154bf9029011d36236fbeb509e46215ae1a48df75676110a15442d65",
+    "tools/security/day6/judge_validation.py": "b2794bce15f6f861889f9e01d097c63b6c839c259eab0edac25db52d7f05fd58",
+    "tools/security/day6/lifecycle.py": "e706a524df20a1a686d6749de187cc2be99f2c1fb2987a977a4c06550ffc572a",
+    "tools/security/day6/local_lab.py": "6575179538f5eca0f48748858d7184ea8554abdd7ae0e5353493fc4e7f8d93d3",
+    "tools/security/day6/observability.py": "af2941f6313906d2ef423d919e4379aede0eb4d155a414fa566e7e2d2268cb18",
+    "tools/security/day6/rollback.py": "6c61257793c1196feef3478d27c4fa3deca7181c26fb4d3782d4fe59f2f46105",
+    "tools/security/day6/scan.py": "4d652cabfdc4f72c788f217fa1e794443f3142aca2c5c16a2886e9bfa172a020",
+    "tools/security/day6/secret_scan.py": "3bcc080c29ca7e433b7920a71267c0ef3310569b32c84a155a3c8c13290fef45",
+    "tools/security/day6/switch_app.py": "5fa20d13fa27f639309670688740872c810a150b924d301d4cd6d819e6582c6c",
+    "tools/security/day6/ui_budget.py": "df676e523cae026dc519fd1a159310d2baa442f203fca4e8f4268dbffb163d94"
+  },
+  "runtime": [
+    {
+      "pod": "day6-gateway-7d585488b8-bblsl",
+      "containers": [
+        {
+          "name": "cost-exporter",
+          "image": "docker.io/library/insighthub-gateway:day6",
+          "image_id": "docker.io/library/import-2026-09-29@sha256:5db78d771e95cd07a0b33b8a54dde3a441e6fbf9ce4158377fd9eb87115de217",
+          "ready": true
+        },
+        {
+          "name": "day6-gateway",
+          "image": "docker.io/library/insighthub-gateway:day6",
+          "image_id": "docker.io/library/import-2026-09-29@sha256:5db78d771e95cd07a0b33b8a54dde3a441e6fbf9ce4158377fd9eb87115de217",
+          "ready": true
+        }
+      ]
+    },
+    {
+      "pod": "day6-gateway-db-0",
+      "containers": [
+        {
+          "name": "postgres",
+          "image": "sha256:fa3d9bb7ee77f5c1f0bfb009a9df30243c040896825f3033b09a77101bb2ca95",
+          "image_id": "docker.io/pgvector/pgvector@sha256:00ba258a66dac104fd5171074a0084462a64a1369d8513f3d0a634e2f24d15bc",
+          "ready": true
+        }
+      ]
+    },
+    {
+      "pod": "day6-guardrails-5d85c4b4c9-9btzv",
+      "containers": [
+        {
+          "name": "day6-guardrails",
+          "image": "docker.io/library/insighthub-guardrails:day6",
+          "image_id": "docker.io/library/import-2026-10-01@sha256:b4e9d0348c0f0f0367ea6244fe71c117b510d49ece5d026ef3f4bba01db68faf",
+          "ready": true
+        }
+      ]
+    },
+    {
+      "pod": "day6-rag-db-0",
+      "containers": [
+        {
+          "name": "postgres",
+          "image": "sha256:fa3d9bb7ee77f5c1f0bfb009a9df30243c040896825f3033b09a77101bb2ca95",
+          "image_id": "docker.io/pgvector/pgvector@sha256:00ba258a66dac104fd5171074a0084462a64a1369d8513f3d0a634e2f24d15bc",
+          "ready": true
+        }
+      ]
+    },
+    {
+      "pod": "insighthub-api-8564c9f545-x4ftj",
+      "containers": [
+        {
+          "name": "api",
+          "image": "docker.io/library/insighthub-api:day6",
+          "image_id": "sha256:aec3c9c082b677094e0f8b842e01ae3db7dd02c9feac20213596ecbf8f9e11d3",
+          "ready": true
+        }
+      ]
+    },
+    {
+      "pod": "insighthub-ingestion-worker-b687bf4bd-7k69w",
+      "containers": [
+        {
+          "name": "ingestion-worker",
+          "image": "docker.io/library/insighthub-worker:day6",
+          "image_id": "sha256:cdcabd2ea9c9d404d57c1f222d81cf48bad051935360ca83573f355928dcedea",
+          "ready": true
+        }
+      ]
+    }
+  ],
+  "application": {
+    "security_enabled": true,
+    "gateway_url": "http://day6-gateway:4000/v1",
+    "chat_model": "app-chat",
+    "embedding": {
+      "mode": "real",
+      "provider": "openai",
+      "model": "app-embedding",
+      "dimension": 1024,
+      "endpoint": "http://day6-gateway:4000/v1",
+      "revision": "day6-zenlayer-text-embedding-3-large-v1",
+      "preprocessing": "retrieval-v1",
+      "normalization": "l2-v1"
+    },
+    "index_identity": "9cde7ac673056b03d0fe67c8f28451af84ad3c0808efc3e4e748f4c52bff0442",
+    "queue": "insighthub:day6:ingestion",
+    "virtual_key_present": true,
+    "upstream_key_absent": true
+  }
+}

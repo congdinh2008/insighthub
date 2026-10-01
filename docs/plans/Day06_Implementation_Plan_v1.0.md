@@ -1,6 +1,6 @@
 # Day 06 - Kế hoạch Security, Governance & FinOps
 
-Ngày lập: 29/09/2026. Baseline: `main` tại `c3f0442`, Day 05 đã merge. Trạng thái: **kế hoạch, chưa triển khai hoặc chạy nghiệm thu Day 06**.
+Ngày lập: 29/09/2026. Baseline: `main` tại `c3f0442`, Day 05 đã merge. Trạng thái gốc: kế hoạch. Cập nhật 01/10/2026: source `a9eab4d`, final và fresh verifier đều 164/164 PASS. Must-have local có evidence; optional P7 OFF. [Self_Check](../day6/Self_Check.md) ghi rõ giới hạn performance, UI-08, accounting và remote CI; các mục kế hoạch gốc dưới đây không phải kết quả test.
 
 ## 1. Mục tiêu và phạm vi
 
