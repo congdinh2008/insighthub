@@ -69,6 +69,7 @@ def main():
         "soft_caps_total_usd": 0.4,
         "watchdog_stop_usd": 0.35,
         "status": "INCOMPLETE",
+        "budget_evidence": "fresh pytest assertions and stdout; no raw budget JSON export",
     }
     try:
         run(
@@ -101,6 +102,7 @@ def main():
                 "pytest",
                 "tests/milestones/day6",
                 "-q",
+                "-s",
                 "--junitxml",
                 str(SUMMARY / "junit.xml"),
             ],
@@ -122,9 +124,6 @@ def main():
             "".join(json.dumps(r) + "\n" for r in rows)
         )
         (SUMMARY / "result.json").write_text(json.dumps(report, indent=2))
-        budget = EVIDENCE / "gateway-budget.json"
-        if budget.exists():
-            (SUMMARY / "gateway-budget.json").write_bytes(budget.read_bytes())
         print(json.dumps(report), flush=True)
     assert report["known_cost_usd"] < 0.5, "Approved CI envelope exceeded"
 

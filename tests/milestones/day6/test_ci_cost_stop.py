@@ -1,6 +1,7 @@
 """The release runner must terminate inference work on exhausted/unknown budget."""
 
 import importlib.util
+import json
 import sys
 from pathlib import Path
 from unittest.mock import Mock
@@ -42,3 +43,23 @@ def test_failed_acceptance_cannot_be_reported_as_success(monkeypatch):
     monkeypatch.setattr(ci.subprocess, "Popen", Mock(return_value=child))
     with pytest.raises(RuntimeError, match="Acceptance subprocess failed: 1"):
         ci.run(["synthetic-failing-job"])
+
+
+def test_historical_budget_artifact_is_not_republished_as_fresh_ci(
+    monkeypatch, tmp_path
+):
+    historical = tmp_path / "gateway-budget.json"
+    historical.write_text('{"observed_at": 1, "results": []}')
+    summary = tmp_path / "ci-runtime"
+    monkeypatch.setattr(ci, "EVIDENCE", tmp_path)
+    monkeypatch.setattr(ci, "SUMMARY", summary)
+    monkeypatch.setattr(ci, "source_snapshot", lambda: {"source_sha256": "frozen"})
+    monkeypatch.setattr(ci, "ledger", lambda: [])
+    invoked = []
+    monkeypatch.setattr(ci, "run", lambda args, env=None: invoked.append(args))
+    ci.main()
+    assert historical.exists()
+    assert not (summary / "gateway-budget.json").exists()
+    assert "-s" in invoked[-1]
+    result = json.loads((summary / "result.json").read_text())
+    assert "no raw budget JSON export" in result["budget_evidence"]
