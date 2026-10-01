@@ -1,6 +1,10 @@
 # Day06 - Release follow-up, 01/10/2026
 
-User scope: finish necessary local acceptance, create PR and merge main; semantic cache, adaptive routing and fallback remain OFF. One GitHub real-model evaluation authorized up to USD 0.50; automatic live schedules remain disabled.
+User scope: finish necessary local acceptance, create PR and merge main; semantic cache, adaptive routing and fallback remain OFF. Two GitHub real-model runs were authorized separately, each up to USD 0.50; automatic live schedules remain disabled.
+
+## Latest release result
+
+Run [36843076783](https://github.com/congdinh2008/insighthub/actions/runs/36843076783) PASS: final and independent live replay each 164/164 with 20/20 benign; 86 JUnit tests PASS, no errors/failures/skips; all nine budget probes PASS. Recorded cost USD 0.19936694, no unresolved admissions in this run. Source/dataset hashes match the clean approved commit. The earlier incomplete run remains preserved. Merge can proceed after required checks on the final documentation commit.
 
 ## Changes after local acceptance
 
@@ -19,7 +23,7 @@ User scope: finish necessary local acceptance, create PR and merge main; semanti
 
 ## Local follow-up results
 
-- 82 offline Day06 tests PASS, Ruff PASS. Two exporter tests fail against the unmodified old exporter in an isolated temporary directory, and pass against the fix. No intentionally failing test was added to the PR branch.
+- Before the artifact-provenance fix: 82 offline Day06 tests PASS, Ruff PASS. Two exporter tests fail against the unmodified old exporter in an isolated temporary directory, and pass against the fix. No intentionally failing test was added to the PR branch.
 - Initial test collection lacked prometheus-client in the local Day06 venv; installed the exact version/hashes already present in requirements-dev.txt. The failed log is preserved separately; the CI workflow installs this full lock file.
 - Prometheus reports 148 unresolved charges: app 16, guard 2, evaluator 130; accounting endpoint available=1. Exact native evaluator delta remains USD 0.0004324.
 - GitHub Environment `day6-model-evaluation` now requires the repository owner's review; the approved ZenLayer key is stored as an encrypted Environment secret. Exact head `60ebb4d1271f222fa72fed62fd44937160468f08` was authorized for CI run `36838215597`; the SHA flag was removed immediately after Environment approval so future live jobs remain disabled.
@@ -34,7 +38,7 @@ User scope: finish necessary local acceptance, create PR and merge main; semanti
 ## CI artifact provenance correction
 
 - Review found that the runner copied the existing local `gateway-budget.json` even though live pytest does not export its returned budget rows. Run 36838215597 retains that raw copied file as historical evidence, not as fresh CI measurements. The live shared fixture subsequently failed at benign-11, so the CI budget probes did not run. The copied JSON remains the earlier local budget evidence only.
-- The follow-up runner removes that misleading copy, explicitly labels the budget evidence scope and enables pytest stdout so future runs retain the nine probe lines. The added regression rejects publication of historical budget JSON. All 83 offline tests and Ruff pass. This reporting-only change is after the approved live-run SHA; application, guard, gateway and test assertions used for real-model acceptance remain unchanged. No second paid run was started.
+- The follow-up runner removes that misleading copy, explicitly labels the budget evidence scope and enables pytest stdout so future runs retain the nine probe lines. The added regression rejects publication of historical budget JSON. All 83 offline tests and Ruff pass. This reporting-only change is after the approved live-run SHA; application, guard, gateway and test assertions used for real-model acceptance remain unchanged. The subsequent second run was started only after separate user approval and is reported below.
 
 ## GitHub real-model replay
 
@@ -44,6 +48,16 @@ User scope: finish necessary local acceptance, create PR and merge main; semanti
 
 - Recorded CI cost: USD 0.187197, within the USD 0.50 envelope; one admitted guard request has unknown charge. The ledger ends with a guard request lacking completion and an app guardrail_unavailable error roughly 15 seconds later. This is consistent with guard/provider timeout; no provider invoice or completed upstream response establishes its precise cause/charge. The boundary failed closed.
 - Clean git archive of 60ebb4d reproduces CI fingerprint `0e410f574e91249c2e86408ff15836ed715467adc707945a55220e9408090fa3`. Local ignored host configuration/state explains the workspace fingerprint difference; no private configuration/state is published.
-- Merge remains blocked on the incomplete live acceptance. A second paid run is NOT authorized by the original one-run approval and has not been started. Exact-head flag remains absent. Prepared follow-up is the same frozen corpus/runtime with only the reporting fix, full baseline/final/independent replay under the existing USD 0.50 cap, pending user approval.
+- The first incomplete live acceptance held the merge until the second run passed. The original one-run approval was consumed; the user subsequently explicitly approved one additional run up to USD 0.50. Exact-head flag remains absent. Prepared follow-up is the same frozen corpus/runtime with only the reporting fix, full baseline/final/independent replay under the existing USD 0.50 cap, completed under the additional explicit user approval.
 
 - Public follow-up contains aggregate results, source hashes and reviewed masked UI evidence. The newly downloaded raw CI artifacts/ledger/failed-step log remain local and in the GitHub Actions artifact (7-day retention); public push of that additional raw bundle was rejected by automatic approval review. No raw payload is included in the follow-up publication.
+
+## Explicitly approved second CI run
+
+- User approved one additional real-model CI run capped at USD 0.50, followed by merge only after checks PASS. Run [36843076783](https://github.com/congdinh2008/insighthub/actions/runs/36843076783), HEAD `711f20f3435b929eee8681227db66f7c5b7adc8f`; protected Environment approved and exact-head live flag removed immediately afterward.
+- Clean committed source fingerprint: `08753f926d210740fdbd32e18470eeaa424dbb6fb41f073567060ca2ec827b0f`. PASS; see `docs/evidence/day6/release/second-ci-summary.json` and the hash-only artifact manifest.
+- Day03 run 36842886877 triggered by the unchanged broad deploy path filter was cancelled before plan; AWS remains N/A.
+
+- Second-run final: 124 blocked/40 released; independent replay: 125 blocked/39 released. All 164 cases passed in each, including 20 benign. Safe released answers are checked by the frozen oracle.
+- Nine fresh budget probes cover app/bot/coding at concurrency 1/2/5. Maximum measured overshoot USD 0.0001082; native caps remain soft. No stale budget JSON was exported. Raw stdout/artifacts remain local/Actions; reviewed aggregate rows and hashes are public.
+- Known cost across the two CI runs is USD 0.38656394; the first run retains one unknown charge. This does not erase the separate historical local accounting gap/admissions or imply an invoice reconciliation. No further live run is enabled.

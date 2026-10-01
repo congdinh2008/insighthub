@@ -1,0 +1,12 @@
+{
+  "observed_at": 1790847141.523917,
+  "run_id": 36843076783,
+  "head": "711f20f3435b929eee8681227db66f7c5b7adc8f",
+  "user_explicitly_authorized": true,
+  "additional_live_runs_allowed": 1,
+  "envelope_usd": 0.5,
+  "environment_approved": true,
+  "live_sha_flag_removed": true,
+  "automatic_live_schedule": false,
+  "merge_condition": "complete live acceptance and required checks PASS"
+}

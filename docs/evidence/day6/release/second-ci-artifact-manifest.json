@@ -1,0 +1,69 @@
+{
+  "run_id": 36843076783,
+  "files": {
+    "ci-baseline/cost.json": {
+      "sha256": "97fb69996a4c9502317f17ec0d916b32d440ef06c715723a9bdae0f56540db7c",
+      "bytes": 75184
+    },
+    "ci-baseline/eval.json": {
+      "sha256": "5037b398858d6368707af823bee13855d723c789e1d39e5a45a16b6aade7d235",
+      "bytes": 370017
+    },
+    "ci-baseline/promptfoo.json": {
+      "sha256": "24201bb6513b4bc1f84318ef0b6269aa5dd7a64699fe7e452f729d2e70717512",
+      "bytes": 1038528
+    },
+    "ci-baseline/red-team-report.html": {
+      "sha256": "fbfdbefa833a1384f695c1a9b32628dd00115b51b68aa5b12c9a6db511e35e8a",
+      "bytes": 1935386
+    },
+    "ci-baseline/results.jsonl": {
+      "sha256": "d16f8c17be19006e0fcea1b0838d3af5d49c5e42ba74c1d501898a13c5d95cf8",
+      "bytes": 292539
+    },
+    "ci-baseline/start.json": {
+      "sha256": "fa52b367ff736d9e9bfd96ac24d59590053064ce2205e22a90c61b4e760b9cc3",
+      "bytes": 1558
+    },
+    "ci-final/cost.json": {
+      "sha256": "2cb0d404b94cefaa3f675a6d039840750f7a8a8eb094e167c4c582461d48d9d5",
+      "bytes": 73440
+    },
+    "ci-final/eval.json": {
+      "sha256": "8c95396e9d8200a9f9497405a153b36c9f04f629b285de85fa35dfe558b9db9e",
+      "bytes": 194924
+    },
+    "ci-final/promptfoo.json": {
+      "sha256": "1cc94ecd5309850ee1d341d1e0feab0566b77b5bfbf28cb2972ed496ec3fb058",
+      "bytes": 891799
+    },
+    "ci-final/red-team-report.html": {
+      "sha256": "e15a5de4762bdb095b17d3bed98bff458beedee5443921ac9a3727c1c8ca9de5",
+      "bytes": 1426545
+    },
+    "ci-final/results.jsonl": {
+      "sha256": "78fae733d479a9900a576dac65d56b8ce0117dc3cf917a40546e23c9f43c12e3",
+      "bytes": 154437
+    },
+    "ci-final/start.json": {
+      "sha256": "5470c2aeb66f941cd8a92ae9471d0bce6dbba3e473c1f24fab9f24dc19873634",
+      "bytes": 1364
+    },
+    "ci-runtime/junit.xml": {
+      "sha256": "e27d6e8174ac4e508ad9243877cd5778223dbae569153640ded5ba415e43994e",
+      "bytes": 13661
+    },
+    "ci-runtime/ledger.jsonl": {
+      "sha256": "b1138df358a463f564fa99b72a6906845143e560a9fc24c1c0c5e2a70ca740c3",
+      "bytes": 1050107
+    },
+    "ci-runtime/live-results.jsonl": {
+      "sha256": "0ea852b10330788d42ea4cee6b08b4a5f5c31bfd80a55003392bb09bd8e80b5f",
+      "bytes": 153448
+    },
+    "ci-runtime/result.json": {
+      "sha256": "a4b6c38d256feaf77927d053a3e5f927a4a155bc81d82b6759041e026ac62d83",
+      "bytes": 1255
+    }
+  }
+}

@@ -62,3 +62,5 @@ Secrets/runtime credentials, kubeconfig, Slack IDs thô, tunnel URL không thu�
 - Raw CI artifacts and failed-step log are retained in the local ignored `release/ci-run-36838215597/` folder and the GitHub Actions artifact (7-day retention), outside this public follow-up commit. Its `ci-runtime/gateway-budget.json` is a copied historical local file, explicitly not fresh CI evidence.
 - `release/ci-source-verification.json`: CI source matches clean committed checkout. `post-live-source-delta.json` identifies the separate reporting-only fix.
 - `release/virtual-keys-masked.png`, `accounting-alerts-fired.json`, `github-release-controls.json`: masked UI, actual firing alerts and protected release controls.
+
+- **Latest release PASS:** `release/second-ci-summary.json` for run 36843076783: final and independent replay 164/164 each, all 86 pytest tests, nine budget probes, recorded cost USD 0.19936694, zero unresolved admissions. `second-ci-artifact-manifest.json` publishes only hashes/sizes; raw files remain ignored local downloads and the Actions artifact. This supersedes the first run for release acceptance without rewriting its INCOMPLETE results.
