@@ -55,3 +55,10 @@ Secrets/runtime credentials, kubeconfig, Slack IDs thô, tunnel URL không thu�
 - `runtime/` là snapshot sau mọi paid calls; `runtime-after-acceptance/` giữ snapshot trước latency/UI.
 - [Cost_Report](Cost_Report.md) nêu native evaluator gap 0.0004324 USD và 148 admissions có charge unknown; không gán phí bằng 0.
 - Verifier scope `partial-runtime-contract`, `milestone_complete=false` giữ nguyên. [Self_Check](../../day6/Self_Check.md) bổ sung review đầy đủ các MH; UI-08 và remote CI không được tính PASS.
+
+## GitHub release follow-up
+
+- [Release_Readiness](../../day6/Release_Readiness.md) and `release/ci-run-summary.json`: PR #25, exact-head live run 36838215597, baseline 132/164, final 164/164, independent replay INCOMPLETE at benign-11 (HTTP503). CI cost USD 0.187197 plus one unknown charge; no fresh CI budget probe evidence.
+- Raw CI artifacts and failed-step log are retained in the local ignored `release/ci-run-36838215597/` folder and the GitHub Actions artifact (7-day retention), outside this public follow-up commit. Its `ci-runtime/gateway-budget.json` is a copied historical local file, explicitly not fresh CI evidence.
+- `release/ci-source-verification.json`: CI source matches clean committed checkout. `post-live-source-delta.json` identifies the separate reporting-only fix.
+- `release/virtual-keys-masked.png`, `accounting-alerts-fired.json`, `github-release-controls.json`: masked UI, actual firing alerts and protected release controls.

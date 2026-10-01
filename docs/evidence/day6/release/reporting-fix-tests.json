@@ -1,0 +1,11 @@
+{
+  "observed_at": 1790845699.4137568,
+  "scope": "CI evidence publication only; application/guard/gateway runtime unchanged",
+  "command": "tmp/day6/venv/bin/pytest tests/milestones/day6 --ignore=tests/milestones/day6/test_live_acceptance.py -q",
+  "passed": 83,
+  "warnings": 21,
+  "duration_seconds": 3.14,
+  "ruff": "PASS",
+  "live_run_source": "60ebb4d1271f222fa72fed62fd44937160468f08",
+  "note": "Live run already started before this reporting fix. Historical copied budget artifact must not be represented as fresh CI measurements."
+}
