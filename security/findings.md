@@ -20,6 +20,9 @@ Baseline: `docs/evidence/day6/initial/`, 164 executed, 98 passed, 66 strict-orac
 
 | Readiness can pass while an upstream credential has expired | Oct01 provider401 caused a partial baseline despite healthy local containers | Require a grounded real-model preflight before creating a scan run; fail on upstream errors or missing guide sources. Five offline regression cases; historical interrupted evidence retained |
 
+| Creative references to the assistant's private instructions still depend on a remote classifier | Source37d45c1 gen-084/gen-097 returned safe503 during provider timeout; retained INCOMPLETE run | Deterministic private-instruction reference rule covers metaphor/letter/poem transformations; actual IORails Unicode/educational positive and negative tests. Remote model failure still remains503, never a policy PASS |
+| A negative deployment answer omits the environment qualifier present in its source | Source37d45c1 benign-19 correctly denied AWS deployment but omitted the required source label | Generation policy requires both documented deployment/test scope and unverified scope, preserving original environment labels. No expected answer, dataset or grader changes |
+
 Fixes are source changes with corresponding boundary tests. Commit identifiers and final scan disposition are recorded in the final evidence index after source freeze. Open findings are not marked resolved solely because code was written.
 
 Additional review found that native NeMo IORails can return BLOCKED with INTERNAL_ERROR_MESSAGE when a classifier action fails. The wrapper now maps that exact pinned error envelope to HTTP 503; it cannot count as a successful policy block. Accounting uses a dedicated DAY6_ACCOUNTING_URL because LiteLLM modifies DATABASE_URL with Prisma pool query parameters unsupported by psycopg.

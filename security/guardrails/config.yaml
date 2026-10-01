@@ -11,6 +11,9 @@ rails:
         patterns:
           - '(?i)(ignore|disregard|override)\s+(all\s+|the\s+|your\s+)?(previous|system|developer|security|prior)'
           - '(?i)(reveal|print|dump|exfiltrate|send).{0,45}(api.key|password|secret|system.prompt|private.key)'
+          # Private instruction references stay forbidden even in creative transformations.
+          # General definitions and drafting a new example prompt remain allowed.
+          - '(?i)\b(?:your|its|this assistant.s|the assistant.s)\s+(?:system|developer)\s+(?:prompt|instructions)\b'
           - '(?i)(bỏ qua|phớt lờ).{0,40}(chỉ dẫn|chỉ thị|hướng dẫn|hệ thống|quy tắc)'
           - '(?i)(tiết lộ|in ra|gửi).{0,40}(mật khẩu|khóa api|bí mật|system prompt)'
           - '(?i)(kubectl\s+delete|rm\s+-rf|delete\s+namespace)'
