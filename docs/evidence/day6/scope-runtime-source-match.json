@@ -1,0 +1,29 @@
+{
+  "observed_at": 1790831273.8927748,
+  "checks": [
+    {
+      "deployment": "insighthub-api",
+      "path": "app/services/llm.py",
+      "runtime_sha256": "56e60d204448a55c3ebb09f4b1edcfa123606be4d33427a88114221c2a287140",
+      "source_sha256": "56e60d204448a55c3ebb09f4b1edcfa123606be4d33427a88114221c2a287140"
+    },
+    {
+      "deployment": "insighthub-ingestion-worker",
+      "path": "app/services/llm.py",
+      "runtime_sha256": "56e60d204448a55c3ebb09f4b1edcfa123606be4d33427a88114221c2a287140",
+      "source_sha256": "56e60d204448a55c3ebb09f4b1edcfa123606be4d33427a88114221c2a287140"
+    },
+    {
+      "deployment": "day6-baseline-api",
+      "path": "app/services/llm.py",
+      "runtime_sha256": "56e60d204448a55c3ebb09f4b1edcfa123606be4d33427a88114221c2a287140",
+      "source_sha256": "56e60d204448a55c3ebb09f4b1edcfa123606be4d33427a88114221c2a287140"
+    },
+    {
+      "deployment": "day6-guardrails",
+      "path": "config.yaml",
+      "runtime_sha256": "e3bfea205ff1ac86953bccf545bcc027cc21e3c10e3a58fcc5d4cfd780dafe51",
+      "source_sha256": "e3bfea205ff1ac86953bccf545bcc027cc21e3c10e3a58fcc5d4cfd780dafe51"
+    }
+  ]
+}

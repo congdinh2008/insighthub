@@ -1,0 +1,9 @@
+{
+  "observed_at": 1790836617.4481542,
+  "known_credentials_scan": "PASS",
+  "files_scanned": 738,
+  "scope": "Known provider, Day06 gateway/Grafana, Day05 Slack/model credential values; screenshot review separate",
+  "authored_documents_whitespace_check": "PASS",
+  "raw_evidence_whitespace": "Generated Promptfoo HTML and historical failed JUnit have trailing whitespace; retained byte-for-byte rather than rewriting original reports",
+  "source_changed_after_acceptance": false
+}

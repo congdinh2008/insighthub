@@ -51,6 +51,11 @@ class Settings(BaseSettings):
     openai_base_url: str = ""
     openai_chat_model: str = ""
     openai_embedding_model: str = "text-embedding-3-small"
+    # Day 06: virtual key only. Direct-provider modes keep their original contract.
+    litellm_api_key: str = Field(default="", repr=False)
+    security_enabled: bool = False
+    guardrail_url: str = ""
+    guardrail_api_key: str = Field(default="", repr=False)
     ollama_base_url: str = "http://ollama:11434"
     ollama_chat_model: str = ""
     ollama_embedding_model: str = "mxbai-embed-large"
@@ -73,6 +78,39 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def validate_configuration(self) -> Self:
+        if self.litellm_api_key:
+            if self.llm_provider != "openai" or self.embedding_provider != "openai":
+                raise ValueError("Gateway mode requires OpenAI-compatible adapters")
+            if self.openai_api_key and self.openai_api_key != self.litellm_api_key:
+                raise ValueError(
+                    "Do not configure a direct key alongside LITELLM_API_KEY"
+                )
+            object.__setattr__(self, "openai_api_key", self.litellm_api_key)
+        if self.security_enabled and (
+            not self.litellm_api_key
+            or not self.guardrail_url
+            or not self.guardrail_api_key
+        ):
+            raise ValueError(
+                "Security mode requires gateway and guardrail configuration"
+            )
+        if self.security_enabled:
+            guard = urlsplit(self.guardrail_url)
+            if (
+                guard.scheme not in {"http", "https"}
+                or not guard.hostname
+                or guard.username
+                or guard.password
+                or guard.query
+                or guard.fragment
+            ):
+                raise ValueError(
+                    "GUARDRAIL_URL must be HTTP(S) without credentials/query"
+                )
+            try:
+                guard.port
+            except ValueError:
+                raise ValueError("GUARDRAIL_URL has an invalid port") from None
         if self.chunk_overlap >= self.chunk_size:
             raise ValueError("CHUNK_OVERLAP must be smaller than CHUNK_SIZE")
         if self.rag_mode == "fixture":

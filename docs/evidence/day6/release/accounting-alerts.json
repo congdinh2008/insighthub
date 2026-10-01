@@ -1,0 +1,89 @@
+{
+  "observed_at": 1790838689.472012,
+  "alerts": [
+    {
+      "metric": {
+        "__name__": "ALERTS",
+        "alertname": "Day6AccountingMismatch",
+        "alertstate": "pending",
+        "container": "cost-exporter",
+        "endpoint": "metrics",
+        "instance": "10.244.1.26:9091",
+        "job": "day6-cost",
+        "namespace": "insighthub-dev",
+        "pod": "day6-gateway-5c4bcbb57b-x4b86",
+        "scope": "day6-local",
+        "service": "day6-cost",
+        "severity": "warning",
+        "workload": "evaluator"
+      },
+      "value": [
+        1790838689.457,
+        "1"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "ALERTS",
+        "alertname": "Day6UnresolvedCharge",
+        "alertstate": "firing",
+        "container": "cost-exporter",
+        "endpoint": "metrics",
+        "instance": "10.244.1.26:9091",
+        "job": "day6-cost",
+        "namespace": "insighthub-dev",
+        "pod": "day6-gateway-5c4bcbb57b-x4b86",
+        "scope": "day6-local",
+        "service": "day6-cost",
+        "severity": "warning",
+        "workload": "evaluator"
+      },
+      "value": [
+        1790838689.457,
+        "1"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "ALERTS",
+        "alertname": "Day6UnresolvedCharge",
+        "alertstate": "firing",
+        "container": "cost-exporter",
+        "endpoint": "metrics",
+        "instance": "10.244.1.26:9091",
+        "job": "day6-cost",
+        "namespace": "insighthub-dev",
+        "pod": "day6-gateway-5c4bcbb57b-x4b86",
+        "scope": "day6-local",
+        "service": "day6-cost",
+        "severity": "warning",
+        "workload": "insighthub"
+      },
+      "value": [
+        1790838689.457,
+        "1"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "ALERTS",
+        "alertname": "Day6UnresolvedCharge",
+        "alertstate": "firing",
+        "container": "cost-exporter",
+        "endpoint": "metrics",
+        "instance": "10.244.1.26:9091",
+        "job": "day6-cost",
+        "namespace": "insighthub-dev",
+        "pod": "day6-gateway-5c4bcbb57b-x4b86",
+        "scope": "day6-local",
+        "service": "day6-cost",
+        "severity": "warning",
+        "workload": "guardrail"
+      },
+      "value": [
+        1790838689.457,
+        "1"
+      ]
+    }
+  ]
+}

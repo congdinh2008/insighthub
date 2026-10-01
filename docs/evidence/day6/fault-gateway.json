@@ -1,0 +1,59 @@
+{
+  "fault": "gateway",
+  "target": "deployment/day6-gateway",
+  "observed_at": 1790682139.503215,
+  "original_replicas": 1,
+  "during": {
+    "status": 503,
+    "code": "guardrail_unavailable",
+    "duration_seconds": 0.6250891250092536,
+    "request_id": "354e169d-377f-4381-a9ba-9338908bc3e1"
+  },
+  "restored_replicas": 1,
+  "recovery_attempts": [
+    {
+      "status": 200,
+      "code": null,
+      "duration_seconds": 8.599801625008695,
+      "request_id": "57bec622-bb57-4a98-a0e7-1fd5a226bf76"
+    }
+  ],
+  "after": {
+    "status": 200,
+    "code": null,
+    "duration_seconds": 8.599801625008695,
+    "request_id": "57bec622-bb57-4a98-a0e7-1fd5a226bf76"
+  },
+  "persistent_keys": {
+    "insighthub": {
+      "spend_before": 0.02023296,
+      "spend_after": 0.02055681000000001,
+      "max_budget": 1.5,
+      "model_acl_unchanged": true
+    },
+    "bot": {
+      "spend_before": 0.000658,
+      "spend_after": 0.000658,
+      "max_budget": 0.5,
+      "model_acl_unchanged": true
+    },
+    "coding": {
+      "spend_before": 0.0015356,
+      "spend_after": 0.0015356,
+      "max_budget": 1.0,
+      "model_acl_unchanged": true
+    },
+    "guard": {
+      "spend_before": 0.04448719999999998,
+      "spend_after": 0.04503719999999998,
+      "max_budget": 1.0,
+      "model_acl_unchanged": true
+    },
+    "evaluator": {
+      "spend_before": 0.048533,
+      "spend_after": 0.048533,
+      "max_budget": 0.5,
+      "model_acl_unchanged": true
+    }
+  }
+}

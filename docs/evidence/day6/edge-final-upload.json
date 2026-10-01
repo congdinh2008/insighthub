@@ -1,0 +1,32 @@
+{
+  "observed_at": 1790835609.799072,
+  "fixture_sha256": "1373f87df572a03b1ebccb7c607483a41f4c819d011c42bf8878625f3f93aaa2",
+  "document": {
+    "id": 401,
+    "filename": "day6-final-acceptance.md",
+    "status": "ready",
+    "chunk_count": 1,
+    "created_at": "2026-10-01T06:19:43.056481+00:00",
+    "embedding_identity_id": "9cde7ac673056b03d0fe67c8f28451af84ad3c0808efc3e4e748f4c52bff0442",
+    "error_code": null
+  },
+  "database_provenance": [
+    [
+      1,
+      "day6-guide.md",
+      "281e475b722b73973d29c640cefd4aea7a53da544b3e8f64cc63ee7d1b8d30dc"
+    ],
+    [
+      401,
+      "day6-final-acceptance.md",
+      "1373f87df572a03b1ebccb7c607483a41f4c819d011c42bf8878625f3f93aaa2"
+    ]
+  ],
+  "cleanup": {
+    "observed_at": 1790835687.1279712,
+    "status": 204,
+    "remaining_document_ids": [
+      1
+    ]
+  }
+}

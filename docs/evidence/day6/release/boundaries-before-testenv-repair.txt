@@ -1,0 +1,18 @@
+
+==================================== ERRORS ====================================
+_________ ERROR collecting tests/milestones/day6/test_cost_exporter.py _________
+ImportError while importing test module '/Users/congdinh/Downloads/work/teaching/Training Programs/07_DevOps_with_AI/07_DevOps_Current_Program/insighthub/tests/milestones/day6/test_cost_exporter.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Users/congdinh/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/milestones/day6/test_cost_exporter.py:17: in <module>
+    spec.loader.exec_module(exporter)
+gateway/exporter.py:11: in <module>
+    from prometheus_client import (
+E   ModuleNotFoundError: No module named 'prometheus_client'
+=========================== short test summary info ============================
+ERROR tests/milestones/day6/test_cost_exporter.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 3.58s

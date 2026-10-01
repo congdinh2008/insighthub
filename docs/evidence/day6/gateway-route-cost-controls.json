@@ -1,0 +1,48 @@
+{
+  "observed_at": 1790684981.726536,
+  "status": "PASS",
+  "results": [
+    {
+      "workload": "insighthub",
+      "override": "route",
+      "status": 401,
+      "error_type": "auth_error",
+      "safe_message": "Authentication Error, Rejected Request: api_base is not allowed in request body. Clientside passthrough requires explicit admin opt-in via either `general_settings.allow_client_side_credentials = true` (proxy-wide) or `configurable_clientside_auth_params` on the deployment in your proxy config.yaml. Relevant Issue: https://huntr.com/bounties/4001e1a2-7b7a-4776-a3ae-e6692ec3d997"
+    },
+    {
+      "workload": "insighthub",
+      "override": "pricing",
+      "status": 401,
+      "error_type": "auth_error",
+      "safe_message": "Authentication Error, Rejected Request: input_cost_per_token is not allowed in request body. Clientside passthrough requires explicit admin opt-in via either `general_settings.allow_client_side_credentials = true` (proxy-wide) or `configurable_clientside_auth_params` on the deployment in your proxy config.yaml. Relevant Issue: https://huntr.com/bounties/4001e1a2-7b7a-4776-a3ae-e6692ec3d997"
+    },
+    {
+      "workload": "bot",
+      "override": "route",
+      "status": 401,
+      "error_type": "auth_error",
+      "safe_message": "Authentication Error, Rejected Request: api_base is not allowed in request body. Clientside passthrough requires explicit admin opt-in via either `general_settings.allow_client_side_credentials = true` (proxy-wide) or `configurable_clientside_auth_params` on the deployment in your proxy config.yaml. Relevant Issue: https://huntr.com/bounties/4001e1a2-7b7a-4776-a3ae-e6692ec3d997"
+    },
+    {
+      "workload": "bot",
+      "override": "pricing",
+      "status": 401,
+      "error_type": "auth_error",
+      "safe_message": "Authentication Error, Rejected Request: input_cost_per_token is not allowed in request body. Clientside passthrough requires explicit admin opt-in via either `general_settings.allow_client_side_credentials = true` (proxy-wide) or `configurable_clientside_auth_params` on the deployment in your proxy config.yaml. Relevant Issue: https://huntr.com/bounties/4001e1a2-7b7a-4776-a3ae-e6692ec3d997"
+    },
+    {
+      "workload": "coding",
+      "override": "route",
+      "status": 401,
+      "error_type": "auth_error",
+      "safe_message": "Authentication Error, Rejected Request: api_base is not allowed in request body. Clientside passthrough requires explicit admin opt-in via either `general_settings.allow_client_side_credentials = true` (proxy-wide) or `configurable_clientside_auth_params` on the deployment in your proxy config.yaml. Relevant Issue: https://huntr.com/bounties/4001e1a2-7b7a-4776-a3ae-e6692ec3d997"
+    },
+    {
+      "workload": "coding",
+      "override": "pricing",
+      "status": 401,
+      "error_type": "auth_error",
+      "safe_message": "Authentication Error, Rejected Request: input_cost_per_token is not allowed in request body. Clientside passthrough requires explicit admin opt-in via either `general_settings.allow_client_side_credentials = true` (proxy-wide) or `configurable_clientside_auth_params` on the deployment in your proxy config.yaml. Relevant Issue: https://huntr.com/bounties/4001e1a2-7b7a-4776-a3ae-e6692ec3d997"
+    }
+  ]
+}

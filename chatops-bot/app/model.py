@@ -6,7 +6,16 @@ import httpx
 
 from .config import Settings
 
-SYSTEM_PROMPT = (Path(__file__).resolve().parents[1] / "prompts" / "system.txt").read_text()
+
+class ModelSummaryError(Exception):
+    def __init__(self, code: str):
+        self.code = code
+        super().__init__(code)
+
+
+SYSTEM_PROMPT = (
+    Path(__file__).resolve().parents[1] / "prompts" / "system.txt"
+).read_text()
 
 
 async def summarize(facts: str, settings: Settings) -> str | None:
@@ -22,14 +31,28 @@ async def summarize(facts: str, settings: Settings) -> str | None:
         ],
     }
     try:
-        async with httpx.AsyncClient(timeout=10) as client:
-            response = await client.post(settings.model_url.rstrip("/") + "/chat/completions",
-                                         headers={"Authorization": "Bearer " + settings.model_key},
-                                         json=payload)
+        async with httpx.AsyncClient(
+            timeout=25, trust_env=False, follow_redirects=False
+        ) as client:
+            response = await client.post(
+                settings.model_url.rstrip("/") + "/chat/completions",
+                headers={"Authorization": "Bearer " + settings.model_key},
+                json=payload,
+            )
+            if response.is_error:
+                code = "model_unavailable"
+                if (
+                    response.status_code in (400, 402, 429)
+                    and "budget" in response.text.lower()
+                ):
+                    code = "budget_exceeded"
+                elif response.status_code == 422:
+                    code = "policy_blocked"
+                raise ModelSummaryError(code)
             response.raise_for_status()
             content = response.json()["choices"][0]["message"]["content"]
             if isinstance(content, str) and 0 < len(content) <= 1000:
                 return content
     except (httpx.HTTPError, ValueError, KeyError, IndexError, TypeError):
-        pass
-    return None
+        raise ModelSummaryError("model_unavailable") from None
+    raise ModelSummaryError("invalid_model_output")

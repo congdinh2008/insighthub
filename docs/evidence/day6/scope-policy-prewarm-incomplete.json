@@ -1,0 +1,7 @@
+{
+  "status": "INCOMPLETE",
+  "stage": "guard_health_metadata_after_rollout",
+  "error": "RemoteProtocolError on first stale port-forward connection",
+  "source_commit": "3372d90",
+  "resolution": "Prewarm /healthz for three consecutive HTTP200 before new focused smoke; no report rows appended"
+}

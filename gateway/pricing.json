@@ -1,0 +1,12 @@
+{
+  "provider": "ZenLayer AI Gateway",
+  "source": "https://console.zenlayer.com/aigw/modelRepo",
+  "observed_at": "2026-09-29",
+  "currency": "USD",
+  "unit": "one million tokens",
+  "billing_status": "catalog estimate; invoice reconciliation separate",
+  "models": {
+    "gpt-4.1-mini": {"input": 0.4, "output": 1.6, "cached_input": 0.1},
+    "text-embedding-3-large": {"input": 0.13, "output": 0}
+  }
+}

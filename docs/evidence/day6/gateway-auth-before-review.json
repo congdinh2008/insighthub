@@ -1,0 +1,99 @@
+{
+  "observed_at": 1790678267.065293,
+  "results": [
+    {
+      "workload": "insighthub",
+      "path": "/key/generate",
+      "status": 403
+    },
+    {
+      "workload": "insighthub",
+      "path": "/key/update",
+      "status": 403
+    },
+    {
+      "workload": "insighthub",
+      "path": "/v1/chat/completions",
+      "status": 403
+    },
+    {
+      "workload": "insighthub",
+      "probe": "policy-bypass",
+      "status": 400
+    },
+    {
+      "workload": "insighthub",
+      "probe": "policy-bypass",
+      "status": 403
+    },
+    {
+      "workload": "insighthub",
+      "probe": "policy-bypass",
+      "status": 422
+    },
+    {
+      "workload": "bot",
+      "path": "/key/generate",
+      "status": 403
+    },
+    {
+      "workload": "bot",
+      "path": "/key/update",
+      "status": 403
+    },
+    {
+      "workload": "bot",
+      "path": "/v1/chat/completions",
+      "status": 403
+    },
+    {
+      "workload": "bot",
+      "probe": "policy-bypass",
+      "status": 400
+    },
+    {
+      "workload": "bot",
+      "probe": "policy-bypass",
+      "status": 403
+    },
+    {
+      "workload": "bot",
+      "probe": "policy-bypass",
+      "status": 422
+    },
+    {
+      "workload": "coding",
+      "path": "/key/generate",
+      "status": 403
+    },
+    {
+      "workload": "coding",
+      "path": "/key/update",
+      "status": 403
+    },
+    {
+      "workload": "coding",
+      "path": "/v1/chat/completions",
+      "status": 403
+    },
+    {
+      "workload": "coding",
+      "probe": "policy-bypass",
+      "status": 400
+    },
+    {
+      "workload": "coding",
+      "probe": "policy-bypass",
+      "status": 403
+    },
+    {
+      "workload": "coding",
+      "probe": "policy-bypass",
+      "status": 422
+    },
+    {
+      "probe": "invalid-key",
+      "status": 401
+    }
+  ]
+}

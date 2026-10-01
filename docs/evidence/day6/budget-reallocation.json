@@ -1,0 +1,51 @@
+{
+  "observed_at": 1790693481.515629,
+  "reason": "Reallocate unused app reserve to evaluator for required source-frozen replays after retained failed/incomplete runs. Aggregate caps and global paid envelope unchanged.",
+  "before": {
+    "insighthub": {
+      "spend": 0.0933226800000002,
+      "max_budget": 1.5
+    },
+    "bot": {
+      "spend": 0.0014168,
+      "max_budget": 0.5
+    },
+    "coding": {
+      "spend": 0.003292799999999999,
+      "max_budget": 1.0
+    },
+    "guard": {
+      "spend": 0.2509064000000001,
+      "max_budget": 1.0
+    },
+    "evaluator": {
+      "spend": 0.4138543699999999,
+      "max_budget": 0.5
+    }
+  },
+  "after": {
+    "insighthub": {
+      "spend": 0.0933226800000002,
+      "max_budget": 1.25
+    },
+    "bot": {
+      "spend": 0.0014168,
+      "max_budget": 0.5
+    },
+    "coding": {
+      "spend": 0.003292799999999999,
+      "max_budget": 1.0
+    },
+    "guard": {
+      "spend": 0.2509064000000001,
+      "max_budget": 1.0
+    },
+    "evaluator": {
+      "spend": 0.4138543699999999,
+      "max_budget": 0.75
+    }
+  },
+  "aggregate_caps_usd": 4.5,
+  "global_admission_stop_usd": 4,
+  "paid_envelope_usd": 5
+}

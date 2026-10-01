@@ -1,0 +1,425 @@
+{
+  "observed_at": 1790690003.2636611,
+  "results": [
+    {
+      "workload": "insighthub",
+      "concurrency": 1,
+      "statuses": [
+        200
+      ],
+      "allowed": 1,
+      "denied_status": 429,
+      "cap_usd": 0.07546406000000011,
+      "spend_before_usd": 0.07546306000000011,
+      "spend_after_usd": 0.07557226000000011,
+      "overshoot_usd": 0.00010820000000000274,
+      "accounting_delay_seconds": 7.045582499995362,
+      "provider_usage": [
+        {
+          "completion_tokens": 64,
+          "prompt_tokens": 17,
+          "total_tokens": 81,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0
+          },
+          "latency_checkpoint": {
+            "engine_tbt_ms": 11,
+            "engine_ttft_ms": 65,
+            "engine_ttlt_ms": 755,
+            "pre_inference_ms": 87,
+            "service_tbt_ms": 11,
+            "service_ttft_ms": 406,
+            "service_ttlt_ms": 1093,
+            "user_visible_ttft_ms": 319
+          }
+        }
+      ],
+      "completed_calls_expected_cost_usd": 0.0001092,
+      "pre_probe_stable_seconds": 12,
+      "native_budget_type": "soft cap; in-flight overshoot measured; automatic enforcement without cache refresh",
+      "overshoot_bound_usd": 0.0400384
+    },
+    {
+      "workload": "insighthub",
+      "concurrency": 2,
+      "statuses": [
+        200,
+        429
+      ],
+      "allowed": 1,
+      "denied_status": 429,
+      "cap_usd": 0.07557326000000011,
+      "spend_before_usd": 0.07557226000000011,
+      "spend_after_usd": 0.07568146000000012,
+      "overshoot_usd": 0.00010820000000000274,
+      "accounting_delay_seconds": 9.377638415957335,
+      "provider_usage": [
+        {
+          "completion_tokens": 64,
+          "prompt_tokens": 17,
+          "total_tokens": 81,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0
+          },
+          "latency_checkpoint": {
+            "engine_tbt_ms": 16,
+            "engine_ttft_ms": 33,
+            "engine_ttlt_ms": 1078,
+            "pre_inference_ms": 73,
+            "service_tbt_ms": 16,
+            "service_ttft_ms": 471,
+            "service_ttlt_ms": 1507,
+            "user_visible_ttft_ms": 398
+          }
+        }
+      ],
+      "completed_calls_expected_cost_usd": 0.0001092,
+      "pre_probe_stable_seconds": 12,
+      "native_budget_type": "soft cap; in-flight overshoot measured; automatic enforcement without cache refresh",
+      "overshoot_bound_usd": 0.0800768
+    },
+    {
+      "workload": "insighthub",
+      "concurrency": 5,
+      "statuses": [
+        429,
+        200,
+        429,
+        429,
+        429
+      ],
+      "allowed": 1,
+      "denied_status": 429,
+      "cap_usd": 0.07568246000000012,
+      "spend_before_usd": 0.07568146000000012,
+      "spend_after_usd": 0.07579066000000012,
+      "overshoot_usd": 0.00010820000000000274,
+      "accounting_delay_seconds": 7.986421084031463,
+      "provider_usage": [
+        {
+          "completion_tokens": 64,
+          "prompt_tokens": 17,
+          "total_tokens": 81,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0
+          },
+          "latency_checkpoint": {
+            "engine_tbt_ms": 12,
+            "engine_ttft_ms": 32,
+            "engine_ttlt_ms": 778,
+            "pre_inference_ms": 79,
+            "service_tbt_ms": 12,
+            "service_ttft_ms": 471,
+            "service_ttlt_ms": 1213,
+            "user_visible_ttft_ms": 392
+          }
+        }
+      ],
+      "completed_calls_expected_cost_usd": 0.0001092,
+      "pre_probe_stable_seconds": 12,
+      "native_budget_type": "soft cap; in-flight overshoot measured; automatic enforcement without cache refresh",
+      "overshoot_bound_usd": 0.200192
+    },
+    {
+      "workload": "bot",
+      "concurrency": 1,
+      "statuses": [
+        200
+      ],
+      "allowed": 1,
+      "denied_status": 429,
+      "cap_usd": 0.0010934,
+      "spend_before_usd": 0.0010924,
+      "spend_after_usd": 0.0012016,
+      "overshoot_usd": 0.00010819999999999992,
+      "accounting_delay_seconds": 9.317076209001243,
+      "provider_usage": [
+        {
+          "completion_tokens": 64,
+          "prompt_tokens": 17,
+          "total_tokens": 81,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0
+          },
+          "latency_checkpoint": {
+            "engine_tbt_ms": 13,
+            "engine_ttft_ms": 32,
+            "engine_ttlt_ms": 893,
+            "pre_inference_ms": 108,
+            "service_tbt_ms": 14,
+            "service_ttft_ms": 514,
+            "service_ttlt_ms": 1368,
+            "user_visible_ttft_ms": 406
+          }
+        }
+      ],
+      "completed_calls_expected_cost_usd": 0.0001092,
+      "pre_probe_stable_seconds": 12,
+      "native_budget_type": "soft cap; in-flight overshoot measured; automatic enforcement without cache refresh",
+      "overshoot_bound_usd": 0.0400384
+    },
+    {
+      "workload": "bot",
+      "concurrency": 2,
+      "statuses": [
+        200,
+        429
+      ],
+      "allowed": 1,
+      "denied_status": 429,
+      "cap_usd": 0.0012025999999999998,
+      "spend_before_usd": 0.0012016,
+      "spend_after_usd": 0.0013108,
+      "overshoot_usd": 0.00010820000000000014,
+      "accounting_delay_seconds": 8.055529000004753,
+      "provider_usage": [
+        {
+          "completion_tokens": 64,
+          "prompt_tokens": 17,
+          "total_tokens": 81,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0
+          },
+          "latency_checkpoint": {
+            "engine_tbt_ms": 9,
+            "engine_ttft_ms": 51,
+            "engine_ttlt_ms": 639,
+            "pre_inference_ms": 81,
+            "service_tbt_ms": 9,
+            "service_ttft_ms": 490,
+            "service_ttlt_ms": 1073,
+            "user_visible_ttft_ms": 409
+          }
+        }
+      ],
+      "completed_calls_expected_cost_usd": 0.0001092,
+      "pre_probe_stable_seconds": 12,
+      "native_budget_type": "soft cap; in-flight overshoot measured; automatic enforcement without cache refresh",
+      "overshoot_bound_usd": 0.0800768
+    },
+    {
+      "workload": "bot",
+      "concurrency": 5,
+      "statuses": [
+        429,
+        429,
+        429,
+        429,
+        200
+      ],
+      "allowed": 1,
+      "denied_status": 429,
+      "cap_usd": 0.0013118,
+      "spend_before_usd": 0.0013108,
+      "spend_after_usd": 0.0014168,
+      "overshoot_usd": 0.00010500000000000006,
+      "accounting_delay_seconds": 8.574418125033844,
+      "provider_usage": [
+        {
+          "completion_tokens": 62,
+          "prompt_tokens": 17,
+          "total_tokens": 79,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0
+          },
+          "latency_checkpoint": {
+            "engine_tbt_ms": 20,
+            "engine_ttft_ms": 35,
+            "engine_ttlt_ms": 1268,
+            "pre_inference_ms": 105,
+            "service_tbt_ms": 20,
+            "service_ttft_ms": 515,
+            "service_ttlt_ms": 1728,
+            "user_visible_ttft_ms": 410
+          }
+        }
+      ],
+      "completed_calls_expected_cost_usd": 0.000106,
+      "pre_probe_stable_seconds": 12,
+      "native_budget_type": "soft cap; in-flight overshoot measured; automatic enforcement without cache refresh",
+      "overshoot_bound_usd": 0.200192
+    },
+    {
+      "workload": "coding",
+      "concurrency": 1,
+      "statuses": [
+        200
+      ],
+      "allowed": 1,
+      "denied_status": 429,
+      "cap_usd": 0.0029662,
+      "spend_before_usd": 0.0029652,
+      "spend_after_usd": 0.0030744,
+      "overshoot_usd": 0.00010820000000000014,
+      "accounting_delay_seconds": 8.677124792011455,
+      "provider_usage": [
+        {
+          "completion_tokens": 64,
+          "prompt_tokens": 17,
+          "total_tokens": 81,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0
+          },
+          "latency_checkpoint": {
+            "engine_tbt_ms": 9,
+            "engine_ttft_ms": 27,
+            "engine_ttlt_ms": 619,
+            "pre_inference_ms": 111,
+            "service_tbt_ms": 9,
+            "service_ttft_ms": 542,
+            "service_ttlt_ms": 1089,
+            "user_visible_ttft_ms": 431
+          }
+        }
+      ],
+      "completed_calls_expected_cost_usd": 0.0001092,
+      "pre_probe_stable_seconds": 12,
+      "native_budget_type": "soft cap; in-flight overshoot measured; automatic enforcement without cache refresh",
+      "overshoot_bound_usd": 0.0400384
+    },
+    {
+      "workload": "coding",
+      "concurrency": 2,
+      "statuses": [
+        429,
+        200
+      ],
+      "allowed": 1,
+      "denied_status": 429,
+      "cap_usd": 0.0030754000000000003,
+      "spend_before_usd": 0.0030744,
+      "spend_after_usd": 0.0031836,
+      "overshoot_usd": 0.0001081999999999997,
+      "accounting_delay_seconds": 9.078550417034421,
+      "provider_usage": [
+        {
+          "completion_tokens": 64,
+          "prompt_tokens": 17,
+          "total_tokens": 81,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0
+          },
+          "latency_checkpoint": {
+            "engine_tbt_ms": 10,
+            "engine_ttft_ms": 30,
+            "engine_ttlt_ms": 643,
+            "pre_inference_ms": 73,
+            "service_tbt_ms": 10,
+            "service_ttft_ms": 465,
+            "service_ttlt_ms": 1077,
+            "user_visible_ttft_ms": 392
+          }
+        }
+      ],
+      "completed_calls_expected_cost_usd": 0.0001092,
+      "pre_probe_stable_seconds": 12,
+      "native_budget_type": "soft cap; in-flight overshoot measured; automatic enforcement without cache refresh",
+      "overshoot_bound_usd": 0.0800768
+    },
+    {
+      "workload": "coding",
+      "concurrency": 5,
+      "statuses": [
+        200,
+        429,
+        429,
+        429,
+        429
+      ],
+      "allowed": 1,
+      "denied_status": 429,
+      "cap_usd": 0.0031846,
+      "spend_before_usd": 0.0031836,
+      "spend_after_usd": 0.003292799999999999,
+      "overshoot_usd": 0.00010819999999999884,
+      "accounting_delay_seconds": 8.679431916971225,
+      "provider_usage": [
+        {
+          "completion_tokens": 64,
+          "prompt_tokens": 17,
+          "total_tokens": 81,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0
+          },
+          "latency_checkpoint": {
+            "engine_tbt_ms": 9,
+            "engine_ttft_ms": 54,
+            "engine_ttlt_ms": 603,
+            "pre_inference_ms": 91,
+            "service_tbt_ms": 9,
+            "service_ttft_ms": 506,
+            "service_ttlt_ms": 1049,
+            "user_visible_ttft_ms": 416
+          }
+        }
+      ],
+      "completed_calls_expected_cost_usd": 0.0001092,
+      "pre_probe_stable_seconds": 12,
+      "native_budget_type": "soft cap; in-flight overshoot measured; automatic enforcement without cache refresh",
+      "overshoot_bound_usd": 0.200192
+    }
+  ]
+}

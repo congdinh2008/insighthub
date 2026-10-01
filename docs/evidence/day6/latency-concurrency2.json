@@ -1,0 +1,674 @@
+{
+  "observed_at": "2026-10-01T06:16:56.126898+00:00",
+  "start": "2026-10-01T06:15:01.514888+00:00",
+  "mode": "real",
+  "concurrency": 2,
+  "source_sha256": "c49623b4b2600af16d9e01e01f0b2c1c95afc9e88e30eae03df712fc6593dd8d",
+  "dataset_sha256": "74c9ea50f65255b62c3cb643c347dea0dc02078458c75ae9a54b45995ebf2ef6",
+  "measurement_script_sha256": "019fecff6e92b22ffe2cd9522a9f2d005823c9b30d96d42a6dae02cc9a0d8c5d",
+  "method": "20 same frozen benign questions for each profile, HTTP wall clock includes retrieval/generation/guards; paired delta includes network/provider/run variance and is not isolated classifier CPU time",
+  "profiles": {
+    "baseline": {
+      "rows": [
+        {
+          "case_id": "benign-01",
+          "request_id": "0a61b545-b24b-41a1-acb1-016be00fa969",
+          "status": 200,
+          "duration_seconds": 4.192148707981687,
+          "passed": true,
+          "answer": "InsightHub lưu vector trong PostgreSQL với thành phần pgvector [nguồn: day6-guide.md].",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 318,
+            "output_tokens": 21,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-02",
+          "request_id": "1d0fc8af-f546-41b0-ad8d-b80e8d3d73ea",
+          "status": 200,
+          "duration_seconds": 3.778070291999029,
+          "passed": true,
+          "answer": "InsightHub stores vectors in PostgreSQL with pgvector [nguồn: day6-guide.md].",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 316,
+            "output_tokens": 19,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-03",
+          "request_id": "0235a190-d67b-402b-817d-314652b1e20a",
+          "status": 200,
+          "duration_seconds": 1.4358757919981144,
+          "passed": true,
+          "answer": "Hàng đợi ingestion sử dụng Redis. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 318,
+            "output_tokens": 18,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-04",
+          "request_id": "b9357628-c1e3-42c2-b534-647d8e4c0341",
+          "status": 200,
+          "duration_seconds": 2.475049291999312,
+          "passed": true,
+          "answer": "Redis powers the ingestion queue. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 315,
+            "output_tokens": 15,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-05",
+          "request_id": "4c1fea7d-d72d-45ab-b143-c7679896b4db",
+          "status": 200,
+          "duration_seconds": 2.3017789580044337,
+          "passed": true,
+          "answer": "Dimension của embedding trong lab là 1024 [nguồn: day6-guide.md].",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 319,
+            "output_tokens": 18,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-06",
+          "request_id": "07c1e126-4936-4519-8aaa-d0b85d4255af",
+          "status": 200,
+          "duration_seconds": 3.3116345000162255,
+          "passed": true,
+          "answer": "The lab embedding has 1024 dimensions. [source: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 318,
+            "output_tokens": 17,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-07",
+          "request_id": "a4d9daa1-570c-4162-a1ac-098eb2885ba4",
+          "status": 200,
+          "duration_seconds": 2.3898732909874525,
+          "passed": true,
+          "answer": "Upload được API tiếp nhận với HTTP status 202. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 319,
+            "output_tokens": 20,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-08",
+          "request_id": "cb9d1634-4687-4f63-a018-6516b4c4aa98",
+          "status": 200,
+          "duration_seconds": 1.4231407920015045,
+          "passed": true,
+          "answer": "An accepted upload returns HTTP status 202. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 317,
+            "output_tokens": 18,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-09",
+          "request_id": "fa1072b8-cad9-471e-b58b-a5ecb7a4e853",
+          "status": 200,
+          "duration_seconds": 1.8917004159884527,
+          "passed": true,
+          "answer": "Tài liệu xử lý thành công có trạng thái \"ready\" sau khi được ingest thành công. Khi upload được chấp nhận, hệ thống trả về HTTP 202; tài liệu được ingest thành công sẽ ở trạng thái ready. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 321,
+            "output_tokens": 56,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-10",
+          "request_id": "89937f89-20b2-4732-8e22-69e8003b01f1",
+          "status": 200,
+          "duration_seconds": 1.5792309159878641,
+          "passed": true,
+          "answer": "A successfully ingested document is ready. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 320,
+            "output_tokens": 17,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-11",
+          "request_id": "96feed84-4778-4cdb-a128-54921ea5f80e",
+          "status": 200,
+          "duration_seconds": 1.648479708994273,
+          "passed": true,
+          "answer": "Production changes cần bước kiểm soát approval. Approval mechanism là deterministic và tách biệt với LLM. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 318,
+            "output_tokens": 30,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-12",
+          "request_id": "b04bc30b-ebef-461b-b2c9-14bc90e3ad7b",
+          "status": 200,
+          "duration_seconds": 3.3592646670003887,
+          "passed": true,
+          "answer": "Yes, production changes require approval in this lab. The approval mechanism is deterministic and separate from the LLM. This is stated in the local acceptance guide. [source: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 318,
+            "output_tokens": 39,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-13",
+          "request_id": "77b272ea-ccea-42e0-bc04-133b9b632cb4",
+          "status": 200,
+          "duration_seconds": 2.261118541005999,
+          "passed": true,
+          "answer": "Readiness probe là một cơ chế kiểm tra để xác định xem một pod có sẵn sàng nhận traffic hay không. Khi readiness probe báo hiệu pod ready, pod đó sẽ được phép nhận traffic. Nếu pod chưa ready, nó sẽ không nhận traffic cho đến khi probe xác nhận sẵn sàng. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 319,
+            "output_tokens": 71,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-14",
+          "request_id": "35439142-9e5e-4de1-bebd-2868e4c280e8",
+          "status": 200,
+          "duration_seconds": 2.056482042011339,
+          "passed": true,
+          "answer": "A readiness probe determines whether a pod is ready to receive traffic. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 316,
+            "output_tokens": 22,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-15",
+          "request_id": "7ceed25a-87c3-4e92-9d9e-0acdb1fbe213",
+          "status": 200,
+          "duration_seconds": 1.8805581670021638,
+          "passed": true,
+          "answer": "Mục đích của prompt injection defense là để xử lý các instructions trong tài liệu được truy xuất như dữ liệu không đáng tin cậy, nhằm ngăn chặn việc các instructions này ảnh hưởng tiêu cực đến hệ thống hoặc gây ra hành vi không mong muốn. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 319,
+            "output_tokens": 63,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-16",
+          "request_id": "4076dea6-68bd-432d-8257-e4f04f9772ea",
+          "status": 200,
+          "duration_seconds": 1.6900414999981876,
+          "passed": true,
+          "answer": "Instructions in retrieved documents are treated as untrusted data because of prompt injection defense. This defense mechanism assumes that any instructions found within the retrieved documents could be manipulated or malicious, so they cannot be trusted blindly. This approach helps prevent unintended or harmful behavior when processing these instructions. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 319,
+            "output_tokens": 63,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-17",
+          "request_id": "ff4b5345-1ab5-4412-a019-3a029d46d3a3",
+          "status": 200,
+          "duration_seconds": 1.8359712079982273,
+          "passed": true,
+          "answer": "InsightHub lưu trữ vector trong PostgreSQL sử dụng pgvector với embedding dimension là 1024. Redis được sử dụng để vận hành hàng đợi ingestion. Khi upload được chấp nhận, hệ thống trả về HTTP 202; tài liệu được ingest thành công sẽ ở trạng thái ready. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 318,
+            "output_tokens": 69,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-18",
+          "request_id": "699ec1fa-d3fc-4f4e-9bcc-431e9c85f9d4",
+          "status": 200,
+          "duration_seconds": 2.6140332919894718,
+          "passed": true,
+          "answer": "The database technology is PostgreSQL with pgvector, and the queue technology is Redis. [source: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 316,
+            "output_tokens": 25,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-19",
+          "request_id": "4326e33a-63a7-41d1-a787-0d35ea6af8c7",
+          "status": 200,
+          "duration_seconds": 2.6025318340107333,
+          "passed": true,
+          "answer": "Lab guide không đề cập AWS deployment đã được kiểm thử. Tài liệu chỉ rõ môi trường acceptance là local và AWS deployment không phải là một phần của lần chạy này [nguồn: day6-guide.md].",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 322,
+            "output_tokens": 43,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-20",
+          "request_id": "9c90e81b-d7f7-4019-8896-79f280c111fe",
+          "status": 200,
+          "duration_seconds": 1.4608083750063088,
+          "passed": true,
+          "answer": "This acceptance environment is local. AWS deployment is not part of this run [source: day6-guide.md].",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 317,
+            "output_tokens": 22,
+            "source": "provider"
+          }
+        }
+      ],
+      "passed": 20,
+      "p50_seconds": 2.158800291508669,
+      "p95_seconds": 3.778070291999029
+    },
+    "enforced": {
+      "rows": [
+        {
+          "case_id": "benign-01",
+          "request_id": "53e1587d-8cbf-4198-bb90-46f4419e956b",
+          "status": 200,
+          "duration_seconds": 9.745474249997642,
+          "passed": true,
+          "answer": "InsightHub lưu vector trong PostgreSQL với pgvector. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 399,
+            "output_tokens": 20,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-02",
+          "request_id": "5798d1e1-f360-4d29-b78c-5b4b46ac4054",
+          "status": 200,
+          "duration_seconds": 10.281847709004069,
+          "passed": true,
+          "answer": "InsightHub stores vectors in PostgreSQL with pgvector [nguồn: day6-guide.md].",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 397,
+            "output_tokens": 19,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-03",
+          "request_id": "3ba20841-27c4-45e3-aced-94d56391b55b",
+          "status": 200,
+          "duration_seconds": 7.7567738329817075,
+          "passed": true,
+          "answer": "Hàng đợi ingestion sử dụng Redis để vận hành trong môi trường local của InsightHub. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 399,
+            "output_tokens": 28,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-04",
+          "request_id": "450ec7e0-ff2c-42a8-940d-26ec50973e13",
+          "status": 200,
+          "duration_seconds": 7.355438124999637,
+          "passed": true,
+          "answer": "Redis powers the ingestion queue [nguồn: day6-guide.md].",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 396,
+            "output_tokens": 14,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-05",
+          "request_id": "59cc4e72-bf9c-4c81-9c34-8fb06e944161",
+          "status": 200,
+          "duration_seconds": 7.555944874999113,
+          "passed": true,
+          "answer": "Dimension của embedding trong lab là 1024 [nguồn: day6-guide.md].",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 400,
+            "output_tokens": 18,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-06",
+          "request_id": "f7f59ffc-2573-4a4b-b1e0-9945e2b6b72d",
+          "status": 200,
+          "duration_seconds": 8.35939149998012,
+          "passed": true,
+          "answer": "The lab embedding has 1024 dimensions. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 399,
+            "output_tokens": 18,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-07",
+          "request_id": "5857a693-b9e2-48cf-84a1-fa599704c01f",
+          "status": 200,
+          "duration_seconds": 7.905330375011545,
+          "passed": true,
+          "answer": "Upload được API tiếp nhận với HTTP status 202 theo hướng dẫn trong tài liệu. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 400,
+            "output_tokens": 26,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-08",
+          "request_id": "f419ffff-be34-4c33-ad7d-38d8b7a83582",
+          "status": 200,
+          "duration_seconds": 7.033318333997158,
+          "passed": true,
+          "answer": "An accepted upload returns HTTP status 202. This indicates that the upload has been accepted but the document is not yet ready until it is successfully ingested. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 398,
+            "output_tokens": 40,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-09",
+          "request_id": "608a76c5-899f-410e-bb49-3dedacb1375f",
+          "status": 200,
+          "duration_seconds": 8.237667875015177,
+          "passed": true,
+          "answer": "Tài liệu xử lý thành công có trạng thái HTTP 202 khi upload được chấp nhận; sau đó tài liệu được ingest thành công sẽ ở trạng thái ready. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 402,
+            "output_tokens": 43,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-10",
+          "request_id": "92b191ac-db1d-4916-bea5-1911c471311b",
+          "status": 200,
+          "duration_seconds": 7.430703582998831,
+          "passed": true,
+          "answer": "A successfully ingested document is ready. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 401,
+            "output_tokens": 17,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-11",
+          "request_id": "44bc7ff6-f9d4-4132-999e-6d4349a7841c",
+          "status": 200,
+          "duration_seconds": 8.937391666986514,
+          "passed": true,
+          "answer": "Production changes cần bước kiểm soát là approval. Cơ chế approval này là deterministic và tách biệt với LLM [nguồn: day6-guide.md].",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 399,
+            "output_tokens": 33,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-12",
+          "request_id": "34f07304-79f3-4a17-8b1b-6ef84a21a209",
+          "status": 200,
+          "duration_seconds": 9.978721791994758,
+          "passed": true,
+          "answer": "Yes, production changes require approval in this lab. The approval mechanism is deterministic and separate from the LLM. This is stated in the local acceptance environment described in the guide. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 399,
+            "output_tokens": 44,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-13",
+          "request_id": "bca2dc60-fdd8-4b56-9bdf-97cae0aefd5e",
+          "status": 200,
+          "duration_seconds": 13.382931208994705,
+          "passed": true,
+          "answer": "Readiness probe là một cơ chế kiểm tra để xác định xem một pod có sẵn sàng nhận traffic hay không. Khi readiness probe báo rằng pod đã sẵn sàng, pod đó sẽ được phép nhận traffic. Nếu pod chưa sẵn sàng, nó sẽ không nhận traffic cho đến khi probe xác nhận trạng thái ready. Cơ chế này giúp đảm bảo rằng chỉ những pod đã sẵn sàng mới nhận traffic, tránh gây lỗi hoặc gián đoạn dịch vụ. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 400,
+            "output_tokens": 107,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-14",
+          "request_id": "0b40614b-cfef-400c-9ba0-cc011336fd7a",
+          "status": 200,
+          "duration_seconds": 7.954369665996637,
+          "passed": true,
+          "answer": "A readiness probe determines whether a pod is ready to receive traffic. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 397,
+            "output_tokens": 22,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-15",
+          "request_id": "d169fc68-4ada-4c0c-8321-50ec9e0b0280",
+          "status": 200,
+          "duration_seconds": 8.58687420800561,
+          "passed": true,
+          "answer": "Mục đích của prompt injection defense là để xử lý các instructions trong tài liệu được truy xuất như dữ liệu không đáng tin cậy, nhằm ngăn chặn việc các instructions này ảnh hưởng tiêu cực đến hệ thống hoặc kết quả xử lý. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 400,
+            "output_tokens": 60,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-16",
+          "request_id": "55c1b13d-5ed9-4995-8921-9a179d5fbe18",
+          "status": 200,
+          "duration_seconds": 12.49401341698831,
+          "passed": true,
+          "answer": "Instructions in retrieved documents are treated as untrusted data because they come from external sources and could contain malicious or unintended commands that might compromise the system's behavior or security. This prompt injection defense ensures that any instructions embedded within these documents do not directly influence the system's operation, preventing potential exploitation or manipulation. This approach is part of the local acceptance environment described in the guide, where security measures are emphasized to maintain safe processing of data stored in PostgreSQL and managed through Redis. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 400,
+            "output_tokens": 103,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-17",
+          "request_id": "d42adcf9-dd45-4e2c-9443-d7c9d7b4fc13",
+          "status": 200,
+          "duration_seconds": 8.301701124990359,
+          "passed": true,
+          "answer": "InsightHub lưu trữ vector trong PostgreSQL sử dụng pgvector với embedding dimension là 1024. Redis được sử dụng để vận hành hàng đợi ingestion. Khi upload được chấp nhận, hệ thống trả về HTTP 202; tài liệu được ingest thành công sẽ ở trạng thái ready. Tất cả thay đổi trong môi trường production cần có approval. Đây là môi trường local, không bao gồm triển khai trên AWS [nguồn: day6-guide.md].",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 399,
+            "output_tokens": 95,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-18",
+          "request_id": "5a3cfee4-c02c-438d-bd44-6f55b49e6113",
+          "status": 200,
+          "duration_seconds": 7.685240207996685,
+          "passed": true,
+          "answer": "The database technology is PostgreSQL with pgvector, and the queue technology is Redis. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 397,
+            "output_tokens": 26,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-19",
+          "request_id": "1c7a84e0-5823-4217-bef2-5fbbd6370e3d",
+          "status": 200,
+          "duration_seconds": 7.117122208001092,
+          "passed": true,
+          "answer": "Lab guide không đề cập AWS deployment đã được kiểm thử. Tài liệu chỉ nêu rõ môi trường acceptance là local và AWS deployment không phải là một phần của lần chạy này [nguồn: day6-guide.md].",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 403,
+            "output_tokens": 45,
+            "source": "provider"
+          }
+        },
+        {
+          "case_id": "benign-20",
+          "request_id": "04017af5-7217-4ee6-b011-c65c6d90b127",
+          "status": 200,
+          "duration_seconds": 8.043227667018073,
+          "passed": true,
+          "answer": "The acceptance environment described in the guide is local. AWS deployment is explicitly stated as not part of this run. [nguồn: day6-guide.md]",
+          "sources": [
+            "day6-guide.md"
+          ],
+          "usage": {
+            "input_tokens": 398,
+            "output_tokens": 31,
+            "source": "provider"
+          }
+        }
+      ],
+      "passed": 20,
+      "p50_seconds": 8.140447771016625,
+      "p95_seconds": 12.49401341698831
+    }
+  },
+  "paired_overhead_p95_seconds": 10.803971916990122,
+  "candidate_targets": {
+    "chat_p95_seconds": 15,
+    "guard_overhead_p95_seconds": 3
+  },
+  "chat_target_met": true,
+  "overhead_target_met": false,
+  "all_expected_answers": true
+}

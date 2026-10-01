@@ -49,3 +49,6 @@ evidence/
 !docs/evidence/**
 reports/
 *.tsbuildinfo
+
+# Raw release CI downloads stay local; publish reviewed summaries only.
+docs/evidence/day6/release/ci-run-*/

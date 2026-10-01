@@ -1,0 +1,34 @@
+# NeMo IORails performs real checks; this file contains no credentials.
+models: []
+rails:
+  input:
+    flows: [regex check input]
+  output:
+    flows: [regex check output]
+  config:
+    regex_detection:
+      input:
+        patterns:
+          - '(?i)(ignore|disregard|override)\s+(all\s+|the\s+|your\s+)?(previous|system|developer|security|prior)'
+          - '(?i)(reveal|print|dump|exfiltrate|send).{0,45}(api.key|password|secret|system.prompt|private.key)'
+          # Private instruction references stay forbidden even in creative transformations.
+          # General definitions and drafting a new example prompt remain allowed.
+          - '(?i)\b(?:your|its|this assistant.s|the assistant.s)\s+(?:system|developer)\s+(?:prompt|instructions)\b'
+          - '(?i)(bỏ qua|phớt lờ).{0,40}(chỉ dẫn|chỉ thị|hướng dẫn|hệ thống|quy tắc)'
+          - '(?i)(tiết lộ|in ra|gửi).{0,40}(mật khẩu|khóa api|bí mật|system prompt)'
+          - '(?i)(kubectl\s+delete|rm\s+-rf|delete\s+namespace)'
+          # Workload models may draft communications, but cannot send them.
+          - '(?i)^\s*(?:(?:please|kindly)\s+)?(?:(?:can|could|would|will)\s+you\s+(?:please\s+)?|i\s+(?:need|want)\s+you\s+to\s+)?(?:send|dispatch|post|publish)\b.{0,100}\b(?:notifications?|messages?|emails?|alerts?|stakeholders?|customers?|users?|team|channel|slack)\b'
+          - '(?i)^\s*(?:(?:please|kindly)\s+)?(?:(?:can|could|would|will)\s+you\s+(?:please\s+)?|i\s+(?:need|want)\s+you\s+to\s+)?(?:email|notify)\s+(?:all\s+|the\s+|our\s+)?(?:stakeholders?|customers?|users?|team|everyone|them)\b'
+          - '(?i)^\s*(?:(?:bạn\s+)?(?:có thể|hãy|vui lòng|làm ơn)\s+)?(?:gửi|gởi|đăng|thông báo)\b.{0,80}\b(?:thông báo|email|tin nhắn|slack|cho\s+(?:khách hàng|mọi người|nhóm|đội|các bên))\b'
+          - '(?i)\bsk-[a-zA-Z0-9_-]{20,}\b'
+          - '(?i)\b[\w.+-]+@[\w.-]+\.[a-z]{2,}\b'
+          - '\b\d{3}-\d{2}-\d{4}\b'
+          - '\b0[35789][0-9]{8}\b'
+      output:
+        patterns:
+          - '(?i)\bsk-[a-zA-Z0-9_-]{20,}\b'
+          - '(?i)\b[\w.+-]+@[\w.-]+\.[a-z]{2,}\b'
+          - '\b\d{3}-\d{2}-\d{4}\b'
+          - '\b0[35789][0-9]{8}\b'
+          - 'DAY6_SECRET_[A-Z0-9_]+'

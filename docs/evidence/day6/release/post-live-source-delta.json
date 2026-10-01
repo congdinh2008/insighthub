@@ -1,0 +1,12 @@
+{
+  "live_source_commit": "60ebb4d1271f222fa72fed62fd44937160468f08",
+  "followup_commit": "480bc943419a81e01bf85baf2fd701825192c849",
+  "changed_source_paths": [
+    "tests/milestones/day6/test_ci_cost_stop.py",
+    "tools/security/day6/ci_acceptance.py"
+  ],
+  "change_scope": "CI artifact provenance and its offline regression only",
+  "application_guard_gateway_runtime_unchanged": true,
+  "live_acceptance_assertions_unchanged": true,
+  "dataset_unchanged": true
+}

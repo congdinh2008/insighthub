@@ -1,12 +1,19 @@
 """Small REST adapters share bounded timeouts and sanitized transport errors."""
 
 import logging
+import uuid
 from typing import Any
 
 import httpx
 
 from app.core.config import get_settings
-from app.core.errors import ProviderError
+from app.core.errors import (
+    BudgetExceeded,
+    GuardrailUnavailable,
+    PolicyBlocked,
+    ProviderError,
+)
+from app.core.request_context import request_id
 
 logger = logging.getLogger("insighthub.providers")
 
@@ -15,6 +22,10 @@ def post_json(
     url: str, *, headers: dict[str, str], payload: dict[str, Any]
 ) -> dict[str, Any]:
     try:
+        if get_settings().litellm_api_key:
+            correlation = request_id.get() or str(uuid.uuid4())
+            headers = {**headers, "X-Client-Request-Id": correlation}
+            payload = {**payload, "metadata": {"day6_parent_request_id": correlation}}
         # Do not inherit proxies, follow redirects, or log response bodies/URLs.
         with httpx.Client(
             timeout=get_settings().provider_timeout_seconds,
@@ -29,6 +40,20 @@ def post_json(
             return data
     except httpx.HTTPStatusError as exc:
         logger.warning("AI provider request failed")
+        if get_settings().litellm_api_key:
+            # Inspect only the machine error classification; never log its body.
+            try:
+                error = exc.response.json().get("error", {})
+                code = str(error.get("code", "")) + " " + str(error.get("type", ""))
+                message = str(error.get("message", ""))
+            except (ValueError, AttributeError, TypeError):
+                code = message = ""
+            if "budget" in (code + message).lower():
+                raise BudgetExceeded() from None
+            if "policy_blocked" in code + message:
+                raise PolicyBlocked() from None
+            if "guardrail_unavailable" in code + message:
+                raise GuardrailUnavailable() from None
         raise ProviderError(
             retryable=exc.response.status_code == 429 or exc.response.status_code >= 500
         ) from None

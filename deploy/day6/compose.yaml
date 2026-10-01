@@ -1,0 +1,93 @@
+x-app-env: &app-env
+  RAG_MODE: real
+  LLM_PROVIDER: openai
+  EMBEDDING_PROVIDER: openai
+  DATABASE_URL: postgresql://day6:${DAY6_DB_PASSWORD:?}@rag-db:5432/day6
+  REDIS_URL: redis://redis:6379/0
+  QUEUE_NAME: insighthub:day6:ingestion
+  LITELLM_API_KEY: ${DAY6_APP_KEY:-unconfigured}
+  OPENAI_BASE_URL: http://gateway:4000/v1
+  OPENAI_CHAT_MODEL: app-chat
+  OPENAI_EMBEDDING_MODEL: app-embedding
+  EMBEDDING_DIM: '1024'
+  EMBEDDING_REVISION: day6-zenlayer-text-embedding-3-large-v1
+  SECURITY_ENABLED: 'true'
+  GUARDRAIL_URL: http://guard:8082
+  GUARDRAIL_API_KEY: ${DAY6_GUARD_API_KEY:?}
+  LLM_MAX_TOKENS: '512'
+services:
+  gateway-db:
+    image: pgvector/pgvector:0.8.2-pg16@sha256:00ba258a66dac104fd5171074a0084462a64a1369d8513f3d0a634e2f24d15bc
+    environment: {POSTGRES_DB: day6, POSTGRES_USER: day6, POSTGRES_PASSWORD: '${DAY6_DB_PASSWORD:?}'}
+    healthcheck: {test: ['CMD-SHELL', 'pg_isready -U day6 -d day6'], interval: 3s, timeout: 3s, retries: 30}
+    volumes: [gateway-db:/var/lib/postgresql/data]
+  rag-db:
+    image: pgvector/pgvector:0.8.2-pg16@sha256:00ba258a66dac104fd5171074a0084462a64a1369d8513f3d0a634e2f24d15bc
+    environment: {POSTGRES_DB: day6, POSTGRES_USER: day6, POSTGRES_PASSWORD: '${DAY6_DB_PASSWORD:?}'}
+    healthcheck: {test: ['CMD-SHELL', 'pg_isready -U day6 -d day6'], interval: 3s, timeout: 3s, retries: 30}
+    volumes: [rag-db:/var/lib/postgresql/data, '../../infra/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro']
+  redis:
+    image: redis:7-alpine@sha256:6ab0b6e7381779332f97b8ca76193e45b0756f38d4c0dcda72dbb3c32061ab99
+    command: [redis-server, --appendonly, 'yes']
+    healthcheck: {test: ['CMD', redis-cli, ping], interval: 3s, timeout: 3s, retries: 20}
+    volumes: [queue:/data]
+  gateway:
+    build: {context: ../../gateway}
+    environment:
+      DATABASE_URL: postgresql://day6:${DAY6_DB_PASSWORD:?}@gateway-db:5432/day6
+      DAY6_ACCOUNTING_URL: postgresql://day6:${DAY6_DB_PASSWORD:?}@gateway-db:5432/day6
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY:?}
+      ZENLAYER_API_KEY: ${ZENLAYER_API_KEY:?}
+      ZENLAYER_BASE_URL: ${ZENLAYER_BASE_URL:?}
+      GUARD_URL: http://guard:8082
+      GUARD_API_KEY: ${DAY6_GUARD_API_KEY:?}
+      DAY6_AUDIT_PATH: /ledger/audit.jsonl
+      DAY6_POLICY_MODE: enforce
+      DAY6_RUN_ID: day6-ci
+    ports: ['127.0.0.1:14010:4000']
+    volumes: [ledger:/ledger]
+    depends_on: {gateway-db: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:4000/health/liveliness',timeout=5)"]
+      interval: 5s
+      timeout: 6s
+      retries: 90
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  guard:
+    build: {context: ../../security/guardrails}
+    environment:
+      GUARD_API_KEY: ${DAY6_GUARD_API_KEY:?}
+      GUARD_MODEL_KEY: ${DAY6_GUARD_KEY:-unconfigured}
+      GUARD_MODEL_URL: http://gateway:4000/v1
+    ports: ['127.0.0.1:18083:8082']
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8082/healthz',timeout=5)"]
+      interval: 5s
+      timeout: 6s
+      retries: 60
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+  api:
+    build: {context: ../../api}
+    environment: *app-env
+    ports: ['127.0.0.1:18010:8000']
+    depends_on: {rag-db: {condition: service_healthy}, redis: {condition: service_healthy}, gateway: {condition: service_healthy}, guard: {condition: service_healthy}}
+  baseline:
+    build: {context: ../../api}
+    environment:
+      <<: *app-env
+      LITELLM_API_KEY: ${DAY6_EVALUATOR_KEY:-unconfigured}
+      OPENAI_CHAT_MODEL: eval-chat
+      SECURITY_ENABLED: 'false'
+    ports: ['127.0.0.1:18011:8000']
+    depends_on: {rag-db: {condition: service_healthy}, redis: {condition: service_healthy}}
+  worker:
+    build: {context: ../.., dockerfile: ingestion-worker/Dockerfile, target: runtime}
+    environment: *app-env
+    depends_on: {api: {condition: service_healthy}}
+volumes:
+  gateway-db: {}
+  rag-db: {}
+  queue: {}
+  ledger: {}

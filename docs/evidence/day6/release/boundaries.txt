@@ -1,0 +1,9 @@
+........................................................................ [ 87%]
+..........                                                               [100%]
+=============================== warnings summary ===============================
+tests/milestones/day6/test_guard_service.py: 21 warnings
+  /Users/congdinh/Downloads/work/teaching/Training Programs/07_DevOps_with_AI/07_DevOps_Current_Program/insighthub/tmp/day6/venv/lib/python3.12/site-packages/nemoguardrails/library/jailbreak_detection/rail_config.py:77: DeprecationWarning: Use 'nim_base_url' instead. This field will be removed in a future version.
+    if self.nim_url and not self.nim_base_url:
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+82 passed, 21 warnings in 3.83s

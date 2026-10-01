@@ -1,0 +1,21 @@
+{
+  "observed_at": 1790684388.309899,
+  "scope": "Signed duplicate event HTTP requests to actual local intake/Redis; not Slack network delivery latency. Fresh queue acceptance/regression covered by automated tests.",
+  "results": [
+    {
+      "status": 200,
+      "duplicate": true,
+      "duration_seconds": 0.005555625015404075
+    },
+    {
+      "status": 200,
+      "duplicate": true,
+      "duration_seconds": 0.0029621669673360884
+    },
+    {
+      "status": 200,
+      "duplicate": true,
+      "duration_seconds": 0.0028153329622000456
+    }
+  ]
+}

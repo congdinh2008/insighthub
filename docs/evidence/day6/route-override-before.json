@@ -1,0 +1,6 @@
+{
+  "observed_at": 1790684759.858408,
+  "status": 401,
+  "provider_connection_error": false,
+  "scope": "Negative client routing override with synthetic credentials and unreachable local discard port; no external destination"
+}

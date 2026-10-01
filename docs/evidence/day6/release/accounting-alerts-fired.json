@@ -1,0 +1,25 @@
+{
+  "observed_at": 1790844798.442396,
+  "alerts": [
+    {
+      "alertname": "Day6UnresolvedCharge",
+      "alertstate": "firing",
+      "workload": "evaluator"
+    },
+    {
+      "alertname": "Day6UnresolvedCharge",
+      "alertstate": "firing",
+      "workload": "insighthub"
+    },
+    {
+      "alertname": "Day6UnresolvedCharge",
+      "alertstate": "firing",
+      "workload": "guardrail"
+    },
+    {
+      "alertname": "Day6AccountingMismatch",
+      "alertstate": "firing",
+      "workload": "evaluator"
+    }
+  ]
+}

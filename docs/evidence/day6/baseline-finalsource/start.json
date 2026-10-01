@@ -1,0 +1,16 @@
+{
+  "observed_at": "2026-09-29T12:13:02.012048+00:00",
+  "source_sha256": "5f14b7cee1608d4b255541cc5c6feb8d701c02d7cdfaa3d433931f77b98fe6a3",
+  "extra_files": {
+    "gateway/Dockerfile": "957d164dd462fed3c1ec4023700a81a69ee958087899909669ab38ae026e11f7",
+    "gateway/config.yaml": "ecdf96e31774ac0162745faf0c23faaa176310e729ec0ddce1c5aa0826d54275",
+    "gateway/exporter.py": "ff6510144f21d23deb23a7d03496b8a89db15553b095fa2a4750b78398967031",
+    "gateway/hooks.py": "0cedd1edf36639c74382599d91be186184316144e036ec2db2610e4914f0bfa5",
+    "gateway/pricing.json": "3d9bdb38e50c43c4d32a62f80f35d0a446368c425e5fd10a26a65584fddb3a11",
+    "gateway/requirements.in": "4b2f877dea58d12b023bcf355175472915108407d179d268a666a605c615084d",
+    "gateway/requirements.txt": "207c68ea58a81bda73bcfbdc55b2b864bdcf07b75efb7f0b70495dee2fd62bde",
+    "deploy/day6/compose.yaml": "81d29f498a4c12c476a5a616531698e8b603618d1d03e996aba46bd9de25c98d"
+  },
+  "dataset_sha256": "74c9ea50f65255b62c3cb643c347dea0dc02078458c75ae9a54b45995ebf2ef6",
+  "profile": "initial"
+}

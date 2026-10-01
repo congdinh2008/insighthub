@@ -1,0 +1,51 @@
+{
+  "observed_at": 1790681911.563375,
+  "results": [
+    {
+      "name": "missing-guard-key",
+      "status": 401
+    },
+    {
+      "name": "benign",
+      "phase": "input",
+      "allowed": true,
+      "rail": "all_passed",
+      "duration_seconds": 2.226918291999027
+    },
+    {
+      "name": "email-input",
+      "phase": "input",
+      "allowed": false,
+      "rail": "regex check input",
+      "duration_seconds": 0.006828041980043054
+    },
+    {
+      "name": "ssn-context",
+      "phase": "context",
+      "allowed": false,
+      "rail": "regex check input",
+      "duration_seconds": 0.0032244169851765037
+    },
+    {
+      "name": "phone-output",
+      "phase": "output",
+      "allowed": false,
+      "rail": "regex check output",
+      "duration_seconds": 0.0027403340209275484
+    },
+    {
+      "name": "canary-output",
+      "phase": "output",
+      "allowed": false,
+      "rail": "regex check output",
+      "duration_seconds": 0.0034941660123877227
+    },
+    {
+      "name": "unicode-injection",
+      "phase": "input",
+      "allowed": false,
+      "rail": "regex check input",
+      "duration_seconds": 0.003610290994402021
+    }
+  ]
+}

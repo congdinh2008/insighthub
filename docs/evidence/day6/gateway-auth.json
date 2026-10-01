@@ -1,0 +1,135 @@
+{
+  "observed_at": 1790686274.512578,
+  "results": [
+    {
+      "workload": "insighthub",
+      "path": "/key/generate",
+      "status": 403
+    },
+    {
+      "workload": "insighthub",
+      "path": "/key/update",
+      "status": 403
+    },
+    {
+      "workload": "insighthub",
+      "path": "/v1/chat/completions",
+      "status": 403
+    },
+    {
+      "workload": "insighthub",
+      "probe": "policy-bypass",
+      "status": 400
+    },
+    {
+      "workload": "insighthub",
+      "probe": "policy-bypass",
+      "status": 403
+    },
+    {
+      "workload": "insighthub",
+      "probe": "policy-bypass",
+      "status": 422
+    },
+    {
+      "workload": "insighthub",
+      "probe": "multiple-completions",
+      "status": 400,
+      "error_code": "single_completion_required"
+    },
+    {
+      "workload": "insighthub",
+      "probe": "untrusted-audit-correlation",
+      "status": 400,
+      "error_code": "invalid_correlation_id"
+    },
+    {
+      "workload": "bot",
+      "path": "/key/generate",
+      "status": 403
+    },
+    {
+      "workload": "bot",
+      "path": "/key/update",
+      "status": 403
+    },
+    {
+      "workload": "bot",
+      "path": "/v1/chat/completions",
+      "status": 403
+    },
+    {
+      "workload": "bot",
+      "probe": "policy-bypass",
+      "status": 400
+    },
+    {
+      "workload": "bot",
+      "probe": "policy-bypass",
+      "status": 403
+    },
+    {
+      "workload": "bot",
+      "probe": "policy-bypass",
+      "status": 422
+    },
+    {
+      "workload": "bot",
+      "probe": "multiple-completions",
+      "status": 400,
+      "error_code": "single_completion_required"
+    },
+    {
+      "workload": "bot",
+      "probe": "untrusted-audit-correlation",
+      "status": 400,
+      "error_code": "invalid_correlation_id"
+    },
+    {
+      "workload": "coding",
+      "path": "/key/generate",
+      "status": 403
+    },
+    {
+      "workload": "coding",
+      "path": "/key/update",
+      "status": 403
+    },
+    {
+      "workload": "coding",
+      "path": "/v1/chat/completions",
+      "status": 403
+    },
+    {
+      "workload": "coding",
+      "probe": "policy-bypass",
+      "status": 400
+    },
+    {
+      "workload": "coding",
+      "probe": "policy-bypass",
+      "status": 403
+    },
+    {
+      "workload": "coding",
+      "probe": "policy-bypass",
+      "status": 422
+    },
+    {
+      "workload": "coding",
+      "probe": "multiple-completions",
+      "status": 400,
+      "error_code": "single_completion_required"
+    },
+    {
+      "workload": "coding",
+      "probe": "untrusted-audit-correlation",
+      "status": 400,
+      "error_code": "invalid_correlation_id"
+    },
+    {
+      "probe": "invalid-key",
+      "status": 401
+    }
+  ]
+}

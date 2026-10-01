@@ -1,0 +1,172 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_unknown_cost_includes_old_admissions_but_not_pending_or_completed[True] _
+
+tmp_path = PosixPath('/private/var/folders/nm/f4k261f933qbh__pmrc4k7zc0000gn/T/pytest-of-congdinh/pytest-7/test_unknown_cost_includes_old0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x108948aa0>
+native_available = True
+
+    @pytest.mark.parametrize("native_available", [True, False])
+    def test_unknown_cost_includes_old_admissions_but_not_pending_or_completed(
+        tmp_path, monkeypatch, native_available
+    ):
+        now = time.time()
+        rows = [
+            {
+                "event": "admitted",
+                "request_id": "lost",
+                "workload": "evaluator",
+                "timestamp": now - 121,
+            },
+            {
+                "event": "upstream_failure",
+                "request_id": "lost",
+                "workload": "evaluator",
+                "cost_usd": None,
+            },
+            {
+                "event": "upstream_failure",
+                "request_id": "lost",
+                "workload": "evaluator",
+                "cost_usd": None,
+            },
+            {
+                "event": "admitted",
+                "request_id": "pending",
+                "workload": "evaluator",
+                "timestamp": now - 10,
+            },
+            {
+                "event": "admitted",
+                "request_id": "done",
+                "workload": "evaluator",
+                "timestamp": now - 121,
+            },
+            {
+                "event": "completion",
+                "request_id": "done",
+                "workload": "evaluator",
+                "cost_usd": 0.125,
+            },
+            {
+                "event": "completion",
+                "request_id": "unknown",
+                "workload": "evaluator",
+                "cost_usd": None,
+            },
+            {
+                "event": "upstream_failure",
+                "request_id": None,
+                "workload": "evaluator",
+                "cost_usd": None,
+            },
+        ]
+        path = tmp_path / "ledger.jsonl"
+        path.write_text("\n".join(json.dumps(r) for r in rows))
+        monkeypatch.setenv("DAY6_AUDIT_PATH", str(path))
+        monkeypatch.setenv("LITELLM_MASTER_KEY", "synthetic-test-key")
+        client = AsyncMock()
+        if native_available:
+            client.get.return_value = exporter.httpx.Response(
+                200,
+                json={"keys": [{"max_budget": 1.0, "spend": 0.1}]},
+                request=exporter.httpx.Request("GET", "http://gateway/key/list"),
+            )
+        else:
+            client.get.side_effect = exporter.httpx.ConnectError("unavailable")
+        factory = AsyncMock()
+        factory.__aenter__.return_value = client
+        monkeypatch.setattr(exporter.httpx, "AsyncClient", lambda **kwargs: factory)
+        response = asyncio.run(exporter.metrics())
+        body = response.body.decode()
+>       assert 'day6_llm_unknown_cost_total{workload="evaluator"} 2.0' in body
+E       assert 'day6_llm_unknown_cost_total{workload="evaluator"} 2.0' in '# HELP day6_llm_spend_usd_total Cumulative measured gateway catalog cost\n# TYPE day6_llm_spend_usd_total gauge\nday6...vailable Key accounting endpoint availability\n# TYPE day6_accounting_available gauge\nday6_accounting_available 1.0\n'
+
+tmp/day6/exporter-regression-control/tests/milestones/day6/test_cost_exporter.py:93: AssertionError
+_ test_unknown_cost_includes_old_admissions_but_not_pending_or_completed[False] _
+
+tmp_path = PosixPath('/private/var/folders/nm/f4k261f933qbh__pmrc4k7zc0000gn/T/pytest-of-congdinh/pytest-7/test_unknown_cost_includes_old1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1089715b0>
+native_available = False
+
+    @pytest.mark.parametrize("native_available", [True, False])
+    def test_unknown_cost_includes_old_admissions_but_not_pending_or_completed(
+        tmp_path, monkeypatch, native_available
+    ):
+        now = time.time()
+        rows = [
+            {
+                "event": "admitted",
+                "request_id": "lost",
+                "workload": "evaluator",
+                "timestamp": now - 121,
+            },
+            {
+                "event": "upstream_failure",
+                "request_id": "lost",
+                "workload": "evaluator",
+                "cost_usd": None,
+            },
+            {
+                "event": "upstream_failure",
+                "request_id": "lost",
+                "workload": "evaluator",
+                "cost_usd": None,
+            },
+            {
+                "event": "admitted",
+                "request_id": "pending",
+                "workload": "evaluator",
+                "timestamp": now - 10,
+            },
+            {
+                "event": "admitted",
+                "request_id": "done",
+                "workload": "evaluator",
+                "timestamp": now - 121,
+            },
+            {
+                "event": "completion",
+                "request_id": "done",
+                "workload": "evaluator",
+                "cost_usd": 0.125,
+            },
+            {
+                "event": "completion",
+                "request_id": "unknown",
+                "workload": "evaluator",
+                "cost_usd": None,
+            },
+            {
+                "event": "upstream_failure",
+                "request_id": None,
+                "workload": "evaluator",
+                "cost_usd": None,
+            },
+        ]
+        path = tmp_path / "ledger.jsonl"
+        path.write_text("\n".join(json.dumps(r) for r in rows))
+        monkeypatch.setenv("DAY6_AUDIT_PATH", str(path))
+        monkeypatch.setenv("LITELLM_MASTER_KEY", "synthetic-test-key")
+        client = AsyncMock()
+        if native_available:
+            client.get.return_value = exporter.httpx.Response(
+                200,
+                json={"keys": [{"max_budget": 1.0, "spend": 0.1}]},
+                request=exporter.httpx.Request("GET", "http://gateway/key/list"),
+            )
+        else:
+            client.get.side_effect = exporter.httpx.ConnectError("unavailable")
+        factory = AsyncMock()
+        factory.__aenter__.return_value = client
+        monkeypatch.setattr(exporter.httpx, "AsyncClient", lambda **kwargs: factory)
+        response = asyncio.run(exporter.metrics())
+        body = response.body.decode()
+>       assert 'day6_llm_unknown_cost_total{workload="evaluator"} 2.0' in body
+E       assert 'day6_llm_unknown_cost_total{workload="evaluator"} 2.0' in '# HELP day6_llm_spend_usd_total Cumulative measured gateway catalog cost\n# TYPE day6_llm_spend_usd_total gauge\nday6...vailable Key accounting endpoint availability\n# TYPE day6_accounting_available gauge\nday6_accounting_available 0.0\n'
+
+tmp/day6/exporter-regression-control/tests/milestones/day6/test_cost_exporter.py:93: AssertionError
+=========================== short test summary info ============================
+FAILED tmp/day6/exporter-regression-control/tests/milestones/day6/test_cost_exporter.py::test_unknown_cost_includes_old_admissions_but_not_pending_or_completed[True]
+FAILED tmp/day6/exporter-regression-control/tests/milestones/day6/test_cost_exporter.py::test_unknown_cost_includes_old_admissions_but_not_pending_or_completed[False]
+2 failed in 0.29s

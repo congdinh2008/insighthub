@@ -1,0 +1,21 @@
+{
+  "observed_at": 1790844799.13095,
+  "repo": "congdinh2008/insighthub",
+  "pr": 25,
+  "public_payload_authorized": true,
+  "required_checks": [
+    "local-baseline",
+    "chatops-day5",
+    "boundaries"
+  ],
+  "strict": true,
+  "enforce_admins": true,
+  "live_run": 36838215597,
+  "live_envelope_usd": 0.5,
+  "live_sha_flag_removed": true,
+  "automatic_live_schedule": false,
+  "aws_workflow": {
+    "id": 36838215583,
+    "status": "cancelled before Terraform plan; deploy/day6 matched Day03 path filter"
+  }
+}

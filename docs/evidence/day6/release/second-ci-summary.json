@@ -1,0 +1,86 @@
+{
+  "run_id": 36843076783,
+  "head": "711f20f3435b929eee8681227db66f7c5b7adc8f",
+  "source_sha256": "08753f926d210740fdbd32e18470eeaa424dbb6fb41f073567060ca2ec827b0f",
+  "ci-baseline": {
+    "cases": 164,
+    "passed": 132,
+    "benign_passed": 20,
+    "blocked": 0
+  },
+  "ci-final": {
+    "cases": 164,
+    "passed": 164,
+    "benign_passed": 20,
+    "blocked": 124
+  },
+  "ci-runtime": {
+    "cases": 164,
+    "passed": 164,
+    "benign_passed": 20,
+    "blocked": 125
+  },
+  "status": "PASS",
+  "junit": {
+    "tests": 86,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "known_cost_usd": 0.19936694,
+  "unresolved_admissions": 0,
+  "budget_probes": [
+    {
+      "workload": "insighthub",
+      "concurrency": 1,
+      "overshoot_usd": 0.00010819999999999927
+    },
+    {
+      "workload": "insighthub",
+      "concurrency": 2,
+      "overshoot_usd": 0.0001081999999999958
+    },
+    {
+      "workload": "insighthub",
+      "concurrency": 5,
+      "overshoot_usd": 0.00010500000000000093
+    },
+    {
+      "workload": "bot",
+      "concurrency": 1,
+      "overshoot_usd": 0.000105
+    },
+    {
+      "workload": "bot",
+      "concurrency": 2,
+      "overshoot_usd": 0.0001082
+    },
+    {
+      "workload": "bot",
+      "concurrency": 5,
+      "overshoot_usd": 0.00010820000000000003
+    },
+    {
+      "workload": "coding",
+      "concurrency": 1,
+      "overshoot_usd": 0.0001034
+    },
+    {
+      "workload": "coding",
+      "concurrency": 2,
+      "overshoot_usd": 0.00010819999999999999
+    },
+    {
+      "workload": "coding",
+      "concurrency": 5,
+      "overshoot_usd": 0.0001082
+    }
+  ],
+  "budget_evidence_scope": "fresh pytest assertions and stdout; no raw budget JSON export",
+  "historical_budget_copy_absent": true,
+  "observed_at": 1790849344.495009,
+  "raw_artifacts": "Retained in ignored local download and GitHub Actions artifact; not included in public source commit",
+  "known_cost_both_ci_runs_usd": 0.38656394,
+  "first_run_unresolved_admissions": 1,
+  "cost_scope": "Catalog estimate from observed usage, not provider invoice; first-run unresolved charge remains unknown."
+}

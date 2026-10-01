@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "target": "day6",
+  "status": "INCOMPLETE",
+  "scope": "partial-runtime-contract",
+  "runtime_verified": false,
+  "source_sha256": "5a417727e79c4bc14481304142259f7a2eaf2630c3660feba2e18980dea5c118",
+  "milestone_complete": false,
+  "checks": [
+    {
+      "id": "day6",
+      "status": "INCOMPLETE",
+      "runtime_verified": false,
+      "message": "Test dependency/collection incomplete: ============================= test session starts ==============================\nplatform darwin -- Python 3.12.14, pytest-8.4.2, pluggy-1.6.0\nrootdir: /dev\nconfigfile: null\ncollected 46 items\n\n../../../../dev ...........................................\n\n--- generated xml file: /tmp/insighthub-verify-hqt7hs28/day6/day6-junit.xml ----\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n/Users/congdinh/Downloads/work/teaching/Training Programs/07_DevOps_with_AI/07_DevOps_Current_Program/insighthub/tmp/day6/venv/lib/python3.12/site-packages/httpcore/_backends/sync.py:128: KeyboardInterrupt\n(to show a full traceback on KeyboardInterrupt use --full-trace)\n======================== 43 passed in 224.87s (0:03:44) ========================\n"
+    }
+  ],
+  "specification_review_required": true,
+  "note": "PASS covers implemented checks only, not all project requirements; use the complete specification and reviewer evidence."
+}

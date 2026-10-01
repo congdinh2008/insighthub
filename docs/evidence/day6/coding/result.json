@@ -1,0 +1,43 @@
+{
+  "model": "coding-chat",
+  "provider_request_id": "chatcmpl-ETPURV9JYlTerVfVX0QwYqwdJqQqo",
+  "usage": {
+    "completion_tokens": 288,
+    "prompt_tokens": 358,
+    "total_tokens": 646,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 8,
+      "engine_ttft_ms": 24,
+      "engine_ttlt_ms": 2250,
+      "pre_inference_ms": 87,
+      "service_tbt_ms": 8,
+      "service_ttft_ms": 618,
+      "service_ttlt_ms": 2839,
+      "user_visible_ttft_ms": 531
+    }
+  },
+  "gateway_request_id": "d49514e1-9da8-451e-8ac9-50a0b7bddd3a",
+  "exit_code": 0,
+  "test_output": "6 billing boundaries and cached-token arithmetic passed\n",
+  "duration_seconds": 16.103091458964627,
+  "patch_sha256": "94f3c942a93b8333484d3611a256da2db9962e38dbee22897d2b1e5eb00fca8f",
+  "sandbox": {
+    "network": "none",
+    "read_only": true,
+    "user": "65534",
+    "memory": "128m",
+    "allowlist": [
+      "task.py"
+    ]
+  }
+}

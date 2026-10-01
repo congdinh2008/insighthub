@@ -1,0 +1,23 @@
+--- a/task.py
++++ b/task.py
+@@ -1,6 +1,19 @@
+-"""Synthetic coding acceptance task: correct cached-input billing."""
+-
+-
+-def cost_usd(input_tokens, output_tokens, cached_tokens):
+-    # Current bug: cached tokens are charged twice.
+-    return (input_tokens * 0.4 + cached_tokens * 0.1 + output_tokens * 1.6) / 1_000_000
++"""Synthetic coding acceptance task: correct cached-input billing."""
++
++
++def cost_usd(input_tokens, output_tokens, cached_tokens):
++    # Validate types and values
++    for name, val in [('input_tokens', input_tokens), ('output_tokens', output_tokens), ('cached_tokens', cached_tokens)]:
++        if not isinstance(val, int) or isinstance(val, bool) or val < 0:
++            raise ValueError(f"{name} must be a non-negative integer and not bool")
++    if cached_tokens > input_tokens:
++        raise ValueError("cached_tokens cannot be greater than input_tokens")
++
++    # Replace input tokens with cached tokens to avoid double charging
++    billable_input = input_tokens - cached_tokens
++    return (billable_input * 0.4 + cached_tokens * 0.1 + output_tokens * 1.6) / 1_000_000

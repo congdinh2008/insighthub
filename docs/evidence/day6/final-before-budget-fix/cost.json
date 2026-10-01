@@ -1,0 +1,2143 @@
+{
+  "mode": "real",
+  "currency": "USD",
+  "source_sha256": "671f4c3eadd5907342b01db01ff7ebfcce1b1c98fb9d9280518b1256aee2a2d8",
+  "observed_at": "2026-09-29T13:28:22.352169+00:00",
+  "budget_usd": 5,
+  "total_usd": 0.013372,
+  "entries": [
+    {
+      "request_id": "721f2690-b8df-40d8-b963-ef518648eced",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.9625790829886682,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "f34e4df5-55bc-462d-be1a-23bf3e6a33c1",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 5.455183959042188,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "06e9d252-46be-44c6-a7b4-9b802fa9abb7",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.785328750032932,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "0c5fe734-b50a-4962-8844-90ffb42e07f1",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.293964082957245,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "68d77d94-5dda-4478-a96a-c59b0f960142",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.438602791982703,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "6c3f2d1e-9e1e-4846-bc97-0ad9589a5695",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 6.414530375041068,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "93f445f4-348f-4b1f-8799-4b985332ac28",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.0391954590450041,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "e4aa6315-e04d-4ad2-a434-9c0b64859271",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.0267100830096751,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "ba66f5f8-2610-45ab-b4e5-cdfd320b91af",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.5985062919789925,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "349e9213-c20c-4264-a467-bc0ec9e283eb",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 5.144351957947947,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "10601e3d-4141-4e19-9a36-750a3a27b28b",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.87796608399367,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "91a5c27f-be42-4806-ae3a-bd220e0c947f",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 3.4733096249983646,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "f031d004-b530-4c4a-81d2-c569602329b8",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.835389000014402,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "27cd7b2e-d116-4044-9bae-93172820c9c7",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.824008291005157,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "f5b42e69-631e-4139-bd19-fc4dbaff65ad",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 6.430876999977045,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "fb79af78-a75b-4cba-8b9e-f22ef2aae811",
+      "input_tokens": 339,
+      "output_tokens": 128,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0003404,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 10.767636790988036,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "bfab8edc-eba3-4703-9bba-f8555b0241fd",
+      "input_tokens": 341,
+      "output_tokens": 37,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0001956,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 11.479214207967743,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "9973bb7b-668b-476b-bccb-720ff047ca40",
+      "input_tokens": 340,
+      "output_tokens": 30,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.000184,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 10.58567929099081,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "edb9a08f-9008-4936-80c0-13c6b5c91c7f",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.8191651250235736,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "f8e677b8-9cc9-469c-bd29-f5175d3a994d",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.885738291020971,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "e75f51e4-da54-4e62-8e73-15044c9e3e53",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.8374223340069875,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "af434866-b879-47b7-801b-5f0b8916a4ea",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.877847208990715,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "edb3bf26-5b93-46e3-bea5-98605fc32f1c",
+      "input_tokens": 343,
+      "output_tokens": 294,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0006076,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 13.872340291040018,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "d2b685f0-dd9c-4f6b-b743-2acab01869e1",
+      "input_tokens": 339,
+      "output_tokens": 30,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0001836,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 12.568206582975108,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "086c8047-0715-4d12-8347-7928580e1fee",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 3.7879198330338113,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "91be27c5-4333-4037-bfbb-8d258810afe5",
+      "input_tokens": 345,
+      "output_tokens": 42,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0002052,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 12.451324334018864,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "56312aa7-9aeb-4c67-8aa5-88808a0f5a1b",
+      "input_tokens": 344,
+      "output_tokens": 39,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0002,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 11.85827133397106,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "9f328ca5-7373-4d7f-b0f1-8cba9efc6948",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 3.0807450000429526,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "83aafba1-71e1-4790-a9d9-f4e4b79f2528",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.12824712501606,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "2a77228b-d615-4a74-8fd4-c66b5da6a235",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.8518938749912195,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "237bbad6-4318-427c-9f58-bbac995e77fc",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.0933844590326771,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "dbbf2da5-0370-4061-892e-c1c5be125fe4",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 5.140253040997777,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "1252b06f-8e24-47b1-a6a4-3f63814222a5",
+      "input_tokens": 341,
+      "output_tokens": 30,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0001844,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 10.629360874998383,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "dd972348-1c47-43d3-89a7-853f44023826",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.7424982499796897,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "0ada7a00-4cf7-4b16-9e1c-d42b760cb3e5",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.8789765420369804,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "b00166ca-d633-4c97-87e1-aec707cb8dab",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.8115628330269828,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "999f5190-cf0b-4efc-a5ea-d7ddbc02b728",
+      "input_tokens": 340,
+      "output_tokens": 37,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0001952,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 10.441741791961249,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "b5625c40-ff58-4d59-a995-13f1d590f3bd",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 5.168296749994624,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "b27fd16b-fbf8-451d-8203-8295092453e4",
+      "input_tokens": 342,
+      "output_tokens": 36,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0001944,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 9.745082875015214,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "5d3f39af-97fd-4788-88dc-3c11042bb2b0",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 2.0015565840294585,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "d94eb0f0-005f-4c2c-9e3e-870a1036a116",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.8569707910064608,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "6d84a044-77c0-4cbb-8718-e3da38d77a08",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.761541459010914,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "aaabaf3b-2cbc-4fe9-8aca-c91e40671dc5",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.8023881670087576,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "64571e73-5ce4-47c5-92c6-03fd9928094f",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.6742805830435827,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "70bf3fcf-e0d4-4379-92ff-8bdaecf9f246",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.8927761670202017,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "153b0b4e-8dcd-466e-98d5-c288175671fc",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.222106083005201,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "f4a36c61-2646-4314-9ffd-077278facb87",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.6497322090435773,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "8d005479-d0f9-48f9-9f1b-bbe7a0d82709",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.818135708977934,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "44e46270-5679-4c46-b1e9-80d1b7b94c28",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 2.470208749989979,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "b4a2b06b-ca1e-4ccd-9b9f-7e50ea61876b",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.6537806250271387,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "75e4ded1-d197-4df5-8ac9-ce3f3d954a05",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.8513301250059158,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "0774b70a-da7d-465f-ae3d-aa12a3905494",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.9151529160444625,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "24c50862-d30f-4912-ae1c-3947a1f1daa4",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.6770713339792565,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "a15a46be-5bb0-451c-b38a-4d42ff4a2fc6",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.7800583749776706,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "1ecb85a6-c037-4be9-9984-8a2db97a72bc",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.8373176250024699,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "14c53b54-d60c-4665-8013-763f79c46781",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.5725707089877687,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "80793a7c-8c93-456e-ae80-626db5f50989",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.767515458050184,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "1c47ba2a-a855-4d01-8fca-ce6ecb02129a",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.8320253749843687,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "33f69774-a288-4254-8c9b-d30bcd4a3066",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.0716972919763066,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "05d68108-c4fb-462b-abe6-9091da1cb828",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.2750750000122935,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "3f881c93-5982-446e-869b-a4c74d396a4b",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 2.275228209036868,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "ddacc136-4a5c-4038-b66d-c6ed17741309",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.8032163339667022,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "88968ab1-36b7-41a2-89ed-e75a6a11588c",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.8489486249745823,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "c0a00d0b-9340-45fb-93f9-1f93ec9d8185",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.4167830839869566,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "acdd0a1e-b43d-4a27-95f1-9afbc59f4ee6",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.5842074159882031,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "be2db5a4-24f8-4955-aee8-5489f0826dcb",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.7698275840375572,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "6f498312-ed6b-42e5-9a47-b0dd548d3a8a",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.4930952079594135,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "3632c58c-937d-4984-898b-2b23c8f9fcba",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.7170833330019377,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "dcb809af-93f4-4d67-8944-5c5a40a88114",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 2.06926520797424,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "c158fed3-cc6c-441f-8252-ce70656d0410",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 2.3369133330415934,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "356af37e-69ea-46cc-8a04-49b07145e826",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.805354834010359,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "a10a00e2-1eda-495b-af49-590e6aec5ea4",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.7372776670381427,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "cadee5ef-57e0-41dd-bea6-64dedab637ed",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.041668874968308955,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "28f0739c-989b-481d-b7dd-4b11d75ac559",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.9441390840220265,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "91fb263a-c0da-447f-bb99-c0e09af19a0a",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.804048124991823,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "5d8508a0-5f0c-46b2-95f4-a8725a6bc9b6",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 2.0840223339619115,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "6ebe6843-2fe1-411f-9f5b-23db8e96bcf5",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.8336678339983337,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "b01cd130-5de6-4225-96da-84ad20f7b063",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.8747853750246577,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "1cc77bd6-8485-4058-8433-5d2981a57b26",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.05406833300366998,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "84ee4437-880b-42cd-8508-ebf1e3816fe8",
+      "input_tokens": 347,
+      "output_tokens": 73,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.00025560000000000003,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 12.36344733304577,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "0740f263-6bbd-4adf-8040-33e3a9dc14f8",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.7686284589581192,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "36cae656-527e-4831-9deb-bd4c07a15241",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.802327542041894,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "dd44d67f-cc92-43d7-b129-5003aa6a73a3",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.7938453750102781,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "768ec742-5714-4eda-a27a-0054bfe469cc",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.7035086250398308,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "3d3da87b-dc7b-415f-8e74-9dc1940fab0f",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.6654273750027642,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "53c64ee1-0bea-41f5-9fb4-38bc16fa5ce6",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.667042541957926,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "75a52e50-4805-4112-a2cc-0522a29dbd99",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.8062924999976531,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "eee73cd7-9275-4b54-a5e9-73307b58e1df",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.9550829170038924,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "bb02c633-8aa8-4952-a12a-50d7754378f5",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.6285791670088656,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "a354bc84-e3b4-4146-bb36-0c1aa70ba529",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.705141292011831,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "35c47f90-d3ae-4572-be40-bd442abb18fc",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.9930402919999324,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "cd9e63fb-d787-4728-84d8-aacc9f8c83e2",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.4034562919987366,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "a51ba18a-0a42-48d2-8b3c-f1c518fd9f34",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.9557510830345564,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "1ca66afd-d82f-4bfa-9488-988ef2500ff3",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.7926797089749016,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "a0dca535-ab05-4ec2-9325-c7dabf75d778",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 2.049463208997622,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "63117a15-e8b0-49f1-98c2-08850babb4df",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.7625438329996541,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "a7c1a91b-9447-4771-9433-032240682ec4",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.1426897500059567,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "75c68b8e-aacc-4a76-a9e6-0eb62a190089",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.8066764160175808,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "71f08941-8619-46a6-9650-cc927e0d3909",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.9049502920242958,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "51222cec-e02a-4b89-a45d-2a8dc5ec4ee2",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.044569832971319556,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "bd83ff3f-6938-4d1b-ab57-829c1fd7394f",
+      "input_tokens": 345,
+      "output_tokens": 192,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.00044520000000000003,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 11.020372207975015,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "60505020-2c3f-4c2a-962c-edc6abf79d9d",
+      "input_tokens": 349,
+      "output_tokens": 512,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0009588000000000001,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 17.370063999958802,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "327a3bd2-b0a2-4777-976a-4718b85232e4",
+      "input_tokens": 347,
+      "output_tokens": 227,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0005020000000000001,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 14.100282250030432,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "f0f01d2d-9615-4f7a-a58c-bd45c2ea150c",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 3.7583116659661755,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "d2b6f122-39b4-42de-ac1e-48ea8fb43a35",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.64456608297769,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "78aa3e71-af55-4324-bf1c-4daa03f33c3f",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.04239466699073091,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "faeb8980-3246-4c81-aede-e522e9435af6",
+      "input_tokens": 344,
+      "output_tokens": 293,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0006064,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 14.479420625022613,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "2716e7d9-9c67-4ab9-82ae-4585cc641bf0",
+      "input_tokens": 347,
+      "output_tokens": 224,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0004972,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 11.986093792016618,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "4ae1fc89-5e70-4290-a8b2-7ada75d27453",
+      "input_tokens": 346,
+      "output_tokens": 240,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0005224,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 16.855486291984562,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "0777ed09-d04a-4cfe-86af-5a71904bf494",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 0.7800482910242863,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "3f83e6b5-ef8a-4a46-bcf9-3f9d864cfc3c",
+      "input_tokens": 352,
+      "output_tokens": 249,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0005392000000000001,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 15.844786000030581,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "a9720166-1d1a-4775-a869-e0d354011c6d",
+      "input_tokens": 350,
+      "output_tokens": 219,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0004904,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 15.144094958959613,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "f5e37578-be76-4056-9c27-29350ce14da0",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 3.032695917005185,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "16c9e177-5492-4a90-b4d2-ad7615fcd178",
+      "input_tokens": 347,
+      "output_tokens": 154,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.00038520000000000004,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 12.903926583006978,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "b108377d-8208-4b29-b41e-d20783526a31",
+      "input_tokens": 348,
+      "output_tokens": 188,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.00044,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 13.794078000006266,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "e2e29702-83f8-4d2a-8c64-867511f07edc",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.095621582993772,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "2c09791e-1783-4f9b-a646-e2c4efe603c6",
+      "input_tokens": 350,
+      "output_tokens": 211,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0004776,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 12.701911083015148,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "1c92829d-487d-4fd3-bf3e-32ec88bc4852",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 1.9090276659699157,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "b6b1e630-bf00-4fec-8d4e-c52e58119ab7",
+      "input_tokens": 350,
+      "output_tokens": 241,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0005256,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 13.98595108295558,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "77bcbdb8-be55-4307-9217-d9bb95948f72",
+      "input_tokens": 347,
+      "output_tokens": 276,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0005804000000000001,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 14.824700666009448,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "7b62ee00-d128-4c21-bf4b-b270ac3ac95a",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.845255708030891,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "9c3e6c35-a7d0-4877-b3c9-f1711582ffe5",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.0651612089714035,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "b494de30-383e-439a-b2af-7e481fa3a8de",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.112963540945202,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "e04d5aa6-bf43-460e-bbf1-05753d16da6c",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.493852749990765,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "3bf08865-ccc7-46bc-a60e-a5eacb671cf7",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 5.268351749982685,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "d34a33e4-986c-40af-b686-a0c5a7ddcac5",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.161505291995127,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "08f3f751-92ce-41cb-9b84-79dfbdd680c6",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 5.0430645840242505,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "7b1c14e4-6f82-4e28-a7a8-f62dfb92521e",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 6.521646666980814,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "96ac4611-3c58-4ccd-848a-e9136e785338",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 5.664075041015167,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "b91e61a7-bf1a-4fdc-95ea-b6951157352c",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 5.0191287500201724,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "c9d441ce-e8eb-4013-a9ba-78ffaf8f8679",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 5.005455125006847,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "e2a97dc5-fe66-48d2-a99f-28f8b3e3e093",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 6.433744292007759,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "96670e14-7bd0-4a49-b390-1f4593859d4e",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 5.612745999998879,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "4f4837a1-929b-46c8-9457-f17b7e6a886b",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 6.997921000001952,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "19c5f1b2-1fff-4979-804d-80563abac74c",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 5.024594957998488,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "9fc6e35a-3882-42e3-9fbd-eaa76dffd084",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.802297041984275,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "38db569a-fada-44c3-ac65-273cf2bdf72f",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.395047458994668,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "ac114e24-5759-4f1e-a9cd-9dd3c1491291",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 5.624909583013505,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "69a3a5be-a55b-456c-bd2d-7d9c48f89f07",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 7.324761249998119,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "996863e8-d23c-4f2c-a19f-9d31ead7529e",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 5.26478008297272,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "293d24d9-5635-4519-8e67-228ab3676015",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 7.514072332996875,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "015141fc-d189-4eee-98fa-7ee7f11925b7",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 6.7531600830261596,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "ceb18c4c-93e7-4d13-92ad-8cb6fc34f3e4",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 4.41602583299391,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "1cd21a9c-da72-4f08-8a9c-2b0447cfb2fb",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 5.498456875036936,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "831fa886-b0da-4ff3-996a-f2e87e3f516f",
+      "input_tokens": 332,
+      "output_tokens": 19,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0001632,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 10.568884166015778,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "d15b2429-f701-4454-a7f3-ffeeab0d098f",
+      "input_tokens": 330,
+      "output_tokens": 19,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.00016240000000000002,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 9.771388708031736,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "f9d94513-4f0e-48ec-9fa3-cecbc3f2bcb3",
+      "input_tokens": 332,
+      "output_tokens": 18,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.00016160000000000002,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 8.634817416022997,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "e68da758-a791-4ebb-abaf-84cd80372bbf",
+      "input_tokens": 329,
+      "output_tokens": 14,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.000154,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 8.45879058301216,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "20a7c2b9-f09f-411b-adc1-75dcb81efd47",
+      "input_tokens": 333,
+      "output_tokens": 18,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.00016200000000000003,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 7.877708541986067,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "3ebff086-cac1-4502-9ed9-250ba39a4718",
+      "input_tokens": 332,
+      "output_tokens": 17,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.00016,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 9.63012854201952,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "82081972-aa1f-42e6-9d51-9083956569ac",
+      "input_tokens": 333,
+      "output_tokens": 20,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0001652,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 7.306418667023536,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "3e329348-c722-4c87-a08d-9b2723411fff",
+      "input_tokens": 331,
+      "output_tokens": 18,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.00016120000000000002,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 6.519097791984677,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "8b340b52-2d29-4376-a866-423d584d30bd",
+      "input_tokens": 335,
+      "output_tokens": 28,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0001788,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 9.736640124989208,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "c7731535-0b77-4717-b193-dd4f6f84f46c",
+      "input_tokens": 334,
+      "output_tokens": 17,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0001608,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 8.855537124967668,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "022c86da-ddb2-4de4-b678-b3815ece9d11",
+      "input_tokens": 332,
+      "output_tokens": 31,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.00018240000000000002,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 6.73389487498207,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "f3dba8b9-c643-4e10-8ba6-6119aa0eb4db",
+      "input_tokens": 332,
+      "output_tokens": 29,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.00017920000000000002,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 8.821988124982454,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "1cf715be-1b6f-40ee-8bdd-53934a89e38e",
+      "input_tokens": 333,
+      "output_tokens": 69,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0002436,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 8.175419582985342,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "6eb6410f-0a01-42cd-8931-0609fe3299e7",
+      "input_tokens": 330,
+      "output_tokens": 22,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0001672,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 9.643530083994847,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "cb767ad6-7de3-4634-ac51-185e17275441",
+      "input_tokens": 333,
+      "output_tokens": 64,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.00023560000000000003,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 9.76930991600966,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "4022ef0a-ccfe-4528-b7ec-8345af9f4791",
+      "input_tokens": 333,
+      "output_tokens": 81,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0002628,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 10.172444250027183,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "9d032ff5-891e-4d98-9259-321990faa584",
+      "input_tokens": 332,
+      "output_tokens": 47,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.000208,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 7.941810542019084,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "f2051368-177b-4485-acd6-811d9eed7512",
+      "input_tokens": 330,
+      "output_tokens": 24,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.0001704,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 8.0700031669694,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "166af22d-3a57-4ad3-a31e-340bda27fd0a",
+      "input_tokens": 336,
+      "output_tokens": 47,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.00020960000000000003,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 9.424084500002209,
+        "memory_peak_bytes": 124321792
+      }
+    },
+    {
+      "request_id": "2a54787c-bd91-43b7-b150-74c533159bb3",
+      "input_tokens": 331,
+      "output_tokens": 22,
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cost_usd": 0.00016760000000000004,
+      "resource_usage": {
+        "measurement_source": "NeMo container cgroup v2 memory.peak; client monotonic HTTP duration",
+        "duration_seconds": 10.864529917016625,
+        "memory_peak_bytes": 124321792
+      }
+    }
+  ],
+  "scope": "Generation-only catalog upper estimate. Embedding, classifier and generator costs are in full gateway ledger."
+}

@@ -1,0 +1,12 @@
+{
+  "observed_at": 1790693091.895662,
+  "source_policy_sha256": "20f954aea35d7471256bf9c9273dc53395bb63b2f1ee189db7939f9885d446ca",
+  "runtime_health": {
+    "ready": true,
+    "engine": "nemoguardrails-0.24.1",
+    "semantic_checks": true,
+    "policy_sha256": "20f954aea35d7471256bf9c9273dc53395bb63b2f1ee189db7939f9885d446ca",
+    "memory_peak_bytes": 123080704
+  },
+  "matched": true
+}

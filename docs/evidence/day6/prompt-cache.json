@@ -1,0 +1,142 @@
+{
+  "observed_at": 1790684137.4703481,
+  "model_alias": "coding-chat",
+  "prompt_sha256": "62e00058c2b1df9cc61415f5e3cd00965d7ad8d6fe0d5010d2fa7e2980558958",
+  "reproduction": "70 numbered identical synthetic public notes followed by the same PostgreSQL question, temperature 0, max_tokens 40, four sequential calls. No proxy response cache.",
+  "cache_hit_observed": true,
+  "requests": [
+    {
+      "attempt": 1,
+      "request_id": "chatcmpl-ETR1wx0aLpCAOFgsmvIpdmfiEb3rg",
+      "usage": {
+        "completion_tokens": 3,
+        "prompt_tokens": 1846,
+        "total_tokens": 1849,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 0
+        },
+        "latency_checkpoint": {
+          "engine_tbt_ms": 11,
+          "engine_ttft_ms": 84,
+          "engine_ttlt_ms": 128,
+          "pre_inference_ms": 82,
+          "service_tbt_ms": 15,
+          "service_ttft_ms": 481,
+          "service_ttlt_ms": 527,
+          "user_visible_ttft_ms": 399
+        }
+      },
+      "answer": "PostgreSQL",
+      "quality_passed": true,
+      "duration_seconds": 2.351331375015434,
+      "calculated_usd": 0.0007432000000000001
+    },
+    {
+      "attempt": 2,
+      "request_id": "chatcmpl-ETR1zjFPKwS3r6wCgxq6VLHEaeFNw",
+      "usage": {
+        "completion_tokens": 3,
+        "prompt_tokens": 1846,
+        "total_tokens": 1849,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 1792
+        },
+        "latency_checkpoint": {
+          "engine_tbt_ms": 6,
+          "engine_ttft_ms": 22,
+          "engine_ttlt_ms": 47,
+          "pre_inference_ms": 120,
+          "service_tbt_ms": 7,
+          "service_ttft_ms": 489,
+          "service_ttlt_ms": 509,
+          "user_visible_ttft_ms": 369
+        }
+      },
+      "answer": "PostgreSQL",
+      "quality_passed": true,
+      "duration_seconds": 3.6052570000174455,
+      "calculated_usd": 0.0002056
+    },
+    {
+      "attempt": 3,
+      "request_id": "chatcmpl-ETR23O29eBJlrfUsyfxYso5BBsK4l",
+      "usage": {
+        "completion_tokens": 3,
+        "prompt_tokens": 1846,
+        "total_tokens": 1849,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 1792
+        },
+        "latency_checkpoint": {
+          "engine_tbt_ms": 6,
+          "engine_ttft_ms": 31,
+          "engine_ttlt_ms": 56,
+          "pre_inference_ms": 115,
+          "service_tbt_ms": 8,
+          "service_ttft_ms": 497,
+          "service_ttlt_ms": 519,
+          "user_visible_ttft_ms": 381
+        }
+      },
+      "answer": "PostgreSQL",
+      "quality_passed": true,
+      "duration_seconds": 3.7213714579702355,
+      "calculated_usd": 0.0002056
+    },
+    {
+      "attempt": 4,
+      "request_id": "chatcmpl-ETR25iDf8BWP7EuxGa6qocN5W5mSM",
+      "usage": {
+        "completion_tokens": 3,
+        "prompt_tokens": 1846,
+        "total_tokens": 1849,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 1792
+        },
+        "latency_checkpoint": {
+          "engine_tbt_ms": 5,
+          "engine_ttft_ms": 28,
+          "engine_ttlt_ms": 48,
+          "pre_inference_ms": 95,
+          "service_tbt_ms": 5,
+          "service_ttft_ms": 440,
+          "service_ttlt_ms": 456,
+          "user_visible_ttft_ms": 346
+        }
+      },
+      "answer": "PostgreSQL",
+      "quality_passed": true,
+      "duration_seconds": 4.408348208991811,
+      "calculated_usd": 0.0002056
+    }
+  ],
+  "pricing": "ZenLayer catalog input .40, cached .10, output 1.60 USD/M; no cache write surcharge listed"
+}

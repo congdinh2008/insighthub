@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "target": "day6",
+  "status": "PASS",
+  "scope": "partial-runtime-contract",
+  "runtime_verified": true,
+  "source_sha256": "c49623b4b2600af16d9e01e01f0b2c1c95afc9e88e30eae03df712fc6593dd8d",
+  "milestone_complete": false,
+  "checks": [
+    {
+      "id": "day6",
+      "status": "PASS",
+      "runtime_verified": true,
+      "cases": 164,
+      "note": "Executed local evaluation contract; provider identity/billing and dataset adequacy require review."
+    }
+  ],
+  "specification_review_required": true,
+  "note": "PASS covers implemented checks only, not all project requirements; use the complete specification and reviewer evidence."
+}

@@ -2,6 +2,7 @@
 
 import logging
 import time
+import uuid
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Any
@@ -22,6 +23,7 @@ from app.core.metrics import (
     http_requests_total,
     llm_price_usd_per_million,
 )
+from app.core.request_context import request_id
 from app.core.upload_limit import UploadLimitMiddleware
 from app.routers import chat, documents, health
 
@@ -64,9 +66,12 @@ async def metrics_middleware(
 ) -> Response:
     started = time.perf_counter()
     status = 500
+    correlation = str(uuid.uuid4())
+    context_token = request_id.set(correlation)
     try:
         response = await call_next(request)
         status = response.status_code
+        response.headers["X-Request-ID"] = correlation
         return response
     except Exception:
         # Never expose uncaught driver/provider exception text to clients.
@@ -74,6 +79,7 @@ async def metrics_middleware(
             {"detail": "Không thể xử lý yêu cầu.", "code": "internal_error"}, 500
         )
     finally:
+        request_id.reset(context_token)
         route = request.scope.get("route")
         endpoint = getattr(route, "path", "__unmatched__")
         method = (

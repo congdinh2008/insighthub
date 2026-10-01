@@ -1,0 +1,24 @@
+# Day 06 threat model
+
+Scope: local kind `kind-insighthub-local`, namespace `insighthub-dev`, synthetic acceptance corpus. Owner: InsightHub maintainer. Assets: source documents, generated answers, workload credentials, deterministic ChatOps executor, gateway accounting, and model budget. AWS is not used in this run.
+
+Trust boundaries: browser -> API; documents -> retrieval/model; workload virtual key -> gateway; gateway -> provider; model output -> caller; bot -> scoped MCP/approval executor; untrusted coding patch -> networkless container. Model text cannot grant permissions across any boundary.
+
+| Threat and taxonomy | Entry and attacker capability | Impact / likelihood | Control and test | Residual risk |
+|---|---|---|---|---|
+| Direct instruction override / LLM01, ASI01 | User changes text, Unicode or roleplay | High / high | NeMo regex + semantic input checks, explicit system policy; SEC-01, frozen direct cases | Semantic classifiers are probabilistic; this corpus is not universal robustness proof |
+| Indirect instruction injection / LLM01, ASI01 | Attacker uploads a searchable document | High / high | Actual ingestion and pgvector retrieval, context checks, no unreviewed context in response; SEC-02 | A novel paraphrase can evade checks; provenance alone does not establish truth |
+| RAG poisoning / LLM04, LLM08 | Attacker plants a fake approval policy near relevant facts | High / high | Isolated canary corpus, exact chunk/source hash proof, filter before generation and response; SEC-03 | Source authority and document ACL are not implemented as production multi-tenancy |
+| Secret/PII disclosure / LLM02 | Requests or sources contain sensitive strings | High / medium | Input/context/output regex and semantic rails; SEC-04/05, API output-block test | Patterns are conservative and incomplete; synthetic email/SSN/phone coverage is not a DLP certification |
+| Excessive agency / LLM06, ASI02/03 | User asks model to mutate cluster or execute code | High / high | No model tool execution; scoped MCP, deterministic bound approval token, sandboxed coding diff; BOT-02/03, CODE-02 | Namespace administrator can still change resources; human account compromise is outside model controls |
+| Key theft / identity spoofing | Holder of a workload key changes model, metadata or admin route | High / medium | Native virtual-key model/route ACL, server-owned identity, finite TTL, invalid/revoke/expiry probes; GW-02/03/04 | Kubernetes Secrets are lab storage, not hardware-backed custody; kind CNI is not evidence of egress isolation |
+| Unbounded consumption / LLM10 | Concurrent requests, retries, cached auth state | High / medium | Per-key budgets, RPM/TPM/concurrency and token bounds; persistent spend; accounting DB availability gate; 80% total stop; BUD-01..05 | Budgets are soft caps: asynchronous writes and admitted in-flight calls can overshoot |
+| Guard/gateway outage | Dependency fails or client requests unguarded streaming | High / medium | Fail closed, reject streaming/tools, safe public errors, deterministic bot facts only; RES-01..03 | Availability decreases during an outage; facts do not prove successful AI execution |
+| Malicious generated patch / LLM05, ASI04 | Model returns file traversal, executable/symlink or verifier edits | High / medium | Exact path/hunk allowlist; immutable test file; read-only non-root container, no network, no host credentials; CODE-02 | Container isolation is not proof against a kernel exploit; generated patches still require review |
+| Supply chain / ASI04 | Dependency or tool package is substituted | High / medium | Python hash locks, npm lockfile, image digests and pinned actions; GOV-03 | Upstream signatures are not independently verified for every artifact |
+| Evidence/oracle confusion | Provider error, missing retrieval or superficial refusal appears safe | High / medium | Errors become INCOMPLETE; frozen IDs/hash; source/config manifests; separate initial, iteration and final reports; PF-03..06 | A bounded string oracle needs human triage; scores are specific to this synthetic corpus |
+| Shared caches and fallback | Another key or policy version obtains stale content | High / medium | Baseline response cache disabled; no direct fallback credentials; optimization gates require isolation and fresh output checks | Provider-side caching is controlled by the provider; optional optimizations require separate evidence |
+
+Six defense layers: deterministic input bounds; least-privilege identities; isolated runtime/data and immutable embedding identity; policy checks at input/context/output; durable audit and accounting; human review plus fresh regression evidence. Each layer has a distinct purpose. A prompt saying “do not execute” is not an authorization boundary.
+
+The LLM2025 and ASI mappings follow the course taxonomy. Mapped threats do not imply every OWASP category was exhaustively tested, and no legal compliance claim is made.

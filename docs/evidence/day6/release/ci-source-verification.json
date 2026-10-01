@@ -1,0 +1,6 @@
+{
+  "commit": "60ebb4d1271f222fa72fed62fd44937160468f08",
+  "clean_committed_source_sha256": "0e410f574e91249c2e86408ff15836ed715467adc707945a55220e9408090fa3",
+  "matches_ci": true,
+  "local_workspace_difference": "Ignored host MCP configuration and local Terraform state are included by the unchanged verifier fingerprint; their contents are not published."
+}

@@ -116,3 +116,19 @@ day4-local-status:
 	$(PYTHON) tools/observability/local_lab.py status
 day4-local-down:
 	$(PYTHON) tools/observability/local_lab.py down
+
+# Day 06 is explicit opt-in; live evaluations use the isolated local lab and paid API.
+DAY6_PYTHON ?= tmp/day6/venv/bin/python
+.PHONY: test-day6 day6-forward day6-scan day6-baseline day6-evidence
+test-day6:
+	$(DAY6_PYTHON) -m pytest tests/milestones/day6 --ignore=tests/milestones/day6/test_live_acceptance.py -q -p no:cacheprovider
+	$(DAY6_PYTHON) -m ruff check gateway security/guardrails tools/security/day6 tools/coding/day6 tests/milestones/day6
+	$(DAY6_PYTHON) -m ruff format --check gateway security/guardrails tools/security/day6 tools/coding/day6 tests/milestones/day6
+day6-forward:
+	$(PYTHON) tools/security/day6/forward.py
+day6-scan:
+	$(DAY6_PYTHON) tools/security/day6/scan.py final
+day6-baseline:
+	$(DAY6_PYTHON) tools/security/day6/scan.py initial --label baseline-finalsource
+day6-evidence:
+	$(DAY6_PYTHON) tools/security/day6/evidence.py

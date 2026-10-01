@@ -1,0 +1,31 @@
+test_caller_cannot_broaden_container_filter (test_docker_policy.DockerPolicyTests.test_caller_cannot_broaden_container_filter) ... ok
+test_container_list_is_projected_and_bounded (test_docker_policy.DockerPolicyTests.test_container_list_is_projected_and_bounded) ... ok
+test_id_requires_both_project_and_allowed_name (test_docker_policy.DockerPolicyTests.test_id_requires_both_project_and_allowed_name) ... ok
+test_inspect_does_not_expose_environment_mounts_or_labels (test_docker_policy.DockerPolicyTests.test_inspect_does_not_expose_environment_mounts_or_labels) ... ok
+test_logs_cannot_remove_bounds (test_docker_policy.DockerPolicyTests.test_logs_cannot_remove_bounds) ... ok
+test_mutation_methods_share_explicit_denial (test_docker_policy.DockerPolicyTests.test_mutation_methods_share_explicit_denial) ... ok
+test_unavailable_engine_closes_connection (test_docker_policy.DockerPolicyTests.test_unavailable_engine_closes_connection) ... ok
+test_unrelated_routes_and_streams_denied (test_docker_policy.DockerPolicyTests.test_unrelated_routes_and_streams_denied) ... ok
+test_upstream_caps_bytes_and_closes_connection (test_docker_policy.DockerPolicyTests.test_upstream_caps_bytes_and_closes_connection) ... ok
+test_collision_in_each_host_leaves_all_configs_unchanged (test_host_config.HostConfigTests.test_collision_in_each_host_leaves_all_configs_unchanged) ... ok
+test_duplicate_json_key_is_rejected_before_any_write (test_host_config.HostConfigTests.test_duplicate_json_key_is_rejected_before_any_write) ... ok
+test_filesystem_definition_is_pinned_and_read_only (test_host_config.HostConfigTests.test_filesystem_definition_is_pinned_and_read_only) ... ok
+test_symlink_target_is_not_overwritten (test_host_config.HostConfigTests.test_symlink_target_is_not_overwritten) ... ok
+test_three_hosts_preserve_settings_and_repeated_install (test_host_config.HostConfigTests.test_three_hosts_preserve_settings_and_repeated_install) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.026s
+
+OK
+Installed five MCP servers in project .codex/config.toml.
+Installed five MCP servers in project .mcp.json.
+Installed five MCP servers in project .agents/mcp_config.json.
+Installed five MCP servers in project .codex/config.toml.
+Installed five MCP servers in project .mcp.json.
+Installed five MCP servers in project .agents/mcp_config.json.
+Installed five MCP servers in project .codex/config.toml.
+Installed five MCP servers in project .mcp.json.
+Installed five MCP servers in project .agents/mcp_config.json.
+Installed five MCP servers in project .codex/config.toml.
+Installed five MCP servers in project .mcp.json.
+Installed five MCP servers in project .agents/mcp_config.json.

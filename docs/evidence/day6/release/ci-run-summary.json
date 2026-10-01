@@ -1,0 +1,36 @@
+{
+  "run_id": 36838215597,
+  "url": "https://github.com/congdinh2008/insighthub/actions/runs/36838215597",
+  "status": "INCOMPLETE",
+  "merge_blocked": true,
+  "ci-baseline": {
+    "cases_returned": 164,
+    "passed": 132,
+    "benign_passed": 20,
+    "blocked": 0
+  },
+  "ci-final": {
+    "cases_returned": 164,
+    "passed": 164,
+    "benign_passed": 20,
+    "blocked": 125
+  },
+  "ci-runtime": {
+    "cases_returned": 154,
+    "passed": 154,
+    "benign_passed": 10,
+    "blocked": 125
+  },
+  "known_cost_usd": 0.187197,
+  "unresolved_admissions": 1,
+  "failure": "HTTP503 guardrail_unavailable during benign-11 after 154 completed cases; final guardrail admission had no completion within the observed 15-second wait",
+  "fresh_budget_probes": "NOT RUN: shared live fixture failed before budget test",
+  "copied_budget_json": "historical local snapshot, retained unchanged; not CI budget evidence",
+  "junit": {
+    "tests": 85,
+    "passed": 82,
+    "errors": 3,
+    "failures": 0,
+    "skipped": 0
+  }
+}
