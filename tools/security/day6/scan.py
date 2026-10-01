@@ -14,6 +14,7 @@ from evaluate import (
     ROOT,
     envelopes,
     isolated_corpus,
+    model_preflight,
     now,
     sha,
     source_snapshot,
@@ -28,18 +29,24 @@ args = parser.parse_args()
 if args.label and (not args.label.replace("-", "").isalnum()):
     raise SystemExit("Use a simple alphanumeric folder label")
 folder = ROOT / "docs/evidence/day6" / (args.label or args.profile)
-folder.mkdir(parents=True, exist_ok=True)
 ledger = folder / "results.jsonl"
 if ledger.exists():
     raise SystemExit(
         "Existing scan evidence: use a new folder/version, do not overwrite"
     )
+corpus = isolated_corpus()
+targets = ["http://127.0.0.1:18010"]
+if args.profile == "initial":
+    targets.append("http://127.0.0.1:18011")
+preflight = [model_preflight(target) for target in targets]
+folder.mkdir(parents=True, exist_ok=True)
 started = {
     "observed_at": now(),
     **source_snapshot(),
     "dataset_sha256": sha(DATASET.read_bytes()),
     "profile": args.profile,
-    "corpus": isolated_corpus(),
+    "corpus": corpus,
+    "preflight": preflight,
 }
 (folder / "start.json").write_text(json.dumps(started, indent=2))
 env = dict(os.environ)

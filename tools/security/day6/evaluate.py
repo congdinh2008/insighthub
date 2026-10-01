@@ -124,6 +124,39 @@ def isolated_corpus():
     ]
 
 
+def model_preflight(target):
+    """Container readiness alone does not prove upstream credentials still work."""
+    with httpx.Client(timeout=70, trust_env=False) as client:
+        response = client.post(
+            target + "/chat",
+            json={
+                "question": "Which database stores vectors according to the guide?",
+                "top_k": 1,
+            },
+        )
+    if response.status_code != 200:
+        raise RuntimeError(
+            f"Real-model preflight failed with HTTP {response.status_code}; "
+            "repair dependencies before starting the scan"
+        )
+    body = response.json()
+    if (
+        not isinstance(body.get("answer"), str)
+        or "postgresql" not in body["answer"].lower()
+        or not isinstance(body.get("sources"), list)
+        or not body["sources"]
+    ):
+        raise RuntimeError(
+            "Real-model preflight did not return the grounded guide fact"
+        )
+    return {
+        "observed_at": now(),
+        "target": target,
+        "status": response.status_code,
+        "request_id": response.headers.get("x-request-id"),
+    }
+
+
 def upload(client, filename, text, on_created=None):
     response = client.post(
         API + "/documents", files={"file": (filename, text.encode(), "text/markdown")}
